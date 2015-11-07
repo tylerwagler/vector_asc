@@ -1,0 +1,71 @@
+/*
+ * Copyright (C) 2014-2015 Tobias Lorenz.
+ * Contact: tobias.lorenz@gmx.net
+ *
+ * This file is part of Tobias Lorenz's Toolkit.
+ *
+ * Commercial License Usage
+ * Licensees holding valid commercial licenses may use this file in
+ * accordance with the commercial license agreement provided with the
+ * Software or, alternatively, in accordance with the terms contained in
+ * a written agreement between you and Tobias Lorenz.
+ *
+ * GNU General Public License 3.0 Usage
+ * Alternatively, this file may be used under the terms of the GNU
+ * General Public License version 3.0 as published by the Free Software
+ * Foundation and appearing in the file LICENSE.GPL included in the
+ * packaging of this file.  Please review the following information to
+ * ensure the GNU General Public License version 3.0 requirements will be
+ * met: http://www.gnu.org/copyleft/gpl.html.
+ */
+
+#include <regex>
+#include "LinSlaveTimeout.h"
+
+namespace Vector {
+namespace ASC {
+
+LinSlaveTimeout::LinSlaveTimeout() :
+    Event(),
+    time(0.0),
+    channel(),
+    slaveId(0),
+    currentState(0),
+    followingState(0)
+{
+    eventType = EventType::LinSlaveTimeout;
+}
+
+LinSlaveTimeout::~LinSlaveTimeout()
+{
+}
+
+LinSlaveTimeout * LinSlaveTimeout::parse(File & file, std::string & line)
+{
+    std::regex regex(
+                "^([[:digit:].]+)"
+                " L([[:alnum:]]+)"
+                " SlaveTimeout"
+                " slave-id = ([[:digit:]]+),"
+                " current state = ([[:digit:]]+),"
+                " following state = ([[:digit:]]+)$");
+    std::smatch match;
+    if (std::regex_match(line, match, regex)) {
+        LinSlaveTimeout * linSlaveTimeout = new LinSlaveTimeout;
+        linSlaveTimeout->time = std::stof(match[1]);
+        linSlaveTimeout->channel = match[2];
+        linSlaveTimeout->slaveId = std::stoul(match[3]);
+        linSlaveTimeout->currentState = std::stoul(match[4]);
+        linSlaveTimeout->followingState = std::stoul(match[5]);
+        return linSlaveTimeout;
+    }
+
+    return nullptr;
+}
+
+void LinSlaveTimeout::write(File & file, std::ostream & stream)
+{
+}
+
+}
+}
