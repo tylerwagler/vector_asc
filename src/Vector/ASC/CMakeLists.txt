@@ -203,26 +203,26 @@ set(header_files
   TpDiagRequest.h
   TpDiagSingleFrame.h)
 
-#set(info_files
-#  Lexer.l
+set(info_files
+  Lexer.l)
 #  Parser.yy)
 
 add_compiler_export_flags()
 
 #bison_target(Parser Parser.yy ${CMAKE_CURRENT_BINARY_DIR}/Parser.tab.cpp)
-#if(WIN32)
-#  flex_target(Lexer Lexer.l ${CMAKE_CURRENT_BINARY_DIR}/Lexer.cpp
-#    COMPILE_FLAGS --wincompat)
-#endif(WIN32)
-#if(UNIX)
-#  flex_target(Lexer Lexer.l ${CMAKE_CURRENT_BINARY_DIR}/Lexer.cpp)
-#endif(UNIX)
+if(WIN32)
+  flex_target(Lexer Lexer.l ${CMAKE_CURRENT_BINARY_DIR}/Lexer.cpp
+    COMPILE_FLAGS --wincompat)
+endif(WIN32)
+if(UNIX)
+  flex_target(Lexer Lexer.l ${CMAKE_CURRENT_BINARY_DIR}/Lexer.cpp)
+endif(UNIX)
 #add_flex_bison_dependency(Lexer Parser)
 
 add_library(${PROJECT_NAME} SHARED
-  ${source_files} ${header_files}) # ${info_files}
+  ${source_files} ${header_files} ${info_files}
   #${BISON_Parser_OUTPUTS}
-  #${FLEX_Lexer_OUTPUTS})
+  ${FLEX_Lexer_OUTPUTS})
 
 if(OPTION_USE_GCOV_LCOV)
   target_link_libraries(${PROJECT_NAME} gcov)

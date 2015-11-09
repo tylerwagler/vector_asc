@@ -23,6 +23,12 @@
 
 #include <fstream>
 
+#undef yyFlexLexer
+#define yyFlexLexer ascFlexLexer
+#if ! defined(yyFlexLexerOnce)
+#include <FlexLexer.h>
+#endif
+
 #include "vector_asc_export.h"
 
 namespace Vector {
@@ -92,9 +98,27 @@ public:
      */
     class Event * read();
 
+    /** Version */
+    enum Version : uint16_t {
+        Ver_7_0 = 0x0700,
+        Ver_7_2 = 0x0702,
+        Ver_7_5 = 0x0705,
+        Ver_8_0 = 0x0800,
+        Ver_8_1 = 0x0801
+    };
+
+    /** Version */
+    uint16_t version;
+
+    /** Number base (10 or 16) */
+    uint8_t base;
+
 private:
     /** file */
     std::fstream file;
+
+    /** scanner */
+    ascFlexLexer * scanner;
 };
 
 }
