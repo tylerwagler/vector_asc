@@ -22,48 +22,37 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** CAN Remote Frame Event */
-/* <Time> <Channel> <ID> <Dir> r */
+/**
+ * CAN Remote Frame Event
+ *
+ * A CAN Remote Frame received or transmitted on a CAN channel.
+ */
 class CanRemoteFrameEvent : public Event
 {
 public:
     CanRemoteFrameEvent();
     virtual ~CanRemoteFrameEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc Time */
+    Time time;
 
-    /** Channel */
-    uint16_t channel;
+    /** @copydoc Channel */
+    Channel channel;
 
-    /** ID */
-    uint32_t id;
+    /** @copydoc IdNum */
+    IdNum id;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
-
+    /** @copydoc Dir */
     Dir dir;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static CanRemoteFrameEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

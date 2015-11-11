@@ -22,58 +22,57 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** CAN FD Message Event */
-/* <Time> CANFD <Channel> <Dir> <ID> <SymbolicName> <BRS> <ESI> <DLC> <DataLength> <D1> ... <D64> <MessageDuration> <MessageLength> <Flags> <CRC> <BitTimingConfArb> <BitTimingConfData> */
+/**
+ * CAN FD Message Event
+ *
+ * An Overload Frame received on a CAN channel.
+ */
 class CanFdMessageEvent : public Event
 {
 public:
     CanFdMessageEvent();
     virtual ~CanFdMessageEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc Time */
+    Time time;
 
-    /** Channel */
-    unsigned int channel;
+    /** @copydoc Channel */
+    Channel channel;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
-
+    /** @copydoc Dir */
     Dir dir;
 
-    /** ID */
-    unsigned int id;
+    /** @copydoc IdNum */
+    IdNum id;
 
     /** SymbolicName */
     std::string symbolicName;
 
-    /** BRS */
-    bool brs;
+    /** @copydoc Brs */
+    Brs brs;
 
-    /** ESI */
-    bool esi;
+    /** @copydoc Esi */
+    Esi esi;
 
-    /** DLC */
-    unsigned short dlc;
+    /** @copydoc Dlc */
+    Dlc dlc;
 
-    /** Data Length */
-    unsigned short dataLength;
+    /** @copydoc DataLength */
+    DataLength dataLength;
 
-    /** Data */
-    uint8_t data[64];
+    /** @copydoc Dx */
+    Dx data[64];
 
-    /** Message Duration */
-    unsigned int messageDuration;
+    /** @copydoc MessageDuration */
+    MessageDuration messageDuration;
 
-    /** Message Length / Bit Count */
-    unsigned int messageLength;
+    /** @copydoc MessageLength */
+    MessageLength messageLength;
 
     /** Flags */
     uint32_t flags;
@@ -81,25 +80,15 @@ public:
     /** CRC */
     uint32_t crc;
 
-    /** Bit Timing Conf Arb */
-    uint32_t bitTimingConfArb;
+    /** @copydoc BitTimingConfArb */
+    BitTimingConfArb bitTimingConfArb;
 
-    /** Bit Timing Conf Data */
-    uint32_t bitTimingConfData;
+    /** @copydoc BitTimingConfData */
+    BitTimingConfData bitTimingConfData;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static CanFdMessageEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

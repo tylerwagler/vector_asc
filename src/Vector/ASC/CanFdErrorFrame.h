@@ -22,30 +22,31 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** CAN FD Error Frame */
-/* <Time> CANFD <Channel> <Dir> ErrorFrame <ErrorText> <flags> <code> <codeExt> <Phase> <Position> <ID> <BRS> <ESI> <DLC> <DataLength> <D1> ... <D64> <MessageDuration> <Flags> <CRC> <BitTimingConfArb> <BitTimingConfData> */
+/**
+ * CAN FD Error Frame
+ *
+ * An Error Frame received on a CAN-FD channel with a dominant EDL bit. In case of certain errors
+ * (NACK Error, CRC Error) the hardware/driver may provide further information (ID, DLC, Data
+ * ...) about the partial frame preceding the actual Error Frame, otherwise these values are 0.
+ */
 class CanFdErrorFrame : public Event
 {
 public:
     CanFdErrorFrame();
     virtual ~CanFdErrorFrame();
 
-    /** Time */
-    float time;
+    /** @copydoc Time */
+    Time time;
 
-    /** Channel */
-    unsigned int channel;
+    /** @copydoc Channel */
+    Channel channel;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
-
+    /** @copydoc Dir */
     Dir dir;
 
     /** Error Text */
@@ -71,26 +72,26 @@ public:
     /** Position */
     uint32_t position;
 
-    /** ID */
-    uint32_t id;
+    /** @copydoc IdNum */
+    IdNum id;
 
-    /** BRS */
-    bool brs;
+    /** @copydoc Brs */
+    Brs brs;
 
-    /** ESI */
-    bool esi;
+    /** @copydoc Esi */
+    Esi esi;
 
-    /** DLC */
+    /** @copydoc Dlc */
     uint8_t dlc;
 
-    /** Data Length */
-    uint8_t dataLength;
+    /** @copydoc DataLength */
+    DataLength dataLength;
 
-    /** Data */
-    uint8_t data[64];
+    /** @copydoc Dx */
+    Dx data[64];
 
-    /** Message Duration */
-    uint32_t messageDuration;
+    /** @copydoc MessageDuration */
+    MessageDuration messageDuration;
 
     /** Flags */
     uint32_t flags2;
@@ -98,25 +99,15 @@ public:
     /** CRC */
     uint32_t crc;
 
-    /** Bit Timing Conf Arb */
-    uint32_t bitTimingConfArb;
+    /** @copydoc BitTimingConfArb */
+    BitTimingConfArb bitTimingConfArb;
 
-    /** Bit Timing Conf Data */
-    uint32_t bitTimingConfData;
+    /** @copydoc BitTimingConfData */
+    BitTimingConfData bitTimingConfData;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static CanFdErrorFrame * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

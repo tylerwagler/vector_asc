@@ -29,7 +29,7 @@ namespace Vector {
 namespace ASC {
 
 /**
- * @brief Base class for all events
+ * Base class for all events
  */
 class Event
 {
@@ -40,9 +40,9 @@ public:
     /**
      * Event Type
      */
-    enum class EventType {
-        /** default */
-        Event = 0,
+    enum EventType : int {
+        Default = 0,
+        Unknown = 1,
 
         /* File */
         FileDate = 10,
@@ -184,6 +184,7 @@ public:
     /**
      * Parse function
      *
+     * @param file File for number base
      * @param line Line as input
      * @return NULL if not parsed, otherwise valid object
      */
@@ -192,6 +193,7 @@ public:
     /**
      * Writes event to output stream.
      *
+     * @param file File for number base
      * @param stream output stream
      */
     virtual void write(File & file, std::ostream & stream);

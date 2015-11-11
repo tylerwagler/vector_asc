@@ -26,51 +26,46 @@
 namespace Vector {
 namespace ASC {
 
-/** Global marker event */
-/* <Time> <type> <background color> <foreground color> GMGroup: <group name> GMMarker: <marker name> GMDescription: <description> */
+/**
+ * Global marker event
+ *
+ * A global marker event that is written if global marker is defined for a time stamp or for another event. If a
+ * global marker event is assigned to another event (set in Trace Window) it has to be written before that
+ * event. Global marker events can be written only during the export from Trace window.
+ */
 class GlobalMarkerEvent : public Event
 {
 public:
     GlobalMarkerEvent();
     virtual ~GlobalMarkerEvent();
 
-    /** Time */
-    float time;
+    /** absolute or relative time in seconds */
+    double time;
 
-    /** type */
+    /** the type of the commented event */
     uint32_t type;
 
-    /** background color */
+    /** background color of the marker group */
     uint32_t backgroundColor;
 
-    /** foreground color */
+    /** foreground color of the marker group */
     uint32_t foregroundColor;
 
-    /** relocatable */
+    /** defines whether the marker can be moved */
     bool relocatable;
 
-    /** group name */
+    /** the name of the marker group */
     std::string groupName;
 
-    /** marker name */
+    /** the name of the marker */
     std::string markerName;
 
-    /** description */
+    /** marker description */
     std::string description;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static GlobalMarkerEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

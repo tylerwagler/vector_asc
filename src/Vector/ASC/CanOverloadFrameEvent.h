@@ -26,33 +26,26 @@
 namespace Vector {
 namespace ASC {
 
-/** CAN Overload Frame Event */
-/* <Time> <Channel> OverloadFrame */
+/**
+ * CAN Overload Frame Event
+ *
+ * An Overload Frame received on a CAN channel.
+ */
 class CanOverloadFrameEvent : public Event
 {
 public:
     CanOverloadFrameEvent();
     virtual ~CanOverloadFrameEvent();
 
-    /** Time */
-    float time;
+    /** absolute or relative time in seconds */
+    double time;
 
-    /** Channel */
+    /** Number of CAN channel. */
     uint16_t channel;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static CanOverloadFrameEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

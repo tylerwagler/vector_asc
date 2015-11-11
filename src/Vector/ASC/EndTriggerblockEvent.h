@@ -26,27 +26,20 @@
 namespace Vector {
 namespace ASC {
 
-/** End Triggerblock Event */
-/* End TriggerBlock */
+/**
+ * End Triggerblock Event
+ *
+ * An event that is written when a trigger block ends.
+ */
 class EndTriggerblockEvent : public Event
 {
 public:
     EndTriggerblockEvent();
     virtual ~EndTriggerblockEvent();
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static EndTriggerblockEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

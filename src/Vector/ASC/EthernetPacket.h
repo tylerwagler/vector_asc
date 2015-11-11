@@ -22,51 +22,40 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** Ethernet Packet */
-/* <Time> ETH <Channel> <Dir> <DataLen>:<Data> */
+/**
+ * Ethernet Packet
+ *
+ * Receive or transmitted Ethernet packet.
+ */
 class EthernetPacket : public Event
 {
 public:
     EthernetPacket();
     virtual ~EthernetPacket();
 
-    /** Time */
-    float time;
+    /** @copydoc EthTime */
+    EthTime time;
 
-    /** Channel */
-    uint8_t channel;
+    /** @copydoc EthChannel */
+    EthChannel channel;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
+    /** @copydoc EthDir */
+    EthDir dir;
 
-    Dir dir;
+    /** @copydoc EthDataLen */
+    EthDataLen dataLen;
 
-    /** DataLen */
-    uint16_t dataLen;
+    /** @copydoc EthData */
+    EthData data[1518];
 
-    /** Data */
-    uint8_t data[1518];
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static EthernetPacket * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

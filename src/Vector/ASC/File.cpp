@@ -105,8 +105,8 @@ Event * File::read()
         line.pop_back();
 
     switch(eventType) {
-    case Event::EventType::Default:
-        std::cerr << "Default: " << eventType << std::endl;
+    case Event::EventType::Unknown:
+        std::cerr << line << std::endl;
         break;
 
     /* File */
@@ -345,8 +345,9 @@ Event * File::read()
     case Event::EventType::TpDiagRequest:
         return TpDiagRequest::parse(*this, line);
 
+    case Event::EventType::Default:
     default:
-        std::cerr << "default: " << eventType << std::endl;
+        std::cerr << line << std::endl;
         break;
     }
 

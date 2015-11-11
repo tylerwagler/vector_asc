@@ -23,85 +23,55 @@
 
 #include <string>
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** CAN Extended Message Event */
-/* <Time> <Channel> <ID>x <Dir> d <DLC> <D0> <D1>...<D8> <MessageFlags> */
-/* <Time> <Channel> <ID>x <Dir> d <DLC> <D0> <D1>...<D8> Length = <MessageDuration> BitCount = <MessageLength> <MessageFlags> */
-/* <Time> <Channel> <ID>x <Dir> d <DLC> <D0> <D1>...<D8> Length = <MessageDuration> BitCount = <MessageLength> <MessageFlags> ID = <IDnum>x */
+/**
+ * CAN Extended Message Event
+ *
+ * CAN Message with extended identifier received or transmitted on a CAN channel.
+ */
 class CanExtendedMessageEvent : public Event
 {
 public:
     CanExtendedMessageEvent();
     virtual ~CanExtendedMessageEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc Time */
+    Time time;
 
-    /** Channel */
-    unsigned int channel;
+    /** @copydoc Channel */
+    Channel channel;
 
-    /** ID */
-    unsigned int id;
+    /** @copydoc IdNum */
+    IdNum id;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
-
+    /** @copydoc Dir */
     Dir dir;
 
-    /** DLC */
-    unsigned short dlc;
+    /** @copydoc Dlc */
+    Dlc dlc;
 
-    /** Data */
-    unsigned short data[8];
+    /** @copydoc Dx */
+    Dx data[8];
 
-    /** Message Duration */
-    unsigned int messageDuration;
+    /** @copydoc MessageDuration */
+    MessageDuration messageDuration;
 
-    /** Message Length / Bit Count */
-    unsigned int messageLength;
+    /** @copydoc MessageLength */
+    MessageLength messageLength;
 
-    /** Message ID */
-    uint32_t messageId;
+    /** @copydoc IdNum */
+    IdNum messageId;
 
-    /** Some special message flags that are written at the end of a logging line. */
-    typedef struct {
-        /**
-         * "Transmission Error (NERR signal).
-         * Indicates whether a line has failed during a two-wire operation.
-         * Especially available on Single-Wire mode.
-         */
-        bool te;
-
-        /**
-         * "Wake-Up.
-         * Indicates whether a message transmitted with overvoltage
-         * with the purpose of waking up the CAN controller.
-         */
-        bool wu;
-    } MessageFlags;
-
-    /** Message Flags */
+    /** @copydoc MessageFlags */
     MessageFlags messageFlags;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static CanExtendedMessageEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

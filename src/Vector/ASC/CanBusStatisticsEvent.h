@@ -22,58 +22,52 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** CAN Bus Statistics Event */
-/* <Time> <Channel> Statistic: D <StatNumber> R <StatNumber> XD <StatNumber> XR <StatNumber> E <StatNumber> O <StatNumber> B <StatPercent>% */
+/**
+ * CAN Bus Statistics Event
+ *
+ * CAN Statistic event, which contains statistic information about the CAN channels.
+ */
 class CanBusStatisticsEvent : public Event
 {
 public:
     CanBusStatisticsEvent();
     virtual ~CanBusStatisticsEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc Time */
+    Time time;
 
-    /** Channel */
-    uint16_t channel;
+    /** @copydoc Channel */
+    Channel channel;
 
     /** CAN Data Frames */
-    uint32_t dataFrames;
+    StatNumber dataFrames;
 
     /** CAN Remote Frames */
-    uint32_t remoteFrames;
+    StatNumber remoteFrames;
 
     /** CAN Extended Data Frames */
-    uint32_t extendedDataFrames;
+    StatNumber extendedDataFrames;
 
     /** CAN Extended Remote Frames */
-    uint32_t extendedRemoteFrames;
+    StatNumber extendedRemoteFrames;
 
     /** Error Frames */
-    uint32_t errorFrames;
+    StatNumber errorFrames;
 
     /** Overload Frames */
-    uint32_t overloadFrames;
+    StatNumber overloadFrames;
 
     /** Busload */
-    float busload;
+    StatPercent busload;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static CanBusStatisticsEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

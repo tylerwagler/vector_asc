@@ -21,39 +21,27 @@
 
 #pragma once
 
-#include <vector>
 #include "Event.h"
 
 namespace Vector {
 namespace ASC {
 
 /** TP-Diag Consecutive Frame */
-/*  CF Seq.Nr.: <SN> [ <transported bytes> ] */
 class TpDiagConsecutiveFrame : public Event
 {
 public:
     TpDiagConsecutiveFrame();
     virtual ~TpDiagConsecutiveFrame();
 
-    /** SN */
+    /** Sequence number */
     uint8_t sn;
 
-    /** transported bytes */
+    /** Bytes transported within this CAN message */
     uint8_t transportedBytes[7];
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static TpDiagConsecutiveFrame * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

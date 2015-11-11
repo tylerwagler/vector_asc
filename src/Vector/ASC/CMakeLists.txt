@@ -100,6 +100,7 @@ set(source_files
   MostSystemEvent.cpp
   MostTriggerEvent.cpp
   MostTxLight.cpp
+  Symbols.cpp
   SystemVariablesEvent.cpp
   TpDiagConsecutiveFrame.cpp
   TpDiagFirstFrame.cpp
@@ -195,6 +196,7 @@ set(header_files
   MostSystemEvent.h
   MostTriggerEvent.h
   MostTxLight.h
+  Symbols.h
   SystemVariablesEvent.h
   TpDiagConsecutiveFrame.h
   TpDiagFirstFrame.h

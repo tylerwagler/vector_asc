@@ -22,40 +22,34 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** CAN Error Event */
-/* <Time> CAN <Channel> Status:<Error> */
+/**
+ * CAN Error Event
+ *
+ * An event that provides CAN error information.
+ */
 class CanErrorEvent : public Event
 {
 public:
     CanErrorEvent();
     virtual ~CanErrorEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc Time */
+    Time time;
 
-    /** Channel */
-    uint16_t channel;
+    /** @copydoc Channel */
+    Channel channel;
 
-    /** Error */
-    std::string error;
+    /** @copydoc Error */
+    Error error;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static CanErrorEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

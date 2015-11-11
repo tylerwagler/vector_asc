@@ -22,53 +22,46 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** GPS Event */
-/* <Time> GPS device: <channel> La: <latitude> Lo: <longitude> Alt: <altitude> Sp: <speed> Co: <course> */
+/**
+ * GPS Event
+ *
+ * An event that is written if an event is received on the GPS channel.
+ */
 class GpsEvent : public Event
 {
 public:
     GpsEvent();
     virtual ~GpsEvent();
 
-    /** Time */
-    float time;
+    /** absolute or relative time in seconds */
+    Time time;
 
-    /** channel */
+    /** the number of the GPS device on which the event is received */
     uint16_t channel;
 
-    /** latitude */
-    float latitude;
+    /** the latitude value of the GPS event */
+    double latitude;
 
-    /** longitude */
-    float longitude;
+    /** the longitude value of the GPS event */
+    double longitude;
 
-    /** altitude */
-    float altitude;
+    /** the altitude value of the GPS event */
+    double altitude;
 
-    /** speed */
-    float speed;
+    /** the speed value of the GPS event */
+    double speed;
 
-    /** course */
-    float course;
+    /** the course value of the GPS event */
+    double course;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static GpsEvent * parse(File & file, std::string & line);
 
-
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

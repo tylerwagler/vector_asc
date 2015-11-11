@@ -27,7 +27,6 @@ namespace Vector {
 namespace ASC {
 
 /** TP-Diag Flow Control Frame */
-/* FC.<FC-type>: BSmax: <BS>, STmin: <STmin> ms */
 class TpDiagFlowControlFrame : public Event
 {
 public:
@@ -50,19 +49,9 @@ public:
     /** STmin */
     uint8_t stMin;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static TpDiagFlowControlFrame * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

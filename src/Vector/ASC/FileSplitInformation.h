@@ -28,7 +28,6 @@ namespace Vector {
 namespace ASC {
 
 /** File Split Information */
-/* <Time> previous log file: <File name> */
 class FileSplitInformation : public Event
 {
 public:
@@ -36,24 +35,14 @@ public:
     virtual ~FileSplitInformation();
 
     /** last absolute time stamp of the previous log file */
-    float time;
+    double time;
 
     /** filename of the previous log file without path information */
     std::string fileName;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static FileSplitInformation * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

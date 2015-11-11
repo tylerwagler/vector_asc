@@ -19,57 +19,10 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
-#pragma once
-
-#include "Event.h"
 #include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
-
-/**
- * Ethernet Status
- *
- * Ethernet link status.
- */
-class EthernetStatus : public Event
-{
-public:
-    EthernetStatus();
-    virtual ~EthernetStatus();
-
-    /** @copydoc EthTime */
-    EthTime time;
-
-    /** @copydoc EthChannel */
-    EthChannel channel;
-
-    /** Link */
-    std::string link;
-
-    /** LinkSpeed */
-    std::string linkSpeed;
-
-    /** Physical */
-    std::string physical;
-
-    /** Duplex */
-    std::string duplex;
-
-    /** MDI */
-    std::string mdi;
-
-    /** Connector */
-    std::string connector;
-
-    /** BRClockMode */
-    std::string brClockMode;
-
-    /** @copydoc Event::parse() */
-    static EthernetStatus * parse(File & file, std::string & line);
-
-    virtual void write(File & file, std::ostream & stream);
-};
 
 }
 }

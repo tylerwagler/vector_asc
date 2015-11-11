@@ -22,51 +22,56 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** CAN Error Frame */
-/* <Time> <Channel> ErrorFrame */
-/* <Time> <Channel> ErrorFrame ECC:<ECC> */
-/* <Time> <Channel> ErrorFrame Flags = <flags> CodeExt = <codeExt> Code = <code> ID = <ID> DLC = <DLC> Position = <Position> Length = <Length> */
+/**
+ * CAN Error Frame
+ *
+ * A CAN Error Frame received on a CAN channel.
+ */
 class CanErrorFrame : public Event
 {
 public:
     CanErrorFrame();
     virtual ~CanErrorFrame();
 
-    /** Time */
-    float time;
+    /** @copydoc Time */
+    Time time;
 
-    /** Channel */
-    uint16_t channel;
+    /** @copydoc Channel */
+    Channel channel;
 
-    // CANcardXL, CANcaseXL, CANboardXL, and all other interfaces with SJA1000:
+    /**
+     * Content of Philips SJA1000 Error Code Capture (ECC) register, or the Vector CAN-
+     * Core error register
+     *
+     * @note CANcardXL, CANcaseXL, CANboardXL, and all other interfaces with SJA1000
+     */
     uint8_t ecc;
 
     // Interfaces with CAN-Core:
     uint8_t flags;
+
     uint16_t codeExt;
+
     uint8_t code;
-    uint32_t id;
-    uint8_t dlc;
+
+    /** @copydoc IdNum */
+    IdNum id;
+
+    /** @copydoc Dlc */
+    Dlc dlc;
+
     uint8_t position;
+
     uint16_t length;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static CanErrorFrame * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

@@ -22,41 +22,26 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** System Variables Event */
-/* <Time> SV: <svtype> <flag> <flag> <path> = <value> */
-/* <Time> SV: <svtype> <flag> <flag> <path> = <valuetype><count> <value> */
+/**
+ * System Variables Event
+ *
+ * An event that is written if the value of a system variable changed.
+ */
 class SystemVariablesEvent : public Event
 {
 public:
     SystemVariablesEvent();
     virtual ~SystemVariablesEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc Time */
+    Time time;
 
-    /** a number which represents the variable data type */
-    enum class Svtype : uint32_t {
-        /** Float */
-        Float = 1,
-
-        /** Int */
-        Int = 2,
-
-        /** String */
-        String = 3,
-
-        /** Float array */
-        FloatArray = 4,
-
-        /** Int array */
-        IntArray = 5
-    };
-
-    /** a number which represents the variable data type */
+    /** @copydoc Svtype */
     Svtype svtype;
 
     /** two flags: Unused. */
@@ -68,19 +53,9 @@ public:
     /** the value as number or string (depend on variable data type). */
     std::string value;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static SystemVariablesEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

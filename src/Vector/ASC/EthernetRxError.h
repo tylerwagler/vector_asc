@@ -22,49 +22,43 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** Ethernet Rx Error */
-/* <Time> ETH <Channel> RxEr <ErrorCode> <Frame Checksum> <DataLen>:<Data> */
+/**
+ * Ethernet Rx Error
+ *
+ * Receive or transmitted Ethernet packet.
+ */
 class EthernetRxError : public Event
 {
 public:
     EthernetRxError();
     virtual ~EthernetRxError();
 
-    /** Time */
-    float time;
+    /** @copydoc EthTime */
+    EthTime time;
 
-    /** Channel */
-    uint8_t channel;
+    /** @copydoc EthChannel */
+    EthChannel channel;
 
-    /** ErrorCode */
-    uint8_t errorCode;
+    /** @copydoc EthErrorCode */
+    EthErrorCode errorCode;
 
-    /** Frame Checksum */
-    uint32_t frameChecksum;
+    /** @copydoc EthFrameChecksum */
+    EthFrameChecksum frameChecksum;
 
-    /** DataLen */
-    uint16_t dataLen;
+    /** @copydoc EthDataLen */
+    EthDataLen dataLen;
 
-    /** Data */
-    uint8_t data[1518];
+    /** @copydoc EthData */
+    EthData data[1518];
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static EthernetRxError * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

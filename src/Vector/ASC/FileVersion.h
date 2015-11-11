@@ -28,7 +28,6 @@ namespace Vector {
 namespace ASC {
 
 /** File Version */
-/* // version <major>.<minor>.<patch> */
 class FileVersion : public Event
 {
 public:
@@ -44,19 +43,9 @@ public:
     /** patch version number */
     uint8_t versionPatch;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static FileVersion * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

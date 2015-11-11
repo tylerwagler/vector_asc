@@ -22,22 +22,26 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** Macro Signal Event: CAN, LIN and FlexRay */
-/* <Time> <bussystem> <channel> <node>::<message>::<signal> = <value> */
+/**
+ * Macro Signal Event: CAN, LIN and FlexRay
+ *
+ * An event that is written if the user change a signal value with a panel control, and the macro recording is on.
+ */
 class MacroSignalEvent : public Event
 {
 public:
     MacroSignalEvent();
     virtual ~MacroSignalEvent();
 
-    /** Time */
-    float time;
+    /** @Time */
+    Time time;
 
-    /** bussystem */
+    /** F = FlexRay / L = Lin / nothing = CAN */
     enum class Bussystem : char {
         /** FlexRay */
         FlexRay = 'F',
@@ -49,36 +53,27 @@ public:
         Can = ' '
     };
 
+    /** F = FlexRay / L = Lin / nothing = CAN */
     Bussystem bussystem;
 
-    /** channel */
-    unsigned int channel;
+    /** the number of the CAN/LIN/FlexRay channel */
+    uint16_t channel;
 
-    /** node */
+    /** a string which contains the node name of the signal */
     std::string node;
 
-    /** message */
+    /** a string which contains the message name of the signal */
     std::string message;
 
-    /** signal */
+    /** a string which contains the signal name */
     std::string signal;
 
-    /** value */
+    /** the signal value as number OR a string from the value description table (if exists) */
     std::string value;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MacroSignalEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

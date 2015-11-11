@@ -22,54 +22,39 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
 /** K-Line Byte event */
-/* <time> <port> <direction> <baudrate> <length> <data> */
 class KLineByteEvent : public Event
 {
 public:
     KLineByteEvent();
     virtual ~KLineByteEvent();
 
-    /** time */
-    float time;
+    /** @copydoc KLineTime */
+    KLineTime time;
 
-    /** port */
-    std::string port;
+    /** @copydoc KLinePort */
+    KLinePort port;
 
-    /** direction */
-    enum class Dir {
-        Rx,
-        Tx
-    };
+    /** @copydoc KLineDirection */
+    KLineDirection direction;
 
-    Dir direction;
+    /** @copydoc KLineBaudrate */
+    KLineBaudrate baudrate;
 
-    /** baudrate */
-    uint32_t baudrate;
+    /** @copydoc KLineLength */
+    KLineLength length;
 
-    /** length */
-    uint8_t length;
+    /** @copydoc KLineData */
+    KLineData data[1000];
 
-    /** data */
-    uint8_t data[1000];
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static KLineByteEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

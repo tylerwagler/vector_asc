@@ -27,20 +27,19 @@ namespace Vector {
 namespace ASC {
 
 /** TP-Diag Prefix */
-/* // <CAN-channel> OTP(<connection-id>) <type> <source>-><destination>: */
 class TpDiagPrefix : public Event
 {
 public:
     TpDiagPrefix();
     virtual ~TpDiagPrefix();
 
-    /** CAN-channel */
+    /** CAN channel */
     uint8_t canChannel;
 
-    /** connection-id */
+    /** Identify data transfer */
     uint8_t connectionId;
 
-    /** type */
+    /** Event type */
     enum class Type {
         Info,
         Warn,
@@ -49,27 +48,18 @@ public:
         Data
     };
 
+    /** Event type */
     Type type;
 
-    /** source */
+    /** Source node */
     std::string source;
 
-    /** destination */
+    /** Destination node */
     std::string destination;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static TpDiagPrefix * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

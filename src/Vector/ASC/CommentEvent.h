@@ -23,40 +23,35 @@
 
 #include <string>
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** Comment Event */
-/* <Time> Comment: <type> <comment text> */
+/**
+ * Comment Event
+ *
+ * A comment event that is written before another event that was commented in Trace Window. Commenting events is
+ * supported only in Trace Window, so this event can be written only during the export from Trace window.
+ */
 class CommentEvent : public Event
 {
 public:
     CommentEvent();
     virtual ~CommentEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc Time */
+    Time time;
 
-    /** type */
+    /** the type of the commented event */
     uint32_t type;
 
-    /** comment text */
+    /** the text of the comment */
     std::string commentText;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static CommentEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

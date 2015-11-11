@@ -25,7 +25,7 @@ namespace Vector {
 namespace ASC {
 
 Event::Event() :
-    eventType(EventType::Event)
+    eventType(EventType::Default)
 {
 }
 
@@ -33,7 +33,7 @@ Event::~Event()
 {
 }
 
-Event * Event::parse(File & file, std::string & line)
+Event * parse(File & file, std::string & line)
 {
     return nullptr;
 }

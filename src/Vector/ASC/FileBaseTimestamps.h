@@ -35,7 +35,7 @@ public:
     virtual ~FileBaseTimestamps();
 
     /** Events can either be recorder in hexadecimal or decimal mode. */
-    enum class Base: unsigned short {
+    enum class Base: uint8_t {
         /** hexadecimal mode */
         Hex = 16,
 
@@ -58,19 +58,9 @@ public:
     /** Timestamps are written absolute or relative to the preceding event. */
     Timestamps timestamps;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static FileBaseTimestamps * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

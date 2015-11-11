@@ -22,34 +22,29 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** Log Trigger Event */
-/* <Time> log trigger event */
+/**
+ * Log Trigger Event
+ *
+ * A Log Trigger event. There can be additional information appended at the end of the line, e.g. "
+ * (this trigger was in post trigger time of last block)" or "(ignored)".
+ */
 class LogTriggerEvent : public Event
 {
 public:
     LogTriggerEvent();
     virtual ~LogTriggerEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc Time */
+    Time time;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LogTriggerEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

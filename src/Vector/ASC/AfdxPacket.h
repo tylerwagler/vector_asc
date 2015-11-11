@@ -22,59 +22,48 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** AFDX Packet */
-/* <Time> ETH <Channel> <Dir> <ETH-channel> <Flags> <BAG> <DataLen>:<Data> */
+/**
+ * AFDX Packet
+ *
+ * Receive or transmitted AFDX packet.
+ */
 class AfdxPacket : public Event
 {
 public:
     AfdxPacket();
 
-    /** Time */
-    float time;
+    /** @copydoc AfdxTime */
+    AfdxTime time;
 
-    /** Channel */
-    uint8_t channel;
+    /** @copydoc AfdxChannel */
+    AfdxChannel channel;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
+    /** @copydoc AfdxDir */
+    AfdxDir dir;
 
-    Dir dir;
+    /** @copydoc AfdxEthChannel */
+    AfdxEthChannel ethChannel;
 
-    /** ETH-channel */
-    uint8_t ethChannel;
+    /** @copydoc AfdxFlags */
+    AfdxFlags flags;
 
-    /** Flags */
-    uint8_t flags;
+    /** @copydoc AfdxBag */
+    AfdxBag bag;
 
-    /** BAG */
-    uint8_t bag;
+    /** @copydoc AfdxDataLen */
+    AfdxDataLen dataLen;
 
-    /** DataLen */
-    uint16_t dataLen;
+    /** @copydoc AfdxData */
+    AfdxData data[1518];
 
-    /** Data */
-    uint8_t data[1518];
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static AfdxPacket * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

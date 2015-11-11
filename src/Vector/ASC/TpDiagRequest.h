@@ -27,34 +27,23 @@ namespace Vector {
 namespace ASC {
 
 /** Diagnostic request */
-/* <timestamp> DiagRequest[<ECU-qualifier>] <byte-sequence> */
 class TpDiagRequest : public Event
 {
 public:
     TpDiagRequest();
 
-    /** timestamp */
-    float time;
+    /** Standard trace time stamp */
+    double time;
 
-    /** ECU-qualifier */
+    /** Unique identifier of the diagnostic description */
     std::string ecuQualifier;
 
-    /** byte-sequence */
+    /** Representation of the byte sent to the ECU by the tester */
     uint8_t byteSequence[8];
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static TpDiagRequest * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

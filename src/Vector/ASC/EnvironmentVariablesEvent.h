@@ -22,40 +22,37 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** Environment Variables Event */
-/* <Time> <evname> := <value> */
+/**
+ * Environment Variables Event
+ *
+ * An event that is written if the value of a environment variable changed.
+ */
 class EnvironmentVariablesEvent : public Event
 {
 public:
     EnvironmentVariablesEvent();
     virtual ~EnvironmentVariablesEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc Time */
+    Time time;
 
-    /** Evname */
+    /** a string which contains the environment variable name */
     std::string evname;
 
-    /** Value */
+    /**
+     * the environment value as number, string or databytes (depend on variable type)
+     * OR a string from the value description table (if exists; only for integer variable type)
+     */
     std::string value;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static EnvironmentVariablesEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

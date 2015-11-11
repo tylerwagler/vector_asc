@@ -27,32 +27,21 @@ namespace Vector {
 namespace ASC {
 
 /** TP-Diag Single Frame */
-/*  SF Length: <length> [ <transported bytes> ] */
 class TpDiagSingleFrame : public Event
 {
 public:
     TpDiagSingleFrame();
     virtual ~TpDiagSingleFrame();
 
-    /** length */
+    /** Number of bytes transferred */
     uint16_t length;
 
-    /** transported bytes */
-    uint8_t transportedBytes[8];
+    /** Bytes transported within this CAN message */
+    uint8_t transportedBytes[2];
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static TpDiagSingleFrame * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

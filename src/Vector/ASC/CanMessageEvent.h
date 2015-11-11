@@ -23,85 +23,55 @@
 
 #include <string>
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** CAN Message Event */
-/* <Time> <Channel> <ID> <Dir> d <DLC> <D0> <D1>...<D8> <MessageFlags> */
-/* <Time> <Channel> <ID> <Dir> d <DLC> <D0> <D1>...<D8> Length = <MessageDuration> BitCount = <MessageLength> <MessageFlags> */
-/* <Time> <Channel> <ID> <Dir> d <DLC> <D0> <D1>...<D8> Length = <MessageDuration> BitCount = <MessageLength> ID = <IDnum> <MessageFlags> */
+/**
+ * CAN Message Event
+ *
+ * Simple CAN Message received or transmitted on a CAN channel.
+ */
 class CanMessageEvent : public Event
 {
 public:
     CanMessageEvent();
     virtual ~CanMessageEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc Time */
+    Time time;
 
-    /** Channel */
-    uint16_t channel;
+    /** @copydoc Channel */
+    Channel channel;
 
-    /** ID */
-    uint32_t id;
+    /** @copydoc IdNum */
+    IdNum id;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
-
+    /** @copydoc Dir */
     Dir dir;
 
-    /** DLC */
-    uint8_t dlc;
+    /** @copydoc Dlc */
+    Dlc dlc;
 
-    /** Data */
-    uint8_t data[8];
+    /** @copydoc Dx */
+    Dx data[8];
 
-    /** Message Duration */
-    uint32_t messageDuration;
+    /** @copydoc MessageLength */
+    MessageDuration messageDuration;
 
-    /** Message Length / Bit Count */
-    uint8_t messageLength;
+    /** @copydoc MessageLength */
+    MessageLength messageLength;
 
-    /** Message ID */
-    uint32_t messageId;
-
-    /** Some special message flags that are written at the end of a logging line. */
-    typedef struct {
-        /**
-         * "Transmission Error (NERR signal).
-         * Indicates whether a line has failed during a two-wire operation.
-         * Especially available on Single-Wire mode.
-         */
-        bool te;
-
-        /**
-         * "Wake-Up.
-         * Indicates whether a message transmitted with overvoltage
-         * with the purpose of waking up the CAN controller.
-         */
-        bool wu;
-    } MessageFlags;
-
-    /** Message Flags */
+    /** @copydoc MessageFlags */
     MessageFlags messageFlags;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc IdNum */
+    IdNum messageId;
+
+    /** @copydoc Event::parse() */
     static CanMessageEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

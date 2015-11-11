@@ -1,427 +1,251 @@
+/*
+ * Copyright (C) 2014-2015 Tobias Lorenz.
+ * Contact: tobias.lorenz@gmx.net
+ *
+ * This file is part of Tobias Lorenz's Toolkit.
+ *
+ * Commercial License Usage
+ * Licensees holding valid commercial licenses may use this file in
+ * accordance with the commercial license agreement provided with the
+ * Software or, alternatively, in accordance with the terms contained in
+ * a written agreement between you and Tobias Lorenz.
+ *
+ * GNU General Public License 3.0 Usage
+ * Alternatively, this file may be used under the terms of the GNU
+ * General Public License version 3.0 as published by the Free Software
+ * Foundation and appearing in the file LICENSE.GPL included in the
+ * packaging of this file.  Please review the following information to
+ * ensure the GNU General Public License version 3.0 requirements will be
+ * met: http://www.gnu.org/copyleft/gpl.html.
+ */
+
 #pragma once
 
 #include <string>
 
 namespace Vector {
 namespace ASC {
-namespace Symbol {
 
-/**
- * absolute or relative time
- * in seconds
- *
- * Width in chars (dec): >= 9
- *
- * Example: 1234.5678
- *
- * Special: usually 4 decimal places
- */
+/* CAN, Log, and Trigger Symbols */
+
+/** absolute or relative time in seconds */
 typedef double Time;
 
-/**
- * Number of the CAN
- * channel.
- *
- * Width in chars (dec): 2 - 10
- *
- * Range: [A-Za-z0-9]{2,10}
- *
- * Example: 1, CAN 1, CAN FD 1
- */
-typedef std::string Channel;
+/** Number of CAN channel. */
+typedef uint16_t Channel;
 
-/**
- * Numeric identifier
- *
- * Width in chars (hex): 15
- *
- * Width in chars (dec): 15
- *
- * Range: Normal mode: 0x0...0x7FF, Extended Mode: 0x0...0x1FFFF
- *
- * Special: In extended mode only a width of 14 characters,
- * because of 'x' at the end. CAN FD represents only in hex.
- */
-typedef struct {
-    unsigned int id;
-    bool extended;
-} NumericID;
+/** Numeric identifier */
+typedef uint32_t IdNum;
 
-/**
- * Symbol identifier
- *
- * Differences to numeric format:
- *
- * 1. Four spaces instead
- * of one after the Identifier
- *
- * 2. Length of <ID> is
- * >=32. For short symbolic
- * names (<32) the
- * remaining positions are
- * filled with spaces.
- *
- * Width in chars (hex): >= 32
- *
- * Width in chars (dec): >= 32
- */
-typedef std::string SymbolicID;
+/** Symbolic identifier */
+typedef std::string IdSym;
 
-/**
- * direction of transmission
- *
- * Width in chars (dec): 4
- *
- * Range: Rx, Tx, TxRq
- *
- * Example: Rx
- */
-typedef enum class Dir : unsigned short{
-    Rx, Tx, TxRq
-} Dir;
+/** Direction of transmission */
+enum class Dir {
+    /** Receive */
+    Rx = 0,
+
+    /** Transmit */
+    Tx = 1,
+
+    /** Transmit Request */
+    TxRq = 2
+};
 
 /**
  * data length code
  *
- * Note: the DLC field is
- * written as one hex digit.
- * In case DLC is greater
- * 8, there are max. 8 data
- * bytes written/read in.
- *
- * Width in chars (hex): 1
- *
- * Width in chars (dec): 2
- *
- * Range: Hex: 0...F, Dec: 0...15
- *
- * Example: B, 12
- *
- * Special: CAN FD representation is always dec
+ * @note In case DLC is greater 8, there are max. 8 data bytes written/read in.
  */
-typedef unsigned short DLC;
+typedef uint8_t Dlc;
 
-/**
- * Some special message
- * flags that are written at
- * the end of a logging
- * line. Possible values
- * are:
- *
- * - "TE": Transmission
- * Error (NERR signal).
- * Indicates whether a line
- * has failed during a two-wire
- * operation. Especially
- * available on Single-Wire
- * mode.
- *
- * - "WU": Wake-Up.
- * Indicates whether a
- * message was transmitted
- * with overvoltage
- * with the purpose of
- * waking up the CAN
- * controller.
- *
- * - "XX": Both, "TE"
- * and "WU" occurred
- *
- * Width in chars (hex): 2
- *
- * Width in chars (dec): 2
- *
- * Range: TE, WU, XX
- *
- * Example: TE
- *
- */
-typedef enum MessageFlags : unsigned short {
-    TE = 1,
-    WU = 2,
-    XX = 4
+/** Some special message flags that are written at the end of a logging line. */
+typedef struct {
+    /**
+     * Transmission Error (NERR signal).
+     * Indicates whether a line has failed during a two-wire operation.
+     * Especially available on Single-Wire mode.
+     */
+    bool te;
+
+    /**
+     * Wake-Up.
+     * Indicates whether a message transmitted with overvoltage
+     * with the purpose of waking up the CAN controller.
+     */
+    bool wu;
 } MessageFlags;
 
-/**
- * the number of received
- * statistic events
- *
- * Width in chars (dec): 1-10
- *
- * Range: 0...4294967295
- *
- * Example: 1056
- */
-typedef unsigned int StatNumber;
+/** the number of received statistic events */
+typedef uint32_t StatNumber;
 
-/**
- * the busload in percent
- *
- * Width in chars (dec): 3-6
- *
- * Range: 0.0 ... 100.0
- *
- * Example: 11.94
- */
+/** the busload in percent */
 typedef double StatPercent;
 
-/**
- * the pre trigger time in
- * ms
- *
- * Width in chars (dec): 1-10
- *
- * Range: 0 ... 1316134911
- *
- * Example: 2000
- */
-typedef unsigned int PreTrigger;
+/** the pre trigger time in ms */
+typedef uint32_t PreTrigger;
 
-/**
- * the post trigger time in
- * ms
- *
- * Width in chars (dec): 1-10
- *
- * Range: 0 ... 1316134911
- *
- * Example: 2000
- */
-typedef unsigned int PostTrigger;
+/** the post trigger time in ms */
+typedef uint32_t PostTrigger;
 
-/**
- * the error message of the
- * CAN error event
- *
- * Width in chars (dec): 0 - undefined
- *
- * Example: "rx queue overrun"
- */
+/** the error message of the CAN error event */
 typedef std::string Error;
 
-/**
- * data byte x
- *
- * Width in chars (hex): 2
- *
- * Width in chars (dec): 3
- *
- * Range: 0...255
- *
- * Example: 1E
- *
- * Special: CAN FD only hex representation
- */
-typedef unsigned short Dx;
+/** data byte */
+typedef uint8_t Dx;
+
+/* WeekDay, Month, Date, FullTime, and Year are in struct tm */
+
+/** a number which represents the variable data type */
+enum class Svtype : uint8_t {
+    /** Float */
+    Float = 1,
+
+    /** Int */
+    Int = 2,
+
+    /** String */
+    String = 3,
+
+    /** Float array */
+    FloatArray = 4,
+
+    /** Int array */
+    IntArray = 5
+};
 
 /**
- * a string that represents a
- * day of the week
- *
- * Width in chars (hex): 3
- *
- * Width in chars (dec): 3
- *
- * Range: Mon, Tue, Wed, Thu, Fri, Sat, Sun
- *
- * Example: Mon
- *
- * Special: Different range in german version:
- * Mon, Die, Mit, Don, Fre, Sam, Son
+ * Message Duration [in nanoseconds]. Not including 3 Interframe
+ * Space bit times and by Rx-message also not including 1 End-Of-Frame bit time
  */
-typedef enum class WeekDay : int {
-    Unknown = -1,
-    Mon = 1,
-    Tue = 2,
-    Wed = 3,
-    Thu = 4,
-    Fri = 5,
-    Sat = 6,
-    Sun = 0
-} WeekDay;
+typedef uint32_t MessageDuration;
+
+/** Total number of bits of the message including EOF and Interframe Space [in bits] */
+typedef uint8_t MessageLength;
+
+/** Bit rate switch flag for CAN FD. Indicate bit rate switch is enabled or disabled. */
+typedef bool Brs;
+
+/** Error state indicator flag for CAN FD. Indicate a transceiver is in error active or error passive mode. */
+typedef bool Esi;
+
+/** Valid length of the message in bytes. */
+typedef uint8_t DataLength;
+
+/** Bit timing information for CAN-FD frames. */
+typedef uint32_t BitTimingConfArb;
+
+/** Bit timing information for CAN-FD frames. */
+typedef uint32_t BitTimingConfData;
+
+/* Ethernet Symbols */
+
+/** Application Channel */
+typedef uint8_t EthChannel;
 
 /**
- * a string that represents a
- * month
- *
- * Width in chars (hex): 3
- *
- * Width in chars (dec): 3
- *
- * Range: Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec
- *
- * Example: Nov
- *
- * Special: Different range in german version:
- * Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez
+ * Data of Ethernet packet. Starting with the target Ethernet MAC ID and ending with data or
+ * padding bytes (without Ethernet packet CRC). Each data byte has two hex characters.
  */
-typedef enum class Month : int {
-    Unknown = -1,
-    Jan = 0,
-    Feb = 1,
-    Mar = 2,
-    Apr = 3,
-    May = 4,
-    Jun = 5,
-    Jul = 6,
-    Aug = 7,
-    Sep = 8,
-    Oct = 9,
-    Nov = 10,
-    Dec = 11
-} Month;
+typedef uint8_t EthData;
+
+/** Length of data in bytes (packet length). */
+typedef uint16_t EthDataLen;
+
+/** @copydoc Dir */
+typedef Dir EthDir;
+
+/** @copydoc Time */
+typedef Time EthTime;
 
 /**
- * a number that represents
- * the date.
- *
- * Width in chars (hex): 1-2
- *
- * Width in chars (dec): 1-2
- *
- * Range: 1..31
- *
- * Example: 15
+ * Error code for Rx errors
+ *   - 1: Data length error
+ *   - 2: Invalid CRC
+ *   - 4: Invalid Data received
+ *   - 8: Colission detected
  */
-typedef int Date;
+typedef uint8_t EthErrorCode;
+
+/** Frame checksum */
+typedef uint32_t EthFrameChecksum;
+
+/* AFDX Symbols */
+
+/** Measured time [µsec] since last frame on this VL */
+typedef uint32_t AfdxBag;
+
+/** @copydoc EthChannel */
+typedef EthChannel AfdxChannel;
 
 /**
- * a string that represents a
- * time in the current format.
- *
- * hh:mm:ss am|pm
- *
- * Width in chars (hex): 11
- *
- * Width in chars (dec): 11
- *
- * Range: 00:00:00 ... 12:60:60
- *
- * Example: 01:13:17 pm
- *
- * Special: Different range in german version:
- * 00:00:00 ... 23:60:60
- * In german version 'am' and 'pm' are not used.
- * Therefore the width in chars is only 8.
+ * Data of AFDX packet. Starting with the target Ethernet MAC ID and ending with data or
+ * padding bytes (without Ethernet packet CRC) and AFDX-SeqNo.
  */
-typedef struct {
-    int h;   // am|pm. pm adds +12 to h
-    int m;
-    int s;
-} FullTime;
+typedef uint8_t AfdxData;
+
+/** @copydoc EthDataLen */
+typedef EthDataLen AfdxDataLen;
+
+/** @copydoc EthDir */
+typedef EthDir AfdxDir;
+
+/** Underlying ETH-channel */
+typedef EthChannel AfdxEthChannel;
 
 /**
- * a string that represents a
- * year.
+ * Flags signaling specific status and errors
  *
- * Width in chars (hex): 4
- *
- * Width in chars (dec): 4
- *
- * Example: 1999
+ * Status- and error flags using following bits with meaning:
+ *   - Bit 0: Frame from line-B
+ *   - Bit 1: Packet is redundant
+ *   - Bit 2: Frame is a fragment only
+ *   - Bit 3: Frame is already reassembled
+ *   - Bit 4: Packet is not a valid AFDX frame
+ *   - Bit 5: AFDX-SequenceNo is invalid
+ *   - Bit 6: Redundancy timeout violated
+ *   - Bit 7: Redundancy error encountered
+ *   - Bit 8: A / B interface mismatch
+ *   - Bit 11: Fragmentation error
  */
-typedef int Year;
+typedef uint16_t AfdxFlags;
 
-/**
- * a number that represents
- * the variable data
- * type of system variable:
- * - 1 = Float
- * - 2 = Integer
- * - 3 = String
- * - 4 = Array of Floats
- * - 5 = Array of Integers
- *
- * Width in chars (hex): 1
- *
- * Width in chars (dec): 1
- *
- * Range 1...5
- *
- * Example: 2
- */
-typedef unsigned short svtype;
+/** @copydoc EthTime */
+typedef EthTime AfdxTime;
 
-/**
- * Message duration [in
- * nanoseconds]. Not
- * including 3 Interframe
- * Space bit times and by
- * Rx-messages also not
- * including 1 End-Of-Frame
- * bit time
- *
- * Example: 768000
- */
-typedef unsigned int MessageDuration;
+/* FlexRay Symbols */
 
-/**
- * Total number of bits of
- * the message including
- * EOF and Interframe
- * Space [in bits]
- *
- * Example: 67
- */
-typedef unsigned int MessageLength;
+/* K-Line Symbols */
 
-/**
- * Bit rate switch flag for
- * CAN FD. Indicate bit
- * rate switch is enabled or
- * disabled.
- *
- * Width in chars (hex): 1
- *
- * Range: 0-1
- *
- * Example: 0
- */
-typedef bool BRS;
+/** Time of reception of the bytes, i.e. the end of a byte sequence */
+typedef Time KLineTime;
 
-/**
- * Error state indicator
- * flag for CAN FD. Indicate
- * a transceiver is in
- * error active or error
- * passive mode.
- *
- * Width in chars (hex): 1
- *
- * Range: 0-1
- *
- * Example: 0
- */
-typedef bool ESI;
+/** COMn for serial port n, or KLn for LINcab n */
+typedef std::string KLinePort;
 
-/**
- * Valid length of the
- * message in bytes.
- *
- * Width in chars (dec): 3
- *
- * Range: 0-64
- *
- * Example: 20
- */
-typedef unsigned short DataLength;
+/** Were the bytes sent or received? */
+typedef Dir KLineDirection;
 
-/**
- * Bit timing information
- * for CAN-FD frames.
- *
- * Special: May be 0, if not supported by the CAN controller
- */
-typedef unsigned int BitTimingConfArb;
+/** Rate the data was transferred on */
+typedef uint32_t KLineBaudrate;
 
-/**
- * Bit timing information
- * for CAN-FD frames
- *
- * Special: May be 0, if not supported by the CAN controller
- */
-typedef unsigned int BitTimingConfData;
+/** Source address */
+typedef std::string KLineSource;
 
-}
+/** Destination address */
+typedef std::string KLineDestination;
+
+/** Number of bytes transferred */
+typedef uint16_t KLineLength;
+
+/** Bytes transported within this CAN message */
+typedef uint8_t KLineData;
+
+/* LIN Symbols */
+
+/* MOST Symbols */
+
+/* TP/Diagnostics Symbols */
+
 }
 }

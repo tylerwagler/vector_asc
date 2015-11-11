@@ -22,37 +22,32 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** Log Direct Stop Event */
-/* <Time> log direct stop (<PostTrigger>ms) */
+/**
+ * Log Direct Stop Event
+ *
+ * An event that is written if the logging was stopped directly by the buttons in the measurement
+ * setup or by the CAPL function StopLogging().
+ */
 class LogDirectStopEvent : public Event
 {
 public:
     LogDirectStopEvent();
     virtual ~LogDirectStopEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc Time */
+    Time time;
 
-    /** postTrigger (ms) */
-    uint16_t postTrigger;
+    /** @copydoc PostTrigger */
+    PostTrigger postTrigger;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LogDirectStopEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 
