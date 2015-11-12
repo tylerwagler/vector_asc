@@ -22,46 +22,37 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** FlexRay Start Cycle Event (Old Format) */
-/* <Time> <Channel> <Typ> NM Vector: <DLC> <D0> <D_DLC> */
+/**
+ * FlexRay Start Cycle Event (Old Format)
+ *
+ * FlexRay Message received or transmitted on a FlexRay channel.
+ */
 class FlexRayOldStartCycleEvent : public Event
 {
 public:
     FlexRayOldStartCycleEvent();
     virtual ~FlexRayOldStartCycleEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc FlexRayOldTime */
+    FlexRayOldTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc FlexRayOldChannel */
+    FlexRayOldChannel channel;
 
-    /** Typ */
-    std::string typ;
+    /** @copydoc FlexRayOldDlc */
+    FlexRayOldDlc dlc;
 
-    /** DLC */
-    uint8_t dlc;
+    /** @copydoc FlexRayOldDx */
+    FlexRayOldDx data[255];
 
-    /** Data */
-    uint8_t data[256];
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static FlexRayOldStartCycleEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

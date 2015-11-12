@@ -60,7 +60,7 @@ CanFdErrorFrame * CanFdErrorFrame::parse(File & file, std::string & line)
     std::regex regex(
                 "^([[:digit:].]+)"
                 " CANFD"
-                " ([[:digit:]]+)"
+                " ([[:digit:]]{1,5})"
                 " (Rx|Tx)"
                 " ErrorFrame"
                 " (Not Acknowledge error, dominant error flag)"
@@ -83,10 +83,11 @@ CanFdErrorFrame * CanFdErrorFrame::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanFdErrorFrame * canFdErrorFrame = new CanFdErrorFrame;
-        canFdErrorFrame->time = std::stof(match[1]);
+        canFdErrorFrame->time = std::stod(match[1]);
         canFdErrorFrame->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
                 canFdErrorFrame->dir = Dir::Rx;
+        else
         if (match[3] == "Tx")
                 canFdErrorFrame->dir = Dir::Tx;
         canFdErrorFrame->errorText = match[4];

@@ -22,60 +22,54 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Disturbance event */
-/*  <Time> <Channel> DisturbanceEvent Type = <DisturbanceType> ByteIndex = <ByteIndex> BitIndex =
- * <BitIndex> BitOffset = <BitOffsetInSixteenthBits> Length = <DisturbanceLengthInSixteenthBits> Header
- * = <IDorFF> Disturbing header = <IDorFF> */
+/**
+ * LIN Disturbance event
+ *
+ * This event occurs if CANoe/CANalyzer explicitly caused to disturb one bit or a sequence of bits.
+ *
+ * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
+ */
 class LinDisturbanceEvent : public Event
 {
 public:
     LinDisturbanceEvent();
     virtual ~LinDisturbanceEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** DisturbanceType */
-    std::string disturbanceType;
+    /** @copydoc LinDisturbanceType */
+    LinDisturbanceType disturbanceType;
 
-    /** ByteIndex */
-    uint16_t byteIndex;
+    /** @copydoc LinByteIndex */
+    LinByteIndex byteIndex;
 
-    /** BitIndex */
-    uint8_t bitIndex;
+    /** @copydoc LinBitIndex */
+    LinBitIndex bitIndex;
 
-    /** BitOffset */
-    uint8_t bitOffset;
+    /** @copydoc LinBitOffsetInSixteenthBits */
+    LinBitOffsetInSixteenthBits bitOffset;
 
-    /** Length */
-    uint16_t length;
+    /** @copydoc LinDisturbanceLengthInSixteenthBits */
+    LinDisturbanceLengthInSixteenthBits length;
 
-    /** Header */
-    uint8_t header;
+    /** @copydoc LinIdOrFf */
+    LinIdOrFf header;
 
-    /** Disturbing header */
-    uint8_t disturbingHeader;
+    /** @copydoc LinIdOrFf */
+    LinIdOrFf disturbingHeader;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinDisturbanceEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

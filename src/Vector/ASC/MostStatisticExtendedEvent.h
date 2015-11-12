@@ -22,43 +22,39 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST */
-/* <Time> <Channel> StatEx: <CodingErrors> <FrameCounter> */
+/**
+ * MOST Statistic Extended Event (CodingErrors and FrameCounter)
+ *
+ * Event transports some bus statistic information that was previously (until CA-
+ * Noe/CANalyzerVersion 6.1) carried by the main bus statistic event but was not logged. Usually the
+ * event is not visible in a Trace window.
+ */
 class MostStatisticExtendedEvent : public Event
 {
 public:
     MostStatisticExtendedEvent();
     virtual ~MostStatisticExtendedEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** CodingErrors */
-    unsigned int codingErrors;
+    /** @copydoc CodingErrors */
+    MostCodingErrors codingErrors;
 
-    /** FrameCounter */
-    unsigned int frameCounter;
+    /** @copydoc FrameCounter */
+    MostFrameCounter frameCounter;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostStatisticExtendedEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

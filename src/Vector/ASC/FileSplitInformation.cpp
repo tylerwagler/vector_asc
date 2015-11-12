@@ -45,7 +45,7 @@ FileSplitInformation * FileSplitInformation::parse(File & file, std::string & li
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FileSplitInformation * fileSplitInformation = new FileSplitInformation;
-        fileSplitInformation->time = std::stof(match[1]);
+        fileSplitInformation->time = std::stod(match[1]);
         fileSplitInformation->fileName = match[2];
         return fileSplitInformation;
     }

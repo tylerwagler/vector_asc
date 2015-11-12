@@ -22,44 +22,38 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Scheduler Mode Change */
-/* <Time> <Channel> SchedModChng prior scheduler mode = <schedule table index>, next scheduler
- * mode = <schedule table index> */
+/**
+ * LIN Scheduler Mode Change
+ *
+ * This info event is only displayed when a Master is simulated and a frame header of a new schedule
+ * table is transmitted for the first time. This info event may appear on starting a measurement.
+ */
 class LinSchedulerModeChange : public Event
 {
 public:
     LinSchedulerModeChange();
     virtual ~LinSchedulerModeChange();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** prior scheduler mode */
-    uint8_t priorSchedulerMode;
+    /** @copydoc LinScheduleTableIndex */
+    LinScheduleTableIndex priorSchedulerMode;
 
-    /** next scheduler mode */
-    uint8_t nextSchedulerMode;
+    /** @copydoc LinScheduleTableIndex */
+    LinScheduleTableIndex nextSchedulerMode;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinSchedulerModeChange * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

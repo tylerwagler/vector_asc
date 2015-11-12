@@ -48,19 +48,19 @@ CanBusStatisticsEvent * CanBusStatisticsEvent::parse(File & file, std::string & 
 {
     std::regex regex(
                 "^([[:digit:].]+)"
-                " ([[:digit:]]+)"
+                " ([[:digit:]]{1,5})"
                 " Statistic:"
-                " D ([[:digit:]]+)"
-                " R ([[:digit:]]+)"
-                " XD ([[:digit:]]+)"
-                " XR ([[:digit:]]+)"
-                " E ([[:digit:]]+)"
-                " O ([[:digit:]]+)"
-                " B ([[:digit:].]+)%$");
+                " D ([[:digit:]]{1,10})"
+                " R ([[:digit:]]{1,10})"
+                " XD ([[:digit:]]{1,10})"
+                " XR ([[:digit:]]{1,10})"
+                " E ([[:digit:]]{1,10})"
+                " O ([[:digit:]]{1,10})"
+                " B ([[:digit:].]{3,6})%$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanBusStatisticsEvent * canBusStatisticsEvent = new CanBusStatisticsEvent;
-        canBusStatisticsEvent->time = std::stof(match[1]);
+        canBusStatisticsEvent->time = std::stod(match[1]);
         canBusStatisticsEvent->channel = std::stoul(match[2]);
         canBusStatisticsEvent->dataFrames = std::stoul(match[3]);
         canBusStatisticsEvent->remoteFrames = std::stoul(match[4]);
@@ -68,7 +68,7 @@ CanBusStatisticsEvent * CanBusStatisticsEvent::parse(File & file, std::string & 
         canBusStatisticsEvent->extendedRemoteFrames = std::stoul(match[6]);
         canBusStatisticsEvent->errorFrames = std::stoul(match[7]);
         canBusStatisticsEvent->overloadFrames = std::stoul(match[8]);
-        canBusStatisticsEvent->busload = std::stof(match[9]);
+        canBusStatisticsEvent->busload = std::stod(match[9]);
         return canBusStatisticsEvent;
     }
 
@@ -80,7 +80,7 @@ void CanBusStatisticsEvent::write(File & file, std::ostream & stream)
     stream
             << std::fixed << time
             << ' ' << std::dec << channel
-            << "  Statistic:"
+            << " Statistic:"
             << " D " << dataFrames
             << " R " << remoteFrames
             << " XD " << extendedDataFrames

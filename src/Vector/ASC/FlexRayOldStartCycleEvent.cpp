@@ -29,7 +29,6 @@ FlexRayOldStartCycleEvent::FlexRayOldStartCycleEvent() :
     Event(),
     time(0.0),
     channel(),
-    typ(),
     dlc(0),
     data()
 {
@@ -46,18 +45,17 @@ FlexRayOldStartCycleEvent * FlexRayOldStartCycleEvent::parse(File & file, std::s
                 "^([[:digit:].]+)"
                 " Fr"
                 " ([12*])"
-                " (StartCycleEvent)"
+                " StartCycleEvent"
                 " NM Vector:"
                 " ([[:digit:]]+)"
                 "(( [[:xdigit:]]+){0,255})$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FlexRayOldStartCycleEvent * flexRayOldStartCycleEvent = new FlexRayOldStartCycleEvent;
-        flexRayOldStartCycleEvent->time = std::stof(match[1]);
-        flexRayOldStartCycleEvent->channel = match[2];
-        flexRayOldStartCycleEvent->typ = match[3];
-        flexRayOldStartCycleEvent->dlc = std::stoul(match[4]);
-        std::istringstream iss(match[5]);
+        flexRayOldStartCycleEvent->time = std::stod(match[1]);
+        flexRayOldStartCycleEvent->channel = std::string(match[2])[0];
+        flexRayOldStartCycleEvent->dlc = std::stoul(match[3]);
+        std::istringstream iss(match[4]);
         for (uint8_t i = 0; i < flexRayOldStartCycleEvent->dlc && i <= 255; ++i) {
             unsigned short s;
             iss >> s;

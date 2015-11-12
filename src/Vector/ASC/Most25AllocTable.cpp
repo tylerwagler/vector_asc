@@ -50,7 +50,7 @@ Most25AllocTable * Most25AllocTable::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most25AllocTable * most25AllocTable = new Most25AllocTable;
-        most25AllocTable->time = std::stof(match[1]);
+        most25AllocTable->time = std::stod(match[1]);
         most25AllocTable->channel = std::stoul(match[2]);
         most25AllocTable->allocTableSize = std::stoul(match[3], nullptr, 16);
         std::istringstream iss(match[4]);

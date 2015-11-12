@@ -45,19 +45,20 @@ EthernetPacket * EthernetPacket::parse(File & file, std::string & line)
     std::regex regex(
                 "^([[:digit:].]+)"
                 " ETH"
-                " ([[:digit:]]+)"
+                " ([[:xdigit:]]{1,3})"
                 " (Rx|Tx)"
-                " ([[:xdigit:]]+):([[:xdigit:]]*)$");
+                " ([[:xdigit:]]{1,4}):([[:xdigit:]]*)$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         EthernetPacket * ethernetPacket = new EthernetPacket;
-        ethernetPacket->time = std::stof(match[1]);
-        ethernetPacket->channel = std::stoul(match[2]);
+        ethernetPacket->time = std::stod(match[1]);
+        ethernetPacket->channel = std::stoul(match[2], nullptr, file.base);
         if (match[3] == "Rx")
                 ethernetPacket->dir = Dir::Rx;
+        else
         if (match[3] == "Tx")
                 ethernetPacket->dir = Dir::Tx;
-        ethernetPacket->dataLen = std::stoul(match[4], nullptr, 16);
+        ethernetPacket->dataLen = std::stoul(match[4], nullptr, file.base);
         for (int i = 0; i < ethernetPacket->dataLen; ++i) {
             std::string s;
             s.append(match[5], 2*i, 2);

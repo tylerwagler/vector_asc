@@ -29,10 +29,9 @@ MostTriggerEvent::MostTriggerEvent() :
     Event(),
     time(0.0),
     channel(0),
-    trigMode(0),
+    trigMode(MostTrigMode::Unknown),
     trigHw(0),
-    trigValue1(0),
-    trigValue2(0)
+    trigValue()
 {
     eventType = EventType::MostTriggerEvent;
 }
@@ -54,12 +53,22 @@ MostTriggerEvent * MostTriggerEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostTriggerEvent * mostTriggerEvent = new MostTriggerEvent;
-        mostTriggerEvent->time = std::stof(match[1]);
+        mostTriggerEvent->time = std::stod(match[1]);
         mostTriggerEvent->channel = std::stoul(match[2]);
-        mostTriggerEvent->trigMode = std::stoul(match[3]);
+        switch(std::stoul(match[3])) {
+        case 0:
+            mostTriggerEvent->trigMode = MostTrigMode::Unknown;
+            break;
+        case 1:
+            mostTriggerEvent->trigMode = MostTrigMode::SynchronizationMaster;
+            break;
+        case 2:
+            mostTriggerEvent->trigMode = MostTrigMode::SynchronizationSlave;
+            break;
+        }
         mostTriggerEvent->trigHw = std::stoul(match[4]);
-        mostTriggerEvent->trigValue1 = std::stoul(match[5], nullptr, 16);
-        mostTriggerEvent->trigValue2 = std::stoul(match[6], nullptr, 16);
+        mostTriggerEvent->trigValue[0] = std::stoul(match[5], nullptr, 16);
+        mostTriggerEvent->trigValue[1] = std::stoul(match[6], nullptr, 16);
         return mostTriggerEvent;
     }
 

@@ -28,8 +28,8 @@ namespace ASC {
 LinTransmissionError::LinTransmissionError() :
     Event(),
     time(0.0),
-    channel(),
-    id(0),
+    channel(0),
+    id(),
     slaveId(0),
     state(0),
     headerTime(0),
@@ -38,7 +38,7 @@ LinTransmissionError::LinTransmissionError() :
     baudrate(0),
     syncBreak(0),
     syncDel(0),
-    subId(0),
+    nad(0),
     messageId(0),
     supplierId(0),
     endOfHeader(0.0),
@@ -67,23 +67,33 @@ LinTransmissionError * LinTransmissionError::parse(File & file, std::string & li
                 "( EOH = ([[:digit:].]+))?"
                 "( HBR = ([[:digit:].]+))?"
                 "( HSO = ([[:digit:]]+))?"
-                "( CSM = (enhanced))?$");
+                "( CSM = (unknown|classic|enhanced|error))?$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinTransmissionError * linTransmissionError = new LinTransmissionError;
-        linTransmissionError->time = std::stof(match[1]);
-        linTransmissionError->channel = match[2];
-        linTransmissionError->id = std::stoul(match[3], nullptr, 16);
+        linTransmissionError->time = std::stod(match[1]);
+        linTransmissionError->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
+        linTransmissionError->id = match[3];
         linTransmissionError->headerTime = std::stoul(match[4]);
         linTransmissionError->fullTime = std::stoul(match[5]);
-        linTransmissionError->startOfFrame = std::stof(match[7]);
+        linTransmissionError->startOfFrame = std::stod(match[7]);
         linTransmissionError->baudrate = std::stoul(match[9]);
         linTransmissionError->syncBreak = std::stoul(match[11]);
         linTransmissionError->syncDel = std::stoul(match[12]);
-        linTransmissionError->endOfHeader = std::stof(match[14]);
-        linTransmissionError->headerBaudrate = std::stof(match[16]);
+        linTransmissionError->endOfHeader = std::stod(match[14]);
+        linTransmissionError->headerBaudrate = std::stod(match[16]);
         linTransmissionError->stopBitOffsetInHeader = std::stoul(match[18]);
-        linTransmissionError->checksumModel = match[20];
+        if (match[20] == "unknown")
+            linTransmissionError->checksumModel = LinChecksumModel::Unknown;
+        else
+        if (match[20] == "classic")
+            linTransmissionError->checksumModel = LinChecksumModel::Classic;
+        else
+        if (match[20] == "enhanced")
+            linTransmissionError->checksumModel = LinChecksumModel::Enhanced;
+        else
+        if (match[20] == "error")
+            linTransmissionError->checksumModel = LinChecksumModel::Error;
         return linTransmissionError;
     }
 

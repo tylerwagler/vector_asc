@@ -26,7 +26,11 @@
 namespace Vector {
 namespace ASC {
 
-/** FlexRay Status Event ("SE") */
+/**
+ * FlexRay Status Event ("SE")
+ *
+ * FlexRay Message received or transmitted on a FlexRay channel.
+ */
 class FlexRayStatusEvent : public Event
 {
 public:
@@ -34,7 +38,7 @@ public:
     virtual ~FlexRayStatusEvent();
 
     /** Timestamp */
-    float time;
+    double time;
 
     /** Clusternr. */
     uint32_t clusterNr;
@@ -69,19 +73,9 @@ public:
     /** Spy flag */
     bool spyFlag;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static FlexRayStatusEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

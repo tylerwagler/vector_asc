@@ -42,11 +42,11 @@ LogDirectStartEvent * LogDirectStartEvent::parse(File & file, std::string & line
     std::regex regex(
                 "^([[:digit:].]+)"
                 " log direct start"
-                " \\(([[:digit:]]+)ms\\)$");
+                " \\(([[:digit:]]{1,10})ms\\)$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LogDirectStartEvent * logDirectStartEvent = new LogDirectStartEvent;
-        logDirectStartEvent->time = std::stof(match[1]);
+        logDirectStartEvent->time = std::stod(match[1]);
         logDirectStartEvent->preTrigger = std::stoul(match[2]);
         return logDirectStartEvent;
     }

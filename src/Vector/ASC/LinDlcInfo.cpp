@@ -28,8 +28,8 @@ namespace ASC {
 LinDlcInfo::LinDlcInfo() :
     Event(),
     time(0.0),
-    channel(),
-    id(0),
+    channel(0),
+    id(),
     dlc(0)
 {
     eventType = EventType::LinDlcInfo;
@@ -50,9 +50,9 @@ LinDlcInfo * LinDlcInfo::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinDlcInfo * linDlcInfo = new LinDlcInfo;
-        linDlcInfo->time = std::stof(match[1]);
-        linDlcInfo->channel = match[2];
-        linDlcInfo->id = std::stoul(match[3]);
+        linDlcInfo->time = std::stod(match[1]);
+        linDlcInfo->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
+        linDlcInfo->id = match[3];
         linDlcInfo->dlc = std::stoul(match[4]);
         return linDlcInfo;
     }

@@ -54,14 +54,15 @@ LinSpikeEvent * LinSpikeEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinSpikeEvent * linSpikeEvent = new LinSpikeEvent;
-        linSpikeEvent->time = std::stof(match[1]);
+        linSpikeEvent->time = std::stod(match[1]);
         linSpikeEvent->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
             linSpikeEvent->dir = Dir::Rx;
+        else
         if (match[3] == "Tx")
             linSpikeEvent->dir = Dir::Tx;
         linSpikeEvent->spikeLength = std::stoul(match[4]);
-        linSpikeEvent->startOfFrame = std::stof(match[6]);
+        linSpikeEvent->startOfFrame = std::stod(match[6]);
         linSpikeEvent->baudrate = std::stoul(match[8]);
         return linSpikeEvent;
     }

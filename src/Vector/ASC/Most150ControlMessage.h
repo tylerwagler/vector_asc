@@ -22,84 +22,73 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST150 Control Message */
-/* <Time> <Channel> Msg150: <Dir> <SourceAdr> <DestAdr> <State> <AckNack> <TransferType> <Pack> <Priority> <Pindex> <CRC2> <Cack> <RsvdUL> <Msg150Len> <D0> <D1>...<D(Msg150Len-1)> */
+/**
+ * MOST150 Control Message
+ *
+ * Message on MOST150 Control Channel.
+ */
 class Most150ControlMessage : public Event
 {
 public:
     Most150ControlMessage();
     virtual ~Most150ControlMessage();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
+    /** @copydoc MostDir */
+    MostDir dir;
 
-    Dir dir;
+    /** @copydoc MostSourceAdr */
+    MostSourceAdr sourceAdr;
 
-    /** SourceAdr */
-    unsigned short sourceAdr;
+    /** @copydoc MostDestAdr */
+    MostDestAdr destAdr;
 
-    /** DestAdr */
-    unsigned short destAdr;
+    /** @copydoc MostState */
+    MostState state;
 
-    /** State */
-    unsigned short state;
+    /** @copydoc MostAckNack */
+    MostAckNack ackNack;
 
-    /** AckNack */
-    unsigned short ackNack;
+    /** @copydoc MostTransferType */
+    MostTransferType transferType;
 
-    /** TransferType */
-    unsigned short transferType;
+    /** @copydoc MostPack */
+    MostPack pack;
 
-    /** Pack */
-    unsigned short pack;
+    /** @copydoc MostPriority */
+    MostPriority priority;
 
-    /** Priority */
-    unsigned short priority;
+    /** @copydoc MostPindex */
+    MostPindex pIndex;
 
-    /** Pindex */
-    unsigned short pIndex;
+    /** @copydoc MostCrc2 */
+    MostCrc2 crc2;
 
-    /** CRC2 */
-    unsigned short crc2;
+    /** @copydoc MostCack */
+    MostCack cAck;
 
-    /** Cack */
-    unsigned short cAck;
+    /** @copydoc MostRsvdUl */
+    MostRsvdUl rsvdUl;
 
-    /** RsvdUL */
-    unsigned short rsvdUl;
+    /** @copydoc MostMsg150Len */
+    MostMsg150Len msg150Len;
 
-    /** Msg150Len */
-    unsigned short msg150Len;
+    /** @copydoc MostDx */
+    MostDx data[1024];
 
-    /** Data */
-    unsigned short data[1024];
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static Most150ControlMessage * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

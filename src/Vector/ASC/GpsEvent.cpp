@@ -55,13 +55,13 @@ GpsEvent * GpsEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         GpsEvent * gpsEvent = new GpsEvent;
-        gpsEvent->time = std::stof(match[1]);
+        gpsEvent->time = std::stod(match[1]);
         gpsEvent->channel = std::stoul(match[2]);
-        gpsEvent->latitude = std::stof(match[3]);
-        gpsEvent->longitude = std::stof(match[4]);
-        gpsEvent->altitude = std::stof(match[5]);
-        gpsEvent->speed = std::stof(match[6]);
-        gpsEvent->course = std::stof(match[7]);
+        gpsEvent->latitude = std::stod(match[3]);
+        gpsEvent->longitude = std::stod(match[4]);
+        gpsEvent->altitude = std::stod(match[5]);
+        gpsEvent->speed = std::stod(match[6]);
+        gpsEvent->course = std::stod(match[7]);
         return gpsEvent;
     }
 

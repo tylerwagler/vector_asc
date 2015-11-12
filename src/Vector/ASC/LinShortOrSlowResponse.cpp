@@ -28,8 +28,8 @@ namespace ASC {
 LinShortOrSlowResponse::LinShortOrSlowResponse() :
     Event(),
     time(0.0),
-    channel(),
-    id(0),
+    channel(0),
+    id(),
     dlc(0),
     numberOfResponseBytes(0),
     data(),
@@ -39,7 +39,7 @@ LinShortOrSlowResponse::LinShortOrSlowResponse() :
     baudrate(0),
     syncBreak(0),
     syncDel(0),
-    subId(0),
+    nad(0),
     messageId(0),
     supplierId(0),
     endOfHeader(0.0),
@@ -73,13 +73,13 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & file, std::string 
                 "( EOB =(( [[:digit:].]+){0,8}))?"
                 "( HBR = ([[:digit:].]+))?"
                 "( HSO = ([[:digit:]]+))?"
-                "( CSM = (unknown|enhanced))?$");
+                "( CSM = (unknown|classic|enhanced|error))?$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinShortOrSlowResponse * linShortOrSlowResponse = new LinShortOrSlowResponse;
-        linShortOrSlowResponse->time = std::stof(match[1]);
-        linShortOrSlowResponse->channel = match[2];
-        linShortOrSlowResponse->id = std::stoul(match[3], nullptr, 16);
+        linShortOrSlowResponse->time = std::stod(match[1]);
+        linShortOrSlowResponse->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
+        linShortOrSlowResponse->id = match[3];
         linShortOrSlowResponse->dlc = std::stoul(match[4]);
         linShortOrSlowResponse->numberOfResponseBytes = std::stoul(match[5]);
         std::istringstream iss1(match[6]);
@@ -91,20 +91,30 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & file, std::string 
         }
         linShortOrSlowResponse->isSlowResponse = (match[8] == '1');
         linShortOrSlowResponse->responseWasInterruptedByBreak = (match[9] == '1');
-        linShortOrSlowResponse->startOfFrame = std::stof(match[11]);
+        linShortOrSlowResponse->startOfFrame = std::stod(match[11]);
         linShortOrSlowResponse->baudrate = std::stoul(match[13]);
         linShortOrSlowResponse->syncBreak = std::stoul(match[15]);
         linShortOrSlowResponse->syncDel = std::stoul(match[16]);
-        linShortOrSlowResponse->endOfHeader = std::stof(match[18]);
+        linShortOrSlowResponse->endOfHeader = std::stod(match[18]);
         std::istringstream iss2(match[20]);
         for (uint8_t i = 0; i < linShortOrSlowResponse->dlc && i < 8; ++i) {
-            float s;
+            double s;
             iss2 >> s;
             linShortOrSlowResponse->endOfByte[i] = s;
         }
-        linShortOrSlowResponse->headerBaudrate = std::stof(match[23]);
+        linShortOrSlowResponse->headerBaudrate = std::stod(match[23]);
         linShortOrSlowResponse->stopBitOffsetInHeader = std::stoul(match[25]);
-        linShortOrSlowResponse->checksumModel = match[27];
+        if (match[27] == "unknown")
+            linShortOrSlowResponse->checksumModel = LinChecksumModel::Unknown;
+        else
+        if (match[27] == "classic")
+            linShortOrSlowResponse->checksumModel = LinChecksumModel::Classic;
+        else
+        if (match[27] == "enhanced")
+            linShortOrSlowResponse->checksumModel = LinChecksumModel::Enhanced;
+        else
+        if (match[27] == "error")
+            linShortOrSlowResponse->checksumModel = LinChecksumModel::Error;
         return linShortOrSlowResponse;
     }
 

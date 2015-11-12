@@ -22,49 +22,40 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST Trigger Event */
-/* <Time> <Channel> Trigger: <TrigMode> <TrigHW> <TrigValue> <TrigValue> */
+/**
+ * MOST Trigger Event
+ *
+ * Event transports changes of HW IO pins. The event is used for debugging purposes only.
+ */
 class MostTriggerEvent : public Event
 {
 public:
     MostTriggerEvent();
     virtual ~MostTriggerEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** TrigMode */
-    unsigned short trigMode;
+    /** @copydoc MostTrigMode */
+    MostTrigMode trigMode;
 
-    /** TrigHW */
-    unsigned short trigHw;
+    /** @copydoc MostTrigHw */
+    MostTrigHw trigHw;
 
-    /** TrigValue */
-    unsigned short trigValue1;
+    /** @copydoc MostTrigValue */
+    MostTrigValue trigValue[2];
 
-    /** TrigValue */
-    unsigned short trigValue2;
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostTriggerEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

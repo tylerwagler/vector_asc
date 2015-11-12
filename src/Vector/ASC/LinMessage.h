@@ -22,162 +22,112 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Message */
-/* <Time> <Channel> <ID> <Dir> <DLC> <D0>...<D7> (slave = <slave id>, state = <state>) checksum =
- * <checksum> header time = <header time>, full time = <full time>, start of frame = <start of frame>, sync
- * break = <sync break time> us (<number sync break bits> bits), sync delimiter = <sync delimiter time> us
- * (<sync delimiter bits> bits) */
-/* <Time> <Channel> <ID> <Dir> <DLC> <D0>...<D7> (slave = <slave id>, state = <state>) checksum =
- * <checksum> header time = <header time>, full time = <full time> SOF = <start of frame> BR =
- * <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) EOH =
- * <end of header> EOB = <T0> ... <T7> sim = <simulated> */
-/* <Time> <Channel> <ID> <Dir> <DLC> <D0>...<D7> (slave = <slave id>, state = <state>) checksum =
- * <checksum> header time = <header time>, full time = <full time> SOF = <start of frame> BR =
- * <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) EOH =
- * <end of header> EOB = <T0> ... <T7> sim = <simulated> EOF = <end of frame> */
-/* <Time> <Channel> <ID> <Dir> <DLC> <D0>...<D7> (slave = <slave id>, state = <state>) checksum =
- * <checksum> header time = <header time>, full time = <full time> SOF = <start of frame> BR =
- * <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) EOH =
- * <end of header> EOB = <T0> ... <T7> sim = <simulated> EOF = <end of frame> RBR = <response
- * baudrate> */
-/* <Time> <Channel> <ID> <Dir> <DLC> <D0>...<D7> (slave = <slave id>, state = <state>) checksum =
- * <checksum> header time = <header time>, full time = <full time> SOF = <start of frame> BR =
- * <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) EOH =
- * <end of header> EOB = <T0> ... <T7> sim = <simulated> EOF = <end of frame> RBR = <response
- * baudrate> HBR = <header baudrate> HSO = <stop bit offset in header> RSO = <stop bit offset in re-
- * sponse> */
-/* <Time> <Channel> <ID> <Dir> <DLC> <D0>...<D7> (slave = <slave id>, state = <state>) checksum =
- * <checksum> header time = <header time>, full time = <full time> SOF = <start of frame> BR =
- * <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) EOH =
- * <end of header> EOB = <T0> ... <T7> sim = <simulated> EOF = <end of frame> RBR = <response
- * baudrate> HBR = <header baudrate> HSO = <stop bit offset in header> RSO = <stop bit offset in re-
- * sponse> CSM = <checksum model> */
+/**
+ * LIN Message
+ *
+ * LIN frame received or transmitted on a LIN channel.
+ */
 class LinMessage : public Event
 {
 public:
     LinMessage();
     virtual ~LinMessage();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** ID */
-    uint16_t id;
+    /** @copydoc LinId */
+    LinId id;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
+    /** @copydoc LinDir */
+    LinDir dir;
 
-    Dir dir;
+    /** @copydoc LinDlc */
+    LinDlc dlc;
 
-    /** DLC */
-    uint8_t dlc;
+    /** @copydoc LinDx */
+    LinDx data[8];
 
-    /** Data */
-    uint8_t data[8];
+    /** @copydoc LinSlaveId */
+    LinSlaveId slaveId;
 
-    /** slave id */
-    uint8_t slaveId;
+    /** @copydoc LinState */
+    LinState state;
 
-    /** state */
-    uint8_t state;
+    /** @copydoc LinChecksum */
+    LinChecksum checksum;
 
-    /** checksum */
-    uint8_t checksum;
+    /** @copydoc LinHeaderTime */
+    LinHeaderTime headerTime;
 
-    /** header time */
-    uint8_t headerTime;
+    /** @copydoc LinFullTime */
+    LinFullTime fullTime;
 
-    /** full time */
-    uint8_t fullTime;
+    /** @copydoc LinStartOfFrame */
+    LinStartOfFrame startOfFrame;
 
-    /** start of frame (SOF) */
-    float startOfFrame;
+    /** @copydoc LinSyncBreakTime */
+    LinSyncBreakTime syncBreakTime;
 
-    /** sync break time */
-    uint32_t syncBreakTime;
+    /** @copydoc LinSyncDelimiterTime */
+    LinSyncDelimiterTime syncDelimiterTime;
 
-    /** number sync break bits */
-    uint32_t numberSyncBreakBits;
+    /** @copydoc LinBaudrateType */
+    LinBaudrateType baudrate;
 
-    /** sync delimiter time */
-    float syncDelimiterTime;
+    /** @copydoc LinSyncBreak */
+    LinSyncBreak syncBreak;
 
-    /** sync delimiter bits */
-    uint16_t syncDelimiterBits;
+    /** @copydoc LinSyncDel */
+    LinSyncDel syncDel;
 
+    /** @copydoc LinNad */
+    LinNad nad;
 
-    /** baudrate (BR) */
-    uint16_t baudrate;
+    /** @copydoc LinMessageId */
+    LinMessageId messageId;
 
-    /** sync break */
-    uint32_t syncBreak;
+    /** @copydoc LinSupplierId */
+    LinSupplierId supplierId;
 
-    /** sync del */
-    uint32_t syncDel;
+    /** @copydoc LinEndOfHeader */
+    LinEndOfHeader endOfHeader;
 
-    /** subId (NAD) */
-    uint16_t subId;
+    /** @copydoc LinT */
+    LinT endOfByte[8];
 
-    /** messageId */
-    uint16_t messageId;
+    /** @copydoc LinSimulated */
+    LinSimulated simulated;
 
-    /** supplierId */
-    uint16_t supplierId;
+    /** @copydoc LinEndOfFrame */
+    LinEndOfFrame endOfFrame;
 
-    /** end of header (EOH) */
-    float endOfHeader;
+    /** @copydoc LinResponseBaudrate */
+    LinResponseBaudrate responseBaudrate;
 
-    /** end of byte (EOB) */
-    float endOfByte[8];
+    /** @copydoc LinHeaderBaudrate */
+    LinHeaderBaudrate headerBaudrate;
 
-    /** simulated */
-    bool simulated;
+    /** @copydoc LinStopBitOffsetInHeader */
+    LinStopBitOffsetInHeader stopBitOffsetInHeader;
 
+    /** @copydoc LinStopBitOffsetInResponse */
+    LinStopBitOffsetInResponse stopBitOffsetInResponse;
 
-    /** end of frame (EOF) */
-    float endOfFrame;
+    /** @copydoc LinChecksumModel */
+    LinChecksumModel checksumModel;
 
-
-    /** response baudrate (RBR) */
-    uint16_t responseBaudrate;
-
-
-    /** header baudrate (HBR) */
-    float headerBaudrate;
-
-    /** stop bit offset in header (HSO) */
-    uint16_t stopBitOffsetInHeader;
-
-    /** stop bit offset in response (RSO) */
-    uint16_t stopBitOffsetInResponse;
-
-
-    /** checksum model (CSM) */
-    std::string checksumModel;
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinMessage * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

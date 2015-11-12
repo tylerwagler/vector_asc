@@ -26,7 +26,11 @@
 namespace Vector {
 namespace ASC {
 
-/** FlexRay Error Event ("EE") */
+/**
+ * FlexRay Error Event ("EE")
+ *
+ * FlexRay Message received or transmitted on a FlexRay channel.
+ */
 class FlexRayErrorEvent : public Event
 {
 public:
@@ -34,7 +38,7 @@ public:
     virtual ~FlexRayErrorEvent();
 
     /** Timestamp */
-    float time;
+    double time;
 
     /** Clusternr. */
     uint32_t clusterNr;
@@ -54,19 +58,9 @@ public:
     /** CC-Data[4] */
     uint32_t ccData[4];
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static FlexRayErrorEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

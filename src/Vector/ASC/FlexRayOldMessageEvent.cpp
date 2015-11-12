@@ -29,7 +29,6 @@ FlexRayOldMessageEvent::FlexRayOldMessageEvent() :
     Event(),
     time(0.0),
     channel(),
-    typ(),
     id(0),
     cycle(0),
     nm(false),
@@ -54,7 +53,7 @@ FlexRayOldMessageEvent * FlexRayOldMessageEvent::parse(File & file, std::string 
                 "^([[:digit:].]+)"
                 " Fr"
                 " ([12*])"
-                " (V9)"
+                " V9"
                 " ([[:digit:]]+)"
                 " ([[:digit:]]+)"
                 " ([01])"
@@ -68,24 +67,23 @@ FlexRayOldMessageEvent * FlexRayOldMessageEvent::parse(File & file, std::string 
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FlexRayOldMessageEvent * flexRayOldMessageEvent = new FlexRayOldMessageEvent;
-        flexRayOldMessageEvent->time = std::stof(match[1]);
-        flexRayOldMessageEvent->channel = match[2];
-        flexRayOldMessageEvent->typ = match[3];
-        flexRayOldMessageEvent->id = std::stoul(match[4]);
-        flexRayOldMessageEvent->cycle = std::stoul(match[5]);
-        flexRayOldMessageEvent->nm = (match[6] == '1');
-        flexRayOldMessageEvent->sync = (match[7] == '1');
-        flexRayOldMessageEvent->headerCrc = std::stoul(match[8]);
-        flexRayOldMessageEvent->symbolicName = match[9];
-        flexRayOldMessageEvent->dlc = std::stoul(match[10]);
-        std::istringstream iss(match[11]);
+        flexRayOldMessageEvent->time = std::stod(match[1]);
+        flexRayOldMessageEvent->channel = std::string(match[2])[0];
+        flexRayOldMessageEvent->id = std::stoul(match[3]);
+        flexRayOldMessageEvent->cycle = std::stoul(match[4]);
+        flexRayOldMessageEvent->nm = (match[5] == '1');
+        flexRayOldMessageEvent->sync = (match[6] == '1');
+        flexRayOldMessageEvent->headerCrc = std::stoul(match[7]);
+        flexRayOldMessageEvent->symbolicName = match[8];
+        flexRayOldMessageEvent->dlc = std::stoul(match[9]);
+        std::istringstream iss(match[10]);
         for (uint8_t i = 0; i < flexRayOldMessageEvent->dlc && i <= 255; ++i) {
             unsigned short s;
             iss >> s;
             flexRayOldMessageEvent->data[i] = s;
         }
-        flexRayOldMessageEvent->frameState = std::stoul(match[13], nullptr, 16);
-        flexRayOldMessageEvent->headerBitMask = std::stoul(match[14], nullptr, 16);
+        flexRayOldMessageEvent->frameState = std::stoul(match[12], nullptr, 16);
+        flexRayOldMessageEvent->headerBitMask = std::stoul(match[13], nullptr, 16);
         return flexRayOldMessageEvent;
     }
 

@@ -48,7 +48,7 @@ MostLightLockEvent * MostLightLockEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostLightLockEvent * mostLightLockEvent = new MostLightLockEvent;
-        mostLightLockEvent->time = std::stof(match[1]);
+        mostLightLockEvent->time = std::stod(match[1]);
         mostLightLockEvent->channel = std::stoul(match[2]);
         mostLightLockEvent->llState = std::stoul(match[3]);
         return mostLightLockEvent;

@@ -57,7 +57,7 @@ GlobalMarkerEvent * GlobalMarkerEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         GlobalMarkerEvent * globalMarkerEvent = new GlobalMarkerEvent;
-        globalMarkerEvent->time = std::stof(match[1]);
+        globalMarkerEvent->time = std::stod(match[1]);
         globalMarkerEvent->type = std::stoul(match[2]);
         globalMarkerEvent->backgroundColor = std::stoul(match[3]);
         globalMarkerEvent->foregroundColor = std::stoul(match[4]);

@@ -55,7 +55,7 @@ CanFdExtendedMessageEvent * CanFdExtendedMessageEvent::parse(File & file, std::s
     std::regex regex(
                 "^([[:digit:].]+)"
                 " CANFD"
-                " ([[:digit:]]+)"
+                " ([[:digit:]]{1,5})"
                 " (Rx|Tx)"
                 " ([[:xdigit:]]+)x"
                 "( [[:alpha:]_][[:alnum:]_]*)?"
@@ -73,10 +73,11 @@ CanFdExtendedMessageEvent * CanFdExtendedMessageEvent::parse(File & file, std::s
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanFdExtendedMessageEvent * canFdExtendedMessageEvent = new CanFdExtendedMessageEvent;
-        canFdExtendedMessageEvent->time = std::stof(match[1]);
+        canFdExtendedMessageEvent->time = std::stod(match[1]);
         canFdExtendedMessageEvent->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
                 canFdExtendedMessageEvent->dir = Dir::Rx;
+        else
         if (match[3] == "Tx")
                 canFdExtendedMessageEvent->dir = Dir::Tx;
         canFdExtendedMessageEvent->id = std::stoul(match[4], nullptr, 16);

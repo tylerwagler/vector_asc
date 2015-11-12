@@ -48,7 +48,7 @@ CanExtendedMessageEvent * CanExtendedMessageEvent::parse(File & file, std::strin
 {
     std::regex regex(
                 "^([[:digit:].]+)"
-                " ([[:digit:]]+)"
+                " ([[:digit:]]{1,5})"
                 " ([[:xdigit:]]+)x"
                 " (Rx|Tx)"
                 " d"
@@ -61,11 +61,12 @@ CanExtendedMessageEvent * CanExtendedMessageEvent::parse(File & file, std::strin
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanExtendedMessageEvent * canExtendedMessageEvent = new CanExtendedMessageEvent;
-        canExtendedMessageEvent->time = std::stof(match[1]);
+        canExtendedMessageEvent->time = std::stod(match[1]);
         canExtendedMessageEvent->channel = std::stoul(match[2]);
         canExtendedMessageEvent->id = std::stoul(match[3], nullptr, 16);
         if (match[4] == "Rx")
                 canExtendedMessageEvent->dir = Dir::Rx;
+        else
         if (match[4] == "Tx")
                 canExtendedMessageEvent->dir = Dir::Tx;
         canExtendedMessageEvent->dlc = std::stoul(match[5]);
@@ -80,8 +81,10 @@ CanExtendedMessageEvent * CanExtendedMessageEvent::parse(File & file, std::strin
         canExtendedMessageEvent->messageId = std::stoul(match[13], nullptr, 16);
         if (match[15] == " TE")
             canExtendedMessageEvent->messageFlags.te = true;
+        else
         if (match[15] == " WU")
             canExtendedMessageEvent->messageFlags.wu = true;
+        else
         if (match[15] == " XX") {
             canExtendedMessageEvent->messageFlags.te = true;
             canExtendedMessageEvent->messageFlags.wu = true;

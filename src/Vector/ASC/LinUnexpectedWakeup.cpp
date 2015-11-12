@@ -28,7 +28,7 @@ namespace ASC {
 LinUnexpectedWakeup::LinUnexpectedWakeup() :
     Event(),
     time(0.0),
-    channel(),
+    channel(0),
     width(0),
     startOfFrame(0),
     baudrate(0),
@@ -54,12 +54,12 @@ LinUnexpectedWakeup * LinUnexpectedWakeup::parse(File & file, std::string & line
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinUnexpectedWakeup * linUnexpectedWakeup = new LinUnexpectedWakeup;
-        linUnexpectedWakeup->time = std::stof(match[1]);
-        linUnexpectedWakeup->channel = match[2];
+        linUnexpectedWakeup->time = std::stod(match[1]);
+        linUnexpectedWakeup->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linUnexpectedWakeup->width = std::stoul(match[4]);
         if (match[5] != "")
             linUnexpectedWakeup->wakeupByte = std::stoul(match[6]);
-        linUnexpectedWakeup->startOfFrame = std::stof(match[7]);
+        linUnexpectedWakeup->startOfFrame = std::stod(match[7]);
         linUnexpectedWakeup->baudrate = std::stoul(match[8]);
         return linUnexpectedWakeup;
     }

@@ -22,52 +22,43 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST Data Lost Event */
-/*  <Time> <Channel> DataLost: <DLInfo> <DLCtrl> <DLAsync> <DLTime> <DLTime> */
+/**
+ * MOST Data Lost Event
+ *
+ * Indicates loss of data. (Number of lost messages and start and end time stamp of data loss.)
+ */
 class MostDataLostEvent : public Event
 {
 public:
     MostDataLostEvent();
     virtual ~MostDataLostEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** DLInfo */
-    unsigned short dlInfo;
+    /** @copydoc MostDlInfo */
+    MostDlInfo dlInfo;
 
-    /** DLCtrl */
-    unsigned short dlCtrl;
+    /** @copydoc MostDlCtrl */
+    MostDlCtrl dlCtrl;
 
-    /** DLAsync */
-    unsigned short dlAsync;
+    /** @copydoc MostDlAsync */
+    MostDlAsync dlAsync;
 
-    /** DLTime */
-    float dlTime1;
+    /** @copydoc MostDlTime */
+    MostDlTime dlTime[2];
 
-    /** DLTime */
-    float dlTime2;
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostDataLostEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

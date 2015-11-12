@@ -22,40 +22,46 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST Light Lock Event */
-/*  <Time> <Channel> LL: <LLState> */
+/**
+ * MOST Light Lock Event
+ *
+ * This event refers to the optical or electrical modulated signal at the transceiver's Rx.
+ *
+ * "Signal On" means that a modulated signal has been detected.
+ *
+ * "Lock" means that the receiver PLL (Phase Locked Loop) was able to establish synchronization
+ * with the phase of the modulated signal (to "lock").
+ *
+ * "Stable Lock" means that for a certain period of time no unlock occurred (see MOST specifica-
+ * tion).
+ *
+ * In case of a series of unlocks, the time of the different unlocks are accumulated. If this accumulated
+ * time is greater than a certain threshold, it is called "Critical Unlock" (details see MOST specifica-
+ * tion).
+ */
 class MostLightLockEvent : public Event
 {
 public:
     MostLightLockEvent();
     virtual ~MostLightLockEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** LLState */
-    unsigned short llState;
+    /** @copydoc MostLlState */
+    MostLlState llState;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostLightLockEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

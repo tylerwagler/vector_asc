@@ -42,7 +42,7 @@ LogTriggerEvent * LogTriggerEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LogTriggerEvent * logTriggerEvent = new LogTriggerEvent;
-        logTriggerEvent->time = std::stof(match[1]);
+        logTriggerEvent->time = std::stod(match[1]);
         return logTriggerEvent;
     }
 

@@ -22,70 +22,61 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** FlexRay Message Event (Old Format) */
-/* <Time> <Channel> <Typ> <Id> <Cycle> <NM> <Sync> <HeaderCRC> <SymbolicName> <DLC> <D0> <D1>...<D64> x<FrameState> x<HeaderBitMask> */
+/**
+ * FlexRay Message Event (Old Format)
+ *
+ * FlexRay Message received or transmitted on a FlexRay channel.
+ */
 class FlexRayOldMessageEvent : public Event
 {
 public:
     FlexRayOldMessageEvent();
     virtual ~FlexRayOldMessageEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc FlexRayOldTime */
+    FlexRayOldTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc FlexRayOldChannel */
+    FlexRayOldChannel channel;
 
-    /** Typ */
-    std::string typ;
+    /** @copydoc FlexRayOldId */
+    FlexRayOldId id;
 
-    /** Id */
-    uint16_t id;
+    /** @copydoc FlexRayOldCycle */
+    FlexRayOldCycle cycle;
 
-    /** Cycle */
-    uint8_t cycle;
+    /** @copydoc FlexRayOldNm */
+    FlexRayOldNm nm;
 
-    /** NM */
-    bool nm;
+    /** @copydoc FlexRayOldSync */
+    FlexRayOldSync sync;
 
-    /** Sync */
-    bool sync;
+    /** @copydoc FlexRayOldHeaderCrc */
+    FlexRayOldHeaderCrc headerCrc;
 
-    /** HeaderCRC */
-    uint16_t headerCrc;
+    /** @copydoc FlexRayOldSymbolicName */
+    FlexRayOldSymbolicName symbolicName;
 
-    /** SymbolicName */
-    std::string symbolicName;
+    /** @copydoc FlexRayOldDlc */
+    FlexRayOldDlc dlc;
 
-    /** DLC */
-    uint8_t dlc;
+    /** @copydoc FlexRayOldDx */
+    FlexRayOldDx data[255];
 
-    /** Data */
-    uint8_t data[255];
+    /** @copydoc FlexRayOldFrameState */
+    FlexRayOldFrameState frameState;
 
-    /** FrameState */
-    uint16_t frameState;
+    /** @copydoc FlexRayOldHeaderBitMask */
+    FlexRayOldHeaderBitMask headerBitMask;
 
-    /** HeaderBitMask */
-    uint8_t headerBitMask;
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static FlexRayOldMessageEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

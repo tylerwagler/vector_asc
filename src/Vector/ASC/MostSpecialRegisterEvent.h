@@ -22,46 +22,43 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST Special Register Event */
-/* <Time> <Channel> Register: <RegSubType> <RegID> <RegValue> */
+/**
+ * MOST Special Register Event
+ *
+ * This event reports the change of an important transceiver register like node position or node ad-
+ * dress. It can occur spontaneous or as result of a read/write operation (see 0).
+ * Directly after measurement start the current values of the special registers are reported even if they
+ * have not changed.
+ */
 class MostSpecialRegisterEvent : public Event
 {
 public:
     MostSpecialRegisterEvent();
     virtual ~MostSpecialRegisterEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** RegSubType */
-    unsigned short regSubType;
+    /** @copydoc MostRegSubType */
+    MostRegSubType regSubType;
 
-    /** RegID */
-    unsigned short regId;
+    /** @copydoc MostRegId */
+    MostRegId regId;
 
-    /** RegValue */
-    unsigned short regValue;
+    /** @copydoc MostRegValue */
+    MostRegValue regValue;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostSpecialRegisterEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

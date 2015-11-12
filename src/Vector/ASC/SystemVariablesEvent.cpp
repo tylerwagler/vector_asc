@@ -54,7 +54,7 @@ SystemVariablesEvent * SystemVariablesEvent::parse(File & file, std::string & li
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         SystemVariablesEvent * systemVariablesEvent = new SystemVariablesEvent;
-        systemVariablesEvent->time = std::stof(match[1]);
+        systemVariablesEvent->time = std::stod(match[1]);
         switch (std::stoul(match[2])) {
         case 1:
             systemVariablesEvent->svtype = Svtype::Float;

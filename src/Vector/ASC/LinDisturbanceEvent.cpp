@@ -28,7 +28,7 @@ namespace ASC {
 LinDisturbanceEvent::LinDisturbanceEvent() :
     Event(),
     time(0.0),
-    channel(),
+    channel(0),
     disturbanceType(),
     byteIndex(0),
     bitIndex(0),
@@ -50,7 +50,7 @@ LinDisturbanceEvent * LinDisturbanceEvent::parse(File & file, std::string & line
                 "^([[:digit:].]+)"
                 " L([[:alnum:]]+)"
                 " DisturbanceEvent"
-                " Type = (.+)"
+                " Type = (dominant|recessive|header|bitstream|variableBitstream)"
                 " ByteIndex = ([[:digit:]]+)"
                 " BitIndex = ([[:digit:]]+)"
                 " BitOffset = ([[:digit:]]+)"
@@ -60,9 +60,22 @@ LinDisturbanceEvent * LinDisturbanceEvent::parse(File & file, std::string & line
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinDisturbanceEvent * linDisturbanceEvent = new LinDisturbanceEvent;
-        linDisturbanceEvent->time = std::stof(match[1]);
-        linDisturbanceEvent->channel = match[2];
-        linDisturbanceEvent->disturbanceType = match[3];
+        linDisturbanceEvent->time = std::stod(match[1]);
+        linDisturbanceEvent->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
+        if (match[3] == "dominant")
+            linDisturbanceEvent->disturbanceType = LinDisturbanceType::Dominant;
+        else
+        if (match[3] == "recessive")
+            linDisturbanceEvent->disturbanceType = LinDisturbanceType::Recessive;
+        else
+        if (match[3] == "header")
+            linDisturbanceEvent->disturbanceType = LinDisturbanceType::Header;
+        else
+        if (match[3] == "bitstream")
+            linDisturbanceEvent->disturbanceType = LinDisturbanceType::Bitstream;
+        else
+        if (match[3] == "variableBitstream")
+            linDisturbanceEvent->disturbanceType = LinDisturbanceType::VariableBitstream;
         linDisturbanceEvent->byteIndex = std::stoul(match[4]);
         linDisturbanceEvent->bitIndex = std::stoul(match[5]);
         linDisturbanceEvent->bitOffset = std::stoul(match[6]);

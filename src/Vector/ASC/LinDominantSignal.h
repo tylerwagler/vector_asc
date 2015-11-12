@@ -22,55 +22,44 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Dominant Signal */
-/* <Time> <Channel> Dominant signal <DomSigType> <DomSigLength> microseconds */
-/* <Time> <Channel> Dominant signal <DomSigState> <DomSigLength> microseconds SOF = <start of
- * frame> BR = <baudrate> */
+/**
+ * LIN Dominant Signal
+ *
+ * A dominant signal event occurs when a LIN channel remains in the dominant state for a time,
+ * which is longer than a valid wakeup frame and not a valid sync break.
+ */
 class LinDominantSignal : public Event
 {
 public:
     LinDominantSignal();
     virtual ~LinDominantSignal();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** DomSigType */
-    std::string domSigType;
+    /** @copydoc LinDomSigState */
+    LinDomSigState domSigState;
 
-    /** DomSigLength */
-    uint16_t domSigLength;
+    /** @copydoc LinDomSigLength */
+    LinDomSigLength domSigLength;
 
+    /** @copydoc LinStartOfFrame */
+    LinStartOfFrame startOfFrame;
 
-    /** DomSigState */
-    std::string domSigState;
+    /** @copydoc LinBaudrateType */
+    LinBaudrateType baudrate;
 
-    /** start of frame (SOF) */
-    float startOfFrame;
-
-    /** baudrate (BR) */
-    uint16_t baudrate;
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinDominantSignal * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

@@ -22,60 +22,46 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Wakeup Frame */
-/* <Time> <Channel> WakeupFrame <Dir> <WakeupByte> */
-/* <Time> <Channel> WakeupFrame <Dir> <WakeupByte> SOF = <start of frame> BR = <baudrate>
- * LengthCode = <WakeupLengthInfo> */
+/**
+ * LIN Wakeup Frame
+ *
+ * A Wakeup-Frame event is displayed when a wakeup request has been detected on a LIN channel.
+ */
 class LinWakeupFrame : public Event
 {
 public:
     LinWakeupFrame();
     virtual ~LinWakeupFrame();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    double time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
+    /** @copydoc LinDir */
+    LinDir dir;
 
-    Dir dir;
+    /** @copydoc LinWakeupByte */
+    LinWakeupByte wakeupByte;
 
-    /** WakeupBytes */
-    uint16_t wakeupBytes;
+    /** @copydoc LinStartOfFrame */
+    LinStartOfFrame startOfFrame;
 
+    /** @copydoc LinBaudrateType */
+    LinBaudrateType baudrate;
 
-    /** start of frame (SOF) */
-    float startOfFrame;
+    /** @copydoc LinWakeupLengthInfo */
+    LinWakeupLengthInfo wakeupLengthInfo;
 
-    /** baudrate (BR) */
-    uint16_t baudrate;
-
-    /** WakeupLengthInfo */
-    uint16_t wakeupLengthInfo;
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinWakeupFrame * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

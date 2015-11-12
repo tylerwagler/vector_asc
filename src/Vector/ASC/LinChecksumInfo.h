@@ -22,43 +22,39 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Checksum Info */
-/* <Time> <Channel> <ID> CSInfo <checksum model info> */
+/**
+ * LIN Checksum Info
+ *
+ * This info event is displayed when the LIN hardware successfully detected the checksum model of
+ * an unknown frame. This checksum model is set as the expected checksum model for this frame.
+ * An error is displayed if the same frame is received with a different checksum model.
+ */
 class LinChecksumInfo : public Event
 {
 public:
     LinChecksumInfo();
     virtual ~LinChecksumInfo();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** ID */
-    uint16_t id;
+    /** @copydoc LinId */
+    LinId id;
 
-    /** checksum model info */
-    std::string checksumModelInfo;
+    /** @copydoc LinChecksumModelInfo */
+    LinChecksumModelInfo checksumModelInfo;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinChecksumInfo * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

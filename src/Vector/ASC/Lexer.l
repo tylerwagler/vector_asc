@@ -147,10 +147,11 @@ MOST_AT150Size [[:xdigit:]]{4}
 MOST_CAck [[:xdigit:]]{2}
 MOST_Cack {MOST_CAck}
 MOST_Channel "M"[[:xdigit:]]{1,2}
+MOST_CodingErrors [[:xdigit:]]{6}
 MOST_CRC [[:xdigit:]]{1,5}
 MOST_CRC2 [[:xdigit:]]{4}
 MOST_CRC4 [[:xdigit:]]{8}
-    // MOST_Dx [[:xdigit:]]{2}
+MOST_DxAT [[:xdigit:]]{2}
 MOST_DestAdr [[:xdigit:]]{1,5}
 MOST_DestMacAdr [[:xdigit:]]{12}
 MOST_Dir ("Rx"|"Tx"|"TxRq")
@@ -411,13 +412,13 @@ TPDiag_byteSequence (" "[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::MostTriggerEvent; }
 ^{MOST_Time}" "{MOST_Channel}" MostStatistic: Fr: "{MOST_StatVal}" Lt: "{MOST_StatVal}" Bl: "{MOST_StatVal}" Pk: "{MOST_StatVal}\r?$ {
     return Vector::ASC::Event::EventType::MostStatisticEvent; }
-^{MOST_Time}" "{MOST_Channel}" StatEx: "[[:xdigit:]]{6}" "[[:xdigit:]]{6}\r?$ {
+^{MOST_Time}" "{MOST_Channel}" StatEx: "{MOST_CodingErrors}" "{MOST_FrameCounter}\r?$ {
     return Vector::ASC::Event::EventType::MostStatisticExtendedEvent; }
 ^{MOST_Time}" "{MOST_Channel}" TxLight: "{MOST_TxLightState}\r?$ {
     return Vector::ASC::Event::EventType::MostTxLight; }
 ^{MOST_Time}" "{MOST_Channel}" Stress: "{MOST_StressMode}" "{MOST_StressState}\r?$ {
     return Vector::ASC::Event::EventType::MostStressEvent; }
-^{MOST_Time}" "{MOST_Channel}" AllocTab: "{MOST_AllocTableSize}(" "{MOST_Dx})*\r?$ {
+^{MOST_Time}" "{MOST_Channel}" AllocTab: "{MOST_AllocTableSize}(" "{MOST_DxAT})*\r?$ {
     return Vector::ASC::Event::EventType::Most25AllocTable; }
 ^{MOST_Time}" "{MOST_Channel}" Msg150: "{MOST_Dir}" "{MOST_SourceAdr}" "{MOST_DestAdr}" "{MOST_State}" "{MOST_AckNack}" "{MOST_TransferType}" "{MOST_Pack}" "{MOST_Priority}" "{MOST_Pindex}" "{MOST_CRC2}" "{MOST_Cack}" "{MOST_RsvdUL}" "{MOST_Msg150Len}(" "{MOST_Dx})+\r?$ {
     return Vector::ASC::Event::EventType::Most150ControlMessage; }

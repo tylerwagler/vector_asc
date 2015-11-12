@@ -22,43 +22,37 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST Stress Event */
-/* <Time> <Channel> Stress: <StressMode> <StressState> */
+/**
+ * MOST Stress Event
+ *
+ * Information about Stress activity of VN2600/2610 Hardware
+ */
 class MostStressEvent : public Event
 {
 public:
     MostStressEvent();
     virtual ~MostStressEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    double time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** StressMode */
-    unsigned short stressMode;
+    /** @copydoc MostStressMode */
+    MostStressMode stressMode;
 
-    /** StressState */
-    unsigned short stressState;
+    /** @copydoc MostStressState */
+    MostStressState stressState;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostStressEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

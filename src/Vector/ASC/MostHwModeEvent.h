@@ -22,43 +22,40 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST HW Mode Event */
-/*  <Time> <Channel> HWMode: <HWMode> <HWModeMask> */
+/**
+ * MOST HW Mode Event
+ *
+ * This event is fired when one or more HW state changes. HW states are the AllBypass bit (ABY of
+ * OS8104), the Master/Slave selection (MTR of OS8104), the Control spy and the Asynchronous
+ * spy. The event transports all states even if only a single state has changed. <HWModeMask> de-
+ * notes which state differs regarding to the previous HW mode event.
+ */
 class MostHwModeEvent : public Event
 {
 public:
     MostHwModeEvent();
     virtual ~MostHwModeEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** HWMode */
-    unsigned short hwMode;
+    /** @copydoc MostHwMode */
+    MostHwMode hwMode;
 
-    /** HWModeMask */
-    unsigned short hwModeMask;
+    /** @copydoc MostHwModeMask */
+    MostHwModeMask hwModeMask;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostHwModeEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

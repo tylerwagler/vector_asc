@@ -50,7 +50,7 @@ MostStatisticExtendedEvent * MostStatisticExtendedEvent::parse(File & file, std:
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostStatisticExtendedEvent * mostStatisticExtendedEvent = new MostStatisticExtendedEvent;
-        mostStatisticExtendedEvent->time = std::stof(match[1]);
+        mostStatisticExtendedEvent->time = std::stod(match[1]);
         mostStatisticExtendedEvent->channel = std::stoul(match[2]);
         mostStatisticExtendedEvent->codingErrors = std::stoul(match[3], nullptr, 16);
         mostStatisticExtendedEvent->frameCounter = std::stoul(match[4], nullptr, 16);

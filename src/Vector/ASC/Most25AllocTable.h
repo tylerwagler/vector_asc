@@ -22,43 +22,43 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST25 Alloc Table */
-/*  <Time> <Channel> AllocTab: <AllocTableSize> <D0>... <DallocTableSize-1> */
+/**
+ * MOST25 Alloc Table
+ *
+ * The event transports the current Allocation Table of the connected hardware interface.
+ *
+ * The label of a synchronous connection can be distributed over several bytes in the Allocation Ta-
+ * ble. Each byte <Dx> contains a value that specifies the identification number of the label it belongs
+ * to. If the device is a timing master, the MSB of the byte value is used to indicate if the label is in
+ * use or not, otherwise the MSB should be ignored. The label number thus can be determined by byte
+ * value & 0x7F. If the resulting label number is 0x70, the byte is not used for any label.
+ */
 class Most25AllocTable : public Event
 {
 public:
     Most25AllocTable();
     virtual ~Most25AllocTable();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** AllocTableSize */
-    unsigned short allocTableSize;
+    /** @copydoc MostAllocTableSize */
+    MostAllocTableSize allocTableSize;
 
-    /** Data */
-    unsigned short data[1024];
+    /** @copydoc MostDx */
+    MostDx data[1024];
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static Most25AllocTable * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

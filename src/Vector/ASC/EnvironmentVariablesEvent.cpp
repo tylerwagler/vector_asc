@@ -48,7 +48,7 @@ EnvironmentVariablesEvent * EnvironmentVariablesEvent::parse(File & file, std::s
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         EnvironmentVariablesEvent * environmentVariablesEvent = new EnvironmentVariablesEvent;
-        environmentVariablesEvent->time = std::stof(match[1]);
+        environmentVariablesEvent->time = std::stod(match[1]);
         environmentVariablesEvent->evname = match[2];
         environmentVariablesEvent->value = match[3];
         return environmentVariablesEvent;

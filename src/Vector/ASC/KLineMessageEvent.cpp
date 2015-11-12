@@ -31,8 +31,8 @@ KLineMessageEvent::KLineMessageEvent() :
     port(),
     direction(Dir::Rx),
     baudrate(0),
-    source(0),
-    destination(0),
+    source(),
+    destination(),
     length(0),
     data()
 {
@@ -48,28 +48,32 @@ KLineMessageEvent * KLineMessageEvent::parse(File & file, std::string & line)
     std::regex regex(
                 "^// K-Line:"
                 " ([[:digit:].]+)"
-                " (COM[[:digit:]]+)"
+                " ((COM|KL)[[:digit:]])"
                 " (Rx|Tx)"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:digit:]]+)"
-                "(( [[:xdigit:]]+)*)$");
+                " ([[:digit:]]{1,6})"
+                " ([[:alnum:]]+)"
+                " ([[:alnum:]]+)"
+                " ([[:digit:]]{1,4})"
+                "(( [[:xdigit:]]{1,3})*)$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         KLineMessageEvent * kLineMessageEvent = new KLineMessageEvent;
-        kLineMessageEvent->time = std::stof(match[1]);
+        kLineMessageEvent->time = std::stod(match[1]);
         kLineMessageEvent->port = match[2];
-        if (match[3] == "Rx")
+        if (match[4] == "Rx")
                 kLineMessageEvent->direction = Dir::Rx;
-        if (match[3] == "Tx")
+        else
+        if (match[4] == "Tx")
                 kLineMessageEvent->direction = Dir::Tx;
-        kLineMessageEvent->baudrate = std::stoul(match[4]);
-        kLineMessageEvent->source = std::stoul(match[5], nullptr, 16);
-        kLineMessageEvent->destination = std::stoul(match[6], nullptr, 16);
-        kLineMessageEvent->length = std::stoul(match[7]);
-        std::istringstream iss(match[8]);
-        iss >> std::hex;
+        kLineMessageEvent->baudrate = std::stoul(match[5]);
+        kLineMessageEvent->source = match[6];
+        kLineMessageEvent->destination = match[7];
+        kLineMessageEvent->length = std::stoul(match[8]);
+        std::istringstream iss(match[9]);
+        if (file.base == 10)
+            iss >> std::dec;
+        if (file.base == 16)
+            iss >> std::hex;
         for (uint8_t i = 0; i < kLineMessageEvent->length; ++i) {
             unsigned short s;
             iss >> s;

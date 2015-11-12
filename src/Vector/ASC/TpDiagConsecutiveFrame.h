@@ -22,6 +22,7 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
@@ -33,11 +34,11 @@ public:
     TpDiagConsecutiveFrame();
     virtual ~TpDiagConsecutiveFrame();
 
-    /** Sequence number */
-    uint8_t sn;
+    /** @copydoc TpDiagSn */
+    TpDiagSn sn;
 
-    /** Bytes transported within this CAN message */
-    uint8_t transportedBytes[7];
+    /** @copydoc TpDiagTransportedBytes */
+    TpDiagTransportedBytes transportedBytes[7];
 
     /** @copydoc Event::parse() */
     static TpDiagConsecutiveFrame * parse(File & file, std::string & line);

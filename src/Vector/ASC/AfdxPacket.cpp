@@ -44,25 +44,26 @@ AfdxPacket * AfdxPacket::parse(File & file, std::string & line)
     std::regex regex(
                 "^([[:digit:].]+)"
                 " AFDX"
-                " ([[:digit:]]+)"
+                " ([[:xdigit:]]{1,3})"
                 " (Rx|Tx)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+):([[:xdigit:]]*)$");
+                " ([[:xdigit:]]{1,3})"
+                " ([[:xdigit:]]{1,5})"
+                " ([[:xdigit:]]+)"
+                " ([[:xdigit:]]{1,4}):([[:xdigit:]]*)$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         AfdxPacket * afdxPacket = new AfdxPacket;
-        afdxPacket->time = std::stof(match[1]);
-        afdxPacket->channel = std::stoul(match[2]);
+        afdxPacket->time = std::stod(match[1]);
+        afdxPacket->channel = std::stoul(match[2], nullptr, file.base);
         if (match[3] == "Rx")
                 afdxPacket->dir = Dir::Rx;
+        else
         if (match[3] == "Tx")
                 afdxPacket->dir = Dir::Tx;
-        afdxPacket->ethChannel = std::stoul(match[4], nullptr, 16);
-        afdxPacket->flags = std::stoul(match[5]);
-        afdxPacket->bag = std::stoul(match[6], nullptr, 16);
-        afdxPacket->dataLen = std::stoul(match[7], nullptr, 16);
+        afdxPacket->ethChannel = std::stoul(match[4], nullptr, file.base);
+        afdxPacket->flags = std::stoul(match[5], nullptr, file.base);
+        afdxPacket->bag = std::stoul(match[6], nullptr, file.base);
+        afdxPacket->dataLen = std::stoul(match[7], nullptr, file.base);
         for (int i = 0; i < afdxPacket->dataLen; ++i) {
             std::string s;
             s.append(match[8], 2*i, 2);

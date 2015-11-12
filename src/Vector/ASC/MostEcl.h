@@ -22,43 +22,37 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST ECL */
-/* <Time> <Channel> Ecl: <EclMode> <EclState> */
+/**
+ * MOST ECL
+ *
+ * State change of the MOST Electrical Control Line.
+ */
 class MostEcl : public Event
 {
 public:
     MostEcl();
     virtual ~MostEcl();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** EclMode */
-    unsigned short eclMode;
+    /** @copydoc MostEclMode */
+    MostEclMode eclMode;
 
-    /** EclState */
-    unsigned short eclState;
+    /** @copydoc MostEclState */
+    MostEclState eclState;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostEcl * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

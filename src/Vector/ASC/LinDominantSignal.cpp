@@ -28,10 +28,9 @@ namespace ASC {
 LinDominantSignal::LinDominantSignal() :
     Event(),
     time(0.0),
-    channel(),
-    domSigType(),
-    domSigLength(0),
+    channel(0),
     domSigState(),
+    domSigLength(0),
     startOfFrame(0.0),
     baudrate(0)
 {
@@ -47,18 +46,23 @@ LinDominantSignal * LinDominantSignal::parse(File & file, std::string & line)
     std::regex regex(
                 "^([[:digit:].]+)"
                 " L([[:alnum:]]+)"
-                " Dominant signal (detected|finished)"
+                " Dominant signal (detected|continuing|finished)"
                 " ([[:digit:]]+) microseconds"
                 "( SOF = ([[:digit:].]+))?"
                 "( BR = ([[:digit:]]+))?$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinDominantSignal * linDominantSignal = new LinDominantSignal;
-        linDominantSignal->time = std::stof(match[1]);
-        linDominantSignal->channel = match[2];
-        linDominantSignal->domSigType = match[3];
+        linDominantSignal->time = std::stod(match[1]);
+        linDominantSignal->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
+        if (match[3] == "detected")
+            linDominantSignal->domSigState = LinDomSigState::Detected;
+        if (match[3] == "continuing")
+            linDominantSignal->domSigState = LinDomSigState::Continuing;
+        if (match[3] == "finished")
+            linDominantSignal->domSigState = LinDomSigState::Finished;
         linDominantSignal->domSigLength = std::stoul(match[4]);
-        linDominantSignal->startOfFrame = std::stof(match[6]);
+        linDominantSignal->startOfFrame = std::stod(match[6]);
         linDominantSignal->baudrate = std::stoul(match[8]);
         return linDominantSignal;
     }

@@ -22,95 +22,88 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Short or slow response */
-/* <Time> <Channel> <ID> <DLC> ShortOrSlowResponse: NumRespBytes = <NumberOfResponseBytes>
- * <D0>...<D8> SlowResponse = <IsSlowResponse> InterruptedByBreak = <ResponseWasInterruptedBy-
- * Break> SOF = <start of frame> BR = <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD>
- * <MessageId> <SupplierId>) EOH = <end of header> EOB = <T0> ... <T8> HBR = <header baudrate>
- * HSO = <stop bit offset in header> CSM = <checksum model> */
+/**
+ * LIN Short or slow response
+ *
+ * This event occurs if a set of receive errors could be a valid header followed by a short or slow re-
+ * sponse.
+ *
+ * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
+ */
 class LinShortOrSlowResponse : public Event
 {
 public:
     LinShortOrSlowResponse();
     virtual ~LinShortOrSlowResponse();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** ID */
-    uint8_t id;
+    /** @copydoc LinId */
+    LinId id;
 
-    /** DLC */
-    uint8_t dlc;
+    /** @copydoc LinDlc */
+    LinDlc dlc;
 
-    /** NumberOfResponseBytes */
-    uint8_t numberOfResponseBytes;
+    /** @copydoc LinNumberOfResponseBytes */
+    LinNumberOfResponseBytes numberOfResponseBytes;
 
-    /** Data */
-    uint8_t data[9];
+    /** @copydoc LinDx */
+    LinDx data[9];
 
-    /** IsSlowResponse */
-    bool isSlowResponse;
+    /** @copydoc LinIsSlowResponse */
+    LinIsSlowResponse isSlowResponse;
 
-    /** ResponseWasInterruptedByBreak */
-    bool responseWasInterruptedByBreak;
+    /** @copydoc LinResponseWasInterruptedByBreak */
+    LinResponseWasInterruptedByBreak responseWasInterruptedByBreak;
 
-    /** start of frame (SOF) */
-    float startOfFrame;
+    /** @copydoc LinStartOfFrame */
+    LinStartOfFrame startOfFrame;
 
-    /** baudrate (BR) */
-    uint16_t baudrate;
+    /** @copydoc LinBaudrateType */
+    LinBaudrateType baudrate;
 
-    /** SyncBreak */
-    uint32_t syncBreak;
+    /** @copydoc LinSyncBreak */
+    LinSyncBreak syncBreak;
 
-    /** SyncDel */
-    uint32_t syncDel;
+    /** @copydoc LinSyncDel */
+    LinSyncDel syncDel;
 
-    /** subId (NAD) */
-    uint8_t subId;
+    /** @copydoc LinNad */
+    LinNad nad;
 
-    /** MessageId */
-    uint8_t messageId;
+    /** @copydoc LinMessageId */
+    LinMessageId messageId;
 
-    /** SupplierId */
-    uint8_t supplierId;
+    /** @copydoc LinSupplierId */
+    LinSupplierId supplierId;
 
-    /** end of header (EOH) */
-    float endOfHeader;
+    /** @copydoc LinEndOfHeader */
+    LinEndOfHeader endOfHeader;
 
-    /** end of byte (EOB) */
-    float endOfByte[8];
+    /** @copydoc LinT */
+    LinT endOfByte[8];
 
-    /** header baudrate (HBR) */
-    float headerBaudrate;
+    /** @copydoc LinHeaderBaudrate */
+    LinHeaderBaudrate headerBaudrate;
 
-    /** stop bit offset in header (HSO) */
-    uint16_t stopBitOffsetInHeader;
+    /** @copydoc LinStopBitOffsetInHeader */
+    LinStopBitOffsetInHeader stopBitOffsetInHeader;
 
-    /** checksum model (CSM) */
-    std::string checksumModel;
+    /** @copydoc LinChecksumModel */
+    LinChecksumModel checksumModel;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinShortOrSlowResponse * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

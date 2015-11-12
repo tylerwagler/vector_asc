@@ -22,46 +22,43 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Event Triggered Frame Info */
-/* <Time> <Channel> <ID> EvTrigFrmInfo <ETFName> <description> */
+/**
+ * LIN Event Triggered Frame Info
+ *
+ * This info event is displayed when an event triggered frame is received or transmitted on a LIN
+ * channel.
+ *
+ * IMPORTANT: This event is generated up to CANoe/CANalyzer 5.2 only.
+ */
 class LinEventTriggeredFrameInfo : public Event
 {
 public:
     LinEventTriggeredFrameInfo();
     virtual ~LinEventTriggeredFrameInfo();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** ID */
-    uint16_t id;
+    /** @copydoc LinId */
+    LinId id;
 
-    /** ETFName */
-    std::string etfName;
+    /** @copydoc LinEtfName */
+    LinEtfName etfName;
 
-    /** description */
-    std::string description;
+    /** @copydoc LinDescription */
+    LinDescription description;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinEventTriggeredFrameInfo * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

@@ -29,7 +29,7 @@ MostSystemEvent::MostSystemEvent() :
     Event(),
     time(0.0),
     channel(0),
-    sysId(0),
+    sysId(MostSysId::SystemLock),
     sysValue(0),
     sysValueOld(0)
 {
@@ -52,9 +52,19 @@ MostSystemEvent * MostSystemEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostSystemEvent * mostSystemEvent = new MostSystemEvent;
-        mostSystemEvent->time = std::stof(match[1]);
+        mostSystemEvent->time = std::stod(match[1]);
         mostSystemEvent->channel = std::stoul(match[2]);
-        mostSystemEvent->sysId = std::stoul(match[3], nullptr, 16);
+        switch(std::stoul(match[3])) {
+        case 1:
+            mostSystemEvent->sysId = MostSysId::SystemLock;
+            break;
+        case 2:
+            mostSystemEvent->sysId = MostSysId::ShutdownFlag;
+            break;
+        case 3:
+            mostSystemEvent->sysId = MostSysId::ShutdownReason;
+            break;
+        }
         mostSystemEvent->sysValue = std::stoul(match[4], nullptr, 16);
         mostSystemEvent->sysValueOld = std::stoul(match[5], nullptr, 16);
         return mostSystemEvent;

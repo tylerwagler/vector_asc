@@ -43,7 +43,7 @@ TpDiagRequest * TpDiagRequest::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         TpDiagRequest * tpDiagRequest = new TpDiagRequest;
-        tpDiagRequest->time = std::stof(match[1]);
+        tpDiagRequest->time = std::stod(match[1]);
         tpDiagRequest->ecuQualifier = match[2];
         std::istringstream iss(match[3]);
         iss >> std::hex;

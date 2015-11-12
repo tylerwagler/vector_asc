@@ -58,13 +58,13 @@ LinSyncError * LinSyncError::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinSyncError * linSyncError = new LinSyncError;
-        linSyncError->time = std::stof(match[1]);
+        linSyncError->time = std::stod(match[1]);
         linSyncError->channel = std::stoul(match[2]);
         linSyncError->timeInterval[0] = std::stoul(match[3]);
         linSyncError->timeInterval[1] = std::stoul(match[4]);
         linSyncError->timeInterval[2] = std::stoul(match[5]);
         linSyncError->timeInterval[3] = std::stoul(match[6]);
-        linSyncError->startOfFrame = std::stof(match[8]);
+        linSyncError->startOfFrame = std::stod(match[8]);
         linSyncError->baudrate = std::stoul(match[10]);
         linSyncError->syncBreak = std::stoul(match[12]);
         linSyncError->syncDel = std::stoul(match[13]);

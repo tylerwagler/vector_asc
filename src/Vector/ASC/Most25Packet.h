@@ -22,72 +22,61 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST25 Packet */
-/* <Time> <Channel> Pkt: <Dir> <SourceAdr> <DestAdr> <PktState> <TransferType> <PktPrio> <PktArbitr> <CRC2> <PktLen> <D0> <D1> ... <D(PktLen-1)> */
+/**
+ * MOST25 Packet
+ *
+ * Message on MOST25 Packet Data Channel.
+ */
 class Most25Packet : public Event
 {
 public:
     Most25Packet();
     virtual ~Most25Packet();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
+    /** @copydoc MostDir */
+    MostDir dir;
 
-    Dir dir;
+    /** @copydoc MostSourceAdr */
+    MostSourceAdr sourceAdr;
 
-    /** SourceAdr */
-    unsigned short sourceAdr;
+    /** @copydoc MostDestAdr */
+    MostDestAdr destAdr;
 
-    /** DestAdr */
-    unsigned short destAdr;
+    /** @copydoc MostPktState */
+    MostPktState pktState;
 
-    /** PktState */
-    unsigned short pktState;
+    /** @copydoc MostTransferType */
+    MostTransferType transferType;
 
-    /** TransferType */
-    unsigned short transferType;
+    /** @copydoc MostPktPrio */
+    MostPktPrio pktPrio;
 
-    /** PktPrio */
-    unsigned short pktPrio;
+    /** @copydoc MostPktArbitr */
+    MostPktArbitr pktArbitr;
 
-    /** PktArbitr */
-    unsigned short pktArbitr;
+    /** @copydoc MostCrc2 */
+    MostCrc2 crc2;
 
-    /** CRC2 */
-    unsigned short crc2;
+    /** @copydoc MostPktLen */
+    MostPktLen pktLen;
 
-    /** PktLen */
-    unsigned short pktLen;
+    /** @copydoc MostDx */
+    MostDx data[1024];
 
-    /** Data */
-    unsigned short data[1024];
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static Most25Packet * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

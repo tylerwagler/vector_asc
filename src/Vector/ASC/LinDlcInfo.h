@@ -22,43 +22,42 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN DLC Info */
-/* <Time> <Channel> <ID> DlcInfo <DLC> */
+/**
+ * LIN DLC Info
+ *
+ * This info event is only displayed when an external Master is configured and the LIN hardware
+ * successfully detected the DLC of an unknown frame. This DLC value is set as the expected DLC
+ * value for this frame. An error is displayed if the same frame is received with a different DLC.
+ *
+ * If the master mode of LIN hardware is activated and a frame’s DLC is not specified, then the DLC
+ * is determined using the frame’s identifier.
+ */
 class LinDlcInfo : public Event
 {
 public:
     LinDlcInfo();
     virtual ~LinDlcInfo();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** ID */
-    uint16_t id;
+    /** @copydoc LinId */
+    LinId id;
 
-    /** DLC */
-    uint8_t dlc;
+    /** @copydoc LinDlc */
+    LinDlc dlc;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinDlcInfo * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

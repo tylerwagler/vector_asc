@@ -34,7 +34,7 @@ MostEthernetPacket::MostEthernetPacket() :
     destMacAdr(0),
     state(0),
     ackNack(0),
-    transferType(0),
+    transferType(MostTransferType::Node),
     pAck(0),
     crc4(0),
     cAck(0),
@@ -70,17 +70,25 @@ MostEthernetPacket * MostEthernetPacket::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostEthernetPacket * mostEthernetPacket = new MostEthernetPacket;
-        mostEthernetPacket->time = std::stof(match[1]);
+        mostEthernetPacket->time = std::stod(match[1]);
         mostEthernetPacket->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
                 mostEthernetPacket->dir = Dir::Rx;
+        else
         if (match[3] == "Tx")
                 mostEthernetPacket->dir = Dir::Tx;
         mostEthernetPacket->sourceMacAdr = std::stoul(match[4], nullptr, 16);
         mostEthernetPacket->destMacAdr = std::stoul(match[5], nullptr, 16);
         mostEthernetPacket->state = std::stoul(match[6], nullptr, 16);
         mostEthernetPacket->ackNack = std::stoul(match[7], nullptr, 16);
-        mostEthernetPacket->transferType = std::stoul(match[8], nullptr, 16);
+        switch(std::stoul(match[8])) {
+        case 1:
+            mostEthernetPacket->transferType = MostTransferType::Node;
+            break;
+        case 2:
+            mostEthernetPacket->transferType = MostTransferType::Spy;
+            break;
+        }
         mostEthernetPacket->pAck = std::stoul(match[9], nullptr, 16);
         mostEthernetPacket->crc4 = std::stoul(match[10], nullptr, 16);
         mostEthernetPacket->cAck = std::stoul(match[11], nullptr, 16);

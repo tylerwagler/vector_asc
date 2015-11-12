@@ -53,11 +53,13 @@ MacroSignalEvent * MacroSignalEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MacroSignalEvent * macroSignalEvent = new MacroSignalEvent;
-        macroSignalEvent->time = std::stof(match[1]);
+        macroSignalEvent->time = std::stod(match[1]);
         if (match[2] == "F")
             macroSignalEvent->bussystem = Vector::ASC::MacroSignalEvent::Bussystem::FlexRay;
+        else
         if (match[2] == "L")
             macroSignalEvent->bussystem = Vector::ASC::MacroSignalEvent::Bussystem::Lin;
+        else
         if (match[2] == "")
             macroSignalEvent->bussystem = Vector::ASC::MacroSignalEvent::Bussystem::Can;
         macroSignalEvent->channel = std::stoul(match[3]);

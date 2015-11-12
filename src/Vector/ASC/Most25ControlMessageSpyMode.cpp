@@ -60,7 +60,7 @@ Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::parse(File & file, st
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most25ControlMessageSpyMode * most25ControlMessageSpyMode = new Most25ControlMessageSpyMode;
-        most25ControlMessageSpyMode->time = std::stof(match[1]);
+        most25ControlMessageSpyMode->time = std::stod(match[1]);
         most25ControlMessageSpyMode->channel = std::stoul(match[2]);
         most25ControlMessageSpyMode->sourceAdr = std::stoul(match[3], nullptr, 16);
         most25ControlMessageSpyMode->destAdr = std::stoul(match[4], nullptr, 16);

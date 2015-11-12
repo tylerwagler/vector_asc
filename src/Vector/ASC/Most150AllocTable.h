@@ -22,49 +22,43 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST50/150 Allocation Table */
-/* <Time> <Channel> AT150: <AT150EventModeFlags> <FreeBytes> <AT150Size> <W0>... <WAT150Size-1> */
+/**
+ * MOST50/150 Allocation Table
+ *
+ * The event transports the current state and changes of the MOST50/MOST150 Allocation Table.
+ */
 class Most150AllocTable : public Event
 {
 public:
     Most150AllocTable();
     virtual ~Most150AllocTable();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** AT150EventModeFlags */
-    unsigned short at150EventModeFlags;
+    /** @copydoc MostAt150EventModeFlags */
+    MostAt150EventModeFlags at150EventModeFlags;
 
-    /** FreeBytes */
-    unsigned short freeBytes;
+    /** @copydoc MostFreeBytes */
+    MostFreeBytes freeBytes;
 
-    /** AT150Size */
-    unsigned short at150Size;
+    /** @copydoc MostAt150Size */
+    MostAt150Size at150Size;
 
-    /** W */
-    unsigned short w[1024];
+    /** @copydoc MostWx */
+    MostWx w[1024];
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static Most150AllocTable * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

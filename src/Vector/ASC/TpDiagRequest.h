@@ -22,6 +22,7 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
@@ -32,14 +33,14 @@ class TpDiagRequest : public Event
 public:
     TpDiagRequest();
 
-    /** Standard trace time stamp */
-    double time;
+    /** @copydoc TpDiagTimestamp */
+    TpDiagTimestamp time;
 
-    /** Unique identifier of the diagnostic description */
-    std::string ecuQualifier;
+    /** @copydoc TpDiagEcuQualifier */
+    TpDiagEcuQualifier ecuQualifier;
 
-    /** Representation of the byte sent to the ECU by the tester */
-    uint8_t byteSequence[8];
+    /** @copydoc TpDiagByteSequence */
+    TpDiagByteSequence byteSequence[8];
 
     /** @copydoc Event::parse() */
     static TpDiagRequest * parse(File & file, std::string & line);

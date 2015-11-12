@@ -49,28 +49,33 @@ CanMessageEvent * CanMessageEvent::parse(File & file, std::string & line)
 {
     std::regex regex(
                 "^([[:digit:].]+)"
-                " ([[:digit:]]+)"
+                " ([[:digit:]]{1,5})"
                 " ([[:xdigit:]]+)"
                 " (Rx|Tx)"
                 " d"
-                " ([[:digit:]]+)"
-                "(( [[:digit:]]+){0,8})"
+                " ([[:xdigit:]]{1,2})"
+                "(( [[:xdigit:]]{1,3}){0,8})"
                 "( Length = ([[:digit:]]+))?"
                 "( BitCount = ([[:digit:]]+))?"
-                "( ID = ([[:xdigit:]]+))?"
-                "( (TE|WU|XX))?$");
+                "( (TE|WU|XX))?"
+                "( ID = ([[:xdigit:]]+))?$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanMessageEvent * canMessageEvent = new CanMessageEvent;
-        canMessageEvent->time = std::stof(match[1]);
+        canMessageEvent->time = std::stod(match[1]);
         canMessageEvent->channel = std::stoul(match[2]);
-        canMessageEvent->id = std::stoul(match[3], nullptr, 16);
+        canMessageEvent->id = std::stoul(match[3], nullptr, file.base);
         if (match[4] == "Rx")
                 canMessageEvent->dir = Dir::Rx;
+        else
         if (match[4] == "Tx")
                 canMessageEvent->dir = Dir::Tx;
-        canMessageEvent->dlc = std::stoul(match[5]);
+        canMessageEvent->dlc = std::stoul(match[5], nullptr, file.base);
         std::istringstream iss(match[6]);
+        if (file.base == 10)
+            iss >> std::dec;
+        if (file.base == 16)
+            iss >> std::hex;
         for (uint8_t i = 0; i < canMessageEvent->dlc && i < 8; ++i) {
             unsigned short s;
             iss >> s;
@@ -78,15 +83,17 @@ CanMessageEvent * CanMessageEvent::parse(File & file, std::string & line)
         }
         canMessageEvent->messageDuration = std::stoul(match[9]);
         canMessageEvent->messageLength = std::stoul(match[11]);
-        canMessageEvent->messageId = std::stoul(match[13], nullptr, 16);
-        if (match[15] == " TE")
+        if (match[13] == " TE")
             canMessageEvent->messageFlags.te = true;
-        if (match[15] == " WU")
+        else
+        if (match[13] == " WU")
             canMessageEvent->messageFlags.wu = true;
-        if (match[15] == " XX") {
+        else
+        if (match[13] == " XX") {
             canMessageEvent->messageFlags.te = true;
             canMessageEvent->messageFlags.wu = true;
         }
+        canMessageEvent->messageId = std::stoul(match[15], nullptr, 16);
         return canMessageEvent;
     }
 

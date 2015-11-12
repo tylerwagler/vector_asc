@@ -28,15 +28,13 @@ namespace ASC {
 LinReceiveError::LinReceiveError() :
     Event(),
     time(0.0),
-    channel(),
-    id(0),
+    channel(0),
+    id(),
     dlc(0),
     description(),
     offendingByte(0),
     slaveId(0),
     state(0),
-    headerTime(0),
-    fullTime(0),
     stateReason(0),
     isShortError(false),
     isDlcTimeout(false),
@@ -46,7 +44,7 @@ LinReceiveError::LinReceiveError() :
     baudrate(0),
     syncBreak(0),
     syncDel(0),
-    subId(0),
+    nad(0),
     messageId(0),
     supplierId(0),
     endOfHeader(0.0),
@@ -55,7 +53,7 @@ LinReceiveError::LinReceiveError() :
     headerBaudrate(0.0),
     stopBitOffsetInHeader(0),
     stopBitOffsetInResponse(0),
-    checksumModel()
+    checksumModel(LinChecksumModel::Unknown)
 {
     eventType = EventType::LinReceiveError;
 }
@@ -85,13 +83,13 @@ LinReceiveError * LinReceiveError::parse(File & file, std::string & line)
                 "( RSO = ([[:digit:]]+))?"
                 "( HBR = ([[:digit:].]+))?"
                 "( HSO = ([[:digit:]]+))?"
-                "( CSM = (enhanced))?$");
+                "( CSM = (unknown|classic|enhanced|error))?$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinReceiveError * linReceiveError = new LinReceiveError;
-        linReceiveError->time = std::stof(match[1]);
-        linReceiveError->channel = match[2];
-        linReceiveError->id = std::stoul(match[3], nullptr, 16);
+        linReceiveError->time = std::stod(match[1]);
+        linReceiveError->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
+        linReceiveError->id = match[3];
         linReceiveError->dlc = std::stoul(match[4]);
         linReceiveError->description = match[5];
         linReceiveError->stateReason = std::stoul(match[6], nullptr, 16);
@@ -105,22 +103,32 @@ LinReceiveError * LinReceiveError::parse(File & file, std::string & line)
             iss1 >> s;
             linReceiveError->data[i] = s;
         }
-        linReceiveError->startOfFrame = std::stof(match[13]);
+        linReceiveError->startOfFrame = std::stod(match[13]);
         linReceiveError->baudrate = std::stoul(match[15]);
         linReceiveError->syncBreak = std::stoul(match[17]);
         linReceiveError->syncDel = std::stoul(match[18]);
-        linReceiveError->endOfHeader = std::stof(match[20]);
+        linReceiveError->endOfHeader = std::stod(match[20]);
         std::istringstream iss2(match[22]);
         for (uint8_t i = 0; i < linReceiveError->dlc && i < 8; ++i) {
-            float s;
+            double s;
             iss2 >> s;
             linReceiveError->endOfByte[i] = s;
         }
         linReceiveError->responseBaudrate = std::stoul(match[25]);
         linReceiveError->stopBitOffsetInResponse = std::stoul(match[27]);
-        linReceiveError->headerBaudrate = std::stof(match[29]);
+        linReceiveError->headerBaudrate = std::stod(match[29]);
         linReceiveError->stopBitOffsetInHeader = std::stoul(match[31]);
-        linReceiveError->checksumModel = match[33];
+        if (match[33] == "unknown")
+            linReceiveError->checksumModel = LinChecksumModel::Unknown;
+        else
+        if (match[33] == "classic")
+            linReceiveError->checksumModel = LinChecksumModel::Classic;
+        else
+        if (match[33] == "enhanced")
+            linReceiveError->checksumModel = LinChecksumModel::Enhanced;
+        else
+        if (match[33] == "error")
+            linReceiveError->checksumModel = LinChecksumModel::Error;
         return linReceiveError;
     }
 

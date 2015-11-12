@@ -42,11 +42,11 @@ LogDirectStopEvent * LogDirectStopEvent::parse(File & file, std::string & line)
     std::regex regex(
                 "^([[:digit:].]+)"
                 " log direct stop"
-                " \\(([[:digit:]]+)ms\\)$");
+                " \\(([[:digit:]]{1,10})ms\\)$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LogDirectStopEvent * logDirectStopEvent = new LogDirectStopEvent;
-        logDirectStopEvent->time = std::stof(match[1]);
+        logDirectStopEvent->time = std::stod(match[1]);
         logDirectStopEvent->postTrigger = std::stoul(match[2]);
         return logDirectStopEvent;
     }

@@ -34,7 +34,7 @@ Most150Packet::Most150Packet() :
     destAdr(0),
     state(0),
     ackNack(0),
-    transferType(0),
+    transferType(MostTransferType::Node),
     pAck(0),
     rsvdUc(0),
     pIndex(0),
@@ -74,17 +74,25 @@ Most150Packet * Most150Packet::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most150Packet * most150Packet = new Most150Packet;
-        most150Packet->time = std::stof(match[1]);
+        most150Packet->time = std::stod(match[1]);
         most150Packet->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
                 most150Packet->dir = Dir::Rx;
+        else
         if (match[3] == "Tx")
                 most150Packet->dir = Dir::Tx;
         most150Packet->sourceAdr = std::stoul(match[4], nullptr, 16);
         most150Packet->destAdr = std::stoul(match[5], nullptr, 16);
         most150Packet->state = std::stoul(match[6], nullptr, 16);
         most150Packet->ackNack = std::stoul(match[7], nullptr, 16);
-        most150Packet->transferType = std::stoul(match[8], nullptr, 16);
+        switch(std::stoul(match[16])) {
+        case 1:
+            most150Packet->transferType = MostTransferType::Node;
+            break;
+        case 2:
+            most150Packet->transferType = MostTransferType::Spy;
+            break;
+        }
         most150Packet->pAck = std::stoul(match[9], nullptr, 16);
         most150Packet->rsvdUc = std::stoul(match[10], nullptr, 16);
         most150Packet->pIndex = std::stoul(match[11], nullptr, 16);

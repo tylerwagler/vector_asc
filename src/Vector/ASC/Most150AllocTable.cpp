@@ -54,7 +54,7 @@ Most150AllocTable * Most150AllocTable::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most150AllocTable * most150AllocTable = new Most150AllocTable;
-        most150AllocTable->time = std::stof(match[1]);
+        most150AllocTable->time = std::stod(match[1]);
         most150AllocTable->channel = std::stoul(match[2]);
         most150AllocTable->at150EventModeFlags = std::stoul(match[3], nullptr, 16);
         most150AllocTable->freeBytes = std::stoul(match[4], nullptr, 16);

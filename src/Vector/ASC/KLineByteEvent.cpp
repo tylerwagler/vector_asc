@@ -45,24 +45,28 @@ KLineByteEvent * KLineByteEvent::parse(File & file, std::string & line)
 {
     std::regex regex(
                 "^([[:digit:].]+)"
-                " (COM[[:digit:]]+)"
+                " ((COM|KL)[[:digit:]])"
                 " (Rx|Tx)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                "(( [[:xdigit:]]+)*)$");
+                " ([[:digit:]]{1,6})"
+                " ([[:digit:]]{1,4})"
+                "(( [[:xdigit:]]{1,3})*)$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         KLineByteEvent * kLineByteEvent = new KLineByteEvent;
-        kLineByteEvent->time = std::stof(match[1]);
+        kLineByteEvent->time = std::stod(match[1]);
         kLineByteEvent->port = match[2];
-        if (match[3] == "Rx")
+        if (match[4] == "Rx")
                 kLineByteEvent->direction = Dir::Rx;
-        if (match[3] == "Tx")
+        else
+        if (match[4] == "Tx")
                 kLineByteEvent->direction = Dir::Tx;
-        kLineByteEvent->baudrate = std::stoul(match[4]);
-        kLineByteEvent->length = std::stoul(match[5]);
-        std::istringstream iss(match[6]);
-        iss >> std::hex;
+        kLineByteEvent->baudrate = std::stoul(match[5]);
+        kLineByteEvent->length = std::stoul(match[6]);
+        std::istringstream iss(match[7]);
+        if (file.base == 10)
+            iss >> std::dec;
+        if (file.base == 16)
+            iss >> std::hex;
         for (uint8_t i = 0; i < kLineByteEvent->length; ++i) {
             unsigned short s;
             iss >> s;

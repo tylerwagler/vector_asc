@@ -22,43 +22,39 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Sleep Mode */
-/* <Time> <Channel> SleepModeEvent <simulated> <description text> */
+/**
+ * LIN Sleep Mode
+ *
+ * A Sleep mode event occurs:
+ *   - At the start of a measurement in order to report the initial state of the LIN hardware,
+ *   - Every time the mode (Wakeup or Sleep) of LIN hardware changes.
+ */
 class LinSleepMode : public Event
 {
 public:
     LinSleepMode();
     virtual ~LinSleepMode();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** simulated */
-    bool simulated;
+    /** @copydoc LinSimulated */
+    LinSimulated simulated;
 
-    /** description text */
-    std::string descriptionText;
+    /** @copydoc LinDescription */
+    LinDescription description;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinSleepMode * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

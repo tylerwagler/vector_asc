@@ -68,7 +68,7 @@ FlexRayStatusEvent * FlexRayStatusEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FlexRayStatusEvent * flexRayStatusEvent = new FlexRayStatusEvent;
-        flexRayStatusEvent->time = std::stof(match[1]);
+        flexRayStatusEvent->time = std::stod(match[1]);
         flexRayStatusEvent->clusterNr = std::stoul(match[2]);
         flexRayStatusEvent->clientId = std::stoul(match[3]);
         flexRayStatusEvent->channelNr = std::stoul(match[4]);

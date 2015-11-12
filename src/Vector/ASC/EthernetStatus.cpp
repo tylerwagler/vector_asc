@@ -49,7 +49,7 @@ EthernetStatus * EthernetStatus::parse(File & file, std::string & line)
     std::regex regex(
                 "^([[:digit:].]+)"
                 " ETH"
-                " ([[:digit:]]+)"
+                " ([[:xdigit:]]{1,3})"
                 " STAT"
                 " Link:(.*?)"
                 " LinkSpeed:(.*?)"
@@ -60,8 +60,8 @@ EthernetStatus * EthernetStatus::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         EthernetStatus * ethernetStatus = new EthernetStatus;
-        ethernetStatus->time = std::stof(match[1]);
-        ethernetStatus->channel = std::stoul(match[2]);
+        ethernetStatus->time = std::stod(match[1]);
+        ethernetStatus->channel = std::stoul(match[2], nullptr, file.base);
         ethernetStatus->link = match[3];
         ethernetStatus->linkSpeed = match[4];
         ethernetStatus->physical = match[5];

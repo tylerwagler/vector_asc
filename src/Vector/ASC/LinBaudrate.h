@@ -22,40 +22,38 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Baudrate */
-/* <Time> <Channel> Baudrate <baudrate> */
+/**
+ * LIN Baudrate
+ *
+ * This info event is only displayed when an external Master is configured.
+ * This info event is send by the LIN hardware at the start of a measurement and whenever the baud
+ * rate changes by more than 0.5 % during a measurement. If this info event is displayed, then the
+ *
+ * LIN hardware is synchronized with the baud rate of the external Master.
+ */
 class LinBaudrate : public Event
 {
 public:
     LinBaudrate();
     virtual ~LinBaudrate();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** baudrate */
-    uint16_t baudrate;
+    /** @copydoc LinBaudrateType */
+    LinBaudrateType baudrate;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinBaudrate * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

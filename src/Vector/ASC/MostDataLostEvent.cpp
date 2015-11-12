@@ -32,8 +32,7 @@ MostDataLostEvent::MostDataLostEvent() :
     dlInfo(0),
     dlCtrl(0),
     dlAsync(0),
-    dlTime1(0.0),
-    dlTime2(0.0)
+    dlTime()
 {
     eventType = EventType::MostDataLostEvent;
 }
@@ -56,13 +55,13 @@ MostDataLostEvent * MostDataLostEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostDataLostEvent * mostDataLostEvent = new MostDataLostEvent;
-        mostDataLostEvent->time = std::stof(match[1]);
+        mostDataLostEvent->time = std::stod(match[1]);
         mostDataLostEvent->channel = std::stoul(match[2]);
         mostDataLostEvent->dlInfo = std::stoul(match[3], nullptr, 16);
         mostDataLostEvent->dlCtrl = std::stoul(match[4], nullptr, 16);
         mostDataLostEvent->dlAsync = std::stoul(match[5], nullptr, 16);
-        mostDataLostEvent->dlTime1 = std::stof(match[6]);
-        mostDataLostEvent->dlTime2 = std::stof(match[7]);
+        mostDataLostEvent->dlTime[0] = std::stod(match[6]);
+        mostDataLostEvent->dlTime[1] = std::stod(match[7]);
         return mostDataLostEvent;
     }
 

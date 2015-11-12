@@ -28,7 +28,7 @@ namespace ASC {
 LinStatisticInfo::LinStatisticInfo() :
     Event(),
     time(0.0),
-    channel(),
+    channel(0),
     channelNum(0),
     busLoad(0.0),
     burstsTotal(0),
@@ -60,10 +60,10 @@ LinStatisticInfo * LinStatisticInfo::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinStatisticInfo * linStatisticInfo = new LinStatisticInfo;
-        linStatisticInfo->time = std::stof(match[1]);
-        linStatisticInfo->channel = match[2];
+        linStatisticInfo->time = std::stod(match[1]);
+        linStatisticInfo->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linStatisticInfo->channelNum = std::stoul(match[3]);
-        linStatisticInfo->busLoad = std::stof(match[4]);
+        linStatisticInfo->busLoad = std::stod(match[4]);
         linStatisticInfo->burstsTotal = std::stoul(match[5]);
         linStatisticInfo->burstsOverrun = std::stoul(match[6]);
         linStatisticInfo->framesSent = std::stoul(match[7]);

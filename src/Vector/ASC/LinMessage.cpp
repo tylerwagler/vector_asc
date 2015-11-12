@@ -28,8 +28,8 @@ namespace ASC {
 LinMessage::LinMessage() :
     Event(),
     time(0.0),
-    channel(),
-    id(0),
+    channel(0),
+    id(),
     dir(Dir::Rx),
     dlc(0),
     data(),
@@ -39,14 +39,12 @@ LinMessage::LinMessage() :
     headerTime(0),
     fullTime(0),
     startOfFrame(0.0),
-    syncBreakTime(0),
-    numberSyncBreakBits(0),
-    syncDelimiterTime(0.0),
-    syncDelimiterBits(0),
+    syncBreakTime(),
+    syncDelimiterTime(),
     baudrate(0),
     syncBreak(0),
     syncDel(0),
-    subId(0),
+    nad(0),
     messageId(0),
     supplierId(0),
     endOfHeader(0.0),
@@ -57,7 +55,7 @@ LinMessage::LinMessage() :
     headerBaudrate(0.0),
     stopBitOffsetInHeader(0),
     stopBitOffsetInResponse(0),
-    checksumModel()
+    checksumModel(LinChecksumModel::Unknown)
 {
     eventType = EventType::LinMessage;
 }
@@ -87,15 +85,16 @@ LinMessage * LinMessage::parse(File & file, std::string & line)
                 "( HBR = ([[:digit:].]+))?"
                 "( HSO = ([[:digit:]]+))?"
                 "( RSO = ([[:digit:]]+))?"
-                "( CSM = (enhanced))?$");
+                "( CSM = (unknown|classic|enhanced|error))?$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinMessage * linMessage = new LinMessage;
-        linMessage->time = std::stof(match[1]);
-        linMessage->channel = match[2];
-        linMessage->id = std::stoul(match[3], nullptr, 16);
+        linMessage->time = std::stod(match[1]);
+        linMessage->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
+        linMessage->id = match[3];
         if (match[4] == "Rx")
                 linMessage->dir = Dir::Rx;
+        else
         if (match[4] == "Tx")
                 linMessage->dir = Dir::Tx;
         linMessage->dlc = std::stoul(match[5]);
@@ -109,24 +108,34 @@ LinMessage * LinMessage::parse(File & file, std::string & line)
         linMessage->checksum = std::stoul(match[9]);
         linMessage->headerTime = std::stoul(match[11]);
         linMessage->fullTime = std::stoul(match[12]);
-        linMessage->startOfFrame = std::stof(match[14]);
+        linMessage->startOfFrame = std::stod(match[14]);
         linMessage->baudrate = std::stoul(match[16]);
         linMessage->syncBreak = std::stoul(match[18]);
         linMessage->syncDel = std::stoul(match[19]);
-        linMessage->endOfHeader = std::stof(match[21]);
+        linMessage->endOfHeader = std::stod(match[21]);
         std::istringstream iss2(match[23]);
         for (uint8_t i = 0; i < linMessage->dlc && i < 8; ++i) {
-            float s;
+            double s;
             iss2 >> s;
             linMessage->endOfByte[i] = s;
         }
         linMessage->simulated = (match[26] == '1');
-        linMessage->endOfFrame = std::stof(match[28]);
+        linMessage->endOfFrame = std::stod(match[28]);
         linMessage->responseBaudrate = std::stoul(match[30]);
-        linMessage->headerBaudrate = std::stof(match[32]);
+        linMessage->headerBaudrate = std::stod(match[32]);
         linMessage->stopBitOffsetInHeader = std::stoul(match[34]);
         linMessage->stopBitOffsetInResponse = std::stoul(match[36]);
-        linMessage->checksumModel = match[38];
+        if (match[38] == "unknown")
+            linMessage->checksumModel = LinChecksumModel::Unknown;
+        else
+        if (match[38] == "classic")
+            linMessage->checksumModel = LinChecksumModel::Classic;
+        else
+        if (match[38] == "enhanced")
+            linMessage->checksumModel = LinChecksumModel::Enhanced;
+        else
+        if (match[38] == "error")
+            linMessage->checksumModel = LinChecksumModel::Error;
         return linMessage;
     }
 

@@ -22,46 +22,40 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST System Event */
-/* <Time> <Channel> System: <SysID> <SysValue> <SysValueOld> */
+/**
+ * MOST System Event
+ *
+ * Event for various system states.
+ */
 class MostSystemEvent : public Event
 {
 public:
     MostSystemEvent();
     virtual ~MostSystemEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** SysID */
-    unsigned short sysId;
+    /** @copydoc MostSysId */
+    MostSysId sysId;
 
-    /** SysValue */
-    unsigned short sysValue;
+    /** @copydoc MostSysValue */
+    MostSysValue sysValue;
 
-    /** SysValueOld */
-    unsigned short sysValueOld;
+    /** @copydoc MostSysValueOld */
+    MostSysValueOld sysValueOld;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostSystemEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

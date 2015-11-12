@@ -22,52 +22,47 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST Common Register Event*/
-/* <Time> <Channel> RegData: <RegSubType> <RegChip> <RegOffset> <RegDataLen> <D0>...<D(RegDataLen-1)> */
+/**
+ * MOST Common Register Event
+ *
+ * This event transports a register read or write result (e.g. reading the routing engine of the OS8104).
+ * Unlike the special register event this event does not occur spontaneous.
+ */
 class MostCommonRegisterEvent : public Event
 {
 public:
     MostCommonRegisterEvent();
     virtual ~MostCommonRegisterEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** RegSubType */
-    unsigned short regSubType;
+    /** @copydoc MostRegSubType */
+    MostRegSubType regSubType;
 
-    /** RegChip */
-    unsigned short regChip;
+    /** @copydoc MostRegChip */
+    MostRegChip regChip;
 
-    /** RegOffset */
-    unsigned short regOffset;
+    /** @copydoc MostRegOffset */
+    MostRegOffset regOffset;
 
-    /** RegDataLen */
-    unsigned short regDataLen;
+    /** @copydoc MostRegDataLen */
+    MostRegDataLen regDataLen;
 
-    /** Data */
-    unsigned short data[1024];
+    /** @copydoc MostDx */
+    MostDx data[1024];
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostCommonRegisterEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

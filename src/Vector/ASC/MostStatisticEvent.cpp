@@ -54,7 +54,7 @@ MostStatisticEvent * MostStatisticEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostStatisticEvent * mostStatisticEvent = new MostStatisticEvent;
-        mostStatisticEvent->time = std::stof(match[1]);
+        mostStatisticEvent->time = std::stod(match[1]);
         mostStatisticEvent->channel = std::stoul(match[2]);
         mostStatisticEvent->fr = std::stoul(match[3]);
         mostStatisticEvent->lt = std::stoul(match[4]);

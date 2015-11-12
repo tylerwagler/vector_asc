@@ -28,7 +28,7 @@ namespace ASC {
 LinSchedulerModeChange::LinSchedulerModeChange() :
     Event(),
     time(0.0),
-    channel(),
+    channel(0),
     priorSchedulerMode(0),
     nextSchedulerMode(0)
 {
@@ -50,8 +50,8 @@ LinSchedulerModeChange * LinSchedulerModeChange::parse(File & file, std::string 
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinSchedulerModeChange * linSchedulerModeChange = new LinSchedulerModeChange;
-        linSchedulerModeChange->time = std::stof(match[1]);
-        linSchedulerModeChange->channel = match[2];
+        linSchedulerModeChange->time = std::stod(match[1]);
+        linSchedulerModeChange->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linSchedulerModeChange->priorSchedulerMode = std::stoul(match[3]);
         linSchedulerModeChange->nextSchedulerMode = std::stoul(match[4]);
         return linSchedulerModeChange;

@@ -22,6 +22,7 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
@@ -33,29 +34,20 @@ public:
     TpDiagPrefix();
     virtual ~TpDiagPrefix();
 
-    /** CAN channel */
-    uint8_t canChannel;
+    /** @copydoc TpDiagCanChannel */
+    TpDiagCanChannel canChannel;
 
-    /** Identify data transfer */
-    uint8_t connectionId;
+    /** @copydoc TpDiagConnectionId */
+    TpDiagConnectionId connectionId;
 
-    /** Event type */
-    enum class Type {
-        Info,
-        Warn,
-        Error,
-        Atom,
-        Data
-    };
+    /** @copydoc TpDiagType */
+    TpDiagType type;
 
-    /** Event type */
-    Type type;
+    /** @copydoc TpDiagSource */
+    TpDiagSource source;
 
-    /** Source node */
-    std::string source;
-
-    /** Destination node */
-    std::string destination;
+    /** @copydoc TpDiagDestination */
+    TpDiagDestination destination;
 
     /** @copydoc Event::parse() */
     static TpDiagPrefix * parse(File & file, std::string & line);

@@ -52,14 +52,14 @@ public:
     /** Error Text */
     std::string errorText;
 
-    /** flags */
-    uint32_t flags1;
+    /** @copydoc CanErrorframe::flags */
+    uint16_t flags1;
 
-    /** code */
-    uint32_t code;
+    /** @copydoc CanErrorframe::code */
+    uint8_t code;
 
-    /** codeExt */
-    uint32_t codeExt;
+    /** @copydoc CanErrorframe::codeExt */
+    uint16_t codeExt;
 
     /** Phase */
     enum class Phase {
@@ -70,7 +70,7 @@ public:
     Phase phase;
 
     /** Position */
-    uint32_t position;
+    uint16_t position;
 
     /** @copydoc IdNum */
     IdNum id;

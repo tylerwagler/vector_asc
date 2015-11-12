@@ -28,8 +28,8 @@ namespace ASC {
 LinEventTriggeredFrameInfo::LinEventTriggeredFrameInfo() :
     Event(),
     time(0.0),
-    channel(),
-    id(0),
+    channel(0),
+    id(),
     etfName(),
     description()
 {
@@ -52,9 +52,9 @@ LinEventTriggeredFrameInfo * LinEventTriggeredFrameInfo::parse(File & file, std:
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinEventTriggeredFrameInfo * linEventTriggeredFrameInfo = new LinEventTriggeredFrameInfo;
-        linEventTriggeredFrameInfo->time = std::stof(match[1]);
-        linEventTriggeredFrameInfo->channel = match[2];
-        linEventTriggeredFrameInfo->id = std::stoul(match[3], nullptr, 16);
+        linEventTriggeredFrameInfo->time = std::stod(match[1]);
+        linEventTriggeredFrameInfo->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
+        linEventTriggeredFrameInfo->id = match[3];
         linEventTriggeredFrameInfo->etfName = match[4];
         linEventTriggeredFrameInfo->description = match[5];
         return linEventTriggeredFrameInfo;

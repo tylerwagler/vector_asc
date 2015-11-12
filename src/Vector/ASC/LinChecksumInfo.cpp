@@ -28,8 +28,8 @@ namespace ASC {
 LinChecksumInfo::LinChecksumInfo() :
     Event(),
     time(0.0),
-    channel(),
-    id(0),
+    channel(0),
+    id(),
     checksumModelInfo()
 {
     eventType = EventType::LinChecksumInfo;
@@ -46,14 +46,18 @@ LinChecksumInfo * LinChecksumInfo::parse(File & file, std::string & line)
                 " L([[:alnum:]]+)"
                 " ([[:digit:]]+)"
                 " CSInfo"
-                " Using (classic) checksum$");
+                " Using (classic|enhanced) checksum$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinChecksumInfo * linChecksumInfo = new LinChecksumInfo;
-        linChecksumInfo->time = std::stof(match[1]);
-        linChecksumInfo->channel = match[2];
-        linChecksumInfo->id = std::stoul(match[3]);
-        linChecksumInfo->checksumModelInfo = match[4];
+        linChecksumInfo->time = std::stod(match[1]);
+        linChecksumInfo->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
+        linChecksumInfo->id = match[3];
+        if (match[4] == "classic")
+            linChecksumInfo->checksumModelInfo = LinChecksumModelInfo::Classic;
+        else
+        if (match[4] == "enhanced")
+            linChecksumInfo->checksumModelInfo = LinChecksumModelInfo::Enhanced;
         return linChecksumInfo;
     }
 

@@ -43,18 +43,19 @@ CanRemoteFrameEvent * CanRemoteFrameEvent::parse(File & file, std::string & line
 {
     std::regex regex(
                 "^([[:digit:].]+)"
-                " ([[:digit:]]+)"
+                " ([[:digit:]]{1,5})"
                 " ([[:xdigit:]]+)"
                 " (Rx|Tx)"
                 " r$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanRemoteFrameEvent * canRemoteFrameEvent = new CanRemoteFrameEvent;
-        canRemoteFrameEvent->time = std::stof(match[1]);
+        canRemoteFrameEvent->time = std::stod(match[1]);
         canRemoteFrameEvent->channel = std::stoul(match[2]);
         canRemoteFrameEvent->id = std::stoul(match[3], nullptr, 16);
         if (match[4] == "Rx")
                 canRemoteFrameEvent->dir = Dir::Rx;
+        else
         if (match[4] == "Tx")
                 canRemoteFrameEvent->dir = Dir::Tx;
         return canRemoteFrameEvent;

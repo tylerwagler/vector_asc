@@ -28,7 +28,7 @@ namespace ASC {
 CanErrorFrame::CanErrorFrame() :
     Event(),
     time(0.0),
-    ecc(0),
+    channel(0),
     flags(0),
     codeExt(0),
     code(0),
@@ -48,23 +48,23 @@ CanErrorFrame * CanErrorFrame::parse(File & file, std::string & line)
 {
     std::regex regex(
                 "^([[:digit:].]+)"
-                " ([[:digit:]]+)"
+                " ([[:digit:]]{1,5})"
                 " ErrorFrame"
                 "( ECC: ([01]+))?"
                 "( Flags = 0x([[:xdigit:]]+))?"
                 "( CodeExt = 0x([[:xdigit:]]+))?"
                 "( Code = 0x([[:xdigit:]]+))?"
                 "( ID = ([[:digit:]]+))?"
-                "( DLC = ([[:digit:]]+))?"
+                "( DLC = ([[:xdigit:]]{1,2}))?"
                 "( Position = ([[:digit:]]+))?"
                 "( Length = ([[:digit:]]+))?$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanErrorFrame * canErrorFrame = new CanErrorFrame;
-        canErrorFrame->time = std::stof(match[1]);
+        canErrorFrame->time = std::stod(match[1]);
         canErrorFrame->channel = std::stoul(match[2]);
         if (match[4] != "")
-            canErrorFrame->ecc = std::stoul(match[4], nullptr, 2);
+            canErrorFrame->code = std::stoul(match[4], nullptr, 2);
         if (match[6] != "")
             canErrorFrame->flags = std::stoul(match[6], nullptr, 16);
         if (match[8] != "")
@@ -74,7 +74,7 @@ CanErrorFrame * CanErrorFrame::parse(File & file, std::string & line)
         if (match[12] != "")
             canErrorFrame->id = std::stoul(match[12]);
         if (match[14] != "")
-            canErrorFrame->dlc = std::stoul(match[14]);
+            canErrorFrame->dlc = std::stoul(match[14], nullptr, file.base);
         if (match[16] != "")
             canErrorFrame->position = std::stoul(match[16]);
         if (match[18] != "")

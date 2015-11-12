@@ -22,145 +22,120 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Receive Error */
-/* <Time> <Channel> (<ID> <DLC>) RcvError: <description> (char = <offending byte>) (slave = <slave
- * id>, state = <state>) */
-/* <Time> <Channel> (<ID> <DLC>) RcvError: <description> (char = <offending byte>) (slave = <slave
- * id>, state = <state>) StateReason = <StateReason> ShortError = <IsShortError> DlcTimeout = <Is-
- * DLCTimeout> HasDatabytes = <HasDatabytes> (<D0>...<D7>) SOF = <start of frame> BR =
- * <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) (EOH =
- * <end of header>) (EOB = <T0> ... <T7>) */
-/* <Time> <Channel> (<ID> <DLC>) RcvError: <description> (char = <offending byte>) (slave = <slave
- * id>, state = <state>) StateReason = <StateReason> ShortError = <IsShortError> DlcTimeout = <Is-
- * DLCTimeout> HasDatabytes = <HasDatabytes> (<D0>...<D7>) SOF = <start of frame> BR =
- * <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) (EOH =
- * <end of header>) (EOB = <T0> ... <T7>) (RBR = <response baudrate>) */
-/* <Time> <Channel> (<ID> <DLC>) RcvError: <description> (char = <offending byte>) (slave = <slave
- * id>, state = <state>) StateReason = <StateReason> ShortError = <IsShortError> DlcTimeout = <Is-
- * DLCTimeout> HasDatabytes = <HasDatabytes> (<D0>...<D7>) SOF = <start of frame> BR =
- * <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) (EOH =
- * <end of header>) (EOB = <T0> ... <T7>) RBR = <response baudrate> HBR = <header baudrate> HSO =
- * <stop bit offset in header> RSO = <stop bit offset in response> */
-/* <Time> <Channel> (<ID> <DLC>) RcvError: <description> (char = <offending byte>) (slave = <slave
- * id>, state = <state>) StateReason = <StateReason> ShortError = <IsShortError> DlcTimeout = <Is-
- * DLCTimeout> HasDatabytes = <HasDatabytes> (<D0>...<D7>) SOF = <start of frame> BR =
- * <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) (EOH =
- * <end of header>) (EOB = <T0> ... <T7>) RBR = <response baudrate> HBR = <header baudrate> HSO =
- * <stop bit offset in header> RSO = <stop bit offset in response> CSM = <checksum model> */
+/**
+ * LIN Receive Error
+ *
+ * A receive error event may have a wide variety of causes.
+ * An external Master can cause a receive error event:
+ *   - by transmitting sync break that is too short,
+ *   - by not returning the correct value 0x55 in the sync field,
+ *   - by assigning an incorrect parity to the frame identifier.
+ *
+ * A receive error event can also be caused:
+ *   - by a Slave sending an illegal character during a Bus Idle phase (e.g. because it did not fin-
+ *     ish transmission quickly enough and the checksum byte of the response was sent during
+ *     the Bus Idle phase),
+ *   - by a faulty (dominant) stop bit (i.e. framing error),
+ *   - if the LIN hardware receives a character that is different from the character sent during
+ *     transmission,
+ *   - if the LIN hardware only receives part of a frame, at the start of a measurement (in a cor-
+ *     rectly functioning system).
+ */
 class LinReceiveError : public Event
 {
 public:
     LinReceiveError();
     virtual ~LinReceiveError();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** ID */
-    uint16_t id;
+    /** @copydoc LinId */
+    LinId id;
 
-    /** DLC */
-    uint8_t dlc;
+    /** @copydoc LinDlc */
+    LinDlc dlc;
 
-    /** description */
-    std::string description;
+    /** @copydoc LinDescription */
+    LinDescription description;
 
-    /** offending byte */
-    uint16_t offendingByte;
+    /** @copydoc LinOffendingByte */
+    LinOffendingByte offendingByte;
 
-    /** slave id */
-    uint8_t slaveId;
+    /** @copydoc LinSlaveId */
+    LinSlaveId slaveId;
 
-    /** state */
-    uint8_t state;
+    /** @copydoc LinState */
+    LinState state;
 
-    /** header time */
-    uint8_t headerTime;
+    /** @copydoc LinStateReason */
+    LinStateReason stateReason;
 
-    /** full time */
-    uint8_t fullTime;
+    /** @copydoc LinIsShortError */
+    LinIsShortError isShortError;
 
+    /** @copydoc LinIsDlcTimeout */
+    LinIsDlcTimeout isDlcTimeout;
 
-    /** StateReason */
-    uint8_t stateReason;
+    /** @copydoc LinHasDatabytes */
+    LinHasDatabytes hasDataBytes;
 
-    /** IsShortError */
-    bool isShortError;
+    /** @copydoc LinDx */
+    LinDx data[8];
 
-    /** IsDLCTimeout */
-    bool isDlcTimeout;
+    /** @copydoc LinStartOfFrame */
+    LinStartOfFrame startOfFrame;
 
-    /** HasDatabytes */
-    bool hasDataBytes;
+    /** @copydoc LinBaudrateType */
+    LinBaudrateType baudrate;
 
-    /** Data */
-    uint8_t data[8];
+    /** @copydoc LinSyncBreak */
+    LinSyncBreak syncBreak;
 
-    /** start of frame (SOF) */
-    float startOfFrame;
+    /** @copydoc LinSyncDel */
+    LinSyncDel syncDel;
 
-    /** baudrate (BR) */
-    uint16_t baudrate;
+    /** @copydoc LinNad */
+    LinNad nad;
 
-    /** SyncBreak */
-    uint32_t syncBreak;
+    /** @copydoc LinMessageId */
+    LinMessageId messageId;
 
-    /** SyncDel */
-    uint32_t syncDel;
+    /** @copydoc LinSupplierId */
+    LinSupplierId supplierId;
 
-    /** subId (NAD) */
-    uint16_t subId;
+    /** @copydoc LinEndOfHeader */
+    LinEndOfHeader endOfHeader;
 
-    /** MessageId */
-    uint16_t messageId;
+    /** @copydoc LinT */
+    LinT endOfByte[8];
 
-    /** SupplierId */
-    uint16_t supplierId;
+    /** @copydoc LinResponseBaudrate */
+    LinResponseBaudrate responseBaudrate;
 
-    /** end of header (EOH) */
-    float endOfHeader;
+    /** @copydoc LinHeaderBaudrate */
+    LinHeaderBaudrate headerBaudrate;
 
-    /** T (EOB) */
-    float endOfByte[8];
+    /** @copydoc LinStopBitOffsetInHeader */
+    LinStopBitOffsetInHeader stopBitOffsetInHeader;
 
+    /** @copydoc LinStopBitOffsetInResponse */
+    LinStopBitOffsetInResponse stopBitOffsetInResponse;
 
-    /** response baudrate (RBR) */
-    float responseBaudrate;
+    /** @copydoc LinChecksumModel */
+    LinChecksumModel checksumModel;
 
-
-    /** header baudrate (HBR) */
-    float headerBaudrate;
-
-    /** stop bit offset in header (HSO) */
-    uint16_t stopBitOffsetInHeader;
-
-    /** stop bit offset in response (RSO) */
-    uint16_t stopBitOffsetInResponse;
-
-
-    /** checksum model (CSM) */
-    std::string checksumModel;
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinReceiveError * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

@@ -50,7 +50,7 @@ MostNetStateEvent * MostNetStateEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostNetStateEvent * mostNetStateEvent = new MostNetStateEvent;
-        mostNetStateEvent->time = std::stof(match[1]);
+        mostNetStateEvent->time = std::stod(match[1]);
         mostNetStateEvent->channel = std::stoul(match[2]);
         mostNetStateEvent->netStateOld = std::stoul(match[3]);
         mostNetStateEvent->netStateNew = std::stoul(match[4]);

@@ -22,43 +22,37 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST NetState Event */
-/* <Time> <Channel> NetState: <NetStateOld> <NetStateNew> */
+/**
+ * MOST NetState Event
+ *
+ * Network state derived by MOST Supervisor Layer I+II.
+ */
 class MostNetStateEvent : public Event
 {
 public:
     MostNetStateEvent();
     virtual ~MostNetStateEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** NetStateOld */
-    unsigned short netStateOld;
+    /** @copydoc MostNetStateOld */
+    MostNetStateOld netStateOld;
 
-    /** NetStateNew */
-    unsigned short netStateNew;
+    /** @copydoc MostNetStateNew */
+    MostNetStateNew netStateNew;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostNetStateEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

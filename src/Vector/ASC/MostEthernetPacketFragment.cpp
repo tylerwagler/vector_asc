@@ -70,7 +70,7 @@ MostEthernetPacketFragment * MostEthernetPacketFragment::parse(File & file, std:
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostEthernetPacketFragment * mostEthernetPacketFragment = new MostEthernetPacketFragment;
-        mostEthernetPacketFragment->time = std::stof(match[1]);
+        mostEthernetPacketFragment->time = std::stod(match[1]);
         mostEthernetPacketFragment->channel = std::stoul(match[2]);
         mostEthernetPacketFragment->frgMask = std::stoul(match[3], nullptr, 16);
         mostEthernetPacketFragment->sourceMacAdr = std::stoul(match[4], nullptr, 16);

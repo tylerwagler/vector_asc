@@ -28,7 +28,7 @@ namespace ASC {
 LinBaudrate::LinBaudrate() :
     Event(),
     time(0.0),
-    channel(),
+    channel(0),
     baudrate(0)
 {
     eventType = EventType::LinBaudrate;
@@ -48,8 +48,8 @@ LinBaudrate * LinBaudrate::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinBaudrate * linBaudrate = new LinBaudrate;
-        linBaudrate->time = std::stof(match[1]);
-        linBaudrate->channel = match[2];
+        linBaudrate->time = std::stod(match[1]);
+        linBaudrate->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linBaudrate->baudrate = std::stoul(match[3]);
         return linBaudrate;
     }

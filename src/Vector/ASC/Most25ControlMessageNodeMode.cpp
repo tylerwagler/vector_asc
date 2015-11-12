@@ -57,10 +57,11 @@ Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::parse(File & file, 
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most25ControlMessageNodeMode * most25ControlMessageNodeMode = new Most25ControlMessageNodeMode;
-        most25ControlMessageNodeMode->time = std::stof(match[1]);
+        most25ControlMessageNodeMode->time = std::stod(match[1]);
         most25ControlMessageNodeMode->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
                 most25ControlMessageNodeMode->dir = Dir::Rx;
+        else
         if (match[3] == "Tx")
                 most25ControlMessageNodeMode->dir = Dir::Tx;
         most25ControlMessageNodeMode->sourceAdr = std::stoul(match[4], nullptr, 16);

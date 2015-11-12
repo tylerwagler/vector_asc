@@ -22,30 +22,36 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Statistic Info */
-/* <Time> <Channel> Statistic <ChannelNum> <BusLoad> <Bursts total> <Bursts overrun> <Frames
- * sent> <Frames received> <Frames unanswered> */
+/**
+ * LIN Statistic Info
+ *
+ * This info event transports bus statistics. (Bus load [in range 0..1], obsolete value, obsolete value,
+ * transmitted frames, received frames, transmission errors )
+ *
+ * IMPORTANT: This event is generated up to CANoe/CANalyzer 5.2 only.
+ */
 class LinStatisticInfo : public Event
 {
 public:
     LinStatisticInfo();
     virtual ~LinStatisticInfo();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
     /** ChannelNum */
     uint16_t channelNum;
 
     /** BusLoad */
-    float busLoad;
+    double busLoad;
 
     /** Bursts total */
     uint32_t burstsTotal;
@@ -62,19 +68,9 @@ public:
     /** Frames unanswered */
     uint32_t framesUnanswered;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinStatisticInfo * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

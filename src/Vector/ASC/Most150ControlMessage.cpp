@@ -33,7 +33,7 @@ Most150ControlMessage::Most150ControlMessage() :
     destAdr(0),
     state(0),
     ackNack(0),
-    transferType(0),
+    transferType(MostTransferType::Node),
     pack(0),
     priority(0),
     pIndex(0),
@@ -73,17 +73,25 @@ Most150ControlMessage * Most150ControlMessage::parse(File & file, std::string & 
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most150ControlMessage * most150ControlMessage = new Most150ControlMessage;
-        most150ControlMessage->time = std::stof(match[1]);
+        most150ControlMessage->time = std::stod(match[1]);
         most150ControlMessage->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
-                most150ControlMessage->dir = Dir::Rx;
+                most150ControlMessage->dir = MostDir::Rx;
+        else
         if (match[3] == "Tx")
-                most150ControlMessage->dir = Dir::Tx;
+                most150ControlMessage->dir = MostDir::Tx;
         most150ControlMessage->sourceAdr = std::stoul(match[4], nullptr, 16);
         most150ControlMessage->destAdr = std::stoul(match[5], nullptr, 16);
         most150ControlMessage->state = std::stoul(match[6], nullptr, 16);
         most150ControlMessage->ackNack = std::stoul(match[7], nullptr, 16);
-        most150ControlMessage->transferType = std::stoul(match[8], nullptr, 16);
+        switch(std::stoul(match[8])) {
+        case 1:
+            most150ControlMessage->transferType = MostTransferType::Node;
+            break;
+        case 2:
+            most150ControlMessage->transferType = MostTransferType::Spy;
+            break;
+        }
         most150ControlMessage->pack = std::stoul(match[9], nullptr, 16);
         most150ControlMessage->priority = std::stoul(match[10], nullptr, 16);
         most150ControlMessage->pIndex = std::stoul(match[11], nullptr, 16);

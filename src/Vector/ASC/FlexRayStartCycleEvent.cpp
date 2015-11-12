@@ -70,7 +70,7 @@ FlexRayStartCycleEvent * FlexRayStartCycleEvent::parse(File & file, std::string 
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FlexRayStartCycleEvent * flexRayStartCycleEvent = new FlexRayStartCycleEvent;
-        flexRayStartCycleEvent->time = std::stof(match[1]);
+        flexRayStartCycleEvent->time = std::stod(match[1]);
         flexRayStartCycleEvent->clusterNr = std::stoul(match[2]);
         flexRayStartCycleEvent->clientId = std::stoul(match[3]);
         flexRayStartCycleEvent->channelNr = std::stoul(match[4]);

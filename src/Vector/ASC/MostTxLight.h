@@ -22,40 +22,36 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST TxLight */
-/* <Time> <Channel> TxLight: <TxLightState> */
+/**
+ * MOST TxLight
+ *
+ * Optical physical layer: Information about light output of the Fiber Optical Transmitter
+ *
+ * Electrical physical layer: Signal output state
+ */
 class MostTxLight : public Event
 {
 public:
     MostTxLight();
     virtual ~MostTxLight();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** TxLightState */
-    unsigned short txLightState;
+    /** @copydoc MostTxLightState */
+    MostTxLightState txLightState;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostTxLight * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

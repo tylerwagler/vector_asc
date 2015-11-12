@@ -41,12 +41,12 @@ CanOverloadFrameEvent * CanOverloadFrameEvent::parse(File & file, std::string & 
 {
     std::regex regex(
                 "^([[:digit:].]+)"
-                " ([[:digit:]]+)"
+                " ([[:digit:]]{1,5})"
                 " OverloadFrame$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanOverloadFrameEvent * canOverloadFrameEvent = new CanOverloadFrameEvent;
-        canOverloadFrameEvent->time = std::stof(match[1]);
+        canOverloadFrameEvent->time = std::stod(match[1]);
         canOverloadFrameEvent->channel = std::stoul(match[2]);
         return canOverloadFrameEvent;
     }

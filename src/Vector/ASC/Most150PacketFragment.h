@@ -22,79 +22,73 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST50/150 Packet Fragment */
-/*  <Time> <Channel> Pkt150Frg: <FrgMask> <SourceAdr> <DestAdr> <AckNack> <PAck> <RsvdUC> <Pindex> <CRC2> <Cack> <RsvdUL> <FrgDataLen> <FrgDataLenAnnounced> <FirstDataLen> <D0> <D1>...<D(FirstDataLen-1)> */
+/**
+ * MOST50/150 Packet Fragment
+ *
+ * Partial transmitted message on MOST50 or MOST150 Packet Data Channel.
+ */
 class Most150PacketFragment : public Event
 {
 public:
     Most150PacketFragment();
     virtual ~Most150PacketFragment();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** FrgMask */
-    unsigned int frgMask;
+    /** @copydoc MostFrgMask */
+    MostFrgMask frgMask;
 
-    /** SourceAdr */
-    unsigned short sourceAdr;
+    /** @copydoc MostSourceAdr */
+    MostSourceAdr sourceAdr;
 
-    /** DestAdr */
-    unsigned short destAdr;
+    /** @copydoc MostDestAdr */
+    MostDestAdr destAdr;
 
-    /** AckNack */
-    unsigned short ackNack;
+    /** @copydoc MostAckNack */
+    MostAckNack ackNack;
 
-    /** Pack */
-    unsigned short pAck;
+    /** @copydoc MostPack */
+    MostPack pAck;
 
-    /** RsvdUC */
-    unsigned short rsvdUc;
+    /** @copydoc MostRsvdUc */
+    MostRsvdUc rsvdUc;
 
-    /** Pindex */
-    unsigned short pIndex;
+    /** @copydoc MostPindex */
+    MostPindex pIndex;
 
-    /** CRC2 */
-    unsigned short crc2;
+    /** @copydoc MostCrc2 */
+    MostCrc2 crc2;
 
-    /** Cack */
-    unsigned short cAck;
+    /** @copydoc MostCack */
+    MostCack cAck;
 
-    /** RsvdUL */
-    unsigned short rsvdUl;
+    /** @copydoc MostRsvdUl */
+    MostRsvdUl rsvdUl;
 
-    /** FrgDataLen */
-    unsigned short frgDataLen;
+    /** @copydoc MostFrgDataLen */
+    MostFrgDataLen frgDataLen;
 
-    /** FrgDataLenAnnnounced */
-    unsigned short frgDataLenAnnounced;
+    /** @copydoc MostFrgDataLenAnnounced */
+    MostFrgDataLenAnnounced frgDataLenAnnounced;
 
-    /** FirstDataLen */
-    unsigned short firstDataLen;
+    /** @copydoc MostFirstDataLen */
+    MostFirstDataLen firstDataLen;
 
-    /** Data */
-    unsigned short data[1024];
+    /** @copydoc MostDx */
+    MostDx data[1024];
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static Most150PacketFragment * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

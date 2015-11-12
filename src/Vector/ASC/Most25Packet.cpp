@@ -33,7 +33,7 @@ Most25Packet::Most25Packet() :
     sourceAdr(0),
     destAdr(0),
     pktState(0),
-    transferType(0),
+    transferType(MostTransferType::Node),
     pktPrio(0),
     pktArbitr(0),
     crc2(0),
@@ -66,16 +66,24 @@ Most25Packet * Most25Packet::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most25Packet * most25Packet = new Most25Packet;
-        most25Packet->time = std::stof(match[1]);
+        most25Packet->time = std::stod(match[1]);
         most25Packet->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
                 most25Packet->dir = Dir::Rx;
+        else
         if (match[3] == "Tx")
                 most25Packet->dir = Dir::Tx;
         most25Packet->sourceAdr = std::stoul(match[4], nullptr, 16);
         most25Packet->destAdr = std::stoul(match[5], nullptr, 16);
         most25Packet->pktState = std::stoul(match[6], nullptr, 16);
-        most25Packet->transferType = std::stoul(match[7], nullptr, 16);
+        switch(std::stoul(match[7])) {
+        case 1:
+            most25Packet->transferType = MostTransferType::Node;
+            break;
+        case 2:
+            most25Packet->transferType = MostTransferType::Spy;
+            break;
+        }
         most25Packet->pktPrio = std::stoul(match[8], nullptr, 16);
         most25Packet->pktArbitr = std::stoul(match[9], nullptr, 16);
         most25Packet->crc2 = std::stoul(match[10], nullptr, 16);

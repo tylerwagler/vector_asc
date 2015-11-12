@@ -85,7 +85,7 @@ FlexRayMessageEvent * FlexRayMessageEvent::parseRmsg(File & file, std::string & 
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FlexRayMessageEvent * flexRayMessageEvent = new FlexRayMessageEvent;
-        flexRayMessageEvent->time = std::stof(match[1]);
+        flexRayMessageEvent->time = std::stod(match[1]);
         flexRayMessageEvent->flexRayEventType = match[2];
         flexRayMessageEvent->clusterNr = std::stoul(match[3]);
         flexRayMessageEvent->clientId = std::stoul(match[4]);
@@ -146,7 +146,7 @@ FlexRayMessageEvent * FlexRayMessageEvent::parsePdu(File & file, std::string & l
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FlexRayMessageEvent * flexRayMessageEvent = new FlexRayMessageEvent;
-        flexRayMessageEvent->time = std::stof(match[1]);
+        flexRayMessageEvent->time = std::stod(match[1]);
         flexRayMessageEvent->flexRayEventType = match[2];
         flexRayMessageEvent->clusterNr = std::stoul(match[3]);
         flexRayMessageEvent->clientId = std::stoul(match[4]);

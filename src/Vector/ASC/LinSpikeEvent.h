@@ -22,56 +22,44 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Spike Event */
-/* <Time> <Channel> Spike <Dir> <SpikeLength> microseconds */
-/* <Time> <Channel> Spike <Dir> <SpikeLength> microseconds SOF = <start of frame> BR = <baudrate> */
+/**
+ * LIN Spike Event
+ *
+ * A spike event occurs when a short (normally less than 1 bit time) dominant signal has been de-
+ * tected on a LIN channel.
+ */
 class LinSpikeEvent : public Event
 {
 public:
     LinSpikeEvent();
     virtual ~LinSpikeEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    uint16_t channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
+    /** @copydoc LinDir */
+    LinDir dir;
 
-    Dir dir;
+    /** @copydoc LinSpikeLength */
+    LinSpikeLength spikeLength;
 
-    /** SpikeLength */
-    uint16_t spikeLength;
+    /** @copydoc LinStartOfFrame */
+    LinStartOfFrame startOfFrame;
 
+    /** @copydoc LinBaudrateType */
+    LinBaudrateType baudrate;
 
-    /** start of frame (SOF) */
-    float startOfFrame;
-
-    /** baudrate (BR) */
-    uint16_t baudrate;
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinSpikeEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

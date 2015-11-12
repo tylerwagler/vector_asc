@@ -43,12 +43,12 @@ CanErrorEvent * CanErrorEvent::parse(File & file, std::string & line)
     std::regex regex(
                 "^([[:digit:].]+)"
                 " CAN"
-                " ([[:digit:]]+)"
+                " ([[:digit:]]{1,5})"
                 " Status:(.*)$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanErrorEvent * canErrorEvent = new CanErrorEvent;
-        canErrorEvent->time = std::stof(match[1]);
+        canErrorEvent->time = std::stod(match[1]);
         canErrorEvent->channel = std::stoul(match[2]);
         canErrorEvent->error = match[3];
         return canErrorEvent;

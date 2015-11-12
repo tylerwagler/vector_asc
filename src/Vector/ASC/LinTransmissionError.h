@@ -22,100 +22,79 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Transmission Error */
-/* <Time> <Channel> <ID> TransmErr (slave = <slave id>, state = <state>) header time = <header time>
- * full time = <full time> */
-/* <Time> <Channel> <ID> TransmErr (slave = <slave id>, state = <state>) header time = <header time>,
- * full time = <full time> SOF = <start of frame> BR = <baudrate> break = <SyncBreak> <SyncDel>
- * (subId = <NAD> <MessageId> <SupplierId>) EOH = <end of header> */
-/* <Time> <Channel> <ID> TransmErr (slave = <slave id>, state = <state>) header time = <header time>,
- * full time = <full time> SOF = <start of frame> BR = <baudrate> break = <SyncBreak> <SyncDel>
- * (subId = <NAD> <MessageId> <SupplierId>) EOH = <end of header> > HBR = <header baudrate> HSO
- * = <stop bit offset in header> */
-/* <Time> <Channel> <ID> TransmErr (slave = <slave id>, state = <state>) header time = <header time>,
- * full time = <full time> SOF = <start of frame> BR = <baudrate> break = <SyncBreak> <SyncDel>
- * (subId = <NAD> <MessageId> <SupplierId>) EOH = <end of header> > HBR = <header baudrate> HSO
- * = <stop bit offset in header> CSM = <checksum model> */
+/**
+ * LIN Transmission Error
+ *
+ * FlexRay Error event transmitted by the FlexRay hardware.
+ */
 class LinTransmissionError : public Event
 {
 public:
     LinTransmissionError();
     virtual ~LinTransmissionError();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** ID */
-    uint16_t id;
+    /** @copydoc LinId */
+    LinId id;
 
-    /** slave id */
-    uint8_t slaveId;
+    /** @copydoc LinSlaveId */
+    LinSlaveId slaveId;
 
-    /** state */
-    uint8_t state;
+    /** @copydoc LinState */
+    LinState state;
 
-    /** header time */
-    uint8_t headerTime;
+    /** @copydoc LinHeaderTime */
+    LinHeaderTime headerTime;
 
-    /** full time */
-    uint8_t fullTime;
+    /** @copydoc LinFullTime */
+    LinFullTime fullTime;
 
+    /** @copydoc LinStartOfFrame */
+    LinStartOfFrame startOfFrame;
 
-    /** start of frame (SOF) */
-    float startOfFrame;
+    /** @copydoc LinBaudrateType */
+    LinBaudrateType baudrate;
 
-    /** baudrate (BR) */
-    uint16_t baudrate;
+    /** @copydoc LinSyncBreak */
+    LinSyncBreak syncBreak;
 
-    /** SyncBreak */
-    uint32_t syncBreak;
+    /** @copydoc LinSyncDel */
+    LinSyncDel syncDel;
 
-    /** SyncDel */
-    uint32_t syncDel;
+    /** @copydoc LinNad */
+    LinNad nad;
 
-    /** subId (NAD) */
-    uint16_t subId;
+    /** @copydoc LinMessageId */
+    LinMessageId messageId;
 
-    /** MessageId */
-    uint16_t messageId;
+    /** @copydoc LinSupplierId */
+    LinSupplierId supplierId;
 
-    /** SupplierId */
-    uint16_t supplierId;
+    /** @copydoc LinEndOfHeader */
+    LinEndOfHeader endOfHeader;
 
-    /** end of header (EOH) */
-    float endOfHeader;
+    /** @copydoc LinHeaderBaudrate */
+    LinHeaderBaudrate headerBaudrate;
 
+    /** @copydoc LinStopBitOffsetInHeader */
+    LinStopBitOffsetInHeader stopBitOffsetInHeader;
 
-    /** header baudrate (HBR) */
-    float headerBaudrate;
+    /** @copydoc LinChecksumModel */
+    LinChecksumModel checksumModel;
 
-    /** stop bit offset in header (HSO) */
-    uint16_t stopBitOffsetInHeader;
-
-
-    /** checksum model (CSM) */
-    std::string checksumModel;
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinTransmissionError * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

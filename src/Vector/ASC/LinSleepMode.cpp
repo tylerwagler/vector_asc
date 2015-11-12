@@ -28,9 +28,9 @@ namespace ASC {
 LinSleepMode::LinSleepMode() :
     Event(),
     time(0.0),
-    channel(),
+    channel(0),
     simulated(false),
-    descriptionText()
+    description()
 {
     eventType = EventType::LinSleepMode;
 }
@@ -50,10 +50,10 @@ LinSleepMode * LinSleepMode::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinSleepMode * linSleepMode = new LinSleepMode;
-        linSleepMode->time = std::stof(match[1]);
-        linSleepMode->channel = match[2];
+        linSleepMode->time = std::stod(match[1]);
+        linSleepMode->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linSleepMode->simulated = (match[3] == '1');
-        linSleepMode->descriptionText = match[4];
+        linSleepMode->description = match[4];
         return linSleepMode;
     }
 

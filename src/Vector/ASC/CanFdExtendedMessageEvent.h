@@ -66,7 +66,7 @@ public:
     DataLength dataLength;
 
     /** Data */
-    unsigned short data[64];
+    Dx data[64];
 
     /** @copydoc MessageDuration */
     MessageDuration messageDuration;

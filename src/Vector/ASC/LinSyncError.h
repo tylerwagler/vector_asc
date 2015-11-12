@@ -22,55 +22,56 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Sync Error */
-/* <Time> <Channel> SyncError <TimeInterval0>..<TimeInterval3> */
-/* <Time> <Channel> SyncError <TimeInterval0>..<TimeInterval3> SOF = <start of frame> BR =
- * <baudrate> break = <SyncBreak> <SyncDel> */
+/**
+ * LIN Sync Error
+ *
+ * This error event can only occur when an external Master is used.
+ *
+ * Synchronization errors occur if the LIN hardware cannot synchronize with an external Master.
+ * This might happen if the baud rate actually used by the Master deviates by more than 15 % from
+ * the baud rate specified by the LIN hardware. In this case the baud rate value should be modified.
+ *
+ * This error event may also occur if the Master transmits an invalid or corrupted Sync field. The
+ * synchronization error messages displays 4 time intervals (in microseconds) detected between the
+ * falling signal edges of the Sync field. The expected time interval between consecutive falling sig-
+ * nal edges is 2 bit times. After the first failure interval has been seen the rest of array elements are
+ * initialized to 0.
+ */
 class LinSyncError : public Event
 {
 public:
     LinSyncError();
     virtual ~LinSyncError();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    uint16_t channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** TimeInterval */
-    uint8_t timeInterval[4];
+    /** @copydoc LinTimeInterval */
+    LinTimeInterval timeInterval[4];
 
+    /** @copydoc LinStartOfFrame */
+    LinStartOfFrame startOfFrame;
 
-    /** start of frame (SOF) */
-    float startOfFrame;
+    /** @copydoc LinBaudrateType */
+    LinBaudrateType baudrate;
 
-    /** baudrate (BR) */
-    uint16_t baudrate;
+    /** @copydoc LinSyncBreak */
+    LinSyncBreak syncBreak;
 
-    /** SyncBreak */
-    uint32_t syncBreak;
+    /** @copydoc LinSyncDel */
+    LinSyncDel syncDel;
 
-    /** SyncDel */
-    uint32_t syncDel;
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinSyncError * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

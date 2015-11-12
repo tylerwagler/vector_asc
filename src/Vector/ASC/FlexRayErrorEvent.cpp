@@ -60,7 +60,7 @@ FlexRayErrorEvent * FlexRayErrorEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FlexRayErrorEvent * flexRayErrorEvent = new FlexRayErrorEvent;
-        flexRayErrorEvent->time = std::stof(match[1]);
+        flexRayErrorEvent->time = std::stod(match[1]);
         flexRayErrorEvent->clusterNr = std::stoul(match[2]);
         flexRayErrorEvent->clientId = std::stoul(match[3]);
         flexRayErrorEvent->channelNr = std::stoul(match[4]);

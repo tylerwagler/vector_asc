@@ -29,7 +29,7 @@ MostCommonRegisterEvent::MostCommonRegisterEvent() :
     Event(),
     time(0.0),
     channel(0),
-    regSubType(0),
+    regSubType(MostRegSubType::Unspecified),
     regChip(0),
     regOffset(0),
     regDataLen(0),
@@ -56,9 +56,34 @@ MostCommonRegisterEvent * MostCommonRegisterEvent::parse(File & file, std::strin
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostCommonRegisterEvent * mostCommonRegisterEvent = new MostCommonRegisterEvent;
-        mostCommonRegisterEvent->time = std::stof(match[1]);
+        mostCommonRegisterEvent->time = std::stod(match[1]);
         mostCommonRegisterEvent->channel = std::stoul(match[2]);
-        mostCommonRegisterEvent->regSubType = std::stoul(match[3]);
+        switch(std::stoul(match[3])) {
+        case 0:
+            mostCommonRegisterEvent->regSubType = MostRegSubType::Unspecified;
+            break;
+        case 1:
+            mostCommonRegisterEvent->regSubType = MostRegSubType::Notify;
+            break;
+        case 2:
+            mostCommonRegisterEvent->regSubType = MostRegSubType::ReadRequest;
+            break;
+        case 3:
+            mostCommonRegisterEvent->regSubType = MostRegSubType::WriteRequest;
+            break;
+        case 4:
+            mostCommonRegisterEvent->regSubType = MostRegSubType::ReadResult;
+            break;
+        case 5:
+            mostCommonRegisterEvent->regSubType = MostRegSubType::WriteResult;
+            break;
+        case 6:
+            mostCommonRegisterEvent->regSubType = MostRegSubType::ReadFailed;
+            break;
+        case 7:
+            mostCommonRegisterEvent->regSubType = MostRegSubType::WriteFailed;
+            break;
+        }
         mostCommonRegisterEvent->regChip = std::stoul(match[4], nullptr, 16);
         mostCommonRegisterEvent->regOffset = std::stoul(match[5], nullptr, 16);
         mostCommonRegisterEvent->regDataLen = std::stoul(match[6], nullptr, 16);

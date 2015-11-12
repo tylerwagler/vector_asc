@@ -22,58 +22,52 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST25 Control Message Spy Mode */
-/* <Time> <Channel> <Dir> <SourceAdr> <DestAdr> <RType> <D0> <D1>...<D16> <State> <AckNack> <CRC> */
+/**
+ * MOST25 Control Message Spy Mode
+ *
+ * Message on MOST25 Control Channel received in spy mode (listen only).
+ */
 class Most25ControlMessageSpyMode : public Event
 {
 public:
     Most25ControlMessageSpyMode();
     virtual ~Most25ControlMessageSpyMode();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** SourceAdr */
-    unsigned short sourceAdr;
+    /** @copydoc MostSourceAdr */
+    MostSourceAdr sourceAdr;
 
-    /** DestAdr */
-    unsigned short destAdr;
+    /** @copydoc MostDestAdr */
+    MostDestAdr destAdr;
 
-    /** RType */
-    unsigned short rType;
+    /** @copydoc MostRtype */
+    MostRtype rType;
 
-    /** Data */
-    unsigned short data[17];
+    /** @copydoc MostDx */
+    MostDx data[17];
 
-    /** State2 */
-    unsigned short state;
+    /** @copydoc MostState2 */
+    MostState2 state;
 
-    /** AckNack */
-    unsigned short ackNack;
+    /** @copydoc MostAckNack */
+    MostAckNack ackNack;
 
-    /** CRC */
-    unsigned short crc;
+    /** @copydoc MostCrc */
+    MostCrc crc;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static Most25ControlMessageSpyMode * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

@@ -22,46 +22,41 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Slave Timeout */
-/* <Time> <Channel> SlaveTimeout slave-id = <slave id>, current state = <state>, following state = <state> */
+/**
+ * LIN Slave Timeout
+ *
+ * The enhanced LIN hardware capabilities can be used to define a timeout for a FSM state to a pre-
+ * defined error state on exceeding this timeout and a Slave timeout message is displayed.
+ */
 class LinSlaveTimeout : public Event
 {
 public:
     LinSlaveTimeout();
     virtual ~LinSlaveTimeout();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** slave id */
-    uint16_t slaveId;
+    /** @copydoc LinSlaveId */
+    LinSlaveId slaveId;
 
-    /** current state */
-    uint8_t currentState;
+    /** @copydoc LinCurrentState */
+    LinState currentState;
 
-    /** following state */
-    uint8_t followingState;
+    /** @copydoc LinFollowingState */
+    LinState followingState;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinSlaveTimeout * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

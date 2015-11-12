@@ -29,7 +29,7 @@ MostTxLight::MostTxLight() :
     Event(),
     time(0.0),
     channel(0),
-    txLightState(0)
+    txLightState(MostTxLightState::Off)
 {
     eventType = EventType::MostTxLight;
 }
@@ -48,9 +48,19 @@ MostTxLight * MostTxLight::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostTxLight * mostTxLight = new MostTxLight;
-        mostTxLight->time = std::stof(match[1]);
+        mostTxLight->time = std::stod(match[1]);
         mostTxLight->channel = std::stoul(match[2]);
-        mostTxLight->txLightState = std::stoul(match[3]);
+        switch(std::stoul(match[3])) {
+        case 0:
+            mostTxLight->txLightState = MostTxLightState::Off;
+            break;
+        case 1:
+            mostTxLight->txLightState = MostTxLightState::Enabled;
+            break;
+        case 2:
+            mostTxLight->txLightState = MostTxLightState::ForcedOn;
+            break;
+        }
         return mostTxLight;
     }
 

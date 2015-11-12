@@ -46,19 +46,19 @@ EthernetRxError * EthernetRxError::parse(File & file, std::string & line)
     std::regex regex(
                 "^([[:digit:].]+)"
                 " ETH"
-                " ([[:digit:]]+)"
+                " ([[:xdigit:]]{1,3})"
                 " RxEr"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+):([[:xdigit:]]*)$");
+                " ([[:xdigit:]]{1,2})"
+                " ([[:xdigit:]]{8})"
+                " ([[:xdigit:]]{1,4}):([[:xdigit:]]*)$");
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         EthernetRxError * ethernetRxError = new EthernetRxError;
-        ethernetRxError->time = std::stof(match[1]);
-        ethernetRxError->channel = std::stoul(match[2]);
-        ethernetRxError->errorCode = std::stoul(match[3], nullptr, 16);
+        ethernetRxError->time = std::stod(match[1]);
+        ethernetRxError->channel = std::stoul(match[2], nullptr, file.base);
+        ethernetRxError->errorCode = std::stoul(match[3], nullptr, file.base);
         ethernetRxError->frameChecksum = std::stoul(match[4], nullptr, 16);
-        ethernetRxError->dataLen = std::stoul(match[5], nullptr, 16);
+        ethernetRxError->dataLen = std::stoul(match[5], nullptr, file.base);
         for (int i = 0; i < ethernetRxError->dataLen; ++i) {
             std::string s;
             s.append(match[6], 2*i, 2);

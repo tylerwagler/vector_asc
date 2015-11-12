@@ -34,7 +34,7 @@ Most50ControlMessage::Most50ControlMessage() :
     destAdr(0),
     state(0),
     ackNack(0),
-    transferType(0),
+    transferType(MostTransferType::Node),
     rsvdUc1(0),
     priority(0),
     rsvdUc2(0),
@@ -74,17 +74,25 @@ Most50ControlMessage * Most50ControlMessage::parse(File & file, std::string & li
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most50ControlMessage * most50ControlMessage = new Most50ControlMessage;
-        most50ControlMessage->time = std::stof(match[1]);
+        most50ControlMessage->time = std::stod(match[1]);
         most50ControlMessage->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
                 most50ControlMessage->dir = Dir::Rx;
+        else
         if (match[3] == "Tx")
                 most50ControlMessage->dir = Dir::Tx;
         most50ControlMessage->sourceAdr = std::stoul(match[4], nullptr, 16);
         most50ControlMessage->destAdr = std::stoul(match[5], nullptr, 16);
         most50ControlMessage->state = std::stoul(match[6], nullptr, 16);
         most50ControlMessage->ackNack = std::stoul(match[7], nullptr, 16);
-        most50ControlMessage->transferType = std::stoul(match[8], nullptr, 16);
+        switch(std::stoul(match[8])) {
+        case 1:
+            most50ControlMessage->transferType = MostTransferType::Node;
+            break;
+        case 2:
+            most50ControlMessage->transferType = MostTransferType::Spy;
+            break;
+        }
         most50ControlMessage->rsvdUc1 = std::stoul(match[9], nullptr, 16);
         most50ControlMessage->priority = std::stoul(match[10], nullptr, 16);
         most50ControlMessage->rsvdUc2 = std::stoul(match[11], nullptr, 16);

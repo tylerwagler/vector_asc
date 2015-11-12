@@ -48,8 +48,8 @@ CommentEvent * CommentEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CommentEvent * commentEvent = new CommentEvent;
-        commentEvent->time = std::stof(match[1]);
-        commentEvent->type = std::stof(match[2]);
+        commentEvent->time = std::stod(match[1]);
+        commentEvent->type = std::stod(match[2]);
         commentEvent->commentText = match[3];
         return commentEvent;
     }

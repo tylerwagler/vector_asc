@@ -28,9 +28,9 @@ namespace ASC {
 LinWakeupFrame::LinWakeupFrame() :
     Event(),
     time(0.0),
-    channel(),
+    channel(0),
     dir(Dir::Rx),
-    wakeupBytes(0),
+    wakeupByte(0),
     startOfFrame(0),
     baudrate(0),
     wakeupLengthInfo(0)
@@ -56,14 +56,15 @@ LinWakeupFrame * LinWakeupFrame::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinWakeupFrame * linWakeupFrame = new LinWakeupFrame;
-        linWakeupFrame->time = std::stof(match[1]);
-        linWakeupFrame->channel = match[2];
+        linWakeupFrame->time = std::stod(match[1]);
+        linWakeupFrame->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         if (match[3] == "Rx")
             linWakeupFrame->dir = Dir::Rx;
+        else
         if (match[3] == "Tx")
             linWakeupFrame->dir = Dir::Tx;
-        linWakeupFrame->wakeupBytes = std::stoul(match[4]);
-        linWakeupFrame->startOfFrame = std::stof(match[5]);
+        linWakeupFrame->wakeupByte = std::stoul(match[4]);
+        linWakeupFrame->startOfFrame = std::stod(match[5]);
         linWakeupFrame->baudrate = std::stoul(match[6]);
         linWakeupFrame->wakeupLengthInfo = std::stoul(match[7]);
         return linWakeupFrame;

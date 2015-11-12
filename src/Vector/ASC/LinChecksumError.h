@@ -22,147 +22,107 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN ChecksumError */
-/* <Time> <Channel> <ID> CSErr <Dir> <DLC> <D0>...<D7> (slave = <slave id>, state = <state>) check-
- * sum = <checksum> header time = <header time>, full time = <full time> */
-/* <Time> <Channel> <ID> CSErr <Dir> <DLC> <D0>...<D7> (slave = <slave id>, state = <state>)
- * checksum = <checksum> header time = <header time>, full time = <full time> SOF = <start of frame>
- * BR = <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) EOH
- * = <end of header> EOB = <T0> ... <T7> sim = <simulated> */
-/* <Time> <Channel> <ID> CSErr <Dir> <DLC> <D0>...<D7> (slave = <slave id>, state = <state>)
- * checksum = <checksum> header time = <header time>, full time = <full time> SOF = <start of frame>
- * BR = <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) EOH
- * = <end of header> EOB = <T0> ... <T7> sim = <simulated> EOF = <end of frame> */
-/* <Time> <Channel> <ID> CSErr <Dir> <DLC> <D0>...<D7> (slave = <slave id>, state = <state>)
- * checksum = <checksum> header time = <header time>, full time = <full time> SOF = <start of frame>
- * BR = <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) EOH
- * = <end of header> EOB = <T0> ... <T7> sim = <simulated> EOF = <end of frame> RBR = <response
- * baudrate> */
-/* <Time> <Channel> <ID> CSErr <Dir> <DLC> <D0>...<D7> (slave = <slave id>, state = <state>)
- * checksum = <checksum> header time = <header time>, full time = <full time> SOF = <start of frame>
- * BR = <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) EOH
- * = <end of header> EOB = <T0> ... <T7> sim = <simulated> EOF = <end of frame> RBR = <response
- * baudrate> HBR = <header baudrate> HSO = <stop bit offset in header> RSO = <stop bit offset in re-
- * sponse> */
-/* <Time> <Channel> <ID> CSErr <Dir> <DLC> <D0>...<D7> (slave = <slave id>, state = <state>)
- * checksum = <checksum> header time = <header time>, full time = <full time> SOF = <start of frame>
- * BR = <baudrate> break = <SyncBreak> <SyncDel> (subId = <NAD> <MessageId> <SupplierId>) EOH
- * = <end of header> EOB = <T0> ... <T7> sim = <simulated> EOF = <end of frame> RBR = <response
- * baudrate> HBR = <header baudrate> HSO = <stop bit offset in header> RSO = <stop bit offset in re-
- * sponse> CSM = <unknown|classic|enhanced|error> */
+/**
+ * LIN ChecksumError
+ *
+ * A checksum error event occurs when a Slave sends an incorrect checksum value for a frame re-
+ * sponse that is otherwise correct.
+ */
 class LinChecksumError : public Event
 {
 public:
     LinChecksumError();
     virtual ~LinChecksumError();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** ID */
-    uint16_t id;
+    /** @copydoc LinId */
+    LinId id;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
+    /** @copydoc LinDir */
+    LinDir dir;
 
-    Dir dir;
+    /** @copydoc LinDlc */
+    LinDlc dlc;
 
-    /** DLC */
-    uint8_t dlc;
+    /** @copydoc LinDx */
+    LinDx data[8];
 
-    /** Data */
-    uint8_t data[8];
+    /** @copydoc LinSlaveId */
+    LinSlaveId slaveId;
 
-    /** slave id */
-    uint8_t slaveId;
+    /** @copydoc LinState */
+    LinState state;
 
-    /** state */
-    uint8_t state;
+    /** @copydoc LinChecksum */
+    LinChecksum checksum;
 
-    /** checksum */
-    uint8_t checksum;
+    /** @copydoc LinHeaderTime */
+    LinHeaderTime headerTime;
 
-    /** header time */
-    uint8_t headerTime;
+    /** @copydoc LinFullTime */
+    LinFullTime fullTime;
 
-    /** full time */
-    uint8_t fullTime;
+    /** @copydoc LinStartOfFrame */
+    LinStartOfFrame startOfFrame;
 
+    /** @copydoc LinBaudrateType */
+    LinBaudrateType baudrate;
 
-    /** start of frame (SOF) */
-    float startOfFrame;
+    /** @copydoc LinSyncBreak */
+    LinSyncBreak syncBreak;
 
-    /** baudrate (BR) */
-    uint16_t baudrate;
+    /** @copydoc LinSyncDel */
+    LinSyncDel syncDel;
 
-    /** SyncBreak */
-    uint32_t syncBreak;
+    /** @copydoc LinNad */
+    LinNad nad;
 
-    /** SyncDel */
-    uint32_t syncDel;
+    /** @copydoc LinMessageId */
+    LinMessageId messageId;
 
-    /** subId (NAD) */
-    uint8_t subId;
+    /** @copydoc LinSupplierId */
+    LinSupplierId supplierId;
 
-    /** MessageId */
-    uint16_t messageId;
+    /** @copydoc LinEndOfHeader */
+    LinEndOfHeader endOfHeader;
 
-    /** SupplierId */
-    uint16_t supplierId;
+    /** @copydoc LinT */
+    LinT endOfByte[8];
 
-    /** end of header (EOH) */
-    float endOfHeader;
+    /** @copydoc LinSimulated */
+    LinSimulated simulated;
 
-    /** end of byte (EOB) */
-    float endOfByte[8];
+    /** @copydoc LinEndOfFrame */
+    LinEndOfFrame endOfFrame;
 
-    /** simulated */
-    bool simulated;
+    /** @copydoc LinResponseBaudrate */
+    LinResponseBaudrate responseBaudrate;
 
+    /** @copydoc LinHeaderBaudrate */
+    LinHeaderBaudrate headerBaudrate;
 
-    /** end of frame (EOF) */
-    float endOfFrame;
+    /** @copydoc LinStopBitOffsetInHeader */
+    LinStopBitOffsetInHeader stopBitOffsetInHeader;
 
+    /** @copydoc LinStopBitOffsetInResponse */
+    LinStopBitOffsetInResponse stopBitOffsetInResponse;
 
-    /** response baudrate (RBR) */
-    uint16_t responseBaudrate;
+    /** @copydoc LinChecksumModel */
+    LinChecksumModel checksumModel;
 
-
-    /** header baudrate (HBR) */
-    float headerBaudrate;
-
-    /** stop bit offset in header (HSO) */
-    uint32_t stopBitOffsetInHeader;
-
-    /** stop bit offset in response (RSO) */
-    uint32_t stopBitOffsetInResponse;
-
-    /** unknown|classic|enhanced|error (CSM) */
-    std::string checksumModel;
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinChecksumError * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

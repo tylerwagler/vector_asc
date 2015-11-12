@@ -22,84 +22,73 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST150 Packet */
-/* <Time> <Channel> Pkt150: <Dir> <SourceAdr> <DestAdr> <State> <AckNack> <TransferType> <Pack> <RsvdUC> <Pindex> <CRC2> <Cack> <RsvdUL> <Pkt150Len> <D0> <D1>...<D(PktLen-1)> */
+/**
+ * MOST150 Packet
+ *
+ * Message of MOST150 Packet Data Channel.
+ */
 class Most150Packet : public Event
 {
 public:
     Most150Packet();
     virtual ~Most150Packet();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
+    /** @copydoc MostDir */
+    MostDir dir;
 
-    Dir dir;
+    /** @copydoc MostSourceAdr */
+    MostSourceAdr sourceAdr;
 
-    /** SourceAdr */
-    unsigned short sourceAdr;
+    /** @copydoc MostDestAdr */
+    MostDestAdr destAdr;
 
-    /** DestAdr */
-    unsigned short destAdr;
+    /** @copydoc MostState */
+    MostState state;
 
-    /** State */
-    unsigned short state;
+    /** @copydoc MostAckNack */
+    MostAckNack ackNack;
 
-    /** AckNack */
-    unsigned short ackNack;
+    /** @copydoc MostTransferType */
+    MostTransferType transferType;
 
-    /** TransferType */
-    unsigned short transferType;
+    /** @copydoc MostPack */
+    MostPack pAck;
 
-    /** Pack */
-    unsigned short pAck;
+    /** @copydoc MostRsvdUc */
+    MostRsvdUc rsvdUc;
 
-    /** RsvdUC */
-    unsigned short rsvdUc;
+    /** @copydoc MostPindex */
+    MostPindex pIndex;
 
-    /** Pindex */
-    unsigned short pIndex;
+    /** @copydoc MostCrc2 */
+    MostCrc2 crc2;
 
-    /** CRC2 */
-    unsigned short crc2;
+    /** @copydoc MostCack */
+    MostCack cAck;
 
-    /** Cack */
-    unsigned short cAck;
+    /** @copydoc MostRsvdUl */
+    MostRsvdUl rsvdUl;
 
-    /** RsvdUL */
-    unsigned short rsvdUl;
+    /** @copydoc MostPkt150Len */
+    MostPkt150Len pkt150Len;
 
-    /** Pkt150Len */
-    unsigned short pkt150Len;
+    /** @copydoc MostDx */
+    MostDx data[1024];
 
-    /** Data */
-    unsigned short data[1024];
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static Most150Packet * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

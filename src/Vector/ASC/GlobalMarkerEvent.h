@@ -22,6 +22,7 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
@@ -39,8 +40,8 @@ public:
     GlobalMarkerEvent();
     virtual ~GlobalMarkerEvent();
 
-    /** absolute or relative time in seconds */
-    double time;
+    /** @copydoc Time */
+    Time time;
 
     /** the type of the commented event */
     uint32_t type;

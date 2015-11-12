@@ -22,6 +22,7 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
@@ -33,21 +34,14 @@ public:
     TpDiagFlowControlFrame();
     virtual ~TpDiagFlowControlFrame();
 
-    /** FC-type */
-    enum class FcType {
-        IllegalFlowstatus,
-        Cts,
-        Wt,
-        OvFlw
-    };
+    /** @copydoc TpDiagFcType */
+    TpDiagFcType fcType;
 
-    FcType fcType;
+    /** @copydoc TpDiagBs */
+    TpDiagBs bs;
 
-    /** BS */
-    uint8_t bs;
-
-    /** STmin */
-    uint8_t stMin;
+    /** @copydoc TpDiagStMin */
+    TpDiagStMin stMin;
 
     /** @copydoc Event::parse() */
     static TpDiagFlowControlFrame * parse(File & file, std::string & line);

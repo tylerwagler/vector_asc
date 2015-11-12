@@ -22,6 +22,7 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
@@ -38,10 +39,10 @@ public:
     virtual ~CanOverloadFrameEvent();
 
     /** absolute or relative time in seconds */
-    double time;
+    Time time;
 
     /** Number of CAN channel. */
-    uint16_t channel;
+    Channel channel;
 
     /** @copydoc Event::parse() */
     static CanOverloadFrameEvent * parse(File & file, std::string & line);

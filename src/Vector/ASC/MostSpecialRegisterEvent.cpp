@@ -29,7 +29,7 @@ MostSpecialRegisterEvent::MostSpecialRegisterEvent() :
     Event(),
     time(0.0),
     channel(0),
-    regSubType(0),
+    regSubType(MostRegSubType::Unspecified),
     regId(0),
     regValue(0)
 {
@@ -52,9 +52,34 @@ MostSpecialRegisterEvent * MostSpecialRegisterEvent::parse(File & file, std::str
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostSpecialRegisterEvent * mostSpecialRegisterEvent = new MostSpecialRegisterEvent;
-        mostSpecialRegisterEvent->time = std::stof(match[1]);
+        mostSpecialRegisterEvent->time = std::stod(match[1]);
         mostSpecialRegisterEvent->channel = std::stoul(match[2]);
-        mostSpecialRegisterEvent->regSubType = std::stoul(match[3]);
+        switch(std::stoul(match[3])) {
+        case 0:
+            mostSpecialRegisterEvent->regSubType = MostRegSubType::Unspecified;
+            break;
+        case 1:
+            mostSpecialRegisterEvent->regSubType = MostRegSubType::Notify;
+            break;
+        case 2:
+            mostSpecialRegisterEvent->regSubType = MostRegSubType::ReadRequest;
+            break;
+        case 3:
+            mostSpecialRegisterEvent->regSubType = MostRegSubType::WriteRequest;
+            break;
+        case 4:
+            mostSpecialRegisterEvent->regSubType = MostRegSubType::ReadResult;
+            break;
+        case 5:
+            mostSpecialRegisterEvent->regSubType = MostRegSubType::WriteResult;
+            break;
+        case 6:
+            mostSpecialRegisterEvent->regSubType = MostRegSubType::ReadFailed;
+            break;
+        case 7:
+            mostSpecialRegisterEvent->regSubType = MostRegSubType::WriteFailed;
+            break;
+        }
         mostSpecialRegisterEvent->regId = std::stoul(match[4], nullptr, 16);
         mostSpecialRegisterEvent->regValue = std::stoul(match[5], nullptr, 16);
         return mostSpecialRegisterEvent;

@@ -26,7 +26,11 @@
 namespace Vector {
 namespace ASC {
 
-/** FlexRay Start Cycle Event ("SCE") */
+/**
+ * FlexRay Start Cycle Event ("SCE")
+ *
+ * FlexRay Message received or transmitted on a FlexRay channel.
+ */
 class FlexRayStartCycleEvent : public Event
 {
 public:
@@ -34,7 +38,7 @@ public:
     virtual ~FlexRayStartCycleEvent();
 
     /** Timestamp */
-    float time;
+    double time;
 
     /** Clusternr. */
     uint32_t clusterNr;
@@ -66,19 +70,9 @@ public:
     /** NM_Vect[n] */
     uint32_t nmVect[256];
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static FlexRayStartCycleEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

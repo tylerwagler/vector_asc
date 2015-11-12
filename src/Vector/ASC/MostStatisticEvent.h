@@ -22,49 +22,47 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST Statistic Event */
-/* <Time> <Channel> MostStatistic: Fr: <StatVal> Lt: <StatValue> Bl: <StatVal> Pk: <StatValue> */
+/**
+ * MOST Statistic Event
+ *
+ * The event transports common network statistics. These are the number of Control messages (Fr),
+ * number of signal state transition (Lt) events and number of packets (Pk) since the last Statistic
+ * event. Bl denotes the fill level of the interface’s event queue (Optolyzer G1 only).
+ *
+ * Usually the event is not visible in a trace window.
+ */
 class MostStatisticEvent : public Event
 {
 public:
     MostStatisticEvent();
     virtual ~MostStatisticEvent();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** Fr */
-    unsigned short fr;
+    /** number of Control messages */
+    MostStatVal fr;
 
-    /** Lt */
-    unsigned short lt;
+    /** number of signal state transition events */
+    MostStatVal lt;
 
-    /** Bl */
-    unsigned short bl;
+    /** fill level of the interface’s event queue (Optolyzer G1 only) */
+    MostStatVal bl;
 
-    /** Pk */
-    unsigned short pk;
+    /** number of packets */
+    MostStatVal pk;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostStatisticEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

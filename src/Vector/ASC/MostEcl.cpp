@@ -29,8 +29,8 @@ MostEcl::MostEcl() :
     Event(),
     time(0.0),
     channel(0),
-    eclMode(0),
-    eclState(0)
+    eclMode(MostEclMode::Discrete),
+    eclState(MostEclState::LineLow)
 {
     eventType = EventType::MostEcl;
 }
@@ -50,10 +50,32 @@ MostEcl * MostEcl::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostEcl * mostEcl = new MostEcl;
-        mostEcl->time = std::stof(match[1]);
+        mostEcl->time = std::stod(match[1]);
         mostEcl->channel = std::stoul(match[2]);
-        mostEcl->eclMode = std::stoul(match[3]);
-        mostEcl->eclState = std::stoul(match[4]);
+        switch(std::stoul(match[3])) {
+        case 0:
+            mostEcl->eclMode = MostEclMode::Discrete;
+            switch(std::stoul(match[4])) {
+            case 0:
+                mostEcl->eclState = MostEclState::LineLow;
+                break;
+            case 1:
+                mostEcl->eclState = MostEclState::LineHigh;
+                break;
+            }
+            break;
+        case 1:
+            mostEcl->eclMode = MostEclMode::Sequence;
+            switch(std::stoul(match[4])) {
+            case 0:
+                mostEcl->eclState = MostEclState::SequenceStopped;
+                break;
+            case 1:
+                mostEcl->eclState = MostEclState::SequenceStarted;
+                break;
+            }
+            break;
+        }
         return mostEcl;
     }
 

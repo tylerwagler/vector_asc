@@ -22,78 +22,67 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST Ethernet Packet */
-/* <Time> <Channel> PktEth: <Dir> <SourceMacAdr> <DestMacAdr> <State> <AckNack> <TransferType> <PAck> <CRC4> <Cack> <RsvdUL> <PktEthLen> <D0> <D1>...<D(PktEthLen-1)> */
+/**
+ * MOST Ethernet Packet
+ *
+ * Message on MOST150 Ethernet Packet Channel.
+ */
 class MostEthernetPacket : public Event
 {
 public:
     MostEthernetPacket();
     virtual ~MostEthernetPacket();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    unsigned short channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
+    /** @copydoc MostDir */
+    MostDir dir;
 
-    Dir dir;
+    /** @copydoc MostSourceMacAdr */
+    MostSourceMacAdr sourceMacAdr;
 
-    /** SourceMacAdr */
-    unsigned long long int sourceMacAdr;
+    /** @copydoc MostDestMacAdr */
+    MostDestMacAdr destMacAdr;
 
-    /** DestMacAdr */
-    unsigned long long int destMacAdr;
+    /** @copydoc MostState */
+    MostState state;
 
-    /** State */
-    unsigned short state;
+    /** @copydoc MostAckNack */
+    MostAckNack ackNack;
 
-    /** AckNack */
-    unsigned short ackNack;
+    /** @copydoc MostTransferType */
+    MostTransferType transferType;
 
-    /** TransferType */
-    unsigned short transferType;
+    /** @copydoc MostPack */
+    MostPack pAck;
 
-    /** PAck */
-    unsigned short pAck;
+    /** @copydoc MostCrc4 */
+    MostCrc4 crc4;
 
-    /** CRC4 */
-    unsigned int crc4;
+    /** @copydoc MostCack */
+    MostCack cAck;
 
-    /** Cack */
-    unsigned short cAck;
+    /** @copydoc MostRsvdUl */
+    MostRsvdUl rsvdUl;
 
-    /** RsvdUL */
-    unsigned short rsvdUl;
+    /** @copydoc MostPktEthLen */
+    MostPktEthLen pktEthLen;
 
-    /** PktEthLen */
-    unsigned short pktEthLen;
+    /** @copydoc MostDx */
+    MostDx data[1024];
 
-    /** Data */
-    unsigned short data[1024];
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static MostEthernetPacket * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

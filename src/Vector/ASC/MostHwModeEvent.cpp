@@ -50,7 +50,7 @@ MostHwModeEvent * MostHwModeEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostHwModeEvent * mostHwModeEvent = new MostHwModeEvent;
-        mostHwModeEvent->time = std::stof(match[1]);
+        mostHwModeEvent->time = std::stod(match[1]);
         mostHwModeEvent->channel = std::stoul(match[2]);
         mostHwModeEvent->hwMode = std::stoul(match[3], nullptr, 16);
         mostHwModeEvent->hwModeMask = std::stoul(match[4], nullptr, 16);

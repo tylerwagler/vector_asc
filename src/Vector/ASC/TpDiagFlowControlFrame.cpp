@@ -27,7 +27,7 @@ namespace ASC {
 
 TpDiagFlowControlFrame::TpDiagFlowControlFrame() :
     Event(),
-    fcType(FcType::IllegalFlowstatus),
+    fcType(TpDiagFcType::Cts),
     bs(0),
     stMin(0)
 {
@@ -48,11 +48,13 @@ TpDiagFlowControlFrame * TpDiagFlowControlFrame::parse(File & file, std::string 
     if (std::regex_match(line, match, regex)) {
         TpDiagFlowControlFrame * tpDiagFlowControlFrame = new TpDiagFlowControlFrame;
         if (match[1] == "CTS")
-            tpDiagFlowControlFrame->fcType = FcType::Cts;
+            tpDiagFlowControlFrame->fcType = TpDiagFcType::Cts;
+        else
         if (match[1] == "WT")
-            tpDiagFlowControlFrame->fcType = FcType::Wt;
+            tpDiagFlowControlFrame->fcType = TpDiagFcType::Wt;
+        else
         if (match[1] == "OVFLW")
-            tpDiagFlowControlFrame->fcType = FcType::OvFlw;
+            tpDiagFlowControlFrame->fcType = TpDiagFcType::Ovflw;
         tpDiagFlowControlFrame->bs = std::stoul(match[2], nullptr, 16);
         tpDiagFlowControlFrame->stMin = std::stoul(match[3], nullptr, 16);
         return tpDiagFlowControlFrame;
@@ -65,16 +67,13 @@ void TpDiagFlowControlFrame::write(File & file, std::ostream & stream)
 {
     stream << "FC.";
     switch(fcType) {
-    case FcType::IllegalFlowstatus:
-        stream << "FC.Illegal Flow Status";
-        break;
-    case FcType::Cts:
+    case TpDiagFcType::Cts:
         stream << "CTS";
         break;
-    case FcType::Wt:
+    case TpDiagFcType::Wt:
         stream << "WT";
         break;
-    case FcType::OvFlw:
+    case TpDiagFcType::Ovflw:
         stream << "OVFLW";
         break;
     }

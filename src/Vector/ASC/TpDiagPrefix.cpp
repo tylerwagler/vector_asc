@@ -29,7 +29,7 @@ TpDiagPrefix::TpDiagPrefix() :
     Event(),
     canChannel(0),
     connectionId(0),
-    type(Type::Info),
+    type(TpDiagType::Info),
     source(),
     destination()
 {
@@ -54,15 +54,19 @@ TpDiagPrefix * TpDiagPrefix::parse(File & file, std::string & line)
         tpDiagPrefix->canChannel = std::stoul(match[1]);
         tpDiagPrefix->connectionId = std::stoul(match[2], nullptr, 16);
         if (match[3] == "Info")
-            tpDiagPrefix->type = Type::Info;
+            tpDiagPrefix->type = TpDiagType::Info;
+        else
         if (match[3] == "Warn")
-            tpDiagPrefix->type = Type::Warn;
+            tpDiagPrefix->type = TpDiagType::Warn;
+        else
         if (match[3] == "Error")
-            tpDiagPrefix->type = Type::Error;
+            tpDiagPrefix->type = TpDiagType::Error;
+        else
         if (match[3] == "Atom")
-            tpDiagPrefix->type = Type::Atom;
+            tpDiagPrefix->type = TpDiagType::Atom;
+        else
         if (match[3] == "Data")
-            tpDiagPrefix->type = Type::Data;
+            tpDiagPrefix->type = TpDiagType::Data;
         tpDiagPrefix->source = match[4];
         tpDiagPrefix->destination = match[5];
         return tpDiagPrefix;

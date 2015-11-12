@@ -22,60 +22,49 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** MOST25 Control Message Node Mode */
-/* <Time> <Channel> <Dir> <SourceAdr> <DestAdr> <RType> <D0> <D1>...<D16> <State2> */
+/**
+ * MOST25 Control Message Node Mode
+ *
+ * Message on MOST25 Control Channel received or transmitted in node mode.
+ */
 class Most25ControlMessageNodeMode : public Event
 {
 public:
     Most25ControlMessageNodeMode();
     virtual ~Most25ControlMessageNodeMode();
 
-    /** Time */
-    float time;
+    /** @copydoc MostTime */
+    MostTime time;
 
-    /** Channel */
-    uint16_t channel;
+    /** @copydoc MostChannel */
+    MostChannel channel;
 
-    /** Dir */
-    enum class Dir {
-        Rx,
-        Tx
-    };
+    /** @copydoc MostDir */
+    MostDir dir;
 
-    Dir dir;
+    /** @copydoc MostSourceAdr */
+    MostSourceAdr sourceAdr;
 
-    /** SourceAdr */
-    uint16_t sourceAdr;
+    /** @copydoc MostDestAdr */
+    MostDestAdr destAdr;
 
-    /** DestAdr */
-    uint16_t destAdr;
+    /** @copydoc MostRtype */
+    MostRtype rType;
 
-    /** RType */
-    uint8_t rType;
+    /** @copydoc MostDx */
+    MostDx data[17];
 
-    /** Data */
-    uint8_t data[17];
+    /** @copydoc MostState2 */
+    MostState2 state2;
 
-    /** State2 */
-    uint16_t state2;
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static Most25ControlMessageNodeMode * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

@@ -73,7 +73,7 @@ Most150ControlMessageFragment * Most150ControlMessageFragment::parse(File & file
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most150ControlMessageFragment * most150ControlMessageFragment = new Most150ControlMessageFragment;
-        most150ControlMessageFragment->time = std::stof(match[1]);
+        most150ControlMessageFragment->time = std::stod(match[1]);
         most150ControlMessageFragment->channel = std::stoul(match[2]);
         most150ControlMessageFragment->frgMask = std::stoul(match[3], nullptr, 16);
         most150ControlMessageFragment->sourceAdr = std::stoul(match[4], nullptr, 16);

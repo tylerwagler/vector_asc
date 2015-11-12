@@ -45,18 +45,25 @@ public:
     Channel channel;
 
     /**
+     * Bit field defining the validity of the parameters Code, CodeExt, ID, DLC, Position, and
+     * Length.
+     *
+     *   - Bit 0: SJA 1000 ECC is valid
+     *   - Bit 1: Vector CAN Core Error Code is valid
+     *   - Bit 2: Vector CAN Core Error Position is valid
+     *   - Bit 4: Vector CAN Core Frame Length in ns is valid
+     */
+    uint8_t flags;
+
+    /** Extended error flags */
+    uint16_t codeExt;
+
+    /**
      * Content of Philips SJA1000 Error Code Capture (ECC) register, or the Vector CAN-
      * Core error register
      *
      * @note CANcardXL, CANcaseXL, CANboardXL, and all other interfaces with SJA1000
      */
-    uint8_t ecc;
-
-    // Interfaces with CAN-Core:
-    uint8_t flags;
-
-    uint16_t codeExt;
-
     uint8_t code;
 
     /** @copydoc IdNum */
@@ -65,8 +72,10 @@ public:
     /** @copydoc Dlc */
     Dlc dlc;
 
-    uint8_t position;
+    /** Position */
+    uint16_t position;
 
+    /** Length */
     uint16_t length;
 
     /** @copydoc Event::parse() */

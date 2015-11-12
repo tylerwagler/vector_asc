@@ -84,7 +84,7 @@ BeginTriggerblockEvent::~BeginTriggerblockEvent()
 {
 }
 
-BeginTriggerblockEvent * BeginTriggerblockEvent::parse(File & file, std::string & line)
+BeginTriggerblockEvent * BeginTriggerblockEvent::parse(File &, std::string & line)
 {
     std::regex regex(
                 "^Begin Triggerblock"

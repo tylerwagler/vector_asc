@@ -22,52 +22,46 @@
 #pragma once
 
 #include "Event.h"
+#include "Symbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** LIN Unexpected wakeup */
-/* <Time> <Channel> Unexpected wakeup: approx. <Width> us SOF = <start of frame> BR = <baudrate> */
-/* <Time> <Channel> Unexpected wakeup: Signal = <WakeupByte> SOF = <start of frame> BR =
- * <baudrate> */
+/**
+ * LIN Unexpected wakeup
+ *
+ * This event occurs if an unexpected byte received in bus idle phase of wake mode could be a
+ * wakeup frame.
+ *
+ * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
+ */
 class LinUnexpectedWakeup : public Event
 {
 public:
     LinUnexpectedWakeup();
     virtual ~LinUnexpectedWakeup();
 
-    /** Time */
-    float time;
+    /** @copydoc LinTime */
+    LinTime time;
 
-    /** Channel */
-    std::string channel;
+    /** @copydoc LinChannel */
+    LinChannel channel;
 
-    /** Width */
-    uint16_t width;
+    /** @copydoc LinWidth */
+    LinWidth width;
 
-    /** start of frame (SOF) */
-    float startOfFrame;
+    /** @copydoc LinWakeupByte */
+    LinWakeupByte wakeupByte;
 
-    /** baudrate (BR) */
-    uint16_t baudrate;
+    /** @copydoc LinStartOfFrame */
+    LinStartOfFrame startOfFrame;
 
+    /** @copydoc LinBaudrateType */
+    LinBaudrateType baudrate;
 
-    /** WakeupByte */
-    uint8_t wakeupByte;
-
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static LinUnexpectedWakeup * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 };
 

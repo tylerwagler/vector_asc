@@ -26,7 +26,11 @@
 namespace Vector {
 namespace ASC {
 
-/** FlexRay Message Event ("RMSG / PDU") */
+/**
+ * FlexRay Message Event ("RMSG / PDU")
+ *
+ * FlexRay Message received or transmitted on a FlexRay channel.
+ */
 class FlexRayMessageEvent : public Event
 {
 public:
@@ -34,7 +38,7 @@ public:
     virtual ~FlexRayMessageEvent();
 
     /** Timestamp */
-    float time;
+    double time;
 
     /** Event type */
     std::string flexRayEventType;
@@ -99,19 +103,9 @@ public:
     /** PDU Offset */
     int32_t pduOffset;
 
-    /**
-     * Parse function
-     *
-     * @param line Line as input
-     * @return NULL if not parsed, otherwise valid object
-     */
+    /** @copydoc Event::parse() */
     static FlexRayMessageEvent * parse(File & file, std::string & line);
 
-    /**
-     * Writes event to output stream.
-     *
-     * @param stream output stream
-     */
     virtual void write(File & file, std::ostream & stream);
 
 private:

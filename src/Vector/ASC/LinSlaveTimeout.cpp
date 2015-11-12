@@ -28,7 +28,7 @@ namespace ASC {
 LinSlaveTimeout::LinSlaveTimeout() :
     Event(),
     time(0.0),
-    channel(),
+    channel(0),
     slaveId(0),
     currentState(0),
     followingState(0)
@@ -52,8 +52,8 @@ LinSlaveTimeout * LinSlaveTimeout::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinSlaveTimeout * linSlaveTimeout = new LinSlaveTimeout;
-        linSlaveTimeout->time = std::stof(match[1]);
-        linSlaveTimeout->channel = match[2];
+        linSlaveTimeout->time = std::stod(match[1]);
+        linSlaveTimeout->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linSlaveTimeout->slaveId = std::stoul(match[3]);
         linSlaveTimeout->currentState = std::stoul(match[4]);
         linSlaveTimeout->followingState = std::stoul(match[5]);

@@ -30,7 +30,7 @@ MostStressEvent::MostStressEvent() :
     time(0.0),
     channel(0),
     stressMode(0),
-    stressState(0)
+    stressState(MostStressState::Stopped)
 {
     eventType = EventType::MostStressEvent;
 }
@@ -50,10 +50,17 @@ MostStressEvent * MostStressEvent::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostStressEvent * mostStressEvent = new MostStressEvent;
-        mostStressEvent->time = std::stof(match[1]);
+        mostStressEvent->time = std::stod(match[1]);
         mostStressEvent->channel = std::stoul(match[2]);
         mostStressEvent->stressMode = std::stoul(match[3]);
-        mostStressEvent->stressState = std::stoul(match[4]);
+        switch(std::stoul(match[4])) {
+        case 0:
+            mostStressEvent->stressState = MostStressState::Stopped;
+            break;
+        case 1:
+            mostStressEvent->stressState = MostStressState::Started;
+            break;
+        }
         return mostStressEvent;
     }
 
