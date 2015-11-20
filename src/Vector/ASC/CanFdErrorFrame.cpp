@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "CanFdErrorFrame.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -57,29 +58,14 @@ CanFdErrorFrame::~CanFdErrorFrame()
 
 CanFdErrorFrame * CanFdErrorFrame::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " CANFD"
-                " ([[:digit:]]{1,5})"
-                " (Rx|Tx)"
-                " ErrorFrame"
-                " (Not Acknowledge error, dominant error flag)"
-                " ([[:xdigit:]]{4})"
-                " ([[:xdigit:]]{2})"
-                " ([[:xdigit:]]{4})"
-                " (Data)"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([01])"
-                " ([01])"
-                " ([[:xdigit:]]+)"
-                " ([[:digit:]]+)"
-                "(( [[:xdigit:]]+){0,64})"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "CANFD" REGEX_WS REGEX_Channel REGEX_WS REGEX_Dir REGEX_WS "ErrorFrame"
+                     REGEX_WS "(Not Acknowledge error, dominant error flag)"
+                     REGEX_WS "([[:xdigit:]]{4})" REGEX_WS "([[:xdigit:]]{2})" REGEX_WS "([[:xdigit:]]{4})"
+                     REGEX_WS "(Data)"
+                     REGEX_WS "([[:digit:]]+)" REGEX_WS REGEX_ID REGEX_WS REGEX_BRS REGEX_WS REGEX_ESI REGEX_WS REGEX_DLC
+                     REGEX_WS REGEX_DataLength "((" REGEX_WS REGEX_Dx "){0,64})"
+                     REGEX_WS REGEX_MessageDuration REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:xdigit:]]+)"
+                     REGEX_WS REGEX_BitTimingConfArb REGEX_WS REGEX_BitTimingConfData REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanFdErrorFrame * canFdErrorFrame = new CanFdErrorFrame;

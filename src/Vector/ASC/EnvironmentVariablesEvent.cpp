@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "EnvironmentVariablesEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -40,11 +41,7 @@ EnvironmentVariablesEvent::~EnvironmentVariablesEvent()
 
 EnvironmentVariablesEvent * EnvironmentVariablesEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " (.+)"
-                " :="
-                " (.+)$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "(.+?)" REGEX_ws ":=" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         EnvironmentVariablesEvent * environmentVariablesEvent = new EnvironmentVariablesEvent;

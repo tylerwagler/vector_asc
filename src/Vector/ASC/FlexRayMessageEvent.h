@@ -41,7 +41,13 @@ public:
     double time;
 
     /** Event type */
-    std::string flexRayEventType;
+    enum FlexRayEventType : uint8_t {
+        RMSG,
+        PDU
+    };
+
+    /** Event type */
+    FlexRayEventType flexRayEventType;
 
     /** Clusternr. */
     uint32_t clusterNr;
@@ -89,7 +95,7 @@ public:
     int32_t bufferLength;
 
     /** Data[n] */
-    uint32_t data[256];
+    uint32_t data[254];
 
     /** Frame CRC */
     uint32_t frameCrc;

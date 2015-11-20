@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "Most25ControlMessageNodeMode.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -45,15 +46,10 @@ Most25ControlMessageNodeMode::~Most25ControlMessageNodeMode()
 
 Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " (Rx|Tx)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                "(( [[:xdigit:]]+){17})"
-                " ([[:xdigit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS REGEX_MOST_Dir
+                     REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr REGEX_WS REGEX_MOST_RType
+                     "((" REGEX_WS REGEX_MOST_Dx"){17})"
+                     REGEX_WS REGEX_MOST_State2 REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most25ControlMessageNodeMode * most25ControlMessageNodeMode = new Most25ControlMessageNodeMode;

@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinChecksumInfo.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -41,12 +42,8 @@ LinChecksumInfo::~LinChecksumInfo()
 
 LinChecksumInfo * LinChecksumInfo::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " ([[:digit:]]+)"
-                " CSInfo"
-                " Using (classic|enhanced) checksum$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS "CSInfo"
+                     REGEX_WS REGEX_LIN_checksumModelInfo REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinChecksumInfo * linChecksumInfo = new LinChecksumInfo;

@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostSystemEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -42,13 +43,8 @@ MostSystemEvent::~MostSystemEvent()
 
 MostSystemEvent * MostSystemEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " System:"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "System:"
+                     REGEX_ws REGEX_MOST_SysID REGEX_WS REGEX_MOST_SysValue REGEX_WS REGEX_MOST_SysValueOld REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostSystemEvent * mostSystemEvent = new MostSystemEvent;

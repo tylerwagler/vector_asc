@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostCommonRegisterEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -44,15 +45,10 @@ MostCommonRegisterEvent::~MostCommonRegisterEvent()
 
 MostCommonRegisterEvent * MostCommonRegisterEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " RegData:"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                "(( [[:xdigit:]]+)*)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "RegData:"
+                     REGEX_ws REGEX_MOST_RegSubType REGEX_WS REGEX_MOST_RegChip REGEX_WS REGEX_MOST_RegOffset
+                     REGEX_WS REGEX_MOST_RegDataLen
+                     "((" REGEX_WS REGEX_MOST_Dx ")*)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostCommonRegisterEvent * mostCommonRegisterEvent = new MostCommonRegisterEvent;

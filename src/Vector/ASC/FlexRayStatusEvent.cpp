@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "FlexRayStatusEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -49,22 +50,11 @@ FlexRayStatusEvent::~FlexRayStatusEvent()
 
 FlexRayStatusEvent * FlexRayStatusEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " Fr"
-                " SE"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:digit:]]+)"
-                " ([012])"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([01234])"
-                " ([[:digit:]]+)"
-                " ([01])$");
+    std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "SE"
+                     REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
+                     REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([012])"
+                     REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([01234])" REGEX_WS "([[:digit:]]+)"
+                     REGEX_WS "([01])" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FlexRayStatusEvent * flexRayStatusEvent = new FlexRayStatusEvent;

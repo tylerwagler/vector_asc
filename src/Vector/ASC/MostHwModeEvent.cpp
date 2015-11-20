@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostHwModeEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -41,12 +42,8 @@ MostHwModeEvent::~MostHwModeEvent()
 
 MostHwModeEvent * MostHwModeEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " HWMode:"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "HWMode:"
+                     REGEX_ws REGEX_MOST_HWMode REGEX_WS REGEX_MOST_HWModeMask REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostHwModeEvent * mostHwModeEvent = new MostHwModeEvent;

@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LogTriggerEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -38,7 +39,7 @@ LogTriggerEvent::~LogTriggerEvent()
 
 LogTriggerEvent * LogTriggerEvent::parse(File & file, std::string & line)
 {
-    std::regex regex("^([[:digit:].]+) log trigger event$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log trigger event" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LogTriggerEvent * logTriggerEvent = new LogTriggerEvent;

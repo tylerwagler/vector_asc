@@ -109,7 +109,7 @@ set(source_files
   TpDiagRequest.cpp
   TpDiagSingleFrame.cpp)
 
-set(header_files
+set(public_header_files
   AfdxPacket.h
   AllEvents.h
   BeginTriggerblockEvent.h
@@ -205,6 +205,9 @@ set(header_files
   TpDiagRequest.h
   TpDiagSingleFrame.h)
 
+set(private_header_files
+  SymbolsRegEx.h)
+
 set(info_files
   Lexer.l)
 #  Parser.yy)
@@ -222,7 +225,7 @@ endif(UNIX)
 #add_flex_bison_dependency(Lexer Parser)
 
 add_library(${PROJECT_NAME} SHARED
-  ${source_files} ${header_files} ${info_files}
+  ${source_files} ${public_header_files} ${private_header_files} ${info_files}
   #${BISON_Parser_OUTPUTS}
   ${FLEX_Lexer_OUTPUTS})
 
@@ -246,7 +249,7 @@ install(
   DESTINATION include/Vector/ASC)
 
 install(
-  FILES ${CMAKE_CURRENT_BINARY_DIR}/config.h ${header_files}
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/config.h ${public_header_files}
   DESTINATION include/Vector/ASC)
 
 add_subdirectory(docs)

@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinEventTriggeredFrameInfo.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -42,13 +43,8 @@ LinEventTriggeredFrameInfo::~LinEventTriggeredFrameInfo()
 
 LinEventTriggeredFrameInfo * LinEventTriggeredFrameInfo::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " ([[:xdigit:]]+)"
-                " EvTrigFrmInfo"
-                " ([[:alnum:]_]+)"
-                " (.*)$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID
+                     REGEX_WS "EvTrigFrmInfo" REGEX_WS REGEX_LIN_ETFName REGEX_WS REGEX_LIN_description REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinEventTriggeredFrameInfo * linEventTriggeredFrameInfo = new LinEventTriggeredFrameInfo;

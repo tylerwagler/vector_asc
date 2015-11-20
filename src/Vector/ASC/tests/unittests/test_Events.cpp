@@ -1186,7 +1186,7 @@ BOOST_AUTO_TEST_CASE(FlexRayMessageEvent)
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayMessageEvent);
     flexRayMessageEvent = static_cast<Vector::ASC::FlexRayMessageEvent *>(event);
     BOOST_CHECK(isEqual(flexRayMessageEvent->time, 0.039255));
-    BOOST_CHECK(flexRayMessageEvent->flexRayEventType == "RMSG");
+    BOOST_CHECK(flexRayMessageEvent->flexRayEventType == Vector::ASC::FlexRayMessageEvent::FlexRayEventType::RMSG);
     BOOST_CHECK(flexRayMessageEvent->clusterNr == 0);
     BOOST_CHECK(flexRayMessageEvent->clientId == 0);
     BOOST_CHECK(flexRayMessageEvent->channelNr == 1);
@@ -1216,7 +1216,7 @@ BOOST_AUTO_TEST_CASE(FlexRayMessageEvent)
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayMessageEvent);
     flexRayMessageEvent = static_cast<Vector::ASC::FlexRayMessageEvent *>(event);
     BOOST_CHECK(isEqual(flexRayMessageEvent->time, 0.047906));
-    BOOST_CHECK(flexRayMessageEvent->flexRayEventType == "PDU");
+    BOOST_CHECK(flexRayMessageEvent->flexRayEventType == Vector::ASC::FlexRayMessageEvent::FlexRayEventType::PDU);
     BOOST_CHECK(flexRayMessageEvent->clusterNr == 0);
     BOOST_CHECK(flexRayMessageEvent->clientId == 2);
     BOOST_CHECK(flexRayMessageEvent->channelNr == 1);
@@ -1244,7 +1244,7 @@ BOOST_AUTO_TEST_CASE(FlexRayMessageEvent)
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayMessageEvent);
     flexRayMessageEvent = static_cast<Vector::ASC::FlexRayMessageEvent *>(event);
     BOOST_CHECK(isEqual(flexRayMessageEvent->time, 0.047906));
-    BOOST_CHECK(flexRayMessageEvent->flexRayEventType == "RMSG");
+    BOOST_CHECK(flexRayMessageEvent->flexRayEventType == Vector::ASC::FlexRayMessageEvent::FlexRayEventType::RMSG);
     BOOST_CHECK(flexRayMessageEvent->clusterNr == 0);
     BOOST_CHECK(flexRayMessageEvent->clientId == 2);
     BOOST_CHECK(flexRayMessageEvent->channelNr == 1);

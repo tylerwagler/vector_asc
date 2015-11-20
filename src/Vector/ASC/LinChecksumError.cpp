@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinChecksumError.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -64,28 +65,26 @@ LinChecksumError::~LinChecksumError()
 
 LinChecksumError * LinChecksumError::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " ([[:xdigit:]]+)"
-                " CSErr"
-                " (Rx|Tx)"
-                " ([[:digit:]]+)"
-                "(( [[:xdigit:]]+){0,8})?"
-                "( checksum = ([[:digit:]]+))?"
-                "( header time = ([[:digit:]]+), full time = ([[:digit:]]+))?"
-                "( SOF = ([[:digit:].]+))?"
-                "( BR = ([[:digit:]]+))?"
-                "( break = ([[:digit:]]+) ([[:digit:]]+))?"
-                "( EOH = ([[:digit:].]+))?"
-                "( EOB =(( [[:digit:].]+){0,8}))?"
-                "( sim = ([01]))?"
-                "( EOF = ([[:digit:].]+))?"
-                "( RBR = ([[:digit:]]+))?"
-                "( HBR = ([[:digit:].]+))?"
-                "( HSO = ([[:digit:]]+))?"
-                "( RSO = ([[:digit:]]+))?"
-                "( CSM = (unknown|classic|enhanced|error))?$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS "CSErr"
+                     REGEX_WS REGEX_LIN_Dir REGEX_WS REGEX_LIN_DLC
+                     "((" REGEX_WS "[[:xdigit:]]+){0,8})"
+                     "(" REGEX_WS "slave" REGEX_ws "=" REGEX_ws REGEX_LIN_slaveId "," REGEX_ws "state" REGEX_ws "=" REGEX_ws REGEX_LIN_state ")?"
+                     REGEX_WS "checksum" REGEX_ws "=" REGEX_ws REGEX_LIN_checksum
+                     REGEX_WS "header time" REGEX_ws "=" REGEX_ws REGEX_LIN_headerTime ","
+                     REGEX_ws "full time" REGEX_ws "=" REGEX_ws REGEX_LIN_fullTime
+                     "(" REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
+                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate
+                     REGEX_WS "break" REGEX_ws "=" REGEX_ws REGEX_LIN_SyncBreak REGEX_WS REGEX_LIN_SyncDel
+                     "(" REGEX_WS "subId" REGEX_ws "=" REGEX_ws REGEX_LIN_NAD REGEX_WS REGEX_LIN_MessageId REGEX_WS REGEX_LIN_SupplierId ")?"
+                     REGEX_WS "EOH" REGEX_ws "=" REGEX_ws REGEX_LIN_endOfFrame
+                     REGEX_WS "EOB" REGEX_ws "=((" REGEX_WS REGEX_LIN_T "){0,8})"
+                     REGEX_WS "sim" REGEX_ws "=" REGEX_ws REGEX_LIN_simulated
+                     "(" REGEX_WS "EOF" REGEX_ws "=" REGEX_ws REGEX_LIN_endOfFrame
+                     "(" REGEX_WS "RBR" REGEX_ws "=" REGEX_ws REGEX_LIN_responseBaudrate
+                     "(" REGEX_WS "HBR" REGEX_ws "=" REGEX_ws REGEX_LIN_headerBaudrate
+                     REGEX_WS "HSO" REGEX_ws "=" REGEX_ws REGEX_LIN_stopBitOffsetInHeader
+                     REGEX_WS "RSO" REGEX_ws "=" REGEX_ws REGEX_LIN_stopBitOffsetInResponse
+                     "(" REGEX_WS "CSM" REGEX_ws "=" REGEX_ws REGEX_LIN_checksumModel ")?)?)?)?)?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinChecksumError * linChecksumError = new LinChecksumError;
@@ -105,37 +104,56 @@ LinChecksumError * LinChecksumError::parse(File & file, std::string & line)
             iss1 >> s;
             linChecksumError->data[i] = s;
         }
-        linChecksumError->checksum = std::stoul(match[9], nullptr, 16);
-        linChecksumError->headerTime = std::stoul(match[11]);
-        linChecksumError->fullTime = std::stoul(match[12]);
-        linChecksumError->startOfFrame = std::stod(match[14]);
-        linChecksumError->baudrate = std::stoul(match[16]);
-        linChecksumError->syncBreak = std::stoul(match[18]);
-        linChecksumError->syncDel = std::stoul(match[19]);
-        linChecksumError->endOfHeader = std::stod(match[21]);
-        std::istringstream iss2(match[23]);
-        for (uint8_t i = 0; i < linChecksumError->dlc && i < 8; ++i) {
-            double s;
-            iss2 >> s;
-            linChecksumError->endOfByte[i] = s;
+        if (match[8] != "") {
+            linChecksumError->slaveId = std::stoul(match[9]);
+            linChecksumError->state = std::stoul(match[10]);
         }
-        linChecksumError->simulated = (match[26] == '1');
-        linChecksumError->endOfFrame = std::stod(match[28]);
-        linChecksumError->responseBaudrate = std::stoul(match[30]);
-        linChecksumError->headerBaudrate = std::stod(match[32]);
-        linChecksumError->stopBitOffsetInHeader = std::stoul(match[34]);
-        linChecksumError->stopBitOffsetInResponse = std::stoul(match[36]);
-        if (match[38] == "unknown")
-            linChecksumError->checksumModel = LinChecksumModel::Unknown;
-        else
-        if (match[38] == "classic")
-            linChecksumError->checksumModel = LinChecksumModel::Classic;
-        else
-        if (match[38] == "enhanced")
-            linChecksumError->checksumModel = LinChecksumModel::Enhanced;
-        else
-        if (match[38] == "error")
-            linChecksumError->checksumModel = LinChecksumModel::Error;
+        linChecksumError->checksum = std::stoul(match[11], nullptr, 16);
+        linChecksumError->headerTime = std::stoul(match[12]);
+        linChecksumError->fullTime = std::stoul(match[13]);
+        if (match[14] != "") {
+            linChecksumError->startOfFrame = std::stod(match[15]);
+            linChecksumError->baudrate = std::stoul(match[16]);
+            linChecksumError->syncBreak = std::stoul(match[17]);
+            linChecksumError->syncDel = std::stoul(match[18]);
+            if (match[19] != "") {
+                linChecksumError->nad = std::stoul(match[20]);
+                linChecksumError->messageId = std::stoul(match[21]);
+                linChecksumError->supplierId = std::stoul(match[22]);
+            }
+            linChecksumError->endOfHeader = std::stod(match[23]);
+            std::istringstream iss2(match[24]);
+            for (uint8_t i = 0; i < linChecksumError->dlc && i < 8; ++i) {
+                double s;
+                iss2 >> s;
+                linChecksumError->endOfByte[i] = s;
+            }
+            linChecksumError->simulated = (match[26] == '1');
+            if (match[27] != "") {
+                linChecksumError->endOfFrame = std::stod(match[28]);
+                if (match[29] != "") {
+                    linChecksumError->responseBaudrate = std::stoul(match[30]);
+                    if (match[31] != "") {
+                        linChecksumError->headerBaudrate = std::stod(match[32]);
+                        linChecksumError->stopBitOffsetInHeader = std::stoul(match[33]);
+                        linChecksumError->stopBitOffsetInResponse = std::stoul(match[34]);
+                        if (match[35] != "") {
+                            if (match[36] == "unknown")
+                                linChecksumError->checksumModel = LinChecksumModel::Unknown;
+                            else
+                            if (match[36] == "classic")
+                                linChecksumError->checksumModel = LinChecksumModel::Classic;
+                            else
+                            if (match[36] == "enhanced")
+                                linChecksumError->checksumModel = LinChecksumModel::Enhanced;
+                            else
+                            if (match[36] == "error")
+                                linChecksumError->checksumModel = LinChecksumModel::Error;
+                        }
+                    }
+                }
+            }
+        }
         return linChecksumError;
     }
 

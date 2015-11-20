@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "TpDiagRequest.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -36,10 +37,8 @@ TpDiagRequest::TpDiagRequest() :
 
 TpDiagRequest * TpDiagRequest::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " DiagRequest\\[(.+?)\\]"
-                "(( [[:xdigit:]]+)*)$");
+    std::regex regex(REGEX_STOL REGEX_TPDiag_timestamp REGEX_WS "DiagRequest" REGEX_ws
+                     "\\[" REGEX_TPDiag_ECUQualifier "\\]" REGEX_TPDiag_byteSequence REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         TpDiagRequest * tpDiagRequest = new TpDiagRequest;

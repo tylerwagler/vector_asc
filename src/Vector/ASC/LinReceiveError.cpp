@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinReceiveError.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -64,71 +65,95 @@ LinReceiveError::~LinReceiveError()
 
 LinReceiveError * LinReceiveError::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:digit:]]+)"
-                " RcvError: (.*?)"
-                " StateReason = ([[:xdigit:]]+)"
-                " ShortError = ([01])"
-                " DlcTimeout = ([01])"
-                " HasDatabytes = ([01])(( [[:xdigit:]]+){0,8})?"
-                "( SOF = ([[:digit:].]+))?"
-                "( BR = ([[:digit:]]+))?"
-                "( break = ([[:digit:]]+) ([[:digit:]]+))?"
-                "( EOH = ([[:digit:].]+))?"
-                "( EOB =(( [[:digit:].]+){0,8}))?"
-                "( RBR = ([[:digit:]]+))?"
-                "( RSO = ([[:digit:]]+))?"
-                "( HBR = ([[:digit:].]+))?"
-                "( HSO = ([[:digit:]]+))?"
-                "( CSM = (unknown|classic|enhanced|error))?$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel
+                     "(" REGEX_WS REGEX_LIN_ID REGEX_WS REGEX_LIN_DLC ")?"
+                     REGEX_WS "RcvError:" REGEX_ws REGEX_LIN_description
+                     "(" REGEX_WS "char" REGEX_ws "=" REGEX_ws REGEX_LIN_offendingByte ")?"
+                     "(" REGEX_WS "slave" REGEX_ws "=" REGEX_ws REGEX_LIN_slaveId "," REGEX_ws "state" REGEX_ws "=" REGEX_ws REGEX_LIN_state ")?"
+                     "(" REGEX_WS "StateReason" REGEX_ws "=" REGEX_ws REGEX_LIN_StateReason
+                     REGEX_WS "ShortError" REGEX_ws "=" REGEX_ws REGEX_LIN_IsShortError
+                     REGEX_WS "DlcTimeout" REGEX_ws "=" REGEX_ws REGEX_LIN_IsDLCTimeout
+                     REGEX_WS "HasDatabytes" REGEX_ws "=" REGEX_ws REGEX_LIN_HasDatabytes "((" REGEX_WS REGEX_LIN_Dx"){0,8})"
+                     REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
+                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate
+                     REGEX_WS "break" REGEX_ws "=" REGEX_ws REGEX_LIN_SyncBreak REGEX_WS REGEX_LIN_SyncDel
+                     "(" REGEX_WS "subId" REGEX_ws "=" REGEX_ws REGEX_LIN_NAD REGEX_WS REGEX_LIN_MessageId REGEX_WS REGEX_LIN_SupplierId ")?"
+                     "(" REGEX_WS "EOH" REGEX_ws "=" REGEX_ws REGEX_LIN_endOfHeader ")?"
+                     "(" REGEX_WS "EOB" REGEX_ws "=" REGEX_ws "((" REGEX_WS REGEX_LIN_T "){0,8}))?"
+                     "(" REGEX_WS "RBR" REGEX_ws "=" REGEX_ws REGEX_LIN_responseBaudrate
+                     "(" REGEX_WS "HBR" REGEX_ws "=" REGEX_ws REGEX_LIN_headerBaudrate
+                     REGEX_WS "HSO" REGEX_ws "=" REGEX_ws REGEX_LIN_stopBitOffsetInHeader
+                     REGEX_WS "RSO" REGEX_ws "=" REGEX_ws REGEX_LIN_stopBitOffsetInResponse
+                     "(" REGEX_WS "CSM" REGEX_ws "=" REGEX_ws REGEX_LIN_checksumModel ")?)?)?)?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinReceiveError * linReceiveError = new LinReceiveError;
         linReceiveError->time = std::stod(match[1]);
         linReceiveError->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
-        linReceiveError->id = match[3];
-        linReceiveError->dlc = std::stoul(match[4]);
-        linReceiveError->description = match[5];
-        linReceiveError->stateReason = std::stoul(match[6], nullptr, 16);
-        linReceiveError->isShortError = (match[7] == '1');
-        linReceiveError->isDlcTimeout = (match[8] == '1');
-        linReceiveError->hasDataBytes = (match[9] == '1');
-        std::istringstream iss1(match[10]);
-        iss1 >> std::hex;
-        for (uint8_t i = 0; i < linReceiveError->dlc && i < 8; ++i) {
-            unsigned short s;
-            iss1 >> s;
-            linReceiveError->data[i] = s;
+        if (match[3] != "") {
+            linReceiveError->id = match[4];
+            linReceiveError->dlc = std::stoul(match[5]);
         }
-        linReceiveError->startOfFrame = std::stod(match[13]);
-        linReceiveError->baudrate = std::stoul(match[15]);
-        linReceiveError->syncBreak = std::stoul(match[17]);
-        linReceiveError->syncDel = std::stoul(match[18]);
-        linReceiveError->endOfHeader = std::stod(match[20]);
-        std::istringstream iss2(match[22]);
-        for (uint8_t i = 0; i < linReceiveError->dlc && i < 8; ++i) {
-            double s;
-            iss2 >> s;
-            linReceiveError->endOfByte[i] = s;
+        linReceiveError->description = match[6];
+        if (match[7] != "")
+            linReceiveError->offendingByte = std::stoul(match[8]);
+        if (match[9] != "") {
+            linReceiveError->slaveId = std::stoul(match[10]);
+            linReceiveError->state = std::stoul(match[11]);
         }
-        linReceiveError->responseBaudrate = std::stoul(match[25]);
-        linReceiveError->stopBitOffsetInResponse = std::stoul(match[27]);
-        linReceiveError->headerBaudrate = std::stod(match[29]);
-        linReceiveError->stopBitOffsetInHeader = std::stoul(match[31]);
-        if (match[33] == "unknown")
-            linReceiveError->checksumModel = LinChecksumModel::Unknown;
-        else
-        if (match[33] == "classic")
-            linReceiveError->checksumModel = LinChecksumModel::Classic;
-        else
-        if (match[33] == "enhanced")
-            linReceiveError->checksumModel = LinChecksumModel::Enhanced;
-        else
-        if (match[33] == "error")
-            linReceiveError->checksumModel = LinChecksumModel::Error;
+        if (match[12] != "") {
+            linReceiveError->stateReason = std::stoul(match[13], nullptr, 16);
+            linReceiveError->isShortError = (match[14] == '1');
+            linReceiveError->isDlcTimeout = (match[15] == '1');
+            linReceiveError->hasDataBytes = (match[16] == '1');
+            std::istringstream iss1(match[17]);
+            iss1 >> std::hex;
+            for (uint8_t i = 0; i < linReceiveError->dlc && i < 8; ++i) {
+                unsigned short s;
+                iss1 >> s;
+                linReceiveError->data[i] = s;
+            }
+            linReceiveError->startOfFrame = std::stod(match[19]);
+            linReceiveError->baudrate = std::stoul(match[20]);
+            linReceiveError->syncBreak = std::stoul(match[21]);
+            linReceiveError->syncDel = std::stoul(match[22]);
+            if (match[23] != "") {
+                linReceiveError->nad = std::stoul(match[24]);
+                linReceiveError->messageId = std::stoul(match[25]);
+                linReceiveError->supplierId = std::stoul(match[26]);
+            }
+            if (match[27] != "")
+                linReceiveError->endOfHeader = std::stod(match[28]);
+            if (match[29] != "") {
+                std::istringstream iss2(match[30]);
+                for (uint8_t i = 0; i < linReceiveError->dlc && i < 8; ++i) {
+                    double s;
+                    iss2 >> s;
+                    linReceiveError->endOfByte[i] = s;
+                }
+            }
+            if (match[32] != "") {
+                linReceiveError->responseBaudrate = std::stoul(match[33]);
+                if (match[34] != "") {
+                    linReceiveError->headerBaudrate = std::stod(match[35]);
+                    linReceiveError->stopBitOffsetInResponse = std::stoul(match[36]);
+                    linReceiveError->stopBitOffsetInHeader = std::stoul(match[37]);
+                    if (match[38] != "") {
+                        if (match[39] == "unknown")
+                            linReceiveError->checksumModel = LinChecksumModel::Unknown;
+                        else
+                        if (match[39] == "classic")
+                            linReceiveError->checksumModel = LinChecksumModel::Classic;
+                        else
+                        if (match[39] == "enhanced")
+                            linReceiveError->checksumModel = LinChecksumModel::Enhanced;
+                        else
+                        if (match[39] == "error")
+                            linReceiveError->checksumModel = LinChecksumModel::Error;
+                    }
+                }
+            }
+        }
         return linReceiveError;
     }
 

@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostTriggerEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -42,14 +43,9 @@ MostTriggerEvent::~MostTriggerEvent()
 
 MostTriggerEvent * MostTriggerEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " Trigger:"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Trigger:"
+                     REGEX_ws REGEX_MOST_TrigMode REGEX_WS REGEX_MOST_TrigHW REGEX_WS REGEX_MOST_TrigValue
+                     REGEX_WS REGEX_MOST_TrigValue REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostTriggerEvent * mostTriggerEvent = new MostTriggerEvent;

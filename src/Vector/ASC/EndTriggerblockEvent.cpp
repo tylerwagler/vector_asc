@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "EndTriggerblockEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -37,7 +38,7 @@ EndTriggerblockEvent::~EndTriggerblockEvent()
 
 EndTriggerblockEvent * EndTriggerblockEvent::parse(File & file, std::string & line)
 {
-    std::regex regex("^End TriggerBlock$");
+    std::regex regex(REGEX_STOL "End TriggerBlock" REGEX_ENDL);
     if (std::regex_match(line, regex)) {
         EndTriggerblockEvent * endTriggerblockEvent = new EndTriggerblockEvent;
         return endTriggerblockEvent;

@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "TpDiagSingleFrame.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -39,10 +40,8 @@ TpDiagSingleFrame::~TpDiagSingleFrame()
 
 TpDiagSingleFrame * TpDiagSingleFrame::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^SF"
-                " Length: ([[:xdigit:]]+)"
-                " \\[(( [[:xdigit:]]+)*) \\]$");
+    std::regex regex(REGEX_STOL "SF" REGEX_WS "Length:" REGEX_ws REGEX_TPDiag_length
+                     REGEX_ws "\\[" REGEX_TPDiag_transportedBytes REGEX_WS "\\]" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         TpDiagSingleFrame * tpDiagSingleFrame = new TpDiagSingleFrame;

@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinDlcInfo.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -41,12 +42,8 @@ LinDlcInfo::~LinDlcInfo()
 
 LinDlcInfo * LinDlcInfo::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " ([[:digit:]]+)"
-                " DlcInfo"
-                " ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS "DlcInfo"
+                     REGEX_WS REGEX_LIN_DLC REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinDlcInfo * linDlcInfo = new LinDlcInfo;

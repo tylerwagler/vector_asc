@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinStatisticInfo.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -46,17 +47,11 @@ LinStatisticInfo::~LinStatisticInfo()
 
 LinStatisticInfo * LinStatisticInfo::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " Statistic"
-                " ([[:digit:]]+)"
-                " ([[:digit:].]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Statistic"
+                     REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:].]+)"
+                     REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
+                     REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
+                     REGEX_WS "([[:digit:]]+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinStatisticInfo * linStatisticInfo = new LinStatisticInfo;

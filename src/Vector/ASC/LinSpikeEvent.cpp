@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinSpikeEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -43,27 +44,25 @@ LinSpikeEvent::~LinSpikeEvent()
 
 LinSpikeEvent * LinSpikeEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:digit:]]+)"
-                " Spike"
-                " (Rx|Tx)"
-                " ([[:digit:]]+) microseconds"
-                "( SOF = ([[:digit:].]+))?"
-                "( BR = ([[:digit:]]+))?$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Spike"
+                     REGEX_WS REGEX_LIN_Dir REGEX_WS REGEX_LIN_SpikeLength REGEX_WS "microseconds"
+                     "(" REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
+                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate ")?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinSpikeEvent * linSpikeEvent = new LinSpikeEvent;
         linSpikeEvent->time = std::stod(match[1]);
-        linSpikeEvent->channel = std::stoul(match[2]);
+        linSpikeEvent->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         if (match[3] == "Rx")
             linSpikeEvent->dir = Dir::Rx;
         else
         if (match[3] == "Tx")
             linSpikeEvent->dir = Dir::Tx;
         linSpikeEvent->spikeLength = std::stoul(match[4]);
-        linSpikeEvent->startOfFrame = std::stod(match[6]);
-        linSpikeEvent->baudrate = std::stoul(match[8]);
+        if (match[5] != "") {
+            linSpikeEvent->startOfFrame = std::stod(match[6]);
+            linSpikeEvent->baudrate = std::stoul(match[7]);
+        }
         return linSpikeEvent;
     }
 

@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinWakeupFrame.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -44,15 +45,11 @@ LinWakeupFrame::~LinWakeupFrame()
 
 LinWakeupFrame * LinWakeupFrame::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " WakeupFrame"
-                " (Rx|Tx)"
-                " ([[:digit:]]+)"
-                " SOF = ([[:digit:].]+)"
-                " BR = ([[:digit:]]+)"
-                " LengthCode = ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "WakeupFrame"
+                     REGEX_WS REGEX_LIN_Dir REGEX_WS REGEX_LIN_WakeupByte
+                     "(" REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
+                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate
+                     REGEX_WS "LengthCode" REGEX_ws "=" REGEX_ws REGEX_LIN_WakeupLengthInfo ")?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinWakeupFrame * linWakeupFrame = new LinWakeupFrame;
@@ -64,9 +61,11 @@ LinWakeupFrame * LinWakeupFrame::parse(File & file, std::string & line)
         if (match[3] == "Tx")
             linWakeupFrame->dir = Dir::Tx;
         linWakeupFrame->wakeupByte = std::stoul(match[4]);
-        linWakeupFrame->startOfFrame = std::stod(match[5]);
-        linWakeupFrame->baudrate = std::stoul(match[6]);
-        linWakeupFrame->wakeupLengthInfo = std::stoul(match[7]);
+        if (match[5] != "") {
+            linWakeupFrame->startOfFrame = std::stod(match[6]);
+            linWakeupFrame->baudrate = std::stoul(match[7]);
+            linWakeupFrame->wakeupLengthInfo = std::stoul(match[8]);
+        }
         return linWakeupFrame;
     }
 

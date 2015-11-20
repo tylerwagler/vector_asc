@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinUnexpectedWakeup.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -43,24 +44,24 @@ LinUnexpectedWakeup::~LinUnexpectedWakeup()
 
 LinUnexpectedWakeup * LinUnexpectedWakeup::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " Unexpected wakeup:"
-                "( approx\\. ([[:digit:]]+) us)?"
-                "( Signal = ([[:digit:]]+))?"
-                " SOF = ([[:digit:].]+)"
-                " BR = ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Unexpected wakeup:"
+                     "((" REGEX_ws "approx\\." REGEX_ws REGEX_LIN_Width REGEX_ws "us" ")|("
+                     REGEX_ws "Signal" REGEX_ws "=" REGEX_ws REGEX_LIN_WakeupByte "))"
+                     REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
+                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinUnexpectedWakeup * linUnexpectedWakeup = new LinUnexpectedWakeup;
         linUnexpectedWakeup->time = std::stod(match[1]);
         linUnexpectedWakeup->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
-        linUnexpectedWakeup->width = std::stoul(match[4]);
-        if (match[5] != "")
-            linUnexpectedWakeup->wakeupByte = std::stoul(match[6]);
-        linUnexpectedWakeup->startOfFrame = std::stod(match[7]);
-        linUnexpectedWakeup->baudrate = std::stoul(match[8]);
+        if (match[3] != "") {
+            if (match[4] != "")
+                linUnexpectedWakeup->width = std::stoul(match[5]);
+            if (match[6] != "")
+                linUnexpectedWakeup->wakeupByte = std::stoul(match[7]);
+        }
+        linUnexpectedWakeup->startOfFrame = std::stod(match[8]);
+        linUnexpectedWakeup->baudrate = std::stoul(match[9]);
         return linUnexpectedWakeup;
     }
 

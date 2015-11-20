@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "AfdxPacket.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -41,15 +42,9 @@ AfdxPacket::AfdxPacket() :
 
 AfdxPacket * AfdxPacket::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " AFDX"
-                " ([[:xdigit:]]{1,3})"
-                " (Rx|Tx)"
-                " ([[:xdigit:]]{1,3})"
-                " ([[:xdigit:]]{1,5})"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]{1,4}):([[:xdigit:]]*)$");
+    std::regex regex(REGEX_STOL REGEX_Afdx_Time REGEX_WS "AFDX" REGEX_WS REGEX_Afdx_Channel REGEX_WS REGEX_Afdx_Dir
+                     REGEX_WS REGEX_Afdx_EthChannel REGEX_WS REGEX_Afdx_Flags REGEX_WS REGEX_Afdx_BAG REGEX_WS
+                     REGEX_Afdx_DataLen ":" REGEX_Afdx_Data REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         AfdxPacket * afdxPacket = new AfdxPacket;
@@ -60,6 +55,9 @@ AfdxPacket * AfdxPacket::parse(File & file, std::string & line)
         else
         if (match[3] == "Tx")
                 afdxPacket->dir = Dir::Tx;
+        else
+        if (match[3] == "TxRq")
+                afdxPacket->dir = Dir::TxRq;
         afdxPacket->ethChannel = std::stoul(match[4], nullptr, file.base);
         afdxPacket->flags = std::stoul(match[5], nullptr, file.base);
         afdxPacket->bag = std::stoul(match[6], nullptr, file.base);

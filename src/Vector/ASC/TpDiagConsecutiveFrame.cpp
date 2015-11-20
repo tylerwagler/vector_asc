@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "TpDiagConsecutiveFrame.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -39,10 +40,8 @@ TpDiagConsecutiveFrame::~TpDiagConsecutiveFrame()
 
 TpDiagConsecutiveFrame * TpDiagConsecutiveFrame::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^CF"
-                " Seq\\.Nr\\.: ([[:digit:]]+)"
-                " \\[(( [[:xdigit:]]+)*) \\]$");
+    std::regex regex(REGEX_STOL "CF" REGEX_WS "Seq.Nr.:" REGEX_ws REGEX_TPDiag_SN REGEX_ws
+                     "\\[" REGEX_TPDiag_transportedBytes REGEX_WS "\\]" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         TpDiagConsecutiveFrame * tpDiagConsecutiveFrame = new TpDiagConsecutiveFrame;

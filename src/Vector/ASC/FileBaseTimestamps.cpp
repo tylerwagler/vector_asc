@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "FileBaseTimestamps.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -39,14 +40,20 @@ FileBaseTimestamps::~FileBaseTimestamps()
 
 FileBaseTimestamps * FileBaseTimestamps::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^base ((hex)|(dec)) "
-                " timestamps ((absolute)|(relative))$");
+    std::regex regex(REGEX_STOL "base" REGEX_WS "(hex|dec)" REGEX_WS "timestamps" REGEX_WS "(absolute|relative)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_search(line, match, regex)) {
         FileBaseTimestamps * fileBaseTimestamps = new FileBaseTimestamps;
-        fileBaseTimestamps->base = ((match[1] == "hex") ? Base::Hex : Base::Dec);
-        fileBaseTimestamps->timestamps = ((match[2] == "absolute") ? Timestamps::Absolute : Timestamps::Relative);
+        if (match[1] == "hex")
+            fileBaseTimestamps->base = Base::Hex;
+        else
+        if (match[1] == "dec")
+            fileBaseTimestamps->base = Base::Dec;
+        if (match[2] == "absolute")
+            fileBaseTimestamps->timestamps = Timestamps::Absolute;
+        else
+        if (match[2] == "relative")
+            fileBaseTimestamps->timestamps = Timestamps::Relative;
         return fileBaseTimestamps;
     }
 

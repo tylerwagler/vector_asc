@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "CanRemoteFrameEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -41,12 +42,7 @@ CanRemoteFrameEvent::~CanRemoteFrameEvent()
 
 CanRemoteFrameEvent * CanRemoteFrameEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " ([[:digit:]]{1,5})"
-                " ([[:xdigit:]]+)"
-                " (Rx|Tx)"
-                " r$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS REGEX_ID REGEX_WS REGEX_Dir REGEX_WS "r" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanRemoteFrameEvent * canRemoteFrameEvent = new CanRemoteFrameEvent;

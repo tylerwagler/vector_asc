@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostTxLight.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -40,11 +41,8 @@ MostTxLight::~MostTxLight()
 
 MostTxLight * MostTxLight::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " TxLight:"
-                " ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "TxLight:"
+                     REGEX_ws REGEX_MOST_TxLightState REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostTxLight * mostTxLight = new MostTxLight;

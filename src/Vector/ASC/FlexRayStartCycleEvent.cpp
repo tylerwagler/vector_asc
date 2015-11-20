@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "FlexRayStartCycleEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -48,25 +49,13 @@ FlexRayStartCycleEvent::~FlexRayStartCycleEvent()
 
 FlexRayStartCycleEvent * FlexRayStartCycleEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " Fr"
-                " SCE"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+)"
-                " (Rx|Tx)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " NM_Vector:"
-                " ([[:xdigit:]]+)"
-                "(( [[:xdigit:]]+)*)$");
+    std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "SCE"
+                     REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
+                     REGEX_WS "([[:xdigit:]]+)" REGEX_WS REGEX_FlexRay_Dir
+                     REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)"
+                     REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)"
+                     REGEX_WS "NM_Vector:" REGEX_ws "([[:xdigit:]]+)"
+                     "(" REGEX_WS "[[:xdigit:]]+){0,12}" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FlexRayStartCycleEvent * flexRayStartCycleEvent = new FlexRayStartCycleEvent;

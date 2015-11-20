@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "FileComment.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -38,7 +39,7 @@ FileComment::~FileComment()
 
 FileComment * FileComment::parse(File & file, std::string & line)
 {
-    std::regex regex("^// (.*)$");
+    std::regex regex(REGEX_STOL "//" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FileComment * fileComment = new FileComment;

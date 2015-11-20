@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostSpecialRegisterEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -42,13 +43,8 @@ MostSpecialRegisterEvent::~MostSpecialRegisterEvent()
 
 MostSpecialRegisterEvent * MostSpecialRegisterEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " Register:"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Register:"
+                     REGEX_ws REGEX_MOST_RegSubType REGEX_WS REGEX_MOST_RegID REGEX_WS REGEX_MOST_RegValue REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostSpecialRegisterEvent * mostSpecialRegisterEvent = new MostSpecialRegisterEvent;

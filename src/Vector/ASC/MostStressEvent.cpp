@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostStressEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -41,12 +42,8 @@ MostStressEvent::~MostStressEvent()
 
 MostStressEvent * MostStressEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " Stress:"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Stress:"
+                     REGEX_ws REGEX_MOST_StressMode REGEX_WS REGEX_MOST_StressState REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostStressEvent * mostStressEvent = new MostStressEvent;

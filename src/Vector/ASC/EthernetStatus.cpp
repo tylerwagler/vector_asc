@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "EthernetStatus.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -46,17 +47,14 @@ EthernetStatus::~EthernetStatus()
 
 EthernetStatus * EthernetStatus::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " ETH"
-                " ([[:xdigit:]]{1,3})"
-                " STAT"
-                " Link:(.*?)"
-                " LinkSpeed:(.*?)"
-                " Physical:(.*?)"
-                " Duplex:(.*?)"
-                " MDI:(.*?)"
-                " Connector:(.*?)$");
+    std::regex regex(REGEX_STOL REGEX_Eth_Time REGEX_WS "ETH" REGEX_WS REGEX_Eth_Channel REGEX_WS "STAT"
+                     REGEX_WS "Link:" REGEX_ws "(.+?)"
+                     REGEX_WS "LinkSpeed:" REGEX_ws "(.+?)"
+                     REGEX_WS "Physical:" REGEX_ws "(.+?)"
+                     REGEX_WS "Duplex:" REGEX_ws "(.+?)"
+                     REGEX_WS "MDI:" REGEX_ws "(.+?)"
+                     REGEX_WS "Connector:" REGEX_ws "(.+?)"
+                     REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         EthernetStatus * ethernetStatus = new EthernetStatus;

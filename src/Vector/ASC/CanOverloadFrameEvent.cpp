@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "CanOverloadFrameEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -39,10 +40,7 @@ CanOverloadFrameEvent::~CanOverloadFrameEvent()
 
 CanOverloadFrameEvent * CanOverloadFrameEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " ([[:digit:]]{1,5})"
-                " OverloadFrame$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS "OverloadFrame" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanOverloadFrameEvent * canOverloadFrameEvent = new CanOverloadFrameEvent;

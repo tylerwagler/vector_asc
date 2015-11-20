@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinSleepMode.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -41,12 +42,8 @@ LinSleepMode::~LinSleepMode()
 
 LinSleepMode * LinSleepMode::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " SleepModeEvent"
-                " ([01])"
-                " (.*)$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SleepModeEvent"
+                     REGEX_WS REGEX_LIN_simulated REGEX_WS REGEX_LIN_description REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinSleepMode * linSleepMode = new LinSleepMode;

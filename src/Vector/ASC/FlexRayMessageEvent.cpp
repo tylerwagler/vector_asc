@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "FlexRayMessageEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -28,7 +29,7 @@ namespace ASC {
 FlexRayMessageEvent::FlexRayMessageEvent() :
     Event(),
     time(0.0),
-    flexRayEventType(),
+    flexRayEventType(FlexRayEventType::RMSG),
     clusterNr(0),
     clientId(0),
     channelNr(0),
@@ -59,58 +60,45 @@ FlexRayMessageEvent::~FlexRayMessageEvent()
 
 FlexRayMessageEvent * FlexRayMessageEvent::parseRmsg(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " Fr"
-                " (RMSG)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " (Rx|Tx)"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:alnum:]_\\[\\|\\]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                "(( [[:xdigit:]]+)*)"
-                " ([[:xdigit:]]+)"
-                " ([01])"
-                " ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "RMSG"
+                     REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
+                     REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)"
+                     REGEX_WS REGEX_FlexRay_Dir REGEX_WS "([[:digit:]]+)"
+                     REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)"
+                     REGEX_WS "([[:alnum:]_\\[\\|\\]]+)"
+                     REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)"
+                     "((" REGEX_WS "[[:xdigit:]]+){0,254})" REGEX_WS "([[:xdigit:]]+)"
+                     REGEX_WS "([01])" REGEX_WS "([[:digit:]]+)"
+                     REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FlexRayMessageEvent * flexRayMessageEvent = new FlexRayMessageEvent;
         flexRayMessageEvent->time = std::stod(match[1]);
-        flexRayMessageEvent->flexRayEventType = match[2];
-        flexRayMessageEvent->clusterNr = std::stoul(match[3]);
-        flexRayMessageEvent->clientId = std::stoul(match[4]);
-        flexRayMessageEvent->channelNr = std::stoul(match[5]);
-        flexRayMessageEvent->channelMask = std::stoul(match[6]);
-        flexRayMessageEvent->slotId = std::stoul(match[7]);
-        flexRayMessageEvent->cycleNo = std::stoul(match[8]);
-        flexRayMessageEvent->direction = match[9];
-        flexRayMessageEvent->appParam = std::stoul(match[10]);
-        flexRayMessageEvent->flags = std::stoul(match[11]);
-        flexRayMessageEvent->ccType = std::stoul(match[12]);
-        flexRayMessageEvent->ccData = std::stoul(match[13]);
-        flexRayMessageEvent->headerCrc = std::stoul(match[14]);
-        flexRayMessageEvent->name = match[15];
-        flexRayMessageEvent->payloadLength = std::stoul(match[16]);
-        flexRayMessageEvent->bufferLength = std::stoul(match[17]);
-        std::istringstream iss(match[18]);
-        for (uint8_t i = 0; i < flexRayMessageEvent->bufferLength && i < 256; ++i) {
+        flexRayMessageEvent->flexRayEventType = FlexRayEventType::RMSG;
+        flexRayMessageEvent->clusterNr = std::stoul(match[2]);
+        flexRayMessageEvent->clientId = std::stoul(match[3]);
+        flexRayMessageEvent->channelNr = std::stoul(match[4]);
+        flexRayMessageEvent->channelMask = std::stoul(match[5]);
+        flexRayMessageEvent->slotId = std::stoul(match[6]);
+        flexRayMessageEvent->cycleNo = std::stoul(match[7]);
+        flexRayMessageEvent->direction = match[8];
+        flexRayMessageEvent->appParam = std::stoul(match[9]);
+        flexRayMessageEvent->flags = std::stoul(match[10]);
+        flexRayMessageEvent->ccType = std::stoul(match[11]);
+        flexRayMessageEvent->ccData = std::stoul(match[12]);
+        flexRayMessageEvent->headerCrc = std::stoul(match[13]);
+        flexRayMessageEvent->name = match[14];
+        flexRayMessageEvent->payloadLength = std::stoul(match[15]);
+        flexRayMessageEvent->bufferLength = std::stoul(match[16]);
+        std::istringstream iss(match[17]);
+        for (uint8_t i = 0; i < flexRayMessageEvent->bufferLength; ++i) {
             unsigned short s;
             iss >> s;
             flexRayMessageEvent->data[i] = s;
         }
-        flexRayMessageEvent->frameCrc = std::stoul(match[20]);
-        flexRayMessageEvent->spyFlag = (match[21] == '1');
-        flexRayMessageEvent->frameLengthNs = std::stoul(match[22]);
+        flexRayMessageEvent->frameCrc = std::stoul(match[19]);
+        flexRayMessageEvent->spyFlag = (match[20] == '1');
+        flexRayMessageEvent->frameLengthNs = std::stoul(match[21]);
         return flexRayMessageEvent;
     }
 
@@ -119,60 +107,46 @@ FlexRayMessageEvent * FlexRayMessageEvent::parseRmsg(File & file, std::string & 
 
 FlexRayMessageEvent * FlexRayMessageEvent::parsePdu(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " Fr"
-                " (PDU)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " (Rx|Tx)"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:alnum:]_\\[\\|\\]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                "(( [[:xdigit:]]+)*)"
-                " ([[:xdigit:]]+)"
-                " ([01])"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "PDU"
+                     REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
+                     REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)"
+                     REGEX_WS REGEX_FlexRay_Dir REGEX_WS "([[:digit:]]+)"
+                     REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)"
+                     REGEX_WS "([[:alnum:]_\\[\\|\\]]+)"
+                     REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)"
+                     "((" REGEX_WS "[[:xdigit:]]+){0,254})" REGEX_WS "([[:xdigit:]]+)"
+                     REGEX_WS "([01])" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
+                     REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FlexRayMessageEvent * flexRayMessageEvent = new FlexRayMessageEvent;
         flexRayMessageEvent->time = std::stod(match[1]);
-        flexRayMessageEvent->flexRayEventType = match[2];
-        flexRayMessageEvent->clusterNr = std::stoul(match[3]);
-        flexRayMessageEvent->clientId = std::stoul(match[4]);
-        flexRayMessageEvent->channelNr = std::stoul(match[5]);
-        flexRayMessageEvent->channelMask = std::stoul(match[6]);
-        flexRayMessageEvent->slotId = std::stoul(match[7]);
-        flexRayMessageEvent->cycleNo = std::stoul(match[8]);
-        flexRayMessageEvent->direction = match[9];
-        flexRayMessageEvent->appParam = std::stoul(match[10]);
-        flexRayMessageEvent->flags = std::stoul(match[11]);
-        flexRayMessageEvent->ccType = std::stoul(match[12]);
-        flexRayMessageEvent->ccData = std::stoul(match[13]);
-        flexRayMessageEvent->headerCrc = std::stoul(match[14]);
-        flexRayMessageEvent->name = match[15];
-        flexRayMessageEvent->payloadLength = std::stoul(match[16]);
-        flexRayMessageEvent->bufferLength = std::stoul(match[17]);
-        std::istringstream iss(match[18]);
-        for (uint8_t i = 0; i < flexRayMessageEvent->bufferLength && i < 256; ++i) {
+        flexRayMessageEvent->flexRayEventType = FlexRayEventType::PDU;
+        flexRayMessageEvent->clusterNr = std::stoul(match[2]);
+        flexRayMessageEvent->clientId = std::stoul(match[3]);
+        flexRayMessageEvent->channelNr = std::stoul(match[4]);
+        flexRayMessageEvent->channelMask = std::stoul(match[5]);
+        flexRayMessageEvent->slotId = std::stoul(match[6]);
+        flexRayMessageEvent->cycleNo = std::stoul(match[7]);
+        flexRayMessageEvent->direction = match[8];
+        flexRayMessageEvent->appParam = std::stoul(match[9]);
+        flexRayMessageEvent->flags = std::stoul(match[10]);
+        flexRayMessageEvent->ccType = std::stoul(match[11]);
+        flexRayMessageEvent->ccData = std::stoul(match[12]);
+        flexRayMessageEvent->headerCrc = std::stoul(match[13]);
+        flexRayMessageEvent->name = match[14];
+        flexRayMessageEvent->payloadLength = std::stoul(match[15]);
+        flexRayMessageEvent->bufferLength = std::stoul(match[16]);
+        std::istringstream iss(match[17]);
+        for (uint8_t i = 0; i < flexRayMessageEvent->bufferLength; ++i) {
             unsigned short s;
             iss >> s;
             flexRayMessageEvent->data[i] = s;
         }
-        flexRayMessageEvent->frameCrc = std::stoul(match[20]);
-        flexRayMessageEvent->spyFlag = (match[21] == '1');
-        flexRayMessageEvent->frameLengthNs = std::stoul(match[22]);
-        flexRayMessageEvent->pduOffset = std::stoul(match[23]);
+        flexRayMessageEvent->frameCrc = std::stoul(match[19]);
+        flexRayMessageEvent->spyFlag = (match[20] == '1');
+        flexRayMessageEvent->frameLengthNs = std::stoul(match[21]);
+        flexRayMessageEvent->pduOffset = std::stoul(match[22]);
         return flexRayMessageEvent;
     }
 

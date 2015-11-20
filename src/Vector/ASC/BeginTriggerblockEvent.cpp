@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "BeginTriggerblockEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -86,14 +87,8 @@ BeginTriggerblockEvent::~BeginTriggerblockEvent()
 
 BeginTriggerblockEvent * BeginTriggerblockEvent::parse(File &, std::string & line)
 {
-    std::regex regex(
-                "^Begin Triggerblock"
-                " ([[:alpha:]]{3})"
-                " ([[:alpha:]]{3})"
-                " ([[:digit:]]{1,2})"
-                " ([[:digit:]]{1,2}):([[:digit:]]{1,2}):([[:digit:]]{1,2})"
-                "( [ap]m)?"
-                " ([[:digit:]]{4})$");
+    std::regex regex(REGEX_STOL "Begin Triggerblock" REGEX_WS REGEX_WeekDay REGEX_WS REGEX_Month REGEX_WS REGEX_Date
+                     REGEX_WS REGEX_FullTime REGEX_WS REGEX_Year REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         BeginTriggerblockEvent * beginTriggerblockEvent = new BeginTriggerblockEvent;

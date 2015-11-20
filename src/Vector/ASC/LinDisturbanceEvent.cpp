@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinDisturbanceEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -46,17 +47,14 @@ LinDisturbanceEvent::~LinDisturbanceEvent()
 
 LinDisturbanceEvent * LinDisturbanceEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " DisturbanceEvent"
-                " Type = (dominant|recessive|header|bitstream|variableBitstream)"
-                " ByteIndex = ([[:digit:]]+)"
-                " BitIndex = ([[:digit:]]+)"
-                " BitOffset = ([[:digit:]]+)"
-                " Length = ([[:digit:]]+)"
-                " Header = ([[:xdigit:]]+)"
-                " Disturbing header = ([[:xdigit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "DisturbanceEvent"
+                     REGEX_WS "Type" REGEX_ws "=" REGEX_ws REGEX_LIN_DisturbanceType
+                     REGEX_WS "ByteIndex" REGEX_ws "=" REGEX_ws REGEX_LIN_ByteIndex
+                     REGEX_WS "BitIndex" REGEX_ws "=" REGEX_ws REGEX_LIN_BitIndex
+                     REGEX_WS "BitOffset" REGEX_ws "=" REGEX_ws REGEX_LIN_BitOffsetInSixteenthBits
+                     REGEX_WS "Length" REGEX_ws "=" REGEX_ws REGEX_LIN_DisturbanceLengthInSixteenthBits
+                     REGEX_WS "Header" REGEX_ws "=" REGEX_ws REGEX_LIN_IDorFF
+                     REGEX_WS "Disturbing header" REGEX_ws "=" REGEX_ws REGEX_LIN_IDorFF REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinDisturbanceEvent * linDisturbanceEvent = new LinDisturbanceEvent;

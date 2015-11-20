@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "EthernetPacket.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -42,12 +43,8 @@ EthernetPacket::~EthernetPacket()
 
 EthernetPacket * EthernetPacket::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " ETH"
-                " ([[:xdigit:]]{1,3})"
-                " (Rx|Tx)"
-                " ([[:xdigit:]]{1,4}):([[:xdigit:]]*)$");
+    std::regex regex(REGEX_STOL REGEX_Eth_Time REGEX_WS "ETH" REGEX_WS REGEX_Eth_Channel REGEX_WS REGEX_Eth_Dir
+                     REGEX_WS REGEX_Eth_DataLen ":" REGEX_Eth_Data REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         EthernetPacket * ethernetPacket = new EthernetPacket;

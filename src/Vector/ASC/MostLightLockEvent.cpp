@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostLightLockEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -40,11 +41,7 @@ MostLightLockEvent::~MostLightLockEvent()
 
 MostLightLockEvent * MostLightLockEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " LL:"
-                " ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "LL:" REGEX_ws REGEX_MOST_LLState REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostLightLockEvent * mostLightLockEvent = new MostLightLockEvent;

@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "CommentEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -40,11 +41,7 @@ CommentEvent::~CommentEvent()
 
 CommentEvent * CommentEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " Comment:"
-                " ([[:digit:]]+)"
-                " (.*)$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "Comment:" REGEX_ws "([[:digit:]]+)" REGEX_WS "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CommentEvent * commentEvent = new CommentEvent;

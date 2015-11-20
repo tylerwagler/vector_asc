@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "CanMessageEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -47,18 +48,13 @@ CanMessageEvent::~CanMessageEvent()
 
 CanMessageEvent * CanMessageEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " ([[:digit:]]{1,5})"
-                " ([[:xdigit:]]+)"
-                " (Rx|Tx)"
-                " d"
-                " ([[:xdigit:]]{1,2})"
-                "(( [[:xdigit:]]{1,3}){0,8})"
-                "( Length = ([[:digit:]]+))?"
-                "( BitCount = ([[:digit:]]+))?"
-                "( (TE|WU|XX))?"
-                "( ID = ([[:xdigit:]]+))?$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS REGEX_ID REGEX_WS REGEX_Dir REGEX_WS "d" REGEX_WS REGEX_DLC
+                     "((" REGEX_WS REGEX_Dx "){0,8})"
+                     "(" REGEX_WS "Length" REGEX_ws "=" REGEX_ws REGEX_MessageDuration ")?"
+                     "(" REGEX_WS "BitCount" REGEX_ws "=" REGEX_ws REGEX_MessageLength ")?"
+                     "(" REGEX_WS REGEX_MessageFlags ")?"
+                     "(" REGEX_WS "ID" REGEX_ws "=" REGEX_ws REGEX_IDnum ")?"
+                     REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanMessageEvent * canMessageEvent = new CanMessageEvent;
@@ -81,19 +77,24 @@ CanMessageEvent * CanMessageEvent::parse(File & file, std::string & line)
             iss >> s;
             canMessageEvent->data[i] = s;
         }
-        canMessageEvent->messageDuration = std::stoul(match[9]);
-        canMessageEvent->messageLength = std::stoul(match[11]);
-        if (match[13] == " TE")
-            canMessageEvent->messageFlags.te = true;
-        else
-        if (match[13] == " WU")
-            canMessageEvent->messageFlags.wu = true;
-        else
-        if (match[13] == " XX") {
-            canMessageEvent->messageFlags.te = true;
-            canMessageEvent->messageFlags.wu = true;
+        if (match[8] != "")
+            canMessageEvent->messageDuration = std::stoul(match[9]);
+        if (match[10] != "")
+            canMessageEvent->messageLength = std::stoul(match[11]);
+        if (match[12] != "") {
+            if (match[13] == "TE")
+                canMessageEvent->messageFlags.te = true;
+            else
+            if (match[13] == "WU")
+                canMessageEvent->messageFlags.wu = true;
+            else
+            if (match[13] == "XX") {
+                canMessageEvent->messageFlags.te = true;
+                canMessageEvent->messageFlags.wu = true;
+            }
         }
-        canMessageEvent->messageId = std::stoul(match[15], nullptr, 16);
+        if (match[14] != "")
+            canMessageEvent->messageId = std::stoul(match[15], nullptr, 16);
         return canMessageEvent;
     }
 

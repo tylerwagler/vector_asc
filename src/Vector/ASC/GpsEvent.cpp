@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "GpsEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -44,14 +45,13 @@ GpsEvent::~GpsEvent()
 
 GpsEvent * GpsEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " GPS-Device: ([[:digit:]]+)"
-                " La: ([[:digit:].]+)"
-                " Lo: ([[:digit:].]+)"
-                " Alt: ([[:digit:].]+)"
-                " Sp: ([[:digit:].]+)"
-                " Co: ([[:digit:].]+)$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "GPS-Device:" REGEX_ws "([[:digit:]]+)"
+                     REGEX_WS "La:" REGEX_ws "([[:digit:].]+)"
+                     REGEX_WS "Lo:" REGEX_ws "([[:digit:].]+)"
+                     REGEX_WS "Alt:" REGEX_ws "([[:digit:].]+)"
+                     REGEX_WS "Sp:" REGEX_ws "([[:digit:].]+)"
+                     REGEX_WS "Co:" REGEX_ws "([[:digit:].]+)"
+                     REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         GpsEvent * gpsEvent = new GpsEvent;

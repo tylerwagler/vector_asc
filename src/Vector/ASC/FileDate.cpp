@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "FileDate.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -86,14 +87,7 @@ FileDate::~FileDate()
 
 FileDate * FileDate::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^date"
-                " ([[:alpha:]]{3})"
-                " ([[:alpha:]]{3})"
-                " ([[:digit:]]{1,2})"
-                " ([[:digit:]]{1,2}):([[:digit:]]{1,2}):([[:digit:]]{1,2})"
-                "( [ap]m)?"
-                " ([[:digit:]]{4})$");
+    std::regex regex(REGEX_STOL "date" REGEX_WS REGEX_WeekDay REGEX_WS REGEX_Month REGEX_WS REGEX_Date REGEX_WS REGEX_FullTime REGEX_WS REGEX_Year REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FileDate * fileDate = new FileDate;
@@ -104,7 +98,7 @@ FileDate * FileDate::parse(File & file, std::string & line)
         fileDate->date.tm_min = std::stoul(match[5]);
         fileDate->date.tm_sec = std::stoul(match[6]);
         fileDate->date.tm_hour += ((match[7] == " pm") ? 12 : 0);
-        fileDate->date.tm_year = std::stoul(match[8]);
+        fileDate->date.tm_year = std::stoul(match[8]) - 1900;
         return fileDate;
     }
 

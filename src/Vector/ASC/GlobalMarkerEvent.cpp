@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "GlobalMarkerEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -45,15 +46,13 @@ GlobalMarkerEvent::~GlobalMarkerEvent()
 
 GlobalMarkerEvent * GlobalMarkerEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([01])"
-                " GMGroup: (.*?)"
-                " GMMarker: (.*?)"
-                " GMDescription: (.*?)$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "([[:digit:]]+)"
+                     REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
+                     REGEX_WS "([01])"
+                     REGEX_WS "GMGroup:" REGEX_ws "(.+?)"
+                     REGEX_WS "GMMarker:" REGEX_ws "(.+?)"
+                     REGEX_WS "GMDescription:" REGEX_ws "(.+?)"
+                     REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         GlobalMarkerEvent * globalMarkerEvent = new GlobalMarkerEvent;

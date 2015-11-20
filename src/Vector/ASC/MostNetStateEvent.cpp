@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostNetStateEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -41,12 +42,8 @@ MostNetStateEvent::~MostNetStateEvent()
 
 MostNetStateEvent * MostNetStateEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " NetState:"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "NetState:"
+                     REGEX_ws REGEX_MOST_NetStateOld REGEX_WS REGEX_MOST_NetStateNew REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostNetStateEvent * mostNetStateEvent = new MostNetStateEvent;

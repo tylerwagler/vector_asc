@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "KLineMessageEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -45,16 +46,10 @@ KLineMessageEvent::~KLineMessageEvent()
 
 KLineMessageEvent * KLineMessageEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^// K-Line:"
-                " ([[:digit:].]+)"
-                " ((COM|KL)[[:digit:]])"
-                " (Rx|Tx)"
-                " ([[:digit:]]{1,6})"
-                " ([[:alnum:]]+)"
-                " ([[:alnum:]]+)"
-                " ([[:digit:]]{1,4})"
-                "(( [[:xdigit:]]{1,3})*)$");
+    std::regex regex(REGEX_STOL "//" REGEX_ws "K-Line:" REGEX_ws REGEX_KLine_time REGEX_WS REGEX_KLine_port
+                     REGEX_WS REGEX_KLine_direction REGEX_WS REGEX_KLine_baudrate REGEX_WS REGEX_KLine_source
+                     REGEX_WS REGEX_KLine_destination REGEX_WS REGEX_KLine_length
+                     "((" REGEX_WS REGEX_KLine_data ")*)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         KLineMessageEvent * kLineMessageEvent = new KLineMessageEvent;

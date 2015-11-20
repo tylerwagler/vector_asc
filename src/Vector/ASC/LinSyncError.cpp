@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinSyncError.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -44,30 +45,29 @@ LinSyncError::~LinSyncError()
 
 LinSyncError * LinSyncError::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:digit:]]+)"
-                " SyncError"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                "( SOF = ([[:digit:].]+))?"
-                "( BR = ([[:digit:]]+))?"
-                "( break = ([[:digit:]]+) ([[:digit:]]+))?$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SyncError"
+                     "((" REGEX_WS REGEX_LIN_TimeInterval "){4})"
+                     "(" REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
+                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate
+                     REGEX_WS "break" REGEX_ws "=" REGEX_ws REGEX_LIN_SyncBreak REGEX_WS REGEX_LIN_SyncDel ")?"
+                     REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinSyncError * linSyncError = new LinSyncError;
         linSyncError->time = std::stod(match[1]);
-        linSyncError->channel = std::stoul(match[2]);
-        linSyncError->timeInterval[0] = std::stoul(match[3]);
-        linSyncError->timeInterval[1] = std::stoul(match[4]);
-        linSyncError->timeInterval[2] = std::stoul(match[5]);
-        linSyncError->timeInterval[3] = std::stoul(match[6]);
-        linSyncError->startOfFrame = std::stod(match[8]);
-        linSyncError->baudrate = std::stoul(match[10]);
-        linSyncError->syncBreak = std::stoul(match[12]);
-        linSyncError->syncDel = std::stoul(match[13]);
+        linSyncError->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
+        std::istringstream iss1(match[3]);
+        for (uint8_t i = 0; i < 4; ++i) {
+            unsigned short s;
+            iss1 >> s;
+            linSyncError->timeInterval[i] = s;
+        }
+        if (match[5] != "") {
+            linSyncError->startOfFrame = std::stod(match[6]);
+            linSyncError->baudrate = std::stoul(match[7]);
+            linSyncError->syncBreak = std::stoul(match[8]);
+            linSyncError->syncDel = std::stoul(match[9]);
+        }
         return linSyncError;
     }
 

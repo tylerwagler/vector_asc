@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinShortOrSlowResponse.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -57,23 +58,19 @@ LinShortOrSlowResponse::~LinShortOrSlowResponse()
 
 LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:digit:].]+)"
-                " ShortOrSlowResponse:"
-                " NumRespBytes = ([[:digit:]]+)(( [[:xdigit:]]+){0,9})?"
-                " SlowResponse = ([01])"
-                " InterruptedByBreak = ([01])"
-                "( SOF = ([[:digit:].]+))?"
-                "( BR = ([[:digit:]]+))?"
-                "( break = ([[:digit:]]+) ([[:digit:]]+))?"
-                "( EOH = ([[:digit:].]+))?"
-                "( EOB =(( [[:digit:].]+){0,8}))?"
-                "( HBR = ([[:digit:].]+))?"
-                "( HSO = ([[:digit:]]+))?"
-                "( CSM = (unknown|classic|enhanced|error))?$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS REGEX_LIN_DLC
+                     REGEX_WS "ShortOrSlowResponse:" REGEX_ws "NumRespBytes" REGEX_ws "=" REGEX_ws REGEX_LIN_NumberOfResponseBytes "((" REGEX_WS "[[:xdigit:]]+){0,9})"
+                     REGEX_WS "SlowResponse" REGEX_ws "=" REGEX_ws REGEX_LIN_IsSlowResponse
+                     REGEX_WS "InterruptedByBreak" REGEX_ws "=" REGEX_ws  REGEX_LIN_ResponseWasInterruptedByBreak
+                     REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
+                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate
+                     REGEX_WS "break" REGEX_ws "=" REGEX_ws REGEX_LIN_SyncBreak REGEX_WS REGEX_LIN_SyncDel
+                     "(subId" REGEX_ws "=" REGEX_ws REGEX_LIN_NAD REGEX_WS REGEX_LIN_MessageId REGEX_WS REGEX_LIN_SupplierId ")?"
+                     REGEX_WS "EOH" REGEX_ws "=" REGEX_ws REGEX_LIN_endOfHeader
+                     REGEX_WS "EOB" REGEX_ws "=((" REGEX_WS REGEX_LIN_T "){0,8})"
+                     REGEX_WS "HBR" REGEX_ws "=" REGEX_ws REGEX_LIN_headerBaudrate
+                     REGEX_WS "HSO" REGEX_ws "=" REGEX_ws REGEX_LIN_stopBitOffsetInHeader
+                     REGEX_WS "CSM" REGEX_ws "=" REGEX_ws REGEX_LIN_checksumModel REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinShortOrSlowResponse * linShortOrSlowResponse = new LinShortOrSlowResponse;
@@ -84,36 +81,41 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & file, std::string 
         linShortOrSlowResponse->numberOfResponseBytes = std::stoul(match[5]);
         std::istringstream iss1(match[6]);
         iss1 >> std::hex;
-        for (uint8_t i = 0; i < linShortOrSlowResponse->numberOfResponseBytes && i < 9; ++i) {
+        for (uint8_t i = 0; i < linShortOrSlowResponse->numberOfResponseBytes; ++i) {
             unsigned short s;
             iss1 >> s;
             linShortOrSlowResponse->data[i] = s;
         }
         linShortOrSlowResponse->isSlowResponse = (match[8] == '1');
         linShortOrSlowResponse->responseWasInterruptedByBreak = (match[9] == '1');
-        linShortOrSlowResponse->startOfFrame = std::stod(match[11]);
-        linShortOrSlowResponse->baudrate = std::stoul(match[13]);
-        linShortOrSlowResponse->syncBreak = std::stoul(match[15]);
-        linShortOrSlowResponse->syncDel = std::stoul(match[16]);
+        linShortOrSlowResponse->startOfFrame = std::stod(match[10]);
+        linShortOrSlowResponse->baudrate = std::stoul(match[11]);
+        linShortOrSlowResponse->syncBreak = std::stoul(match[12]);
+        linShortOrSlowResponse->syncDel = std::stoul(match[13]);
+        if (match[14] != "") {
+            linShortOrSlowResponse->nad = std::stoul(match[15]);
+            linShortOrSlowResponse->messageId = std::stoul(match[16]);
+            linShortOrSlowResponse->supplierId = std::stoul(match[17]);
+        }
         linShortOrSlowResponse->endOfHeader = std::stod(match[18]);
-        std::istringstream iss2(match[20]);
+        std::istringstream iss2(match[19]);
         for (uint8_t i = 0; i < linShortOrSlowResponse->dlc && i < 8; ++i) {
             double s;
             iss2 >> s;
             linShortOrSlowResponse->endOfByte[i] = s;
         }
-        linShortOrSlowResponse->headerBaudrate = std::stod(match[23]);
-        linShortOrSlowResponse->stopBitOffsetInHeader = std::stoul(match[25]);
-        if (match[27] == "unknown")
+        linShortOrSlowResponse->headerBaudrate = std::stod(match[21]);
+        linShortOrSlowResponse->stopBitOffsetInHeader = std::stoul(match[22]);
+        if (match[23] == "unknown")
             linShortOrSlowResponse->checksumModel = LinChecksumModel::Unknown;
         else
-        if (match[27] == "classic")
+        if (match[23] == "classic")
             linShortOrSlowResponse->checksumModel = LinChecksumModel::Classic;
         else
-        if (match[27] == "enhanced")
+        if (match[23] == "enhanced")
             linShortOrSlowResponse->checksumModel = LinChecksumModel::Enhanced;
         else
-        if (match[27] == "error")
+        if (match[23] == "error")
             linShortOrSlowResponse->checksumModel = LinChecksumModel::Error;
         return linShortOrSlowResponse;
     }

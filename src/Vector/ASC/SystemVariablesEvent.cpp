@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "SystemVariablesEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -42,15 +43,8 @@ SystemVariablesEvent::~SystemVariablesEvent()
 
 SystemVariablesEvent * SystemVariablesEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " SV:"
-                " ([12345])"
-                " 0"
-                " 0"
-                " (.+)"
-                " ="
-                " (.+)$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "SV:" REGEX_ws REGEX_svtype REGEX_WS "0" REGEX_WS "0"
+                     REGEX_WS "(.+?)" REGEX_ws "=" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         SystemVariablesEvent * systemVariablesEvent = new SystemVariablesEvent;

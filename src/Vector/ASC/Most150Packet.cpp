@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "Most150Packet.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -53,24 +54,12 @@ Most150Packet::~Most150Packet()
 
 Most150Packet * Most150Packet::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " Pkt150:"
-                " (Rx|Tx)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                "(( [[:xdigit:]]+)*)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Pkt150:"
+                     REGEX_ws REGEX_MOST_Dir REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr
+                     REGEX_WS REGEX_MOST_State REGEX_WS REGEX_MOST_AckNack REGEX_WS REGEX_MOST_TransferType
+                     REGEX_WS REGEX_MOST_Pack REGEX_WS REGEX_MOST_RsvdUC REGEX_WS REGEX_MOST_Pindex
+                     REGEX_WS REGEX_MOST_CRC2 REGEX_WS REGEX_MOST_Cack REGEX_WS REGEX_MOST_RsvdUL
+                     REGEX_WS REGEX_MOST_Pkt150Len "((" REGEX_WS REGEX_MOST_Dx ")+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most150Packet * most150Packet = new Most150Packet;

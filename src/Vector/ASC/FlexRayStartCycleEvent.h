@@ -68,7 +68,7 @@ public:
     uint32_t nmVectL;
 
     /** NM_Vect[n] */
-    uint32_t nmVect[256];
+    uint32_t nmVect[12];
 
     /** @copydoc Event::parse() */
     static FlexRayStartCycleEvent * parse(File & file, std::string & line);

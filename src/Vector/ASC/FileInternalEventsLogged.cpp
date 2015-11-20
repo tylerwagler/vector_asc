@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "FileInternalEventsLogged.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -38,7 +39,7 @@ FileInternalEventsLogged::~FileInternalEventsLogged()
 
 FileInternalEventsLogged * FileInternalEventsLogged::parse(File & file, std::string & line)
 {
-    std::regex regex("^(no )?internal events logged$");
+    std::regex regex(REGEX_STOL "(no )?internal events logged" REGEX_ENDL);
     std::smatch match;
     if (std::regex_search(line, match, regex)) {
         FileInternalEventsLogged * fileInternalEventsLogged = new FileInternalEventsLogged;

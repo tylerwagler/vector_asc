@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LogDirectStopEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -39,10 +40,7 @@ LogDirectStopEvent::~LogDirectStopEvent()
 
 LogDirectStopEvent * LogDirectStopEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " log direct stop"
-                " \\(([[:digit:]]{1,10})ms\\)$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log direct stop" REGEX_ws "\\(" REGEX_PostTrigger "ms\\)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LogDirectStopEvent * logDirectStopEvent = new LogDirectStopEvent;

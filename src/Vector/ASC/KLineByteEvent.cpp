@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "KLineByteEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -43,13 +44,9 @@ KLineByteEvent::~KLineByteEvent()
 
 KLineByteEvent * KLineByteEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " ((COM|KL)[[:digit:]])"
-                " (Rx|Tx)"
-                " ([[:digit:]]{1,6})"
-                " ([[:digit:]]{1,4})"
-                "(( [[:xdigit:]]{1,3})*)$");
+    std::regex regex(REGEX_STOL REGEX_KLine_time REGEX_WS REGEX_KLine_port REGEX_WS REGEX_KLine_direction
+                     REGEX_WS REGEX_KLine_baudrate REGEX_WS REGEX_KLine_length
+                     "((" REGEX_WS REGEX_KLine_data ")*)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         KLineByteEvent * kLineByteEvent = new KLineByteEvent;

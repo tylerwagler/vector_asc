@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "Most25ControlMessageSpyMode.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -46,17 +47,10 @@ Most25ControlMessageSpyMode::~Most25ControlMessageSpyMode()
 
 Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " Rx"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                "(( [[:xdigit:]]+){17})"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Rx"
+                     REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr REGEX_WS REGEX_MOST_RType
+                     "((" REGEX_WS REGEX_MOST_Dx "){17})"
+                     REGEX_WS REGEX_MOST_State REGEX_WS REGEX_MOST_AckNack REGEX_WS REGEX_MOST_CRC REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most25ControlMessageSpyMode * most25ControlMessageSpyMode = new Most25ControlMessageSpyMode;

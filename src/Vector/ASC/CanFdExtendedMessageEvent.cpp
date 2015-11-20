@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "CanFdExtendedMessageEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -52,24 +53,14 @@ CanFdExtendedMessageEvent::~CanFdExtendedMessageEvent()
 
 CanFdExtendedMessageEvent * CanFdExtendedMessageEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " CANFD"
-                " ([[:digit:]]{1,5})"
-                " (Rx|Tx)"
-                " ([[:xdigit:]]+)x"
-                "( [[:alpha:]_][[:alnum:]_]*)?"
-                " ([01])"
-                " ([01])"
-                " ([[:xdigit:]]+)"
-                " ([[:digit:]]+)"
-                "(( [[:xdigit:]]+){0,64})"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_Time  REGEX_WS "CANFD" REGEX_WS REGEX_Channel REGEX_WS REGEX_Dir REGEX_WS REGEX_ID "x"
+                     "(" REGEX_WS "([[:alnum:]_]+))?"
+                     REGEX_WS REGEX_BRS REGEX_WS REGEX_ESI REGEX_WS REGEX_DLC REGEX_WS REGEX_DataLength
+                     "((" REGEX_WS REGEX_Dx "){0,64})"
+                     REGEX_WS REGEX_MessageDuration REGEX_WS REGEX_MessageLength
+                     REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:xdigit:]]+)"
+                     REGEX_WS REGEX_BitTimingConfArb REGEX_WS REGEX_BitTimingConfData
+                     REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanFdExtendedMessageEvent * canFdExtendedMessageEvent = new CanFdExtendedMessageEvent;
@@ -81,25 +72,25 @@ CanFdExtendedMessageEvent * CanFdExtendedMessageEvent::parse(File & file, std::s
         if (match[3] == "Tx")
                 canFdExtendedMessageEvent->dir = Dir::Tx;
         canFdExtendedMessageEvent->id = std::stoul(match[4], nullptr, 16);
-        canFdExtendedMessageEvent->symbolicName = match[5];
-        canFdExtendedMessageEvent->symbolicName.erase(0, 1);
-        canFdExtendedMessageEvent->brs = (match[6] == '1');
-        canFdExtendedMessageEvent->esi = (match[7] == '1');
-        canFdExtendedMessageEvent->dlc = std::stoul(match[8], nullptr, 16);
-        canFdExtendedMessageEvent->dataLength = std::stoul(match[9]);
-        std::istringstream iss(match[10]);
+        if (match[5] != "")
+            canFdExtendedMessageEvent->symbolicName = match[6];
+        canFdExtendedMessageEvent->brs = (match[7] == '1');
+        canFdExtendedMessageEvent->esi = (match[8] == '1');
+        canFdExtendedMessageEvent->dlc = std::stoul(match[9], nullptr, 16);
+        canFdExtendedMessageEvent->dataLength = std::stoul(match[10]);
+        std::istringstream iss(match[11]);
         iss >> std::hex;
         for (uint8_t i = 0; i < canFdExtendedMessageEvent->dataLength && i < 64; ++i) {
             unsigned short s;
             iss >> s;
             canFdExtendedMessageEvent->data[i] = s;
         }
-        canFdExtendedMessageEvent->messageDuration = std::stoul(match[12]);
-        canFdExtendedMessageEvent->messageLength = std::stoul(match[13]);
-        canFdExtendedMessageEvent->flags = std::stoul(match[14]);
-        canFdExtendedMessageEvent->crc = std::stoul(match[15], nullptr, 16);
-        canFdExtendedMessageEvent->bitTimingConfArb = std::stoul(match[16], nullptr, 16);
-        canFdExtendedMessageEvent->bitTimingConfData = std::stoul(match[17], nullptr, 16);
+        canFdExtendedMessageEvent->messageDuration = std::stoul(match[13]);
+        canFdExtendedMessageEvent->messageLength = std::stoul(match[14]);
+        canFdExtendedMessageEvent->flags = std::stoul(match[15]);
+        canFdExtendedMessageEvent->crc = std::stoul(match[16], nullptr, 16);
+        canFdExtendedMessageEvent->bitTimingConfArb = std::stoul(match[17], nullptr, 16);
+        canFdExtendedMessageEvent->bitTimingConfData = std::stoul(match[18], nullptr, 16);
         return canFdExtendedMessageEvent;
     }
 

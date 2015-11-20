@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "EthernetRxError.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -43,14 +44,9 @@ EthernetRxError::~EthernetRxError()
 
 EthernetRxError * EthernetRxError::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " ETH"
-                " ([[:xdigit:]]{1,3})"
-                " RxEr"
-                " ([[:xdigit:]]{1,2})"
-                " ([[:xdigit:]]{8})"
-                " ([[:xdigit:]]{1,4}):([[:xdigit:]]*)$");
+    std::regex regex(REGEX_STOL REGEX_Eth_Time REGEX_WS "ETH" REGEX_WS REGEX_Eth_Channel REGEX_WS "RxEr"
+                     REGEX_WS REGEX_Eth_ErrorCode REGEX_WS REGEX_Eth_FrameChecksum
+                     REGEX_WS REGEX_Eth_DataLen ":" REGEX_Eth_Data REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         EthernetRxError * ethernetRxError = new EthernetRxError;

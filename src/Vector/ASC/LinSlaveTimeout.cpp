@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinSlaveTimeout.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -42,13 +43,10 @@ LinSlaveTimeout::~LinSlaveTimeout()
 
 LinSlaveTimeout * LinSlaveTimeout::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " SlaveTimeout"
-                " slave-id = ([[:digit:]]+),"
-                " current state = ([[:digit:]]+),"
-                " following state = ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SlaveTimeout"
+                     REGEX_WS "slave-id" REGEX_ws "=" REGEX_ws REGEX_LIN_slaveId ","
+                     REGEX_ws "current state" REGEX_ws "=" REGEX_ws REGEX_LIN_state ","
+                     REGEX_ws "following state" REGEX_ws "=" REGEX_ws REGEX_LIN_state REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinSlaveTimeout * linSlaveTimeout = new LinSlaveTimeout;

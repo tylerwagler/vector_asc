@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "Most25Packet.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -49,20 +50,11 @@ Most25Packet::~Most25Packet()
 
 Most25Packet * Most25Packet::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " Pkt:"
-                " (Rx|Tx)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                "(( [[:xdigit:]]+)*)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Pkt:" REGEX_ws REGEX_MOST_Dir
+                     REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr REGEX_WS REGEX_MOST_PktState
+                     REGEX_WS REGEX_MOST_TransferType REGEX_WS REGEX_MOST_PktPrio REGEX_WS REGEX_MOST_PktArbitr
+                     REGEX_WS REGEX_MOST_CRC2 REGEX_WS REGEX_MOST_PktLen
+                     "((" REGEX_WS REGEX_MOST_Dx")+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most25Packet * most25Packet = new Most25Packet;

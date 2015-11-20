@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostEthernetPacket.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -51,22 +52,12 @@ MostEthernetPacket::~MostEthernetPacket()
 
 MostEthernetPacket * MostEthernetPacket::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " PktEth:"
-                " (Rx|Tx)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                "(( [[:xdigit:]]+)*)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "PktEth:"
+                     REGEX_ws REGEX_MOST_Dir REGEX_WS REGEX_MOST_SourceMacAdr REGEX_WS REGEX_MOST_DestMacAdr
+                     REGEX_WS REGEX_MOST_State REGEX_WS REGEX_MOST_AckNack REGEX_WS REGEX_MOST_TransferType
+                     REGEX_WS REGEX_MOST_Pack REGEX_WS REGEX_MOST_CRC4 REGEX_WS REGEX_MOST_Cack
+                     REGEX_WS REGEX_MOST_RsvdUL
+                     REGEX_WS REGEX_MOST_PktEthLen "((" REGEX_WS REGEX_MOST_Dx ")+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostEthernetPacket * mostEthernetPacket = new MostEthernetPacket;

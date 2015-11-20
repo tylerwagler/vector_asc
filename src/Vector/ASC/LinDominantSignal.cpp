@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinDominantSignal.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -43,13 +44,10 @@ LinDominantSignal::~LinDominantSignal()
 
 LinDominantSignal * LinDominantSignal::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " Dominant signal (detected|continuing|finished)"
-                " ([[:digit:]]+) microseconds"
-                "( SOF = ([[:digit:].]+))?"
-                "( BR = ([[:digit:]]+))?$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Dominant signal"
+                     REGEX_WS REGEX_LIN_DomSigState REGEX_WS REGEX_LIN_DomSigLength REGEX_WS "microseconds"
+                     "(" REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
+                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate ")?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinDominantSignal * linDominantSignal = new LinDominantSignal;
@@ -62,8 +60,10 @@ LinDominantSignal * LinDominantSignal::parse(File & file, std::string & line)
         if (match[3] == "finished")
             linDominantSignal->domSigState = LinDomSigState::Finished;
         linDominantSignal->domSigLength = std::stoul(match[4]);
-        linDominantSignal->startOfFrame = std::stod(match[6]);
-        linDominantSignal->baudrate = std::stoul(match[8]);
+        if (match[5] != "") {
+            linDominantSignal->startOfFrame = std::stod(match[6]);
+            linDominantSignal->baudrate = std::stoul(match[7]);
+        }
         return linDominantSignal;
     }
 

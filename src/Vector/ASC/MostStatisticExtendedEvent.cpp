@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostStatisticExtendedEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -41,12 +42,8 @@ MostStatisticExtendedEvent::~MostStatisticExtendedEvent()
 
 MostStatisticExtendedEvent * MostStatisticExtendedEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " StatEx:"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "StatEx:"
+                     REGEX_ws REGEX_MOST_CodingErrors REGEX_WS REGEX_MOST_FrameCounter REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostStatisticExtendedEvent * mostStatisticExtendedEvent = new MostStatisticExtendedEvent;

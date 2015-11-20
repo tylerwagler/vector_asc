@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "FlexRayOldStartCycleEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -41,14 +42,8 @@ FlexRayOldStartCycleEvent::~FlexRayOldStartCycleEvent()
 
 FlexRayOldStartCycleEvent * FlexRayOldStartCycleEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " Fr"
-                " ([12*])"
-                " StartCycleEvent"
-                " NM Vector:"
-                " ([[:digit:]]+)"
-                "(( [[:xdigit:]]+){0,255})$");
+    std::regex regex(REGEX_STOL REGEX_FlexRayOld_Time REGEX_WS REGEX_FlexRayOld_Channel REGEX_WS "StartCycleEvent"
+                     REGEX_WS "NM Vector:" REGEX_ws REGEX_FlexRayOld_DLC "((" REGEX_WS REGEX_FlexRayOld_Dx "){0,255})" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FlexRayOldStartCycleEvent * flexRayOldStartCycleEvent = new FlexRayOldStartCycleEvent;

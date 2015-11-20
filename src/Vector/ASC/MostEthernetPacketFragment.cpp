@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostEthernetPacketFragment.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -51,22 +52,12 @@ MostEthernetPacketFragment::~MostEthernetPacketFragment()
 
 MostEthernetPacketFragment * MostEthernetPacketFragment::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " PktEthFrg:"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                "(( [[:xdigit:]]+)*)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "PktEthFrg:"
+                     REGEX_ws REGEX_MOST_FrgMask REGEX_WS REGEX_MOST_SourceMacAdr REGEX_WS REGEX_MOST_DestMacAdr
+                     REGEX_WS REGEX_MOST_AckNack REGEX_WS REGEX_MOST_Pack REGEX_WS REGEX_MOST_CRC4
+                     REGEX_WS REGEX_MOST_Cack REGEX_WS REGEX_MOST_RsvdUL REGEX_WS REGEX_MOST_FrgDataLen
+                     REGEX_WS REGEX_MOST_FrgDataLenAnnounced REGEX_WS REGEX_MOST_FirstDataLen
+                     "((" REGEX_WS REGEX_MOST_Dx ")+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostEthernetPacketFragment * mostEthernetPacketFragment = new MostEthernetPacketFragment;

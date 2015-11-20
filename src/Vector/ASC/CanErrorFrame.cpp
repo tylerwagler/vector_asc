@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "CanErrorFrame.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -46,38 +47,36 @@ CanErrorFrame::~CanErrorFrame()
 
 CanErrorFrame * CanErrorFrame::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " ([[:digit:]]{1,5})"
-                " ErrorFrame"
-                "( ECC: ([01]+))?"
-                "( Flags = 0x([[:xdigit:]]+))?"
-                "( CodeExt = 0x([[:xdigit:]]+))?"
-                "( Code = 0x([[:xdigit:]]+))?"
-                "( ID = ([[:digit:]]+))?"
-                "( DLC = ([[:xdigit:]]{1,2}))?"
-                "( Position = ([[:digit:]]+))?"
-                "( Length = ([[:digit:]]+))?$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS "ErrorFrame"
+                     "(" REGEX_WS "ECC:" REGEX_ws "([01]+))?"
+                     "(" REGEX_WS "Flags" REGEX_ws "=" REGEX_ws "0x([[:xdigit:]]+))?"
+                     "(" REGEX_WS "CodeExt" REGEX_ws "=" REGEX_ws "0x([[:xdigit:]]+))?"
+                     "(" REGEX_WS "Code" REGEX_ws "=" REGEX_ws "0x([[:xdigit:]]+))?"
+                     "(" REGEX_WS "ID" REGEX_ws "=" REGEX_ws "([[:digit:]]+))?"
+                     "(" REGEX_WS "DLC" REGEX_ws "=" REGEX_ws "([[:xdigit:]]{1,2}))?"
+                     "(" REGEX_WS "Position" REGEX_ws "=" REGEX_ws "([[:digit:]]+))?"
+                     "(" REGEX_WS "Length" REGEX_ws "=" REGEX_ws "([[:digit:]]+))?"
+                     REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanErrorFrame * canErrorFrame = new CanErrorFrame;
         canErrorFrame->time = std::stod(match[1]);
         canErrorFrame->channel = std::stoul(match[2]);
-        if (match[4] != "")
+        if (match[3] != "")
             canErrorFrame->code = std::stoul(match[4], nullptr, 2);
-        if (match[6] != "")
+        if (match[5] != "")
             canErrorFrame->flags = std::stoul(match[6], nullptr, 16);
-        if (match[8] != "")
+        if (match[7] != "")
             canErrorFrame->codeExt = std::stoul(match[8], nullptr, 16);
-        if (match[10] != "")
+        if (match[9] != "")
             canErrorFrame->code = std::stoul(match[10], nullptr, 16);
-        if (match[12] != "")
+        if (match[11] != "")
             canErrorFrame->id = std::stoul(match[12]);
-        if (match[14] != "")
+        if (match[13] != "")
             canErrorFrame->dlc = std::stoul(match[14], nullptr, file.base);
-        if (match[16] != "")
+        if (match[15] != "")
             canErrorFrame->position = std::stoul(match[16]);
-        if (match[18] != "")
+        if (match[17] != "")
             canErrorFrame->length = std::stoul(match[18]);
         return canErrorFrame;
     }

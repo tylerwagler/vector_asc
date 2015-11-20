@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "TpDiagFlowControlFrame.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -40,10 +41,8 @@ TpDiagFlowControlFrame::~TpDiagFlowControlFrame()
 
 TpDiagFlowControlFrame * TpDiagFlowControlFrame::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^FC\\.(CTS|WT|OVFLW):"
-                " BSmax: 0x([[:xdigit:]]+),"
-                " STmin: 0x([[:xdigit:]]+) ms$");
+    std::regex regex(REGEX_STOL "FC." REGEX_TPDiag_FCType ":" REGEX_ws "BSmax:" REGEX_ws "0x" REGEX_TPDiag_BS ","
+                     REGEX_ws "STmin:" REGEX_ws "0x" REGEX_TPDiag_STmin REGEX_ws "ms" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         TpDiagFlowControlFrame * tpDiagFlowControlFrame = new TpDiagFlowControlFrame;

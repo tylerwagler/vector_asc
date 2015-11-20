@@ -34,7 +34,7 @@ StatNumber [[:digit:]]{1,10}
 StatPercent [[:digit:].]{3,6}
 PreTrigger [[:digit:]]{1,10}
 PostTrigger [[:digit:]]{1,10}
-Error .+
+Error .+?
 Dx [[:xdigit:]]{1,3}
 WeekDay ("Mon"|"Tue"|"Wed"|"Thu"|"Fri"|"Sat"|"Sun"|"Mon"|"Die"|"Mit"|"Don"|"Fre"|"Sam"|"Son")
 Month ("Jan"|"Feb"|"Mar"|"Apr"|"May"|"Jun"|"Jul"|"Aug"|"Sep"|"Oct"|"Nov"|"Dec"|"Jan"|"Feb"|"Mär"|"Apr"|"Mai"|"Jun"|"Jul"|"Aug"|"Sep"|"Okt"|"Nov"|"Dez")
@@ -69,7 +69,7 @@ Afdx_Time [[:digit:].]{3,}
 
     // FlexRay Symbols
 FlexRayOld_Time [[:digit:].]{3,}
-FlexRayOld_Channel ("Fr 1"|"Fr 2"|"Fr *")
+FlexRayOld_Channel "Fr "[12*]
     // FlexRay_Typ ("V9"|"StartCycleEvent"|"ErrorFrame")
 FlexRayOld_ID [[:xdigit:]]{1,4}
 FlexRayOld_Cycle [[:digit:]]{1,2}
@@ -104,7 +104,7 @@ LIN_Dir ("Rx"|"Tx"|"TxRq")
 LIN_DLC [-[:digit:]]{1,2}
 LIN_NumberOfResponseBytes [[:digit:]]
 LIN_Dx [[:xdigit:]]{1,3}
-LIN_description .+
+LIN_description .+?
 LIN_DomSigState ("detected"|"continuing"|"finished")
 LIN_DomSigLength [[:digit:]]{1,8}
 LIN_endOfFrame [[:digit:].]{3,}
@@ -253,7 +253,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::FileInternalEventsLogged; }
 {STOL}"//"{ws}"version"{WS}[[:digit:]]{1,3}"."[[:digit:]]{1,3}"."[[:digit:]]{1,3}{ENDL} {
     return Vector::ASC::Event::EventType::FileVersion; }
-{STOL}"//"{ws}{Time}{WS}"previous log file:"{ws}.*{ENDL} {
+{STOL}"//"{ws}{Time}{WS}"previous log file:"{ws}.+?{ENDL} {
     return Vector::ASC::Event::EventType::FileSplitInformation; }
     /* comment must be non-greedy, so moved to the end */
 
@@ -264,9 +264,9 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::CanExtendedMessageEvent; }
 {STOL}{Time}{WS}{Channel}{WS}{ID}{WS}{Dir}{WS}"r"{ENDL} {
     return Vector::ASC::Event::EventType::CanRemoteFrameEvent; }
-{STOL}{Time}{WS}{Channel}{WS}"ErrorFrame"({WS}"ECC: "[01]+)?({WS}"Flags"{ws}"="{ws}"0x"[[:xdigit:]]+)?({WS}"CodeExt"{ws}"="{ws}"0x"[[:xdigit:]]+)?({WS}"Code"{ws}"="{ws}"0x"[[:xdigit:]]+)?({WS}"ID"{ws}"="{ws}[[:digit:]]+)?({WS}"DLC"{ws}"="{ws}[[:xdigit:]]{1,2})?({WS}"Position"{ws}"="{ws}[[:digit:]]+)?({WS}"Length"{ws}"="{ws}[[:digit:]]+)?{ENDL} {
+{STOL}{Time}{WS}{Channel}{WS}"ErrorFrame"({WS}"ECC:"{ws}[01]+)?({WS}"Flags"{ws}"="{ws}"0x"[[:xdigit:]]+)?({WS}"CodeExt"{ws}"="{ws}"0x"[[:xdigit:]]+)?({WS}"Code"{ws}"="{ws}"0x"[[:xdigit:]]+)?({WS}"ID"{ws}"="{ws}[[:digit:]]+)?({WS}"DLC"{ws}"="{ws}[[:xdigit:]]{1,2})?({WS}"Position"{ws}"="{ws}[[:digit:]]+)?({WS}"Length"{ws}"="{ws}[[:digit:]]+)?{ENDL} {
     return Vector::ASC::Event::EventType::CanErrorFrame; }
-{STOL}{Time}{WS}{Channel}{WS}"Statistic:"{ws}"D"{WS}{StatNumber}{WS}"R"{WS}{StatNumber}{WS}"XD"{WS}{StatNumber}{WS}"XR"{WS}{StatNumber}{WS}"E"{WS}{StatNumber}{WS}"O"{WS}{StatNumber}{WS}"B"{WS}{StatPercent}"%"{ENDL} {
+{STOL}{Time}{WS}{Channel}{WS}"Statistic:"{WS}"D"{WS}{StatNumber}{WS}"R"{WS}{StatNumber}{WS}"XD"{WS}{StatNumber}{WS}"XR"{WS}{StatNumber}{WS}"E"{WS}{StatNumber}{WS}"O"{WS}{StatNumber}{WS}"B"{WS}{StatPercent}"%"{ENDL} {
     return Vector::ASC::Event::EventType::CanBusStatisticsEvent; }
 {STOL}{Time}{WS}"CAN"{WS}{Channel}{WS}"Status:"{ws}{Error}{ENDL} {
     return Vector::ASC::Event::EventType::CanErrorEvent; }
@@ -278,7 +278,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::CanFdMessageEvent; }
 {STOL}{Time}{WS}"CANFD"{WS}{Channel}{WS}{Dir}{WS}{ID}"x"({WS}[[:alnum:]_]+)?{WS}{BRS}{WS}{ESI}{WS}{DLC}{WS}{DataLength}({WS}{Dx}){0,64}{WS}{MessageDuration}{WS}{MessageLength}{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}{BitTimingConfArb}{WS}{BitTimingConfData}{ENDL} {
     return Vector::ASC::Event::EventType::CanFdExtendedMessageEvent; }
-{STOL}{Time}{WS}"CANFD"{WS}{Channel}{WS}{Dir}{WS}"ErrorFrame"{WS}"Not Acknowledge error,"{ws}"dominant error flag"{WS}[[:xdigit:]]{4}{WS}[[:xdigit:]]{2}{WS}[[:xdigit:]]{4}{WS}"Data"{WS}[[:digit:]]+{WS}{ID}{WS}{BRS}{WS}{ESI}{WS}{DLC}{WS}{DataLength}({WS}{Dx}){0,64}{WS}{MessageDuration}{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}{BitTimingConfArb}{WS}{BitTimingConfData}{ENDL} {
+{STOL}{Time}{WS}"CANFD"{WS}{Channel}{WS}{Dir}{WS}"ErrorFrame"{WS}"Not Acknowledge error, dominant error flag"{WS}[[:xdigit:]]{4}{WS}[[:xdigit:]]{2}{WS}[[:xdigit:]]{4}{WS}"Data"{WS}[[:digit:]]+{WS}{ID}{WS}{BRS}{WS}{ESI}{WS}{DLC}{WS}{DataLength}({WS}{Dx}){0,64}{WS}{MessageDuration}{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}{BitTimingConfArb}{WS}{BitTimingConfData}{ENDL} {
     return Vector::ASC::Event::EventType::CanFdErrorFrame; }
     /* return Vector::ASC::Event::EventType::CanFdBusStatisticsEvent; }
     /* return Vector::ASC::Event::EventType::CanFdOverloadFrame; }
@@ -296,15 +296,15 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::EndTriggerblockEvent; }
 
     /* Environment Variables */
-{STOL}{Time}{WS}.+{ws}":="{ws}.+{ENDL} {
+{STOL}{Time}{WS}.+?{ws}":="{ws}.+?{ENDL} {
     return Vector::ASC::Event::EventType::EnvironmentVariablesEvent; }
 
     /* System Variables */
-{STOL}{Time}{WS}"SV:"{ws}{svtype}{WS}"0"{WS}"0"{WS}.+{ws}"="{ws}.+{ENDL} {
+{STOL}{Time}{WS}"SV:"{ws}{svtype}{WS}"0"{WS}"0"{WS}.+?{ws}"="{ws}.+?{ENDL} {
     return Vector::ASC::Event::EventType::SystemVariablesEvent; }
 
     /* Macros Signal Events */
-{STOL}{Time}{WS}[LF]?[[:digit:]]+{WS}.+?"::".+?"::".+?{ws}"="{ws}.*\r$ {
+{STOL}{Time}{WS}[LF]?[[:digit:]]+{WS}.+?"::".+?"::".+?{ws}"="{ws}.+?{ENDL} {
     return Vector::ASC::Event::EventType::MacroSignalEvent; }
 
     /* GPS events */
@@ -312,17 +312,17 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::GpsEvent; }
 
     /* Comment events */
-{STOL}{Time}{WS}"Comment:"{ws}[[:digit:]]+{WS}.*{ENDL} {
+{STOL}{Time}{WS}"Comment:"{ws}[[:digit:]]+{WS}.+?{ENDL} {
     return Vector::ASC::Event::EventType::CommentEvent; }
 
     /* Global market events */
-{STOL}{Time}{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[01]{WS}"GMGroup:"{ws}.*?{WS}"GMMarker:"{ws}.*?{WS}"GMDescription:"{ws}.*?{ENDL} {
+{STOL}{Time}{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[01]{WS}"GMGroup:"{ws}.+?{WS}"GMMarker:"{ws}.+?{WS}"GMDescription:"{ws}.+?{ENDL} {
     return Vector::ASC::Event::EventType::GlobalMarkerEvent; }
 
     /* Ethernet Events */
 {STOL}{Eth_Time}{WS}"ETH"{WS}{Eth_Channel}{WS}{Eth_Dir}{WS}{Eth_DataLen}":"{Eth_Data}{ENDL} {
     return Vector::ASC::Event::EventType::EthernetPacket; }
-{STOL}{Eth_Time}{WS}"ETH"{WS}{Eth_Channel}{WS}"STAT"{WS}"Link:"{ws}.+{WS}"LinkSpeed:"{ws}.+{WS}"Physical:"{ws}.+{WS}"Duplex:"{ws}.+{WS}"MDI:"{ws}.+{WS}"Connector:"{ws}.+{ENDL} {
+{STOL}{Eth_Time}{WS}"ETH"{WS}{Eth_Channel}{WS}"STAT"{WS}"Link:"{ws}.+?{WS}"LinkSpeed:"{ws}.+?{WS}"Physical:"{ws}.+?{WS}"Duplex:"{ws}.+?{WS}"MDI:"{ws}.+?{WS}"Connector:"{ws}.+?{ENDL} {
     return Vector::ASC::Event::EventType::EthernetStatus; }
 {STOL}{Eth_Time}{WS}"ETH"{WS}{Eth_Channel}{WS}"RxEr"{WS}{Eth_ErrorCode}{WS}{Eth_FrameChecksum}{WS}{Eth_DataLen}":"{Eth_Data}{ENDL} {
     return Vector::ASC::Event::EventType::EthernetRxError; }
@@ -339,11 +339,11 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     /* FlexRayOldErrorFrameEvent */
 
     /* FlexRay Events (New Format) */
-{STOL}{FlexRay_Time}{WS}"Fr"{WS}"RMSG"{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}{FlexRay_Dir}{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:alnum:]_\[\|\]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+({WS}[[:xdigit:]]+)*{WS}[[:xdigit:]]+{WS}[01]{WS}[[:digit:]]+{ENDL} {
+{STOL}{FlexRay_Time}{WS}"Fr"{WS}"RMSG"{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}{FlexRay_Dir}{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:alnum:]_\[\|\]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+({WS}[[:xdigit:]]+){0,254}{WS}[[:xdigit:]]+{WS}[01]{WS}[[:digit:]]+{ENDL} {
     return Vector::ASC::Event::FlexRayMessageEvent; }
-{STOL}{FlexRay_Time}{WS}"Fr"{WS}"PDU"{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}{FlexRay_Dir}{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:alnum:]_\[\|\]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+({WS}[[:xdigit:]]+)*{WS}[[:xdigit:]]+{WS}[01]{WS}[[:digit:]]+{WS}[[:digit:]]+{ENDL} {
+{STOL}{FlexRay_Time}{WS}"Fr"{WS}"PDU"{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}{FlexRay_Dir}{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:alnum:]_\[\|\]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+({WS}[[:xdigit:]]+){0,254}{WS}[[:xdigit:]]+{WS}[01]{WS}[[:digit:]]+{WS}[[:digit:]]+{ENDL} {
     return Vector::ASC::Event::FlexRayMessageEvent; }
-{STOL}{FlexRay_Time}{WS}"Fr"{WS}"SCE"{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}{FlexRay_Dir}{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}"NM_Vector:"{ws}[[:xdigit:]]+({WS}[[:xdigit:]]+)*{ENDL} {
+{STOL}{FlexRay_Time}{WS}"Fr"{WS}"SCE"{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}{FlexRay_Dir}{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}"NM_Vector:"{ws}[[:xdigit:]]+({WS}[[:xdigit:]]+){0,12}{ENDL} {
     return Vector::ASC::Event::FlexRayStartCycleEvent; }
 {STOL}{FlexRay_Time}{WS}"Fr"{WS}"SE"{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:digit:]]+{WS}[012]{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[01234]{WS}[[:digit:]]+{WS}[01]{ENDL} {
     return Vector::ASC::Event::FlexRayStatusEvent; }
@@ -353,7 +353,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     /* K-Line Events */
 {STOL}{KLine_time}{WS}{KLine_port}{WS}{KLine_direction}{WS}{KLine_baudrate}{WS}{KLine_length}({WS}{KLine_data})*{ENDL} {
     return Vector::ASC::Event::EventType::KLineByteEvent; }
-{STOL}"// K-Line: "{KLine_time}{WS}{KLine_port}{WS}{KLine_direction}{WS}{KLine_baudrate}{WS}{KLine_source}{WS}{KLine_destination}{WS}{KLine_length}({WS}{KLine_data})*{ENDL} {
+{STOL}"//"{ws}"K-Line:"{ws}{KLine_time}{WS}{KLine_port}{WS}{KLine_direction}{WS}{KLine_baudrate}{WS}{KLine_source}{WS}{KLine_destination}{WS}{KLine_length}({WS}{KLine_data})*{ENDL} {
     return Vector::ASC::Event::EventType::KLineMessageEvent; }
 
     /* LIN Events */
@@ -367,7 +367,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::LinReceiveError; }
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"SyncError"({WS}{LIN_TimeInterval}){4}({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{WS}"break"{ws}"="{ws}{LIN_SyncBreak}{WS}{LIN_SyncDel})?{ENDL} {
     return Vector::ASC::Event::EventType::LinSyncError; }
-{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}{LIN_ID}{WS}"CSErr"{WS}{LIN_Dir}{WS}{LIN_DLC}({WS}[[:xdigit:]]+){0,8}({WS}"slave"{ws}"="{ws}{LIN_slaveId}", state"{ws}"="{ws}{LIN_state})?{WS}"checksum"{ws}"="{ws}{LIN_checksum}{WS}"header time"{ws}"="{ws}{LIN_headerTime}", full time"{ws}"="{ws}{LIN_fullTime}({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{WS}"break"{ws}"="{ws}{LIN_SyncBreak}{WS}{LIN_SyncDel}({WS}"subId"{ws}"="{ws}{LIN_NAD}{WS}{LIN_MessageId}{WS}{LIN_SupplierId})?{WS}"EOH"{ws}"="{ws}{LIN_endOfFrame}{WS}"EOB"{ws}"="({WS}{LIN_T}){0,8}{WS}"sim"{ws}"="{ws}{LIN_simulated}({WS}"EOF"{ws}"="{ws}{LIN_endOfFrame}({WS}"RBR"{ws}"="{ws}{LIN_responseBaudrate}({WS}"HBR"{ws}"="{ws}{LIN_headerBaudrate}{WS}"HSO"{ws}"="{ws}{LIN_stopBitOffsetInHeader}{WS}"RSO"{ws}"="{ws}{LIN_stopBitOffsetInResponse}({WS}"CSM"{ws}"="{ws}{LIN_checksumModel})?)?)?)?)?{ENDL} {
+{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}{LIN_ID}{WS}"CSErr"{WS}{LIN_Dir}{WS}{LIN_DLC}({WS}[[:xdigit:]]+){0,8}({WS}"slave"{ws}"="{ws}{LIN_slaveId}","{ws}"state"{ws}"="{ws}{LIN_state})?{WS}"checksum"{ws}"="{ws}{LIN_checksum}{WS}"header time"{ws}"="{ws}{LIN_headerTime}","{ws}"full time"{ws}"="{ws}{LIN_fullTime}({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{WS}"break"{ws}"="{ws}{LIN_SyncBreak}{WS}{LIN_SyncDel}({WS}"subId"{ws}"="{ws}{LIN_NAD}{WS}{LIN_MessageId}{WS}{LIN_SupplierId})?{WS}"EOH"{ws}"="{ws}{LIN_endOfFrame}{WS}"EOB"{ws}"="({WS}{LIN_T}){0,8}{WS}"sim"{ws}"="{ws}{LIN_simulated}({WS}"EOF"{ws}"="{ws}{LIN_endOfFrame}({WS}"RBR"{ws}"="{ws}{LIN_responseBaudrate}({WS}"HBR"{ws}"="{ws}{LIN_headerBaudrate}{WS}"HSO"{ws}"="{ws}{LIN_stopBitOffsetInHeader}{WS}"RSO"{ws}"="{ws}{LIN_stopBitOffsetInResponse}({WS}"CSM"{ws}"="{ws}{LIN_checksumModel})?)?)?)?)?{ENDL} {
     return Vector::ASC::Event::EventType::LinChecksumError; }
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Spike"{WS}{LIN_Dir}{WS}{LIN_SpikeLength}{WS}"microseconds"({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate})?{ENDL} {
     return Vector::ASC::Event::EventType::LinSpikeEvent; }
@@ -389,7 +389,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::LinEventTriggeredFrameInfo; }
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Statistic"{WS}[[:digit:]]+{WS}[[:digit:].]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{ENDL} {
     return Vector::ASC::Event::EventType::LinStatisticInfo; }
-{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}{LIN_ID}{WS}{LIN_DLC}{WS}"ShortOrSlowResponse:"{ws}"NumRespBytes"{ws}"="{ws}{LIN_NumberOfResponseBytes}({WS}[[:xdigit:]]+){0,9}{WS}"SlowResponse"{ws}"="{ws}{LIN_IsSlowResponse}{WS}"InterruptedByBreak"{ws}"="{ws}{LIN_ResponseWasInterruptedByBreak}{WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{WS}"break"{ws}"="{ws}{LIN_SyncBreak}{WS}{LIN_SyncDel}("subId"{ws}"="{ws}{LIN_NAD}{WS}{LIN_MessageId}{WS}{LIN_SupplierId})?{WS}"EOH"{ws}"="{ws}{LIN_endOfHeader}{WS}"EOB ="({WS}{LIN_T}){0,8}{WS}"HBR"{ws}"="{ws}{LIN_headerBaudrate}{WS}"HSO"{ws}"="{ws}{LIN_stopBitOffsetInHeader}{WS}"CSM"{ws}"="{ws}{LIN_checksumModel}{ENDL} {
+{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}{LIN_ID}{WS}{LIN_DLC}{WS}"ShortOrSlowResponse:"{ws}"NumRespBytes"{ws}"="{ws}{LIN_NumberOfResponseBytes}({WS}[[:xdigit:]]+){0,9}{WS}"SlowResponse"{ws}"="{ws}{LIN_IsSlowResponse}{WS}"InterruptedByBreak"{ws}"="{ws}{LIN_ResponseWasInterruptedByBreak}{WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{WS}"break"{ws}"="{ws}{LIN_SyncBreak}{WS}{LIN_SyncDel}("subId"{ws}"="{ws}{LIN_NAD}{WS}{LIN_MessageId}{WS}{LIN_SupplierId})?{WS}"EOH"{ws}"="{ws}{LIN_endOfHeader}{WS}"EOB"{ws}"="({WS}{LIN_T}){0,8}{WS}"HBR"{ws}"="{ws}{LIN_headerBaudrate}{WS}"HSO"{ws}"="{ws}{LIN_stopBitOffsetInHeader}{WS}"CSM"{ws}"="{ws}{LIN_checksumModel}{ENDL} {
     return Vector::ASC::Event::EventType::LinShortOrSlowResponse; }
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"DisturbanceEvent"{WS}"Type"{ws}"="{ws}{LIN_DisturbanceType}{WS}"ByteIndex"{ws}"="{ws}{LIN_ByteIndex}{WS}"BitIndex"{ws}"="{ws}{LIN_BitIndex}{WS}"BitOffset"{ws}"="{ws}{LIN_BitOffsetInSixteenthBits}{WS}"Length"{ws}"="{ws}{LIN_DisturbanceLengthInSixteenthBits}{WS}"Header"{ws}"="{ws}{LIN_IDorFF}{WS}"Disturbing header"{ws}"="{ws}{LIN_IDorFF}{ENDL} {
     return Vector::ASC::Event::EventType::LinDisturbanceEvent; }
@@ -397,9 +397,9 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     /* LIN Sleep/Wakeup Events */
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"SleepModeEvent"{WS}{LIN_simulated}{WS}{LIN_description}{ENDL} {
     return Vector::ASC::Event::EventType::LinSleepMode; }
-{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"WakeupFrame"{WS}{LIN_Dir}{WS}{LIN_WakeupByte}({WS}"SOF ="{WS}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{WS}"LengthCode"{ws}"="{ws}{LIN_WakeupLengthInfo})?{ENDL} {
+{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"WakeupFrame"{WS}{LIN_Dir}{WS}{LIN_WakeupByte}({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{WS}"LengthCode"{ws}"="{ws}{LIN_WakeupLengthInfo})?{ENDL} {
     return Vector::ASC::Event::EventType::LinWakeupFrame; }
-{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Unexpected wakeup:"(({ws}"approx."{ws}{LIN_Width}{ws}"us")|({ws}"Signal"{ws}"="{ws}{LIN_WakeupByte})){WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{ENDL} {
+{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Unexpected wakeup:"(({ws}"approx\."{ws}{LIN_Width}{ws}"us")|({ws}"Signal"{ws}"="{ws}{LIN_WakeupByte})){WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{ENDL} {
     return Vector::ASC::Event::EventType::LinUnexpectedWakeup; }
 
     /* MOST Events */
@@ -471,10 +471,10 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::TpDiagRequest; }
 
     /* Comment */
-{STOL}"//"{ws}.*{ENDL} {
+{STOL}"//"{ws}.+?{ENDL} {
     return Vector::ASC::Event::EventType::FileComment; }
 
     /* remaining characters */
-{STOL}.*{ENDL} { return Vector::ASC::Event::EventType::Unknown; }
+{STOL}.+?{ENDL} { return Vector::ASC::Event::EventType::Unknown; }
 %%
 

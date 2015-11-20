@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "FileSplitInformation.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -39,9 +40,7 @@ FileSplitInformation::~FileSplitInformation()
 
 FileSplitInformation * FileSplitInformation::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^//  ([[:digit:].]+)"
-                " previous log file: (.*)$");
+    std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_Time REGEX_WS "previous log file:" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FileSplitInformation * fileSplitInformation = new FileSplitInformation;

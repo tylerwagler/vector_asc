@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "Most25AllocTable.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -41,12 +42,8 @@ Most25AllocTable::~Most25AllocTable()
 
 Most25AllocTable * Most25AllocTable::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " AllocTab:"
-                " ([[:xdigit:]]+)"
-                "(( [[:xdigit:]]+)*)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "AllocTab:"
+                     REGEX_ws REGEX_MOST_AllocTableSize "((" REGEX_WS REGEX_MOST_DxAT ")*)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         Most25AllocTable * most25AllocTable = new Most25AllocTable;

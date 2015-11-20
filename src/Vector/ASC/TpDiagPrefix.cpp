@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "TpDiagPrefix.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -42,12 +43,8 @@ TpDiagPrefix::~TpDiagPrefix()
 
 TpDiagPrefix * TpDiagPrefix::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^//"
-                " ([[:digit:]]+)"
-                " OTP\\(([[:xdigit:]]+)\\)"
-                " (Info|Warn|Error|Atom|Data)"
-                " (.+?)->(.+?):$");
+    std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_TPDiag_CANChannel REGEX_WS "OTP\\(" REGEX_TPDiag_connectionId "\\)"
+                     REGEX_WS REGEX_TPDiag_type REGEX_WS REGEX_TPDiag_source "->" REGEX_TPDiag_destination ":" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         TpDiagPrefix * tpDiagPrefix = new TpDiagPrefix;

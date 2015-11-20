@@ -283,7 +283,7 @@ typedef uint8_t KLineData;
 typedef uint32_t LinBaudrateType;
 
 /** The number of the LIN channel */
-typedef uint8_t LinChannel;
+typedef uint16_t LinChannel;
 
 /** Checksum byte value */
 typedef uint8_t LinChecksum;

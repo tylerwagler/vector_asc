@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinBaudrate.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -40,11 +41,8 @@ LinBaudrate::~LinBaudrate()
 
 LinBaudrate * LinBaudrate::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " Baudrate"
-                " ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Baudrate"
+                     REGEX_WS REGEX_LIN_baudrate REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinBaudrate * linBaudrate = new LinBaudrate;

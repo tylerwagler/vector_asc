@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "CanBusStatisticsEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -46,17 +47,15 @@ CanBusStatisticsEvent::~CanBusStatisticsEvent()
 
 CanBusStatisticsEvent * CanBusStatisticsEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " ([[:digit:]]{1,5})"
-                " Statistic:"
-                " D ([[:digit:]]{1,10})"
-                " R ([[:digit:]]{1,10})"
-                " XD ([[:digit:]]{1,10})"
-                " XR ([[:digit:]]{1,10})"
-                " E ([[:digit:]]{1,10})"
-                " O ([[:digit:]]{1,10})"
-                " B ([[:digit:].]{3,6})%$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS "Statistic:"
+                     REGEX_WS "D" REGEX_WS REGEX_StatNumber
+                     REGEX_WS "R" REGEX_WS REGEX_StatNumber
+                     REGEX_WS "XD" REGEX_WS REGEX_StatNumber
+                     REGEX_WS "XR" REGEX_WS REGEX_StatNumber
+                     REGEX_WS "E" REGEX_WS REGEX_StatNumber
+                     REGEX_WS "O" REGEX_WS REGEX_StatNumber
+                     REGEX_WS "B" REGEX_WS REGEX_StatPercent "%"
+                     REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         CanBusStatisticsEvent * canBusStatisticsEvent = new CanBusStatisticsEvent;

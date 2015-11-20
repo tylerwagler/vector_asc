@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "FileVersion.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -40,7 +41,7 @@ FileVersion::~FileVersion()
 
 FileVersion * FileVersion::parse(File & file, std::string & line)
 {
-    std::regex regex("^// version ([[:digit:]]{1,3})\\.([[:digit:]]{1,3})\\.([[:digit:]]{1,3})$");
+    std::regex regex(REGEX_STOL "//" REGEX_ws "version" REGEX_WS "([[:digit:]]{1,3})\\.([[:digit:]]{1,3})\\.([[:digit:]]{1,3})" REGEX_ENDL);
     std::smatch match;
     if (std::regex_search(line, match, regex)) {
         FileVersion * fileVersion = new FileVersion;

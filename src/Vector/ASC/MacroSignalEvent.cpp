@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MacroSignalEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -44,12 +45,8 @@ MacroSignalEvent::~MacroSignalEvent()
 
 MacroSignalEvent * MacroSignalEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " ([LF]?)([[:digit:]]+)"
-                " (.+?)::(.+?)::(.+?)"
-                " ="
-                " (.*)$");
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "([LF]?)([[:digit:]]+)" REGEX_WS "(.+?)::(.+?)::(.+?)"
+                     REGEX_ws "=" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MacroSignalEvent * macroSignalEvent = new MacroSignalEvent;

@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostEcl.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -41,12 +42,8 @@ MostEcl::~MostEcl()
 
 MostEcl * MostEcl::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " Ecl:"
-                " ([[:digit:]]+)"
-                " ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Ecl:"
+                     REGEX_ws REGEX_MOST_EclMode REGEX_WS REGEX_MOST_EclState REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostEcl * mostEcl = new MostEcl;

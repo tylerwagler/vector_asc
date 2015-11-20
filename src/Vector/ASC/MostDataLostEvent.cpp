@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "MostDataLostEvent.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -43,15 +44,9 @@ MostDataLostEvent::~MostDataLostEvent()
 
 MostDataLostEvent * MostDataLostEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " M([[:digit:]]+)"
-                " DataLost:"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:xdigit:]]+)"
-                " ([[:digit:].]+)"
-                " ([[:digit:].]+)$");
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "DataLost:"
+                     REGEX_ws REGEX_MOST_DLInfo REGEX_WS REGEX_MOST_DLCtrl REGEX_WS REGEX_MOST_DLAsync
+                     REGEX_WS REGEX_MOST_DLTime REGEX_WS REGEX_MOST_DLTime REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         MostDataLostEvent * mostDataLostEvent = new MostDataLostEvent;

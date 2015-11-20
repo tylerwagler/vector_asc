@@ -21,6 +21,7 @@
 
 #include <regex>
 #include "LinSchedulerModeChange.h"
+#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -41,12 +42,9 @@ LinSchedulerModeChange::~LinSchedulerModeChange()
 
 LinSchedulerModeChange * LinSchedulerModeChange::parse(File & file, std::string & line)
 {
-    std::regex regex(
-                "^([[:digit:].]+)"
-                " L([[:alnum:]]+)"
-                " SchedModChng"
-                " prior scheduler mode = ([[:digit:]]+),"
-                " next scheduler mode = ([[:digit:]]+)$");
+    std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SchedModChng"
+                     REGEX_WS "prior scheduler mode" REGEX_ws "=" REGEX_ws REGEX_LIN_scheduleTableIndex ","
+                     REGEX_ws "next scheduler mode" REGEX_ws "=" REGEX_ws REGEX_LIN_scheduleTableIndex REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinSchedulerModeChange * linSchedulerModeChange = new LinSchedulerModeChange;
