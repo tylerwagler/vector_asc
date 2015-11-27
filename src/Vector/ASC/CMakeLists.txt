@@ -206,7 +206,13 @@ set(public_header_files
   TpDiagSingleFrame.h)
 
 set(private_header_files
-  SymbolsRegEx.h)
+  CanSymbolsRegEx.h
+  EthernetSymbolsRegEx.h
+  FlexRaySymbolsRegEx.h
+  KLineSymbolsRegEx.h
+  LinSymbolsRegEx.h
+  MostSymbolsRegEx.h
+  TpDiagSymbolsRegEx.h)
 
 set(info_files
   Lexer.l)
