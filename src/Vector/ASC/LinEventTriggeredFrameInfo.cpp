@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "LinCommon.h"
 #include "LinEventTriggeredFrameInfo.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -61,6 +62,11 @@ LinEventTriggeredFrameInfo * LinEventTriggeredFrameInfo::parse(File & file, std:
 
 void LinEventTriggeredFrameInfo::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+    writeLinChannel(file, stream, channel);
+
+    stream << endl;
 }
 
 }

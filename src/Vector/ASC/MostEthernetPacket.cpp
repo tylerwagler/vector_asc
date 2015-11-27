@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "MostCommon.h"
 #include "MostEthernetPacket.h"
-#include "SymbolsRegEx.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -100,6 +101,12 @@ MostEthernetPacket * MostEthernetPacket::parse(File & file, std::string & line)
 
 void MostEthernetPacket::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    stream << endl;
 }
 
 }

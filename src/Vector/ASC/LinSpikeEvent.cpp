@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "LinCommon.h"
 #include "LinSpikeEvent.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -71,6 +72,14 @@ LinSpikeEvent * LinSpikeEvent::parse(File & file, std::string & line)
 
 void LinSpikeEvent::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+
+    /* format: "%s Spike  %s  %6d microseconds" */
+    writeLinChannel(file, stream, channel);
+    stream << " Spike  ";
+
+    stream << endl;
 }
 
 }

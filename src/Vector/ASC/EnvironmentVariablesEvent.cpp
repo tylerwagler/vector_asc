@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "EnvironmentVariablesEvent.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -59,8 +60,9 @@ void EnvironmentVariablesEvent::write(File & file, std::ostream & stream)
     stream
             << std::fixed << time
             << ' ' << evname
-            << " := " << value
-            << endl;
+            << " := " << value;
+
+    stream << endl;
 }
 
 }

@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "TpDiagCommon.h"
 #include "TpDiagFlowControlFrame.h"
-#include "SymbolsRegEx.h"
+#include "TpDiagSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -64,20 +65,38 @@ TpDiagFlowControlFrame * TpDiagFlowControlFrame::parse(File & file, std::string 
 
 void TpDiagFlowControlFrame::write(File & file, std::ostream & stream)
 {
-    stream << "FC.";
     switch(fcType) {
     case TpDiagFcType::Cts:
-        stream << "CTS";
+        /* format: "FC.CTS:  " */
+        stream << "FC.CTS:  ";
         break;
     case TpDiagFcType::Wt:
-        stream << "WT";
+        /* format: "FC.WT:   " */
+        stream << "FC.WT:   ";
         break;
     case TpDiagFcType::Ovflw:
-        stream << "OVFLW";
+        /* format: "FC.OVFLW:" */
+        stream << "FC.OVFLW:";
+        break;
+    case TpDiagFcType::IllegalFlowStatus:
+        /* format: "FC.Illegal Flow Status= 0x" */
+        stream << "FC.Illegal Flow Status= 0x";
         break;
     }
-    stream << ":  BSmax: 0x" << std::hex << bs;
-    stream << ", STmin: 0x" << stMin << " ms" << endl;
+
+    stream << ' ';
+
+    /* format: "Bsmax: " */
+    stream << "Bsmax: ";
+
+    stream << "0x" << std::hex << bs;
+
+    /* format: ", Stmin: "*/
+    stream << ", STmin: ";
+
+    stream << "0x" << stMin << " ms";
+
+    stream << endl;
 }
 
 }

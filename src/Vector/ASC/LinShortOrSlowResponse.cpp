@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "LinCommon.h"
 #include "LinShortOrSlowResponse.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -125,6 +126,20 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & file, std::string 
 
 void LinShortOrSlowResponse::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+    writeLinChannel(file, stream, channel);
+
+    /* format: "%s %d ShortOrSlowResponse: " */
+    /* format: "%-12.1d %d ShortOrSlowResponse: " */
+    /* format: "%-12.1x %d ShortOrSlowResponse: " */
+
+    /* format: "NumRespBytes = %d  " */
+    /* format: " %02X" */
+    /* format: " %3d" */
+    /* format: " SlowResponse = %d InterruptedByBreak = %d" */
+
+    stream << endl;
 }
 
 }

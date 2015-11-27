@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "LinCommon.h"
 #include "LinDisturbanceEvent.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -88,6 +89,31 @@ LinDisturbanceEvent * LinDisturbanceEvent::parse(File & file, std::string & line
 
 void LinDisturbanceEvent::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+
+    /* format: "%s DisturbanceEvent Type = %s ByteIndex = %d BitIndex = %d BitOffset = %d Length = %d " */
+    writeLinChannel(file, stream, channel);
+    stream
+            << " DisturbanceEvent"
+            << " Type = " /* << disturbanceType */
+            << " ByteIndex = " << std::dec << (int16_t) byteIndex
+            << " BitIndex = " << std::dec << (int16_t) bitIndex
+            << " BitOffset = " << std::dec << (int16_t) bitOffset
+            << " Length = " << std::dec << (int16_t) length
+            << ' ';
+
+    /* format: "Header = %02X Disturbing header = %02X" */
+    stream
+            << "Header = " /* << %02X */
+            << " Disturbing header = "; /* << %02X */
+
+    /* format: "Header = %3d Disturbing header = %3d" */
+    stream
+            << "Header = " /* << %3d */
+            << " Disturbing header = "; /* << %3d */
+
+    stream << endl;
 }
 
 }

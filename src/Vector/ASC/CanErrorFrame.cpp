@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
 #include "CanErrorFrame.h"
-#include "SymbolsRegEx.h"
+#include "CanSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -86,11 +87,28 @@ CanErrorFrame * CanErrorFrame::parse(File & file, std::string & line)
 
 void CanErrorFrame::write(File & file, std::ostream & stream)
 {
-#if 0
-    stream << getTimeStamp(eventTime);
-    stream << ' ' << channel;
-    stream << " ErrorFrame";
+    writeTime(file, stream, time);
+    stream << ' ';
+    stream << std::dec << (uint16_t) channel;
+    stream << "  ";
 
+    /* format: "ErrorFrame" */
+    stream << "ErrorFrame";
+
+    stream << '\t';
+
+    /* format: "ECC: " */
+    stream << "ECC: ";
+    stream << ((code >> 7) & 1);
+    stream << ((code >> 6) & 1);
+    stream << ((code >> 5) & 1);
+    stream << ((code >> 4) & 1);
+    stream << ((code >> 3) & 1);
+    stream << ((code >> 2) & 1);
+    stream << ((code >> 1) & 1);
+    stream << ((code >> 0) & 1);
+
+#if 0
     if (version >= Version::Ver_7_5) {
         if (sja1000) {
             stream << " ECC:";
@@ -104,21 +122,41 @@ void CanErrorFrame::write(File & file, std::ostream & stream)
             stream << ((ecc >> 0) & 1);
         }
         if (canCore) {
-            stream << " Flags = 0x" << std::hex << flags;
-            stream << " CodeExt = 0x" << std::hex << codeExt;
-            stream << " Code = 0x" << std::hex << code;
-            stream << " ID = " << std::hex << id;
+            /* format: "Flags = " */
+            stream << " Flags = ";
+            stream << "0x" << std::hex << flags;
+
+            /* format: "CodeExt = " */
+            stream << " CodeExt = ";
+            stream << "0x" << std::hex << codeExt;
+
+            /* format: "Code = " */
+            stream << " Code = ";
+            stream << "0x" << std::hex << code;
+
+            /* format: "ID = " */
+            stream << " ID = ";
+            stream << << std::hex << id;
             if (extended) {
                 stream << "x";
             }
-            stream << " DLC = " << std::hex << dlc << std::dec;
-            stream << " Position = " << position;
-            stream << " Length = " << length;
+
+            /* format: "DLC = " */
+            stream << " DLC = ";
+            stream << std::hex << dlc << std::dec;
+
+            /* format: "Position = " */
+            stream << " Position = ";
+            stream << position;
+
+            /* format: "Length = " */
+            stream << " Length = ";
+            stream << length;
         }
     }
-
-    *this << endl;
 #endif
+
+    stream << endl;
 }
 
 }

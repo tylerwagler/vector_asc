@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "EndTriggerblockEvent.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -49,7 +50,10 @@ EndTriggerblockEvent * EndTriggerblockEvent::parse(File & file, std::string & li
 
 void EndTriggerblockEvent::write(File & file, std::ostream & stream)
 {
-    stream << "End TriggerBlock" << endl;
+    /* format: "End TriggerBlock" */
+    stream << "End TriggerBlock";
+
+    stream << endl;
 }
 
 }

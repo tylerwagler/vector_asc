@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "LinCommon.h"
 #include "LinReceiveError.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -162,6 +163,11 @@ LinReceiveError * LinReceiveError::parse(File & file, std::string & line)
 
 void LinReceiveError::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+    writeLinChannel(file, stream, channel);
+
+    stream << endl;
 }
 
 }

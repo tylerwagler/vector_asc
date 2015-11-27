@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "LinCommon.h"
 #include "LinDlcInfo.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -59,6 +60,11 @@ LinDlcInfo * LinDlcInfo::parse(File & file, std::string & line)
 
 void LinDlcInfo::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+    writeLinChannel(file, stream, channel);
+
+    stream << endl;
 }
 
 }

@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
 #include "CanErrorEvent.h"
-#include "SymbolsRegEx.h"
+#include "CanSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -56,11 +57,22 @@ CanErrorEvent * CanErrorEvent::parse(File & file, std::string & line)
 
 void CanErrorEvent::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
+
+    /* "format: "CAN %d Status: " */
     stream
-            << std::fixed << time
-            << " CAN " << channel
-            << " Status:" << error
-            << endl;
+            << " CAN " << std::dec << (int16_t) channel
+            << " Status: ";
+
+    /* format: "chip status busoff" */
+    /* format: "chip status error passive" */
+    /* format: "chip status error active" */
+    /* format: "rx queue overrun" */
+    /* format: "chip status warning level" */
+    /* format: "hardware interface disconnected" */
+    stream << error;
+
+    stream << endl;
 }
 
 }

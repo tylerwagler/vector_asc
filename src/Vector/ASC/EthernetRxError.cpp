@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "EthernetCommon.h"
 #include "EthernetRxError.h"
-#include "SymbolsRegEx.h"
+#include "EthernetSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -68,6 +69,9 @@ EthernetRxError * EthernetRxError::parse(File & file, std::string & line)
 
 void EthernetRxError::write(File & file, std::ostream & stream)
 {
+    writeEthTime(file, stream, time);
+
+    stream << endl;
 }
 
 }

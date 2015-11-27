@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "LinCommon.h"
 #include "LinSleepMode.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -59,6 +60,17 @@ LinSleepMode * LinSleepMode::parse(File & file, std::string & line)
 
 void LinSleepMode::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+
+    /* format: "%s SleepModeEvent %d %s" */
+    writeLinChannel(file, stream, channel);
+    stream
+            << " SleepModeEvent"
+            << ' ' << (simulated ? '1' : '0')
+            << ' ' << description;
+
+    stream << endl;
 }
 
 }

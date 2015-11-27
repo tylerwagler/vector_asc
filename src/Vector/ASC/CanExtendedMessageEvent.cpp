@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
 #include "CanExtendedMessageEvent.h"
-#include "SymbolsRegEx.h"
+#include "CanSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -102,6 +103,9 @@ CanExtendedMessageEvent * CanExtendedMessageEvent::parse(File & file, std::strin
 
 void CanExtendedMessageEvent::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
+
+    stream << endl;
 }
 
 }

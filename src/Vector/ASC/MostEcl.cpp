@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
+#include "MostCommon.h"
 #include "MostEcl.h"
-#include "SymbolsRegEx.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -81,6 +83,19 @@ MostEcl * MostEcl::parse(File & file, std::string & line)
 
 void MostEcl::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "Ecl:      %1X %1X" */
+    stream
+            << "Ecl:      "
+            << std::setw(1) << std::uppercase << std::hex << (uint16_t) eclMode
+            << ' '
+            << std::setw(1) << std::uppercase << std::hex << (uint16_t) eclState;
+
+    stream << endl;
 }
 
 }

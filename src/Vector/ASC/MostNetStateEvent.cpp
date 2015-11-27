@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
+#include "MostCommon.h"
 #include "MostNetStateEvent.h"
-#include "SymbolsRegEx.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -59,6 +61,19 @@ MostNetStateEvent * MostNetStateEvent::parse(File & file, std::string & line)
 
 void MostNetStateEvent::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "NetState: %1X %1X" */
+    stream
+            << "NetState: "
+            << std::setw(1) << std::uppercase << std::hex << (uint16_t) netStateOld
+            << ' '
+            << std::setw(1) << std::uppercase << std::hex << (uint16_t) netStateNew;
+
+    stream << endl;
 }
 
 }

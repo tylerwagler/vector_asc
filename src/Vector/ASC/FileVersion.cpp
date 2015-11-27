@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "FileVersion.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -56,11 +57,14 @@ FileVersion * FileVersion::parse(File & file, std::string & line)
 
 void FileVersion::write(File & file, std::ostream & stream)
 {
+    /* format: "// version %d.%d.%d" */
     stream
-            << "// version " << std::dec
-            << versionMajor << '.'
-            << versionMinor << '.'
-            << versionPatch << endl;
+            << "// version"
+            << ' ' << std::dec << (int16_t) versionMajor
+            << '.' << std::dec << (int16_t) versionMinor
+            << '.' << std::dec << (int16_t) versionPatch;
+
+    stream << endl;
 }
 
 }

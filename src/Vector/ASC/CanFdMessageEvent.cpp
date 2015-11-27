@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
 #include "CanFdMessageEvent.h"
-#include "SymbolsRegEx.h"
+#include "CanSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -99,6 +100,9 @@ CanFdMessageEvent * CanFdMessageEvent::parse(File & file, std::string & line)
 
 void CanFdMessageEvent::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
+
+    stream << endl;
 }
 
 }

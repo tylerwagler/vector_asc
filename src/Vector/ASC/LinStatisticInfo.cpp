@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
+#include "LinCommon.h"
 #include "LinStatisticInfo.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -72,6 +74,22 @@ LinStatisticInfo * LinStatisticInfo::parse(File & file, std::string & line)
 
 void LinStatisticInfo::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+    writeLinChannel(file, stream, channel);
+
+    /* format: "              Statistic" */
+    stream << "              Statistic";
+
+    stream << ' ' << std::dec << channelNum;
+    stream << ' ' << std::setprecision(4) << std::fixed << busLoad;
+    stream << ' ' << std::dec << burstsTotal;
+    stream << ' ' << std::dec << burstsOverrun;
+    stream << ' ' << std::dec << framesSent;
+    stream << ' ' << std::dec << framesReceived;
+    stream << ' ' << std::dec << framesUnanswered;
+
+    stream << endl;
 }
 
 }

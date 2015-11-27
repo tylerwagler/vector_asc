@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "Most25AllocTable.h"
-#include "SymbolsRegEx.h"
+#include "MostCommon.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -65,6 +67,26 @@ Most25AllocTable * Most25AllocTable::parse(File & file, std::string & line)
 
 void Most25AllocTable::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "AllocTab: %04X  " */
+    stream
+            << "AllocTab: "
+            << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << (uint16_t) allocTableSize
+            << "  ";
+
+    /* format: " %02X" */
+    stream << std::setfill('0') << std::uppercase << std::hex;
+    for (int i = 0; i < allocTableSize; ++i) {
+        if (i > 0)
+            stream << ' '; /* not nice, but otherwise I have to shorten the previous format string */
+        stream << std::setw(2) << (uint16_t) data[i];
+    }
+
+    stream << endl;
 }
 
 }

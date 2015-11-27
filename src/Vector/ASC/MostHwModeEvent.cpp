@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
+#include "MostCommon.h"
 #include "MostHwModeEvent.h"
-#include "SymbolsRegEx.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -59,6 +61,19 @@ MostHwModeEvent * MostHwModeEvent::parse(File & file, std::string & line)
 
 void MostHwModeEvent::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "HWMode:   %02X %02X" */
+    stream
+            << "HWMode:   "
+            << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) hwMode
+            << ' '
+            << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) hwModeMask;
+
+    stream << endl;
 }
 
 }

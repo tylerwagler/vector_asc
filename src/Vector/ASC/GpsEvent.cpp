@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "GpsEvent.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -70,15 +71,17 @@ GpsEvent * GpsEvent::parse(File & file, std::string & line)
 
 void GpsEvent::write(File & file, std::ostream & stream)
 {
+    /* format: "%f GPS-Device: %d    La: %lf    Lo: %lf    Alt: %lf    Sp: %lf    Co: %lf" */
     stream
             << std::fixed << time
             << " GPS-Device: " << channel
-            << " La: " << latitude
-            << " Lo: " << longitude
-            << " Alt: " << altitude
-            << " Sp: " << speed
-            << " Co: " << course
-            << endl;
+            << "    La: " << latitude
+            << "    Lo: " << longitude
+            << "    Alt: " << altitude
+            << "    Sp: " << speed
+            << "    Co: " << course;
+
+    stream << endl;
 }
 
 }

@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
+#include "MostCommon.h"
 #include "MostStressEvent.h"
-#include "SymbolsRegEx.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -66,6 +68,19 @@ MostStressEvent * MostStressEvent::parse(File & file, std::string & line)
 
 void MostStressEvent::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "Stress:   %1X %1X" */
+    stream
+            << "Stress:   "
+            << std::setw(1) << std::uppercase << std::hex << (uint16_t) stressMode
+            << ' '
+            << std::setw(1) << std::uppercase << std::hex << (uint16_t) stressState;
+
+    stream << endl;
 }
 
 }

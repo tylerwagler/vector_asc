@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "KLineCommon.h"
 #include "KLineMessageEvent.h"
-#include "SymbolsRegEx.h"
+#include "KLineSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -82,6 +83,7 @@ KLineMessageEvent * KLineMessageEvent::parse(File & file, std::string & line)
 
 void KLineMessageEvent::write(File & file, std::ostream & stream)
 {
+    stream << endl;
 }
 
 }

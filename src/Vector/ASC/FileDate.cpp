@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "FileDate.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -107,22 +109,26 @@ FileDate * FileDate::parse(File & file, std::string & line)
 
 void FileDate::write(File & file, std::ostream & stream)
 {
+    /* format: "date %s" */
     stream
             << "date "
             << wdayNameEn[date.tm_wday]
             << ' '
             << monNameEn[date.tm_mon]
             << ' '
-            << (date.tm_hour % 12)
-            << ':'
-            << date.tm_min
-            << ':'
-            << date.tm_sec
+            << std::dec << date.tm_mday
             << ' '
-            << (date.tm_hour <= 12 ? "am" : "pm")
+            << std::setfill('0') << std::setw(2) << (date.tm_hour % 12)
+            << ':'
+            << std::setfill('0') << std::setw(2) << date.tm_min
+            << ':'
+            << std::setfill('0') << std::setw(2) << date.tm_sec
             << ' '
-            << date.tm_year
-            << endl;
+            << (date.tm_hour < 12 ? "am" : "pm")
+            << ' '
+            << date.tm_year + 1900;
+
+    stream << endl;
 }
 
 }

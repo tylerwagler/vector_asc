@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "MostCommon.h"
 #include "MostLightLockEvent.h"
-#include "SymbolsRegEx.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -56,6 +57,25 @@ MostLightLockEvent * MostLightLockEvent::parse(File & file, std::string & line)
 
 void MostLightLockEvent::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "LL: %hu" */
+    /* format: "LL: %hX" */
+    stream << "LL: ";
+    switch(file.base) {
+    case 10:
+        stream << std::dec;
+        break;
+    case 16:
+        stream << std::uppercase << std::hex;
+        break;
+    }
+    stream << (uint16_t) llState;
+
+    stream << endl;
 }
 
 }

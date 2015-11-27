@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "AfdxPacket.h"
-#include "SymbolsRegEx.h"
+#include "EthernetCommon.h"
+#include "EthernetSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -75,6 +77,58 @@ AfdxPacket * AfdxPacket::parse(File & file, std::string & line)
 
 void AfdxPacket::write(File & file, std::ostream & stream)
 {
+    writeAfdxTime(file, stream, time);
+
+    /* AFDX */
+    stream
+            << "  "
+            << "AFDX";
+
+    /* <Channel> */
+    stream
+            << " "
+            << channel;
+
+    /* <Dir> */
+    stream
+            << " ";
+    switch(dir) {
+    case Dir::Rx:
+        stream << "Rx";
+        break;
+    case Dir::Tx:
+        stream << "Tx";
+        break;
+    case Dir::TxRq:
+        stream << "TxRq";
+        break;
+    }
+
+    /* <ETH-channel> */
+    stream
+            << "   "
+            << ethChannel;
+
+    /* <Flags> */
+    stream
+            << " "
+            << flags;
+
+    /* <BAG> */
+    stream
+            << " "
+            << bag;
+
+    /* <DataLen>:<Data> */
+    stream
+            << " "
+            << dataLen
+            << ":";
+    stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
+    for (int i = 0; i < dataLen; ++i)
+        stream << std::setfill('0') << std::setw(2) << (uint16_t) data[i];
+
+    stream << endl;
 }
 
 }

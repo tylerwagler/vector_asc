@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "FlexRayCommon.h"
 #include "FlexRayStatusEvent.h"
-#include "SymbolsRegEx.h"
+#include "FlexRaySymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -79,6 +80,7 @@ FlexRayStatusEvent * FlexRayStatusEvent::parse(File & file, std::string & line)
 
 void FlexRayStatusEvent::write(File & file, std::ostream & stream)
 {
+    stream << endl;
 }
 
 }

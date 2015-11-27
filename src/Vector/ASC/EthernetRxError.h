@@ -22,7 +22,7 @@
 #pragma once
 
 #include "Event.h"
-#include "Symbols.h"
+#include "EthernetSymbols.h"
 
 namespace Vector {
 namespace ASC {

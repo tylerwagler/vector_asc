@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "LinCommon.h"
 #include "LinSchedulerModeChange.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -60,6 +61,18 @@ LinSchedulerModeChange * LinSchedulerModeChange::parse(File & file, std::string 
 
 void LinSchedulerModeChange::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+
+    /* format: "%s SchedModChng    prior scheduler mode = %d, next scheduler mode = %d" */
+    writeLinChannel(file, stream, channel);
+    stream
+            << " SchedModChng    prior scheduler mode = "
+            << std::dec << (int16_t) priorSchedulerMode
+            << ", next scheduler mode = "
+            << std::dec << (int16_t) nextSchedulerMode;
+
+    stream << endl;
 }
 
 }

@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "FileInternalEventsLogged.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -54,7 +55,11 @@ void FileInternalEventsLogged::write(File & file, std::ostream & stream)
 {
     if (!internalEventsLogged)
         stream << "no ";
-    stream << "internal events logged" << endl;
+
+    /* format: "internal events logged" */
+    stream << "internal events logged";
+
+    stream << endl;
 }
 
 }

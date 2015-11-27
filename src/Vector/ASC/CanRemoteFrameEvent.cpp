@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
 #include "CanRemoteFrameEvent.h"
-#include "SymbolsRegEx.h"
+#include "CanSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -62,20 +63,15 @@ CanRemoteFrameEvent * CanRemoteFrameEvent::parse(File & file, std::string & line
 
 void CanRemoteFrameEvent::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
     stream
-            << std::fixed << time
             << ' ' << std::dec << channel
             << ' ' << std::hex << id
             << ' ';
-    switch(dir) {
-    case Dir::Rx:
-        stream << "Rx";
-        break;
-    case Dir::Tx:
-        stream << "Tx";
-        break;
-    }
-    stream << " r" << endl;
+    writeDir(file, stream, dir);
+    stream << " r";
+
+    stream << endl;
 }
 
 }

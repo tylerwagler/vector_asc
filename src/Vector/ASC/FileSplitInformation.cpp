@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "FileSplitInformation.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -54,11 +55,12 @@ FileSplitInformation * FileSplitInformation::parse(File & file, std::string & li
 
 void FileSplitInformation::write(File & file, std::ostream & stream)
 {
-    stream
-            << "//  "
-            << std::fixed << time
-            << " previous log file: " << fileName
-            << endl;
+    stream << "//  " << std::fixed << time;
+
+    /* format: " previous log file: %s" */
+    stream << " previous log file: " << fileName;
+
+    stream << endl;
 }
 
 }

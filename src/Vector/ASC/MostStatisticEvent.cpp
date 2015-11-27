@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
+#include "MostCommon.h"
 #include "MostStatisticEvent.h"
-#include "SymbolsRegEx.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -66,6 +68,23 @@ MostStatisticEvent * MostStatisticEvent::parse(File & file, std::string & line)
 
 void MostStatisticEvent::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "MostStatistic:  Fr: %5u Lt: %5u Bl: %5u Pk: %5u" */
+    stream
+            << "MostStatistic:  Fr: "
+            << std::setw(5) << std::dec << (uint16_t) fr
+            << " Lt: "
+            << std::setw(5) << std::dec << (uint16_t) lt
+            << " Bl: "
+            << std::setw(5) << std::dec << (uint16_t) bl
+            << " Pk: "
+            << std::setw(5) << std::dec << (uint16_t) pk;
+
+    stream << endl;
 }
 
 }

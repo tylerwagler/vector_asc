@@ -21,7 +21,8 @@
 
 #include <regex>
 #include "Most150AllocTable.h"
-#include "SymbolsRegEx.h"
+#include "MostCommon.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -70,6 +71,15 @@ Most150AllocTable * Most150AllocTable::parse(File & file, std::string & line)
 
 void Most150AllocTable::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "AT150:    " */
+    stream << "AT150:    ";
+
+    stream << endl;
 }
 
 }

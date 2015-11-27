@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "LogDirectStartEvent.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -56,9 +57,20 @@ void LogDirectStartEvent::write(File & file, std::ostream & stream)
 {
     stream
             << std::fixed << time
-            << " log direct start ("
-            << std::dec << preTrigger << "ms)"
-            << endl;
+            << ' ';
+
+    /* format: "log direct" */
+    stream << "log direct";
+
+    /* format: " start" */
+    stream << " start";
+
+    stream << " (" << std::dec << preTrigger;
+
+    /* format: "ms) " */
+    stream << "ms) ";
+
+    stream << endl;
 }
 
 }

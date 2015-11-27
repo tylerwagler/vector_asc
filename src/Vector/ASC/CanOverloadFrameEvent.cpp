@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
 #include "CanOverloadFrameEvent.h"
-#include "SymbolsRegEx.h"
+#include "CanSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -54,11 +55,13 @@ CanOverloadFrameEvent * CanOverloadFrameEvent::parse(File & file, std::string & 
 
 void CanOverloadFrameEvent::write(File & file, std::ostream & stream)
 {
-    stream
-            << std::fixed << time
-            << ' ' << channel
-            << "  OverloadFrame"
-            << endl;
+    writeTime(file, stream, time);
+    stream << ' ' << channel << "  ";
+
+    /* format: "OverloadFrame" */
+    stream << "OverloadFrame";
+
+    stream << endl;
 }
 
 }

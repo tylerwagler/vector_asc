@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
+#include "CanCommon.h"
 #include "CanMessageEvent.h"
-#include "SymbolsRegEx.h"
+#include "CanSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -103,55 +105,50 @@ CanMessageEvent * CanMessageEvent::parse(File & file, std::string & line)
 
 void CanMessageEvent::write(File & file, std::ostream & stream)
 {
-#if 0
-    /* <Time> */
-    stream << std::setw(11) << std::setfill(' ');
-    stream << std::fixed << time;
-
-    /* <Channel> */
-    stream ' ' << channel;
-
-    /* <ID> */
+    writeTime(file, stream, time);
+    stream << ' ' << std::dec << (uint16_t) channel;
     stream << ' ';
-    stream << std::setw(4) << std::setfill(' ') << std::hex << id;
-    stream << (extended ? 'x' : ' ');
-
-    /* space */
-    stream << "           ";
-
-    /* <Dir> */
-    stream << ' ' << (dirTx ? "Tx" : "Rx");
-
-    /* space */
-    stream << "  ";
-
-    /* d */
-    stream << ' ' << "d";
-
-    /* <DLC> */
-    stream << ' ' << std::hex << dlc;
-
-    /* <D0> <D1>...<D8> */
-    for(std::vector<unsigned short>::iterator it=data.begin(); it!=data.end(); ++it) {
+    // stream << std::setfill(' ') << std::setw(4) << std::hex << (uint32_t) id;
+    stream << std::setfill(' ') << std::setw(4) << std::dec << (uint32_t) id;
+    stream << "             ";
+    writeDir(file, stream, dir);
+    stream << "   d";
+    stream << ' ' << std::hex << (uint16_t) dlc;
+    for(int i = 0; i < dlc && i < 8; ++i) {
         stream << ' ';
-        stream << std::setw(2) << std::setfill('0') << std::setiosflags(std::ifstream::uppercase | std::ifstream::right);
-        stream << *it;
+        // stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
+        stream << std::setfill(' ') << std::setw(3) << std::dec;
+        stream << (uint16_t) data[i];
     }
-    stream << std::dec << std::setw(0);
+    stream << ' ';
 
-    /* Length = <MessageDuration> BitCount = <MessageLength> */
-    if (version >= Version::Ver_7_5) {
-        stream << " Length = " << length;
-        stream << " BitCount = " << bitCount;
+    if (file.version >= File::Version::Ver_7_5) {
+        /* format: " Length= " */
+        stream << " Length = ";
+
+        stream << std::dec << (uint32_t) messageDuration;
+
+        /* format: " BitCount = " */
+        stream << " BitCount = ";
+
+        stream << std::dec << (uint32_t) messageLength;
     }
 
+#if 0
     /* <MessageFlags> */
     if (!messageFlags.empty()) {
-        stream << ' ' << messageFlags;
+        stream << ' ' << std::dec << (uint32_t) messageFlags;
+    }
+#endif
+
+    if (file.version >= File::Version::Ver_8_0) {
+        /* format: " ID = " */
+        stream << " ID = ";
+
+        stream << std::dec << (uint32_t) messageId;
     }
 
     stream << endl;
-#endif
 }
 
 }

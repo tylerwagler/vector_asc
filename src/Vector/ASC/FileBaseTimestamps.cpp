@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "FileBaseTimestamps.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -62,6 +63,7 @@ FileBaseTimestamps * FileBaseTimestamps::parse(File & file, std::string & line)
 
 void FileBaseTimestamps::write(File & file, std::ostream & stream)
 {
+    /* format: "base %s  timestamps %s" */
     stream << "base ";
     switch(base) {
     case Base::Hex:

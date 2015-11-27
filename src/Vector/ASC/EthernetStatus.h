@@ -22,7 +22,7 @@
 #pragma once
 
 #include "Event.h"
-#include "Symbols.h"
+#include "EthernetSymbols.h"
 
 namespace Vector {
 namespace ASC {
@@ -46,24 +46,35 @@ public:
 
     /** Link */
     std::string link;
+    /* "Link_up", "Link_error", "Negotiate_link", "Link_down" */
 
     /** LinkSpeed */
     std::string linkSpeed;
+    /* "Mbit/s" */
 
     /** Physical */
     std::string physical;
+    /* "IEEE802.3", "BroadR-Reach" */
 
     /** Duplex */
     std::string duplex;
+    /* "Full", "Half" */
 
     /** MDI */
     std::string mdi;
+    /* "Crossover", "Direct" */
 
     /** Connector */
     std::string connector;
+    /* "RJ45", "D-Sub" */
 
     /** BRClockMode */
     std::string brClockMode;
+    /* "Master", "Slave" */
+
+    /** BrPairs */
+    std::string brPairs;
+    /* "1-pair", "2-pair", "4-pair" */
 
     /** @copydoc Event::parse() */
     static EthernetStatus * parse(File & file, std::string & line);

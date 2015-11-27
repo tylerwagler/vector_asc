@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "EthernetCommon.h"
 #include "EthernetStatus.h"
-#include "SymbolsRegEx.h"
+#include "EthernetSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -36,7 +37,8 @@ EthernetStatus::EthernetStatus() :
     duplex(),
     mdi(),
     connector(),
-    brClockMode()
+    brClockMode(),
+    brPairs()
 {
     eventType = EventType::EthernetStatus;
 }
@@ -74,6 +76,48 @@ EthernetStatus * EthernetStatus::parse(File & file, std::string & line)
 
 void EthernetStatus::write(File & file, std::ostream & stream)
 {
+    writeEthTime(file, stream, time);
+    stream << ' ';
+
+    /* format: "ETH ", "ETH *" */
+    stream << "ETH ";
+
+    /* format: " STAT" */
+    stream << " STAT";
+
+    /* format: " Link:" */
+    stream << " Link:";
+    /* format: "Link_up", "Link_error", "Negotiate_link", "Link_down" */
+
+    /* format: " LinkSpeed:" */
+    stream << " LinkSpeed:";
+    /* format: "Mbit/s" */
+
+    /* format: " Physical:" */
+    stream << " Physical:";
+    /* format: "IEEE802.3", "BroadR-Reach" */
+
+    /* format: " Duplex:" */
+    stream << " Duplex:";
+    /* format: "Full", "Half" */
+
+    /* format: " MDI:" */
+    stream << " MDI:";
+    /* format: "Crossover", "Direct" */
+
+    /* format: " Connector:" */
+    stream << " Connector:";
+    /* format: "RJ45", "D-Sub" */
+
+    /* format: " BRClockMode:" */
+    stream << " BRClockMode:";
+    /* format: "Master", "Slave" */
+
+    /* format: " BrPairs:" */
+    stream << " BrPairs:";
+    /* format: "1-pair", "2-pair", "4-pair" */
+
+    stream << endl;
 }
 
 }

@@ -21,7 +21,8 @@
 
 #include <regex>
 #include "KLineByteEvent.h"
-#include "SymbolsRegEx.h"
+#include "KLineCommon.h"
+#include "KLineSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -77,6 +78,7 @@ KLineByteEvent * KLineByteEvent::parse(File & file, std::string & line)
 
 void KLineByteEvent::write(File & file, std::ostream & stream)
 {
+    stream << endl;
 }
 
 }

@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "TpDiagCommon.h"
 #include "TpDiagPrefix.h"
-#include "SymbolsRegEx.h"
+#include "TpDiagSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -74,13 +75,18 @@ TpDiagPrefix * TpDiagPrefix::parse(File & file, std::string & line)
 
 void TpDiagPrefix::write(File & file, std::ostream & stream)
 {
+    stream << "// " << std::dec << canChannel;
+
+    /* format: "  OTP(" */
+    stream << "  OTP(";
+
     stream
-            << "// "
-            << std::dec << canChannel
-            << " OTP(" << connectionId
-            << ") " << source
+            << connectionId << ")"
+            << " " << source
             << "->" << destination
-            << ":" << endl;
+            << ":";
+
+    stream << endl;
 }
 
 }

@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "Most25ControlMessageNodeMode.h"
-#include "SymbolsRegEx.h"
+#include "MostCommon.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -86,6 +88,20 @@ Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::parse(File & file, 
 
 void Most25ControlMessageNodeMode::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+    writeMostDir(file, stream, dir);
+    stream << "    " << std::dec << (uint16_t) sourceAdr;
+    stream << ' ' << std::dec << (uint16_t) destAdr;
+    stream << "   " << std::dec << (uint16_t) rType;
+    stream << ' ';
+    for (int i = 0; i < 17; ++i)
+        stream << ' ' << std::setw(3) << std::dec << (uint16_t) data[i];
+    stream << "   " << std::dec << (uint16_t) state2;
+
+    stream << endl;
 }
 
 }

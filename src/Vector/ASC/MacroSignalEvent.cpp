@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "MacroSignalEvent.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -91,9 +92,9 @@ void MacroSignalEvent::write(File & file, std::ostream & stream)
             << ' ' << node
             << "::" << message
             << "::" << signal
-            << "=" << value
-            << endl;
+            << "=" << value;
 
+    stream << endl;
 }
 
 }

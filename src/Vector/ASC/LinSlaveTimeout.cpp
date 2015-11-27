@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "LinCommon.h"
 #include "LinSlaveTimeout.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -63,6 +64,11 @@ LinSlaveTimeout * LinSlaveTimeout::parse(File & file, std::string & line)
 
 void LinSlaveTimeout::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+    writeLinChannel(file, stream, channel);
+
+    stream << endl;
 }
 
 }

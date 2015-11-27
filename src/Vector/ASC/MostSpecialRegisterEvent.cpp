@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
+#include "MostCommon.h"
 #include "MostSpecialRegisterEvent.h"
-#include "SymbolsRegEx.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -86,6 +88,22 @@ MostSpecialRegisterEvent * MostSpecialRegisterEvent::parse(File & file, std::str
 
 void MostSpecialRegisterEvent::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "Register: %1X %02X %012I64X" */
+    /* format: "Register: %1X %02X %04I64X" */
+    stream
+            << "Register: "
+            << std::setw(1) << std::uppercase << std::hex << (uint16_t) regSubType
+            << ' '
+            << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) regId
+            << ' '
+            << std::setfill('0') << std::setw(4 /* @todo or 16 */) << std::uppercase << std::hex << (uint16_t) regValue;
+
+    stream << endl;
 }
 
 }

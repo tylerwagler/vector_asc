@@ -21,7 +21,8 @@
 
 #include <regex>
 #include "Most150PacketFragment.h"
-#include "SymbolsRegEx.h"
+#include "MostCommon.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -94,6 +95,12 @@ Most150PacketFragment * Most150PacketFragment::parse(File & file, std::string & 
 
 void Most150PacketFragment::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    stream << endl;
 }
 
 }

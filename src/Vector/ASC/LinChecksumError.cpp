@@ -21,7 +21,8 @@
 
 #include <regex>
 #include "LinChecksumError.h"
-#include "SymbolsRegEx.h"
+#include "LinCommon.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -162,6 +163,28 @@ LinChecksumError * LinChecksumError::parse(File & file, std::string & line)
 
 void LinChecksumError::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+    writeLinChannel(file, stream, channel);
+
+    /* format: "%s %-12.12s    %s     %d" */
+    /* format: "%s %-12.1d    %s     %d" */
+    /* format: "%s %-12.1x    %s     %d" */
+    /* format: "  BR = %-5u" */
+    /* format: " %-6u" */
+    /* format: "  break = %-6u" */
+    /* format: "  subId = %2.2x %4.4x %4.4x" */
+    /* format: "  subId = %-3u %-5u %-5u" */
+    /* format: "  CSM = %s" */
+    /* format: "  RSO = %-8u" */
+    /* format: "  HSO = %-8u" */
+    /* format: "  HBR = %-5.6f" */
+    /* format: "  RBR = %-5u" */
+    /* format: "  sim = %d " */
+    /* format: ", sync delimiter = %3u us " */
+    /* format: "(%f bits)" */
+
+    stream << endl;
 }
 
 }

@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "LogDirectStopEvent.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -56,9 +57,20 @@ void LogDirectStopEvent::write(File & file, std::ostream & stream)
 {
     stream
             << std::fixed << time
-            << " log direct stop ("
-            << std::dec << postTrigger << "ms)"
-            << endl;
+            << ' ';
+
+    /* format: "log direct" */
+    stream << "log direct";
+
+    /* format: " stop" */
+    stream << " stop";
+
+    stream << " (" << std::dec << postTrigger;
+
+    /* format: "ms) " */
+    stream << "ms) ";
+
+    stream << endl;
 }
 
 }

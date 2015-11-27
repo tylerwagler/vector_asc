@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "MostCommon.h"
 #include "MostDataLostEvent.h"
-#include "SymbolsRegEx.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -65,6 +66,15 @@ MostDataLostEvent * MostDataLostEvent::parse(File & file, std::string & line)
 
 void MostDataLostEvent::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "DataLost: %08X %5d %5d %s %s" */
+    /* format: "DataLost: %08X %04X %04X %s %s" */
+
+    stream << endl;
 }
 
 }

@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "TpDiagCommon.h"
 #include "TpDiagConsecutiveFrame.h"
-#include "SymbolsRegEx.h"
+#include "TpDiagSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -66,8 +67,9 @@ void TpDiagConsecutiveFrame::write(File & file, std::ostream & stream)
             << " [" << std::hex;
     for (uint8_t transportedByte : transportedBytes)
         stream << ' ' << transportedByte;
-    stream
-            << " ]" << endl;
+    stream << " ]";
+
+    stream << endl;
 }
 
 }

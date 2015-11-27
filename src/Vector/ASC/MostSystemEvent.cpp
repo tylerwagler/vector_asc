@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
+#include "MostCommon.h"
 #include "MostSystemEvent.h"
-#include "SymbolsRegEx.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -71,6 +73,21 @@ MostSystemEvent * MostSystemEvent::parse(File & file, std::string & line)
 
 void MostSystemEvent::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "System:   %02X %04X %04X" */
+    stream
+            << "System:    "
+            << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) sysId
+            << ' '
+            << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << (uint16_t) sysValue
+            << ' '
+            << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << (uint16_t) sysValueOld;
+
+    stream << endl;
 }
 
 }

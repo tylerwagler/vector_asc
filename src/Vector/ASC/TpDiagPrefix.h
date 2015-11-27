@@ -22,7 +22,7 @@
 #pragma once
 
 #include "Event.h"
-#include "Symbols.h"
+#include "TpDiagSymbols.h"
 
 namespace Vector {
 namespace ASC {

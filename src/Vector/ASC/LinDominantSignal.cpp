@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "LinCommon.h"
 #include "LinDominantSignal.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -72,6 +73,14 @@ LinDominantSignal * LinDominantSignal::parse(File & file, std::string & line)
 
 void LinDominantSignal::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+
+    /* format: "%s Dominant signal %s  %8d microseconds" */
+    writeLinChannel(file, stream, channel);
+    stream << " Dominant signal ";
+
+    stream << endl;
 }
 
 }

@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "LogTriggerEvent.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -52,10 +53,12 @@ LogTriggerEvent * LogTriggerEvent::parse(File & file, std::string & line)
 
 void LogTriggerEvent::write(File & file, std::ostream & stream)
 {
-    stream
-            << std::fixed << time
-            << " log trigger event"
-            << endl;
+    stream << std::fixed << time << ' ';
+
+    /* format: "log trigger event" */
+    stream << "log trigger event";
+
+    stream << endl;
 }
 
 }

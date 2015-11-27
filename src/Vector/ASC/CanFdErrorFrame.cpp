@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
 #include "CanFdErrorFrame.h"
-#include "SymbolsRegEx.h"
+#include "CanSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -108,6 +109,9 @@ CanFdErrorFrame * CanFdErrorFrame::parse(File & file, std::string & line)
 
 void CanFdErrorFrame::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
+
+    stream << endl;
 }
 
 }

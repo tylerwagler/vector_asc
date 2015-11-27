@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "CommentEvent.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -61,8 +62,9 @@ void CommentEvent::write(File & file, std::ostream & stream)
             << " Comment:"
             << std::dec << type
             << ' '
-            << commentText
-            << endl;
+            << commentText;
+
+    stream << endl;
 }
 
 }

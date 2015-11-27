@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "FileComment.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -52,7 +53,9 @@ FileComment * FileComment::parse(File & file, std::string & line)
 
 void FileComment::write(File & file, std::ostream & stream)
 {
-    stream << "// " << comment << endl;
+    stream << "// " << comment;
+
+    stream << endl;
 }
 
 }

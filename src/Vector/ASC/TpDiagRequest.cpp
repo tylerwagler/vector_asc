@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "TpDiagCommon.h"
 #include "TpDiagRequest.h"
-#include "SymbolsRegEx.h"
+#include "TpDiagSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -59,12 +60,14 @@ TpDiagRequest * TpDiagRequest::parse(File & file, std::string & line)
 
 void TpDiagRequest::write(File & file, std::ostream & stream)
 {
+    /* format: "%f DiagRequest[%199s] " */
     stream
             << std::fixed << time
-            << " DiagRequest[" << ecuQualifier
-            << "]";
+            << " DiagRequest[" << ecuQualifier << "] ";
+
     for (uint8_t byte : byteSequence)
-        stream << ' ' << byte;
+        stream << byte << ' ';
+
     stream << endl;
 }
 

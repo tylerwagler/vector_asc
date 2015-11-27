@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "EthernetCommon.h"
 #include "EthernetPacket.h"
-#include "SymbolsRegEx.h"
+#include "EthernetSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -69,18 +70,19 @@ EthernetPacket * EthernetPacket::parse(File & file, std::string & line)
 
 void EthernetPacket::write(File & file, std::ostream & stream)
 {
+    writeEthTime(file, stream, time);
 #if 0
-    stream << getTimeStamp(eventTime);
     stream << ' ' << channel;
     stream << ' ' << (dirTx ? "Tx" : "Rx");
     stream << ' ' << std::hex << dataLen << std::dec;
-    stream << ':' << std::hex << std::setfill('0') << std::setw(2);
+    stream << ':' << std::setfill('0') << std::hex << std::setw(2);
     for(std::vector<unsigned short>::iterator it=data.begin(); it!=data.end(); ++it) {
         stream << *it;
     }
     stream << std::dec << std::setw(0);
-    stream << endl;
 #endif
+
+    stream << endl;
 }
 
 }

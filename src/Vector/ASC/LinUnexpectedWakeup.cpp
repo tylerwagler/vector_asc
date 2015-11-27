@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "LinCommon.h"
 #include "LinUnexpectedWakeup.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -70,6 +71,17 @@ LinUnexpectedWakeup * LinUnexpectedWakeup::parse(File & file, std::string & line
 
 void LinUnexpectedWakeup::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+
+    /* format: "%s Unexpected wakeup: "*/
+    writeLinChannel(file, stream, channel);
+    stream << " Unexpected wakeup: ";
+
+    /* format: "Signal = %02X" */
+    /* format: "Signal = %3d" */
+
+    stream << endl;
 }
 
 }

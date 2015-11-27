@@ -21,7 +21,8 @@
 
 #include <regex>
 #include "Most50Packet.h"
-#include "SymbolsRegEx.h"
+#include "MostCommon.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -104,6 +105,15 @@ Most50Packet * Most50Packet::parse(File & file, std::string & line)
 
 void Most50Packet::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "Pkt50:  " */
+    stream << "Pkt50:  ";
+
+    stream << endl;
 }
 
 }

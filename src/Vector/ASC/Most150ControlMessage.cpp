@@ -21,7 +21,8 @@
 
 #include <regex>
 #include "Most150ControlMessage.h"
-#include "SymbolsRegEx.h"
+#include "MostCommon.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -103,6 +104,12 @@ Most150ControlMessage * Most150ControlMessage::parse(File & file, std::string & 
 
 void Most150ControlMessage::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    stream << endl;
 }
 
 }

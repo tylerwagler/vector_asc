@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
+#include "LinCommon.h"
 #include "LinWakeupFrame.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -74,6 +76,30 @@ LinWakeupFrame * LinWakeupFrame::parse(File & file, std::string & line)
 
 void LinWakeupFrame::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+
+    /* format: "%s WakeupFrame     %s       %02x" */
+    /* format: "%s WakeupFrame     %s       %-3d" */
+    writeLinChannel(file, stream, channel);
+    stream << " WakeupFrame     ";
+    writeLinDir(file, stream, dir);
+    stream << "       ";
+    switch(file.base) {
+    case 10:
+        stream << std::left << std::setw(3) << std::dec << (int16_t) wakeupByte;
+        break;
+    case 16:
+        stream << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) wakeupByte;
+        break;
+    }
+
+    writeLinStartOfFrame(file, stream, startOfFrame);
+    stream << ' ';
+    writeLinBaudrate(file, stream, baudrate);
+    writeLinWakeupLengthInfo(file, stream, wakeupLengthInfo);
+
+    stream << endl;
 }
 
 }

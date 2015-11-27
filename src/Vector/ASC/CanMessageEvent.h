@@ -23,7 +23,7 @@
 
 #include <string>
 #include "Event.h"
-#include "Symbols.h"
+#include "CanSymbols.h"
 
 namespace Vector {
 namespace ASC {

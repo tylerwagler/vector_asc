@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 #include "GlobalMarkerEvent.h"
-#include "SymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -80,8 +81,9 @@ void GlobalMarkerEvent::write(File & file, std::ostream & stream)
             << ' ' << (relocatable ? '1' : '0')
             << " GMGroup: " << groupName
             << " GMMarker: " << markerName
-            << " GMDescription: " << description
-            << endl;
+            << " GMDescription: " << description;
+
+    stream << endl;
 }
 
 }

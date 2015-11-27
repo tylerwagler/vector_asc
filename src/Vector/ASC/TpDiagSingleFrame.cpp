@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "TpDiagCommon.h"
 #include "TpDiagSingleFrame.h"
-#include "SymbolsRegEx.h"
+#include "TpDiagSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -61,13 +62,15 @@ TpDiagSingleFrame * TpDiagSingleFrame::parse(File & file, std::string & line)
 
 void TpDiagSingleFrame::write(File & file, std::ostream & stream)
 {
-    stream
-            << "SF Length: " << std::dec << length
-            << " [" << std::hex;
+    /* format: "SF Length: "*/
+    stream << "SF Length: ";
+
+    stream << std::dec << length << " [" << std::hex;
     for (uint8_t transportedByte : transportedBytes)
         stream << ' ' << transportedByte;
-    stream
-            << " ]" << endl;
+    stream << " ]";
+
+    stream << endl;
 }
 
 }

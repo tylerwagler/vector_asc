@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
+#include "MostCommon.h"
 #include "MostCommonRegisterEvent.h"
-#include "SymbolsRegEx.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -98,6 +100,28 @@ MostCommonRegisterEvent * MostCommonRegisterEvent::parse(File & file, std::strin
 
 void MostCommonRegisterEvent::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "RegData:  %1X %02X %04X %02X " */
+    stream
+            << "RegData:  "
+            << std::setw(1) << std::uppercase << std::hex << (uint16_t) regSubType
+            << ' '
+            << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) regChip
+            << ' '
+            << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << (uint16_t) regOffset
+            << ' '
+            << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) regDataLen;
+
+    /* format: " %02X" */
+    stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
+    for (int i = 0; i < regDataLen; ++i)
+        stream << ' ' << (uint16_t) data[i];
+
+    stream << endl;
 }
 
 }

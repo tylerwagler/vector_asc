@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "LinCommon.h"
 #include "LinMessage.h"
-#include "SymbolsRegEx.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -182,6 +183,39 @@ LinMessage * LinMessage::parse(File & file, std::string & line)
 
 void LinMessage::write(File & file, std::ostream & stream)
 {
+    writeLinTime(file, stream, time);
+    stream << ' ';
+    writeLinChannel(file, stream, channel);
+    stream << ' ';
+    stream << std::dec << id;
+    stream << "               ";
+    writeLinDir(file, stream, dir);
+    stream << "     ";
+    stream << std::dec << (uint16_t) dlc;
+    for(int i = 0; i < dlc ; ++i)
+        stream << ' ' << std::dec << (uint16_t) data[i];
+    stream << "                            ";
+    writeLinChecksum(file, stream, checksum);
+    writeLinHeaderTimeLinFullTime(file, stream, headerTime, fullTime);
+    writeLinStartOfFrame(file, stream, startOfFrame);
+    stream << ' ';
+    writeLinBaudrate(file, stream, baudrate);
+    writeLinSyncBreak(file, stream, syncBreak);
+    writeLinSyncDel(file, stream, syncDel);
+    writeLinEndOfHeader(file, stream, endOfHeader);
+    stream << ' ';
+    writeLinEndOfByte(file, stream, endOfByte, dlc);
+    stream << "  ";
+    writeLinSimulated(file, stream, simulated);
+    writeLinEndOfFrame(file, stream, endOfFrame);
+    stream << ' ';
+    writeLinResponseBaudrate(file, stream, responseBaudrate);
+    writeLinHeaderBaudrate(file, stream, headerBaudrate);
+    writeLinStopBitOffsetInHeader(file, stream, stopBitOffsetInHeader);
+    writeLinStopBitOffsetInResponse(file, stream, stopBitOffsetInResponse);
+    writeLinChecksumModel(file, stream, checksumModel);
+
+    stream << endl;
 }
 
 }

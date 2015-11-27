@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "CanBusStatisticsEvent.h"
-#include "SymbolsRegEx.h"
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -76,18 +78,21 @@ CanBusStatisticsEvent * CanBusStatisticsEvent::parse(File & file, std::string & 
 
 void CanBusStatisticsEvent::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
+    stream << ' ' << std::dec << channel << "  ";
+
+    /* format: "Statistic: D %lu R %lu XD %lu XR %lu E %lu O %lu B %u.%d%%" */
     stream
-            << std::fixed << time
-            << ' ' << std::dec << channel
-            << " Statistic:"
-            << " D " << dataFrames
-            << " R " << remoteFrames
-            << " XD " << extendedDataFrames
-            << " XR " << extendedRemoteFrames
-            << " E " << errorFrames
-            << " O " << overloadFrames
-            << " B " << busload
-            << endl;
+            << "Statistic:"
+            << " D " << std::dec << (uint32_t) dataFrames
+            << " R " << std::dec << (uint32_t) remoteFrames
+            << " XD " << std::dec << (uint32_t) extendedDataFrames
+            << " XR " << std::dec << (uint32_t) extendedRemoteFrames
+            << " E " << std::dec << (uint32_t) errorFrames
+            << " O " << std::dec << (uint32_t) overloadFrames
+            << " B " << std::fixed << std::setprecision(2) << busload << '%';
+
+    stream << endl;
 }
 
 }

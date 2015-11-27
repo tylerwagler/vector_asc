@@ -19,9 +19,11 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "BeginTriggerblockEvent.h"
-#include "SymbolsRegEx.h"
+#include "CanCommon.h"
+#include "CanSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -108,22 +110,19 @@ BeginTriggerblockEvent * BeginTriggerblockEvent::parse(File &, std::string & lin
 
 void BeginTriggerblockEvent::write(File & file, std::ostream & stream)
 {
+    /* format: "Begin Triggerblock" */
+    stream << "Begin Triggerblock";
+
     stream
-            << "Begin Triggerblock "
-            << wdayNameEn[date.tm_wday]
-            << ' '
-            << monNameEn[date.tm_mon]
-            << ' '
-            << (date.tm_hour % 12)
-            << ':'
-            << date.tm_min
-            << ':'
-            << date.tm_sec
-            << ' '
-            << (date.tm_hour <= 12 ? "am" : "pm")
-            << ' '
-            << date.tm_year
-            << endl;
+            << ' ' << wdayNameEn[date.tm_wday]
+            << ' ' << monNameEn[date.tm_mon]
+            << ' ' << (date.tm_hour % 12)
+            << ':' << date.tm_min
+            << ':' << date.tm_sec
+            << ' ' << (date.tm_hour <= 12 ? "am" : "pm")
+            << ' ' << date.tm_year;
+
+    stream << endl;
 }
 
 }

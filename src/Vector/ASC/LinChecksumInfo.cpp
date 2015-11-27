@@ -21,7 +21,8 @@
 
 #include <regex>
 #include "LinChecksumInfo.h"
-#include "SymbolsRegEx.h"
+#include "LinCommon.h"
+#include "LinSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -63,6 +64,23 @@ LinChecksumInfo * LinChecksumInfo::parse(File & file, std::string & line)
 
 void LinChecksumInfo::write(File & file, std::ostream & stream)
 {
+    /* format: "%s %s CSInfo    %s" */
+    writeLinTime(file, stream, time);
+    stream << ' ';
+    writeLinChannel(file, stream, channel);
+    stream << " CSInfo    ";
+    switch(checksumModelInfo) {
+    case LinChecksumModelInfo::Classic:
+        /* format: "Using classic checksum" */
+        stream << "Using classic checksum";
+        break;
+    case LinChecksumModelInfo::Enhanced:
+        /* format: "Using enhanced checksum" */
+        stream << "Using enhanced checksum";
+        break;
+    }
+
+    stream << endl;
 }
 
 }

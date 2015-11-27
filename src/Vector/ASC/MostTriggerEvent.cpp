@@ -20,8 +20,9 @@
  */
 
 #include <regex>
+#include "MostCommon.h"
 #include "MostTriggerEvent.h"
-#include "SymbolsRegEx.h"
+#include "MostSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
@@ -73,6 +74,12 @@ MostTriggerEvent * MostTriggerEvent::parse(File & file, std::string & line)
 
 void MostTriggerEvent::write(File & file, std::ostream & stream)
 {
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    stream << endl;
 }
 
 }
