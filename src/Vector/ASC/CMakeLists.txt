@@ -117,7 +117,6 @@ set(source_files
 
 set(public_header_files
   AfdxPacket.h
-  AllEvents.h
   BeginTriggerblockEvent.h
   CanBusStatisticsEvent.h
   CanErrorEvent.h
