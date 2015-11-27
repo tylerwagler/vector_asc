@@ -19,10 +19,53 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
-#include "Symbols.h"
+/** FlexRay Symbols */
+
+#pragma once
+
+#include <string>
+#include "CanSymbols.h"
 
 namespace Vector {
 namespace ASC {
+
+/** @copydoc Time */
+typedef Time FlexRayOldTime;
+
+/** The number of the FlexRay channel. */
+typedef char FlexRayOldChannel;
+
+// Typ is used to select Event Class
+
+/** Numeric identifier */
+typedef uint16_t FlexRayOldId;
+
+/** Current number of communication cycle */
+typedef uint8_t FlexRayOldCycle;
+
+/** Obsolete element not used in the V9 */
+typedef bool FlexRayOldNm;
+
+/** Sync frame Indicator */
+typedef bool FlexRayOldSync;
+
+/** HeaderCRC */
+typedef uint16_t FlexRayOldHeaderCrc;
+
+/** Database name of the frame */
+typedef std::string FlexRayOldSymbolicName;
+
+/** Payload length */
+typedef uint8_t FlexRayOldDlc;
+
+/** @copydoc Dx */
+typedef Dx FlexRayOldDx;
+
+/** See table below */
+typedef uint16_t FlexRayOldFrameState;
+
+/** FlexRay frame header */
+typedef uint8_t FlexRayOldHeaderBitMask;
 
 }
 }

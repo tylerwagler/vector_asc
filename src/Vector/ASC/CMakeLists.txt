@@ -100,7 +100,6 @@ set(source_files
   MostSystemEvent.cpp
   MostTriggerEvent.cpp
   MostTxLight.cpp
-  Symbols.cpp
   SystemVariablesEvent.cpp
   TpDiagConsecutiveFrame.cpp
   TpDiagFirstFrame.cpp
@@ -123,12 +122,14 @@ set(public_header_files
   CanMessageEvent.h
   CanOverloadFrameEvent.h
   CanRemoteFrameEvent.h
+  CanSymbols.h
   CommentEvent.h
   EndTriggerblockEvent.h
   EnvironmentVariablesEvent.h
   EthernetPacket.h
   EthernetRxError.h
   EthernetStatus.h
+  EthernetSymbols.h
   Event.h
   File.h
   FileBaseTimestamps.h
@@ -143,10 +144,12 @@ set(public_header_files
   FlexRayOldStartCycleEvent.h
   FlexRayStartCycleEvent.h
   FlexRayStatusEvent.h
+  FlexRaySymbols.h
   GlobalMarkerEvent.h
   GpsEvent.h
   KLineByteEvent.h
   KLineMessageEvent.h
+  KLineSymbols.h
   LinBaudrate.h
   LinChecksumError.h
   LinChecksumInfo.h
@@ -162,6 +165,7 @@ set(public_header_files
   LinSleepMode.h
   LinSpikeEvent.h
   LinStatisticInfo.h
+  LinSymbols.h
   LinSyncError.h
   LinTransmissionError.h
   LinUnexpectedWakeup.h
@@ -193,17 +197,18 @@ set(public_header_files
   MostStatisticEvent.h
   MostStatisticExtendedEvent.h
   MostStressEvent.h
+  MostSymbols.h
   MostSystemEvent.h
   MostTriggerEvent.h
   MostTxLight.h
-  Symbols.h
   SystemVariablesEvent.h
   TpDiagConsecutiveFrame.h
   TpDiagFirstFrame.h
   TpDiagFlowControlFrame.h
   TpDiagPrefix.h
   TpDiagRequest.h
-  TpDiagSingleFrame.h)
+  TpDiagSingleFrame.h
+  TpDiagSymbols.h)
 
 set(private_header_files
   CanSymbolsRegEx.h
