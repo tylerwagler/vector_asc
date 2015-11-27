@@ -22,8 +22,7 @@
 #include <cstring>
 #include <iostream>
 
-#include "AllEvents.h"
-#include "File.h"
+#include "../ASC.h"
 
 namespace Vector {
 namespace ASC {
