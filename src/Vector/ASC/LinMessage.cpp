@@ -105,8 +105,15 @@ LinMessage * LinMessage::parse(File & file, std::string & line)
                 linMessage->dir = Dir::Tx;
         linMessage->dlc = std::stoul(match[5]);
         std::istringstream iss1(match[6]);
-        iss1 >> std::hex;
-        for (uint8_t i = 0; i < linMessage->dlc && i < 8; ++i) {
+        switch(file.base) {
+        case 10:
+            iss1 >> std::dec;
+            break;
+        case 16:
+            iss1 >> std::hex;
+            break;
+        }
+        for (int i = 0; i < linMessage->dlc && i < 8; ++i) {
             unsigned short s;
             iss1 >> s;
             linMessage->data[i] = s;

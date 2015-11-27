@@ -94,7 +94,7 @@ CanMessageEvent * CanMessageEvent::parse(File & file, std::string & line)
             }
         }
         if (match[14] != "")
-            canMessageEvent->messageId = std::stoul(match[15], nullptr, 16);
+            canMessageEvent->messageId = std::stoul(match[15]);
         return canMessageEvent;
     }
 

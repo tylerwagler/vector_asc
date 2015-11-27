@@ -175,7 +175,7 @@ BOOST_AUTO_TEST_CASE(CanMessageEvent)
     BOOST_CHECK(canMessageEvent->data[1] == 0);
     BOOST_CHECK(canMessageEvent->messageDuration == 768000);
     BOOST_CHECK(canMessageEvent->messageLength == 67);
-    BOOST_CHECK(canMessageEvent->messageId == 0x291);
+    BOOST_CHECK(canMessageEvent->messageId == 291);
     BOOST_CHECK(canMessageEvent->messageFlags.te == false);
     BOOST_CHECK(canMessageEvent->messageFlags.wu == false);
     delete event;
@@ -2066,6 +2066,7 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageNodeMode)
     Vector::ASC::Event * event;
     Vector::ASC::Most25ControlMessageNodeMode * most25ControlMessageNodeMode;
 
+    file.base = 16;
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most25ControlMessageNodeMode);
@@ -2108,6 +2109,7 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageSpyMode)
     Vector::ASC::Event * event;
     Vector::ASC::Most25ControlMessageSpyMode * most25ControlMessageSpyMode;
 
+    file.base = 16;
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most25ControlMessageSpyMode);

@@ -60,7 +60,7 @@ LinWakeupFrame * LinWakeupFrame::parse(File & file, std::string & line)
         else
         if (match[3] == "Tx")
             linWakeupFrame->dir = Dir::Tx;
-        linWakeupFrame->wakeupByte = std::stoul(match[4]);
+        linWakeupFrame->wakeupByte = std::stoul(match[4], nullptr, file.base);
         if (match[5] != "") {
             linWakeupFrame->startOfFrame = std::stod(match[6]);
             linWakeupFrame->baudrate = std::stoul(match[7]);

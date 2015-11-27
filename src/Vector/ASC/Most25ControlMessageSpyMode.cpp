@@ -56,19 +56,26 @@ Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::parse(File & file, st
         Most25ControlMessageSpyMode * most25ControlMessageSpyMode = new Most25ControlMessageSpyMode;
         most25ControlMessageSpyMode->time = std::stod(match[1]);
         most25ControlMessageSpyMode->channel = std::stoul(match[2]);
-        most25ControlMessageSpyMode->sourceAdr = std::stoul(match[3], nullptr, 16);
-        most25ControlMessageSpyMode->destAdr = std::stoul(match[4], nullptr, 16);
-        most25ControlMessageSpyMode->rType = std::stoul(match[5], nullptr, 16);
+        most25ControlMessageSpyMode->sourceAdr = std::stoul(match[3], nullptr, file.base);
+        most25ControlMessageSpyMode->destAdr = std::stoul(match[4], nullptr, file.base);
+        most25ControlMessageSpyMode->rType = std::stoul(match[5], nullptr, file.base);
         std::istringstream iss(match[6]);
-        iss >> std::hex;
-        for (uint8_t i = 0; !iss.eof(); ++i) {
+        switch(file.base) {
+        case 10:
+            iss >> std::dec;
+            break;
+        case 16:
+            iss >> std::hex;
+            break;
+        }
+        for (int i = 0; !iss.eof(); ++i) {
             unsigned short s;
             iss >> s;
             most25ControlMessageSpyMode->data[i] = s;
         }
-        most25ControlMessageSpyMode->state = std::stoul(match[8], nullptr, 16);
-        most25ControlMessageSpyMode->ackNack = std::stoul(match[9], nullptr, 16);
-        most25ControlMessageSpyMode->crc = std::stoul(match[10], nullptr, 16);
+        most25ControlMessageSpyMode->state = std::stoul(match[8], nullptr, file.base);
+        most25ControlMessageSpyMode->ackNack = std::stoul(match[9], nullptr, file.base);
+        most25ControlMessageSpyMode->crc = std::stoul(match[10], nullptr, file.base);
         return most25ControlMessageSpyMode;
     }
 

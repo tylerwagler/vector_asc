@@ -85,7 +85,7 @@ MostCommonRegisterEvent * MostCommonRegisterEvent::parse(File & file, std::strin
         mostCommonRegisterEvent->regDataLen = std::stoul(match[6], nullptr, 16);
         std::istringstream iss(match[7]);
         iss >> std::hex;
-        for (uint8_t i = 0; !iss.eof(); ++i) {
+        for (int i = 0; !iss.eof(); ++i) {
             unsigned short s;
             iss >> s;
             mostCommonRegisterEvent->data[i] = s;

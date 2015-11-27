@@ -115,7 +115,14 @@ Event * File::read()
         {
             FileBaseTimestamps * fileBaseTimestamps = FileBaseTimestamps::parse(*this, line);
             if (fileBaseTimestamps) {
-                base = static_cast<uint8_t>(fileBaseTimestamps->base);
+                switch(fileBaseTimestamps->base) {
+                case FileBaseTimestamps::Base::Hex:
+                    base = 16;
+                    break;
+                case FileBaseTimestamps::Base::Dec:
+                    base = 10;
+                    break;
+                }
             }
             return fileBaseTimestamps;
         }
