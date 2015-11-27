@@ -353,5 +353,11 @@ Event * File::read()
     return nullptr;
 }
 
+void File::write(Event * event)
+{
+    if (event != nullptr)
+        event->write(*this, file);
+}
+
 }
 }

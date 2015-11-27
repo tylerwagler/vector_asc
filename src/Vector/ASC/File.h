@@ -98,6 +98,13 @@ public:
      */
     class Event * read();
 
+    /**
+     * write object to file
+     *
+     * @param event object
+     */
+    void write(class Event * event);
+
     /** Version */
     enum Version : uint32_t {
         Ver_7_0 = 0x070000,
