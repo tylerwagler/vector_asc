@@ -18,6 +18,7 @@ set(source_files
   AfdxPacket.cpp
   BeginTriggerblockEvent.cpp
   CanBusStatisticsEvent.cpp
+  CanCommon.cpp
   CanErrorEvent.cpp
   CanErrorFrame.cpp
   CanExtendedMessageEvent.cpp
@@ -30,6 +31,7 @@ set(source_files
   CommentEvent.cpp
   EndTriggerblockEvent.cpp
   EnvironmentVariablesEvent.cpp
+  EthernetCommon.cpp
   EthernetPacket.cpp
   EthernetRxError.cpp
   EthernetStatus.cpp
@@ -41,6 +43,7 @@ set(source_files
   FileInternalEventsLogged.cpp
   FileSplitInformation.cpp
   FileVersion.cpp
+  FlexRayCommon.cpp
   FlexRayErrorEvent.cpp
   FlexRayMessageEvent.cpp
   FlexRayOldMessageEvent.cpp
@@ -50,10 +53,12 @@ set(source_files
   GlobalMarkerEvent.cpp
   GpsEvent.cpp
   KLineByteEvent.cpp
+  KLineCommon.cpp
   KLineMessageEvent.cpp
   LinBaudrate.cpp
   LinChecksumError.cpp
   LinChecksumInfo.cpp
+  LinCommon.cpp
   LinDisturbanceEvent.cpp
   LinDlcInfo.cpp
   LinDominantSignal.cpp
@@ -85,6 +90,7 @@ set(source_files
   Most25Packet.cpp
   Most50ControlMessage.cpp
   Most50Packet.cpp
+  MostCommon.cpp
   MostCommonRegisterEvent.cpp
   MostDataLostEvent.cpp
   MostEcl.cpp
@@ -101,6 +107,7 @@ set(source_files
   MostTriggerEvent.cpp
   MostTxLight.cpp
   SystemVariablesEvent.cpp
+  TpDiagCommon.cpp
   TpDiagConsecutiveFrame.cpp
   TpDiagFirstFrame.cpp
   TpDiagFlowControlFrame.cpp
@@ -211,12 +218,19 @@ set(public_header_files
   TpDiagSymbols.h)
 
 set(private_header_files
+  CanCommon.h
   CanSymbolsRegEx.h
+  EthernetCommon.h
   EthernetSymbolsRegEx.h
+  FlexRayCommon.h
   FlexRaySymbolsRegEx.h
+  KLineCommon.h
   KLineSymbolsRegEx.h
+  LinCommon.h
   LinSymbolsRegEx.h
+  MostCommon.h
   MostSymbolsRegEx.h
+  TpDiagCommon.h
   TpDiagSymbolsRegEx.h)
 
 set(info_files
