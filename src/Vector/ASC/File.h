@@ -99,16 +99,16 @@ public:
     class Event * read();
 
     /** Version */
-    enum Version : uint16_t {
-        Ver_7_0 = 0x0700,
-        Ver_7_2 = 0x0702,
-        Ver_7_5 = 0x0705,
-        Ver_8_0 = 0x0800,
-        Ver_8_1 = 0x0801
+    enum Version : uint32_t {
+        Ver_7_0 = 0x070000,
+        Ver_7_2 = 0x070200,
+        Ver_7_5 = 0x070500,
+        Ver_8_0 = 0x080000,
+        Ver_8_1 = 0x080100
     };
 
     /** Version */
-    uint16_t version;
+    uint32_t version;
 
     /** Number base (10 or 16) */
     uint8_t base;

@@ -125,7 +125,7 @@ Event * File::read()
         {
             FileVersion * fileVersion = FileVersion::parse(*this, line);
             if (fileVersion) {
-                version = (fileVersion->versionMajor << 8) | (fileVersion->versionMinor);
+                version = (fileVersion->versionMajor << 16) | (fileVersion->versionMinor << 8);
             }
             return fileVersion;
         }
