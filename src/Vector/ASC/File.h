@@ -34,9 +34,6 @@
 namespace Vector {
 namespace ASC {
 
-/* force Linux to use Windows line ending */
-static const char endl[] = "\r\n";
-
 /**
  * File
  *
