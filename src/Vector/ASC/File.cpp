@@ -32,8 +32,8 @@ File::File() :
     language(Language::En),
     base(Base::Dec),
     timestamps(Timestamps::Absolute),
-    version(Version::Ver_7_5),
-    timestampPrecision(6),
+    version(0), // version will be set as soon as FileVersion is read
+    timestampPrecision(0), // automatically set dependent on file version
     file(),
     scanner(nullptr)
 {
@@ -140,9 +140,8 @@ Event * File::read()
     case Event::EventType::FileInternalEventsLogged:
     {
         FileInternalEventsLogged * fileInternalEventsLogged = FileInternalEventsLogged::parse(*this, line);
-        if (fileInternalEventsLogged) {
+        if (fileInternalEventsLogged)
             internalEventsLogged = fileInternalEventsLogged->internalEventsLogged;
-        }
         return fileInternalEventsLogged;
     }
     case Event::EventType::FileVersion:
@@ -191,7 +190,12 @@ Event * File::read()
     case Event::EventType::LogDirectStopEvent:
         return LogDirectStopEvent::parse(*this, line);
     case Event::EventType::BeginTriggerblockEvent:
-        return BeginTriggerblockEvent::parse(*this, line);
+    {
+        BeginTriggerblockEvent * beginTriggerblockEvent = BeginTriggerblockEvent::parse(*this, line);
+        if (beginTriggerblockEvent)
+            language = beginTriggerblockEvent->language;
+        return beginTriggerblockEvent;
+    }
     case Event::EventType::EndTriggerblockEvent:
         return EndTriggerblockEvent::parse(*this, line);
 
@@ -369,7 +373,12 @@ Event * File::read()
 
     /* undocumented events */
     case Event::EventType::StartOfMeasurement:
-        return StartOfMeasurement::parse(*this, line);
+    {
+        StartOfMeasurement * startOfMeasurement = StartOfMeasurement::parse(*this, line);
+        if (startOfMeasurement)
+            language = startOfMeasurement->language;
+        return startOfMeasurement;
+    }
 
     case Event::EventType::Default:
     default:

@@ -37,7 +37,7 @@ public:
     /** date/time */
     struct tm date;
 
-    /** language */
+    /** language (only parsed, write works via File::language) */
     File::Language language;
 
     /** @copydoc Event::parse() */

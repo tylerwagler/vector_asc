@@ -114,7 +114,8 @@ set(source_files
   TpDiagFlowControlFrame.cpp
   TpDiagPrefix.cpp
   TpDiagRequest.cpp
-  TpDiagSingleFrame.cpp)
+  TpDiagSingleFrame.cpp
+  Unknown.cpp)
 
 set(public_header_files
   AfdxPacket.h
@@ -216,7 +217,8 @@ set(public_header_files
   TpDiagPrefix.h
   TpDiagRequest.h
   TpDiagSingleFrame.h
-  TpDiagSymbols.h)
+  TpDiagSymbols.h
+  Unknown.h)
 
 set(private_header_files
   CanCommon.h

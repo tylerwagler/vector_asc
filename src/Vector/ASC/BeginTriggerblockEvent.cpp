@@ -38,19 +38,6 @@ static std::string wdayNameDe[7] = {
     "Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam"
 };
 
-static int getWday(std::string wday)
-{
-    for (int i = 0; i < 7; ++i) {
-        if (wdayNameEn[i] == wday)
-            return i;
-    }
-    for (int i = 0; i < 7; ++i) {
-        if (wdayNameDe[i] == wday)
-            return i;
-    }
-    return -1;
-}
-
 /** a string that represents a month */
 static std::string monNameEn[12] = {
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -59,26 +46,14 @@ static std::string monNameEn[12] = {
 
 /** a string that represents a month (in german version) */
 static std::string monNameDe[12] = {
-    "Jan", "Feb", "Mär", "Apr", "Mai", "Jun",
+    "Jan", "Feb", "M\xE4r", "Apr", "Mai", "Jun",
     "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"
 };
 
-static int getMon(std::string mon)
-{
-    for (int i = 0; i < 12; ++i) {
-        if (monNameEn[i] == mon)
-            return i;
-    }
-    for (int i = 0; i < 12; ++i) {
-        if (monNameDe[i] == mon)
-            return i;
-    }
-    return -1;
-}
-
 BeginTriggerblockEvent::BeginTriggerblockEvent() :
     Event(),
-    date()
+    date(),
+    language(File::Language::En)
 {
     eventType = EventType::BeginTriggerblockEvent;
 }
@@ -94,13 +69,20 @@ BeginTriggerblockEvent * BeginTriggerblockEvent::parse(File &, std::string & lin
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         BeginTriggerblockEvent * beginTriggerblockEvent = new BeginTriggerblockEvent;
-        beginTriggerblockEvent->date.tm_wday = getWday(match[1]);
-        beginTriggerblockEvent->date.tm_mon = getMon(match[2]);
+        beginTriggerblockEvent->parseWday(match[1]);
+        beginTriggerblockEvent->parseMon(match[2]);
         beginTriggerblockEvent->date.tm_mday = std::stoul(match[3]);
         beginTriggerblockEvent->date.tm_hour = std::stoul(match[4]);
         beginTriggerblockEvent->date.tm_min = std::stoul(match[5]);
         beginTriggerblockEvent->date.tm_sec = std::stoul(match[6]);
-        beginTriggerblockEvent->date.tm_hour += ((match[7] == " pm") ? 12 : 0);
+        if (match[7] == " am")
+            beginTriggerblockEvent->language = File::Language::En;
+        else
+        if (match[7] == " pm") {
+            beginTriggerblockEvent->language = File::Language::En;
+            beginTriggerblockEvent->date.tm_hour += ((match[7] == " pm") ? 12 : 0);
+        } else
+            beginTriggerblockEvent->language = File::Language::De;
         beginTriggerblockEvent->date.tm_year = std::stoul(match[8]) - 1900;
         return beginTriggerblockEvent;
     }
@@ -114,17 +96,55 @@ void BeginTriggerblockEvent::write(File & file, std::ostream & stream)
     stream << "Begin Triggerblock";
 
     stream
-            << ' ' << wdayNameEn[date.tm_wday]
-            << ' ' << monNameEn[date.tm_mon]
+            << ' ' << (file.language == File::Language::En ? wdayNameEn[date.tm_wday] : wdayNameDe[date.tm_wday])
+            << ' ' << (file.language == File::Language::En ? monNameEn[date.tm_mon] : monNameDe[date.tm_mon])
             << ' ' << std::dec << date.tm_mday
-            << ' ' << std::setfill('0') << std::setw(2) << std::dec << (date.tm_hour % 12)
+            << ' ' << std::setfill('0') << std::setw(2) << std::dec << (file.language == File::Language::En ? (date.tm_hour % 12) : date.tm_hour)
             << ':' << std::setfill('0') << std::setw(2) << std::dec << date.tm_min
             << ':' << std::setfill('0') << std::setw(2) << std::dec << date.tm_sec
-            << ' ' << (date.tm_hour < 12 ? "am" : "pm")
+            << (file.language == File::Language::En ? (date.tm_hour < 12 ? " am" : " pm") : "")
             << ' ' << std::dec << date.tm_year + 1900;
 
 
     stream << endl;
+}
+
+void BeginTriggerblockEvent::parseWday(std::string wday)
+{
+    for (int i = 0; i < 7; ++i) {
+        if (wdayNameEn[i] == wday) {
+            date.tm_wday = i;
+            language = File::Language::En;
+            return;
+        }
+    }
+    for (int i = 0; i < 7; ++i) {
+        if (wdayNameDe[i] == wday) {
+            date.tm_wday = i;
+            language = File::Language::De;
+            return;
+        }
+    }
+    return;
+}
+
+void BeginTriggerblockEvent::parseMon(std::string mon)
+{
+    for (int i = 0; i < 12; ++i) {
+        if (monNameEn[i] == mon) {
+            date.tm_mon = i;
+            language = File::Language::En;
+            return;
+        }
+    }
+    for (int i = 0; i < 12; ++i) {
+        if (monNameDe[i] == mon) {
+            date.tm_mon = i;
+            language = File::Language::De;
+            return;
+        }
+    }
+    return;
 }
 
 }

@@ -29,7 +29,8 @@ namespace ASC {
 
 StartOfMeasurement::StartOfMeasurement() :
     Event(),
-    time(0.0)
+    time(0.0),
+    language(File::Language::En)
 {
     eventType = EventType::StartOfMeasurement;
 }
@@ -45,6 +46,11 @@ StartOfMeasurement * StartOfMeasurement::parse(File & file, std::string & line)
     if (std::regex_match(line, match, regex)) {
         StartOfMeasurement * startOfMeasurement = new StartOfMeasurement;
         startOfMeasurement->time = std::stod(match[1]);
+        if (match[2] == "Start of measurement")
+            startOfMeasurement->language = File::Language::En;
+        else
+        if (match[2] == "Start der Messung")
+            startOfMeasurement->language = File::Language::De;
         return startOfMeasurement;
     }
 
@@ -56,9 +62,10 @@ void StartOfMeasurement::write(File & file, std::ostream & stream)
     writeTime(file, stream, time);
     stream << ' ';
 
-    /* format: "Start der Messung" */
-    /* format: "Start of measurement" */
-    stream << "Start of measurement";
+    if (file.language == File::Language::En)
+        stream << "Start of measurement";
+    else
+        stream << "Start der Messung";
 
     stream << endl;
 }

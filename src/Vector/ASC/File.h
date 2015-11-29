@@ -157,7 +157,12 @@ public:
     /** Version */
     uint32_t version;
 
-    /** time stamp precision (old is 4, new is 6) */
+    /**
+     * time stamp precision
+     *
+     * Old versions used to have precision 4 and newer versions use to have 6.
+     * If left at default 0, the precision is automatically set dependent on file version.
+     */
     uint8_t timestampPrecision;
 
 private:

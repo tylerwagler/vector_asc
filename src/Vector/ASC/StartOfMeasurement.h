@@ -36,6 +36,9 @@ public:
     /** @copydoc Time */
     Time time;
 
+    /** language (only parsed, write works via File::language) */
+    File::Language language;
+
     /** @copydoc Event::parse() */
     static StartOfMeasurement * parse(File & file, std::string & line);
 

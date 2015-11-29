@@ -97,10 +97,10 @@ void FileDate::write(File & file, std::ostream & stream)
             << (file.language == File::Language::En ? wdayNameEn[date.tm_wday] : wdayNameDe[date.tm_wday])
             << ' ' << (file.language == File::Language::En ? monNameEn[date.tm_mon] : monNameDe[date.tm_mon])
             << ' ' << std::dec << date.tm_mday
-            << ' ' << std::setfill('0') << std::setw(2) << std::dec << (language == File::Language::En ? (date.tm_hour % 12) : date.tm_hour)
+            << ' ' << std::setfill('0') << std::setw(2) << std::dec << (file.language == File::Language::En ? (date.tm_hour % 12) : date.tm_hour)
             << ':' << std::setfill('0') << std::setw(2) << std::dec << date.tm_min
             << ':' << std::setfill('0') << std::setw(2) << std::dec << date.tm_sec
-            << (language == File::Language::En ? (date.tm_hour < 12 ? " am" : " pm") : "")
+            << (file.language == File::Language::En ? (date.tm_hour < 12 ? " am" : " pm") : "")
             << ' ' << std::dec << date.tm_year + 1900;
 
     stream << endl;
