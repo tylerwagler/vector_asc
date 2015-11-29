@@ -474,6 +474,10 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
 {STOL}"//"{ws}.+?{ENDL} {
     return Vector::ASC::Event::EventType::FileComment; }
 
+    /* undocumented events */
+{STOL}{Time}{WS}("Start of measurement"|"Start der Messung"){ENDL} {
+    return Vector::ASC::Event::EventType::StartOfMeasurement; }
+
     /* remaining characters */
 {STOL}.+?{ENDL} { return Vector::ASC::Event::EventType::Unknown; }
 %%

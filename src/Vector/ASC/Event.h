@@ -176,7 +176,10 @@ public:
         TpDiagFirstFrame,
         TpDiagConsecutiveFrame,
         TpDiagFlowControlFrame,
-        TpDiagRequest
+        TpDiagRequest,
+
+        /* undocumented events */
+        StartOfMeasurement = 240
     };
 
     EventType eventType;

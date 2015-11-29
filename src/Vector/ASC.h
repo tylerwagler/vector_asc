@@ -140,3 +140,6 @@
 #include "ASC/TpDiagConsecutiveFrame.h"
 #include "ASC/TpDiagFlowControlFrame.h"
 #include "ASC/TpDiagRequest.h"
+
+/* undocumented events */
+#include "ASC/StartOfMeasurement.h"

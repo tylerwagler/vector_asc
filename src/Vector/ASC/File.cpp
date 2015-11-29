@@ -351,6 +351,10 @@ Event * File::read()
     case Event::EventType::TpDiagRequest:
         return TpDiagRequest::parse(*this, line);
 
+    /* undocumented events */
+    case Event::EventType::StartOfMeasurement:
+        return StartOfMeasurement::parse(*this, line);
+
     case Event::EventType::Default:
     default:
         std::cerr << line << std::endl;
