@@ -40,11 +40,12 @@ LogTriggerEvent::~LogTriggerEvent()
 
 LogTriggerEvent * LogTriggerEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log trigger event" REGEX_ENDL);
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log trigger event" REGEX_ws "(.+)?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LogTriggerEvent * logTriggerEvent = new LogTriggerEvent;
         logTriggerEvent->time = std::stod(match[1]);
+        logTriggerEvent->information = match[2];
         return logTriggerEvent;
     }
 
@@ -53,10 +54,14 @@ LogTriggerEvent * LogTriggerEvent::parse(File & file, std::string & line)
 
 void LogTriggerEvent::write(File & file, std::ostream & stream)
 {
-    stream << std::fixed << time << ' ';
+    writeTime(file, stream, time);
+    stream << ' ';
 
     /* format: "log trigger event" */
     stream << "log trigger event";
+
+    if (!information.empty())
+        stream << ' ' << information;
 
     stream << endl;
 }

@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "CanCommon.h"
 #include "CanSymbolsRegEx.h"
@@ -57,10 +58,10 @@ EnvironmentVariablesEvent * EnvironmentVariablesEvent::parse(File & file, std::s
 
 void EnvironmentVariablesEvent::write(File & file, std::ostream & stream)
 {
-    stream
-            << std::fixed << time
-            << ' ' << evname
-            << " := " << value;
+    writeTime(file, stream, time);
+    stream << ' ';
+
+    stream << "   " << std::left << std::setw(12) << evname << " := " << value;
 
     stream << endl;
 }

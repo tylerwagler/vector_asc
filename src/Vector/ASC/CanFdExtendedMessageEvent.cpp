@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "CanCommon.h"
 #include "CanFdExtendedMessageEvent.h"
@@ -101,6 +102,62 @@ CanFdExtendedMessageEvent * CanFdExtendedMessageEvent::parse(File & file, std::s
 void CanFdExtendedMessageEvent::write(File & file, std::ostream & stream)
 {
     writeTime(file, stream, time);
+    stream << ' ' << std::dec << (uint16_t) channel;
+    stream << "  ";
+    switch(file.base) {
+    case 10:
+        stream << std::left << std::setfill(' ') << std::setw(15) << std::dec << (uint32_t) id;
+        break;
+    case 16:
+        stream << std::left << std::setfill(' ') << std::setw(15) << std::hex << (uint32_t) id;
+        break;
+    }
+    stream << "x ";
+    writeDir(file, stream, dir);
+    stream << "   d";
+    stream << ' ' << std::hex << (uint16_t) dlc;
+    for(int i = 0; i < dlc && i < 8; ++i) {
+        stream << ' ';
+        switch(file.base) {
+        case 10:
+            stream << std::right << std::setfill(' ') << std::setw(3) << std::dec;
+            break;
+        case 16:
+            stream << std::right << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
+            break;
+        }
+        stream << (uint16_t) data[i];
+    }
+
+    if (file.version >= File::Version::Ver_7_5) {
+        stream << ' ';
+
+        /* format: " Length= " */
+        stream << " Length = ";
+
+        stream << std::dec << (uint32_t) messageDuration;
+
+        /* format: " BitCount = " */
+        stream << " BitCount = ";
+
+        stream << std::dec << (uint32_t) messageLength;
+    }
+
+#if 0
+    /* <MessageFlags> */
+    if (!messageFlags.empty()) {
+        stream << ' ' << std::dec << (uint32_t) messageFlags;
+    }
+#endif
+
+#if 0
+    if (file.version >= File::Version::Ver_8_0) {
+        /* format: " ID = " */
+        stream << " ID = ";
+
+        stream << std::dec << (uint32_t) messageId;
+    }
+#endif
 
     stream << endl;
 }

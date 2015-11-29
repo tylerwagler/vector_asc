@@ -107,17 +107,16 @@ void CanMessageEvent::write(File & file, std::ostream & stream)
 {
     writeTime(file, stream, time);
     stream << ' ' << std::dec << (uint16_t) channel;
-    stream << ' ';
-    stream << std::setfill(' ');
+    stream << "  ";
     switch(file.base) {
     case 10:
-        stream << std::setw(4) << std::dec;
+        stream << std::left << std::setfill(' ') << std::setw(15) << std::dec << (uint32_t) id;
         break;
     case 16:
-        stream << std::setw(4) << std::hex;
+        stream << std::left << std::setfill(' ') << std::setw(15) << std::hex << (uint32_t) id;
+        break;
     }
-    stream << (uint32_t) id;
-    stream << " ";
+    stream << ' ';
     writeDir(file, stream, dir);
     stream << "   d";
     stream << ' ' << std::hex << (uint16_t) dlc;
@@ -125,17 +124,18 @@ void CanMessageEvent::write(File & file, std::ostream & stream)
         stream << ' ';
         switch(file.base) {
         case 10:
-            stream << std::setfill(' ') << std::setw(3) << std::dec;
+            stream << std::right << std::setfill(' ') << std::setw(3) << std::dec;
             break;
         case 16:
-            stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
+            stream << std::right << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
             break;
         }
         stream << (uint16_t) data[i];
     }
-    stream << ' ';
 
     if (file.version >= File::Version::Ver_7_5) {
+        stream << ' ';
+
         /* format: " Length= " */
         stream << " Length = ";
 

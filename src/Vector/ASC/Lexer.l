@@ -37,7 +37,7 @@ PostTrigger [[:digit:]]{1,10}
 Error .+?
 Dx [[:xdigit:]]{1,3}
 WeekDay ("Mon"|"Tue"|"Wed"|"Thu"|"Fri"|"Sat"|"Sun"|"Mon"|"Die"|"Mit"|"Don"|"Fre"|"Sam"|"Son")
-Month ("Jan"|"Feb"|"Mar"|"Apr"|"May"|"Jun"|"Jul"|"Aug"|"Sep"|"Oct"|"Nov"|"Dec"|"Jan"|"Feb"|"Mär"|"Apr"|"Mai"|"Jun"|"Jul"|"Aug"|"Sep"|"Okt"|"Nov"|"Dez")
+Month ("Jan"|"Feb"|"Mar"|"Apr"|"May"|"Jun"|"Jul"|"Aug"|"Sep"|"Oct"|"Nov"|"Dec"|"Jan"|"Feb"|"M\xE4r"|"Apr"|"Mai"|"Jun"|"Jul"|"Aug"|"Sep"|"Okt"|"Nov"|"Dez")
 Date [[:digit:]]{1,2}
 FullTime [[:digit:]]{2}":"[[:digit:]]{2}":"[[:digit:]]{2}(" am"|" pm")?
 Year [[:digit:]]{4}
@@ -284,7 +284,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     /* return Vector::ASC::Event::EventType::CanFdOverloadFrame; }
 
     /* Log and Trigger Events */
-{STOL}{Time}{WS}"log trigger event"{ENDL} {
+{STOL}{Time}{WS}"log trigger event"{ws}.+?{ENDL} {
     return Vector::ASC::Event::EventType::LogTriggerEvent; }
 {STOL}{Time}{WS}"log direct start"{ws}"("{PreTrigger}"ms)"{ws}{ENDL} {
     return Vector::ASC::Event::EventType::LogDirectStartEvent; }

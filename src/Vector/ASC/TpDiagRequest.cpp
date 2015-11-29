@@ -63,11 +63,11 @@ void TpDiagRequest::write(File & file, std::ostream & stream)
 {
     /* format: "%f DiagRequest[%199s] " */
     stream
-            << std::fixed << time
+            << std::right << std::setfill(' ') << std::setw(9) << std::setprecision(4) << std::fixed << time
             << " DiagRequest[" << ecuQualifier << "] ";
 
     /* format: " %02X" */
-    for (uint8_t b : byteSequence)
+    for (uint8_t b: byteSequence)
         stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) b;
 
     stream << endl;

@@ -97,7 +97,7 @@ typedef uint8_t Dx;
 /* WeekDay, Month, Date, FullTime, and Year are in struct tm */
 
 /** a number which represents the variable data type */
-enum class Svtype : uint32_t {
+enum Svtype : uint32_t {
     /** Float */
     Float = 1,
 

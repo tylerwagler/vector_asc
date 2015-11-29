@@ -90,7 +90,7 @@ void CanBusStatisticsEvent::write(File & file, std::ostream & stream)
             << " XR " << std::dec << (uint32_t) extendedRemoteFrames
             << " E " << std::dec << (uint32_t) errorFrames
             << " O " << std::dec << (uint32_t) overloadFrames
-            << " B " << std::fixed << std::setprecision(2) << busload << '%';
+            << " B " << std::fixed << std::setprecision(1) << busload << '%';
 
     stream << endl;
 }

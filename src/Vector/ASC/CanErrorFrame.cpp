@@ -35,6 +35,7 @@ CanErrorFrame::CanErrorFrame() :
     codeExt(0),
     code(0),
     id(0),
+    extendedId(false),
     dlc(0),
     position(0),
     length(0)
@@ -63,8 +64,10 @@ CanErrorFrame * CanErrorFrame::parse(File & file, std::string & line)
         CanErrorFrame * canErrorFrame = new CanErrorFrame;
         canErrorFrame->time = std::stod(match[1]);
         canErrorFrame->channel = std::stoul(match[2]);
-        if (match[3] != "")
+        if (match[3] != "") {
             canErrorFrame->code = std::stoul(match[4], nullptr, 2);
+            canErrorFrame->flags |= (1<<0); // SJA 1000 ECC is valid
+        }
         if (match[5] != "")
             canErrorFrame->flags = std::stoul(match[6], nullptr, 16);
         if (match[7] != "")
@@ -95,33 +98,24 @@ void CanErrorFrame::write(File & file, std::ostream & stream)
     /* format: "ErrorFrame" */
     stream << "ErrorFrame";
 
-    stream << '\t';
-
-    /* format: "ECC: " */
-    stream << "ECC: ";
-    stream << ((code >> 7) & 1);
-    stream << ((code >> 6) & 1);
-    stream << ((code >> 5) & 1);
-    stream << ((code >> 4) & 1);
-    stream << ((code >> 3) & 1);
-    stream << ((code >> 2) & 1);
-    stream << ((code >> 1) & 1);
-    stream << ((code >> 0) & 1);
-
-#if 0
-    if (version >= Version::Ver_7_5) {
-        if (sja1000) {
-            stream << " ECC:";
-            stream << ((ecc >> 7) & 1);
-            stream << ((ecc >> 6) & 1);
-            stream << ((ecc >> 5) & 1);
-            stream << ((ecc >> 4) & 1);
-            stream << ((ecc >> 3) & 1);
-            stream << ((ecc >> 2) & 1);
-            stream << ((ecc >> 1) & 1);
-            stream << ((ecc >> 0) & 1);
+    if (file.version >= File::Version::Ver_7_5) {
+        /* SJA 1000 */
+        if (flags & 0x1) {
+            stream << '\t';
+            /* format: "ECC: " */
+            stream << "ECC: ";
+            stream << ((code >> 7) & 1);
+            stream << ((code >> 6) & 1);
+            stream << ((code >> 5) & 1);
+            stream << ((code >> 4) & 1);
+            stream << ((code >> 3) & 1);
+            stream << ((code >> 2) & 1);
+            stream << ((code >> 1) & 1);
+            stream << ((code >> 0) & 1);
         }
-        if (canCore) {
+
+        /* CAN Core */
+        if (flags & 0xe) {
             /* format: "Flags = " */
             stream << " Flags = ";
             stream << "0x" << std::hex << flags;
@@ -136,9 +130,9 @@ void CanErrorFrame::write(File & file, std::ostream & stream)
 
             /* format: "ID = " */
             stream << " ID = ";
-            stream << << std::hex << id;
-            if (extended) {
-                stream << "x";
+            stream << std::hex << id;
+            if (extendedId) {
+                stream << 'x';
             }
 
             /* format: "DLC = " */
@@ -154,7 +148,6 @@ void CanErrorFrame::write(File & file, std::ostream & stream)
             stream << length;
         }
     }
-#endif
 
     stream << endl;
 }

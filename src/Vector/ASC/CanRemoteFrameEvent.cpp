@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "CanCommon.h"
 #include "CanRemoteFrameEvent.h"
@@ -65,11 +66,19 @@ void CanRemoteFrameEvent::write(File & file, std::ostream & stream)
 {
     writeTime(file, stream, time);
     stream
-            << ' ' << std::dec << channel
-            << ' ' << std::hex << id
-            << ' ';
+            << ' ' << std::dec << (uint16_t) channel;
+    stream << "  ";
+    switch(file.base) {
+    case 10:
+        stream << std::left << std::setfill(' ') << std::setw(15) << std::dec << (uint32_t) id;
+        break;
+    case 16:
+        stream << std::left << std::setfill(' ') << std::setw(15) << std::hex << (uint32_t) id;
+        break;
+    }
+    stream << ' ';
     writeDir(file, stream, dir);
-    stream << " r";
+    stream << "   r";
 
     stream << endl;
 }

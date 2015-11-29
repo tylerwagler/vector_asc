@@ -59,10 +59,17 @@ void CanErrorEvent::write(File & file, std::ostream & stream)
 {
     writeTime(file, stream, time);
 
-    /* "format: "CAN %d Status: " */
-    stream
-            << " CAN " << std::dec << (int16_t) channel
-            << " Status: ";
+    if (file.version >= File::Version::Ver_8_0) {
+        /* "format: "CAN %d Status: " */
+        stream
+                << " CAN " << std::dec << (int16_t) channel
+                << " Status: ";
+    } else {
+        /* "format: "CAN %d Status: " */
+        stream
+                << " CAN " << std::dec << (int16_t) channel
+                << " Status:";
+    }
 
     /* format: "chip status busoff" */
     /* format: "chip status error passive" */

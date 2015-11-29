@@ -42,6 +42,9 @@ public:
     /** @copydoc Time */
     Time time;
 
+    /** additional information */
+    std::string information;
+
     /** @copydoc Event::parse() */
     static LogTriggerEvent * parse(File & file, std::string & line);
 

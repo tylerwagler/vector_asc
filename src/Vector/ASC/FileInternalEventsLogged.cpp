@@ -44,7 +44,7 @@ FileInternalEventsLogged * FileInternalEventsLogged::parse(File & file, std::str
     std::smatch match;
     if (std::regex_search(line, match, regex)) {
         FileInternalEventsLogged * fileInternalEventsLogged = new FileInternalEventsLogged;
-        fileInternalEventsLogged->internalEventsLogged = (match[1] == ""); // AKA =="" AKA !="no"
+        fileInternalEventsLogged->internalEventsLogged = (match[1] != "no");
         return fileInternalEventsLogged;
     }
 

@@ -28,7 +28,7 @@ namespace ASC {
 
 /* Format Symbols */
 #define REGEX_STOL "^[[:blank:]]*"
-#define REGEX_ENDL "\r?$"
+#define REGEX_ENDL "[\r\n]*$"
 #define REGEX_WS "[[:blank:]]+"
 #define REGEX_ws "[[:blank:]]*"
 
@@ -48,7 +48,7 @@ namespace ASC {
 #define REGEX_Error "(.+?)"
 #define REGEX_Dx "[[:xdigit:]]{1,3}"
 #define REGEX_WeekDay "(Mon|Tue|Wed|Thu|Fri|Sat|Sun|Mon|Die|Mit|Don|Fre|Sam|Son)"
-#define REGEX_Month "(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|Jan|Feb|Mär|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez)"
+#define REGEX_Month "(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|Jan|Feb|M.r|Apr|Mai|Jun|Jul|Aug|Sep|Okt|Nov|Dez)"
 #define REGEX_Date "([[:digit:]]{1,2})"
 #define REGEX_FullTime "([[:digit:]]{2}):([[:digit:]]{2}):([[:digit:]]{2})( am| pm)?"
 #define REGEX_Year "([[:digit:]]{4})"

@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "CanCommon.h"
 #include "CanFdMessageEvent.h"
@@ -101,6 +102,19 @@ CanFdMessageEvent * CanFdMessageEvent::parse(File & file, std::string & line)
 void CanFdMessageEvent::write(File & file, std::ostream & stream)
 {
     writeTime(file, stream, time);
+    stream << " CANFD " << std::dec << (uint16_t) channel;
+    stream << ' ';
+    stream << std::setfill(' ');
+    switch(file.base) {
+    case 10:
+        stream << std::setw(4) << std::dec;
+        break;
+    case 16:
+        stream << std::setw(3) << std::hex;
+    }
+    stream << (uint32_t) id;
+    stream << ' ';
+    writeDir(file, stream, dir);
 
     stream << endl;
 }

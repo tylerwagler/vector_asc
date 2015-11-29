@@ -73,9 +73,9 @@ MacroSignalEvent * MacroSignalEvent::parse(File & file, std::string & line)
 
 void MacroSignalEvent::write(File & file, std::ostream & stream)
 {
-    stream
-            << std::fixed << time
-            << ' ';
+    writeTime(file, stream, time);
+    stream << ' ';
+
     switch(bussystem) {
     case Bussystem::FlexRay:
         stream << 'F';

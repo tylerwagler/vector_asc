@@ -51,7 +51,7 @@ public:
      *   - Bit 0: SJA 1000 ECC is valid
      *   - Bit 1: Vector CAN Core Error Code is valid
      *   - Bit 2: Vector CAN Core Error Position is valid
-     *   - Bit 4: Vector CAN Core Frame Length in ns is valid
+     *   - Bit 3: Vector CAN Core Frame Length in ns is valid
      */
     uint8_t flags;
 
@@ -68,6 +68,9 @@ public:
 
     /** @copydoc IdNum */
     IdNum id;
+
+    /** Extended ID */
+    bool extendedId;
 
     /** @copydoc Dlc */
     Dlc dlc;

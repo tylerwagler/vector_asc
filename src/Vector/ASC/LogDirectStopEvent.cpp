@@ -55,9 +55,8 @@ LogDirectStopEvent * LogDirectStopEvent::parse(File & file, std::string & line)
 
 void LogDirectStopEvent::write(File & file, std::ostream & stream)
 {
-    stream
-            << std::fixed << time
-            << ' ';
+    writeTime(file, stream, time);
+    stream << ' ';
 
     /* format: "log direct" */
     stream << "log direct";
