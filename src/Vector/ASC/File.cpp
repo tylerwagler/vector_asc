@@ -107,9 +107,16 @@ Event * File::read()
         line.pop_back();
 
     switch(eventType) {
+    /* unknown */
     case Event::EventType::Unknown:
-        std::cerr << line << std::endl;
-        break;
+    {
+        std::cout << "Unknown: " << line << std::endl;
+#if 0
+        Unknown * unknown = new Unknown();
+        unknown->line = line;
+        return unknown;
+#endif
+    }
 
     /* File */
     case Event::EventType::FileDate:
@@ -366,8 +373,7 @@ Event * File::read()
 
     case Event::EventType::Default:
     default:
-        std::cerr << line << std::endl;
-        break;
+        std::cout << "Default: " << line << std::endl;
     }
 
     return nullptr;

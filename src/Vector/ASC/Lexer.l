@@ -17,7 +17,7 @@
 
     // Format Symbols
 STOL ^[[:blank:]]*
-ENDL \r?$
+ENDL [\r\n]*$
 WS [[:blank:]]+
 ws [[:blank:]]*
 
