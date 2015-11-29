@@ -101,7 +101,7 @@ BeginTriggerblockEvent * BeginTriggerblockEvent::parse(File &, std::string & lin
         beginTriggerblockEvent->date.tm_min = std::stoul(match[5]);
         beginTriggerblockEvent->date.tm_sec = std::stoul(match[6]);
         beginTriggerblockEvent->date.tm_hour += ((match[7] == " pm") ? 12 : 0);
-        beginTriggerblockEvent->date.tm_year = std::stoul(match[8]);
+        beginTriggerblockEvent->date.tm_year = std::stoul(match[8]) - 1900;
         return beginTriggerblockEvent;
     }
 
@@ -116,11 +116,13 @@ void BeginTriggerblockEvent::write(File & file, std::ostream & stream)
     stream
             << ' ' << wdayNameEn[date.tm_wday]
             << ' ' << monNameEn[date.tm_mon]
-            << ' ' << (date.tm_hour % 12)
-            << ':' << date.tm_min
-            << ':' << date.tm_sec
-            << ' ' << (date.tm_hour <= 12 ? "am" : "pm")
-            << ' ' << date.tm_year;
+            << ' ' << std::dec << date.tm_mday
+            << ' ' << std::setfill('0') << std::setw(2) << std::dec << (date.tm_hour % 12)
+            << ':' << std::setfill('0') << std::setw(2) << std::dec << date.tm_min
+            << ':' << std::setfill('0') << std::setw(2) << std::dec << date.tm_sec
+            << ' ' << (date.tm_hour < 12 ? "am" : "pm")
+            << ' ' << std::dec << date.tm_year + 1900;
+
 
     stream << endl;
 }

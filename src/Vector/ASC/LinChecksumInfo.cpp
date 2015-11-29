@@ -64,10 +64,14 @@ LinChecksumInfo * LinChecksumInfo::parse(File & file, std::string & line)
 
 void LinChecksumInfo::write(File & file, std::ostream & stream)
 {
+    /* format: "%s %-12.1x CSInfo    %s" */
+    /* format: "%s %-12.1d CSInfo    %s" */
     /* format: "%s %s CSInfo    %s" */
     writeLinTime(file, stream, time);
     stream << ' ';
     writeLinChannel(file, stream, channel);
+    stream << ' ';
+    stream << id;
     stream << " CSInfo    ";
     switch(checksumModelInfo) {
     case LinChecksumModelInfo::Classic:

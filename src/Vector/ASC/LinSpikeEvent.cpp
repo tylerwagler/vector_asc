@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "LinCommon.h"
 #include "LinSpikeEvent.h"
@@ -48,7 +49,7 @@ LinSpikeEvent * LinSpikeEvent::parse(File & file, std::string & line)
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Spike"
                      REGEX_WS REGEX_LIN_Dir REGEX_WS REGEX_LIN_SpikeLength REGEX_WS "microseconds"
                      "(" REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
-                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate ")?" REGEX_ENDL);
+                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate REGEX_ws ")?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinSpikeEvent * linSpikeEvent = new LinSpikeEvent;
@@ -78,6 +79,14 @@ void LinSpikeEvent::write(File & file, std::ostream & stream)
     /* format: "%s Spike  %s  %6d microseconds" */
     writeLinChannel(file, stream, channel);
     stream << " Spike  ";
+    writeLinDir(file, stream, dir);
+    stream
+            << "  "
+            << std::setw(6) << std::dec << (uint32_t) spikeLength
+            << " microseconds";
+
+    writeLinStartOfFrame(file, stream, startOfFrame);
+    writeLinBaudrate(file, stream, baudrate);
 
     stream << endl;
 }

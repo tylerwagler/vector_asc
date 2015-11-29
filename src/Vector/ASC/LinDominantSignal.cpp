@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "LinCommon.h"
 #include "LinDominantSignal.h"
@@ -48,7 +49,7 @@ LinDominantSignal * LinDominantSignal::parse(File & file, std::string & line)
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Dominant signal"
                      REGEX_WS REGEX_LIN_DomSigState REGEX_WS REGEX_LIN_DomSigLength REGEX_WS "microseconds"
                      "(" REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
-                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate ")?" REGEX_ENDL);
+                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate REGEX_ws ")?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinDominantSignal * linDominantSignal = new LinDominantSignal;
@@ -79,6 +80,24 @@ void LinDominantSignal::write(File & file, std::ostream & stream)
     /* format: "%s Dominant signal %s  %8d microseconds" */
     writeLinChannel(file, stream, channel);
     stream << " Dominant signal ";
+    switch(domSigState) {
+    case LinDomSigState::Detected:
+        stream << "detected";
+        break;
+    case LinDomSigState::Continuing:
+        stream << "continuing";
+        break;
+    case LinDomSigState::Finished:
+        stream << "finished";
+        break;
+    }
+    stream
+            << "  "
+            << std::setw(8) << std::dec << (uint32_t) domSigLength
+            << " microseconds";
+
+    writeLinStartOfFrame(file, stream, startOfFrame);
+    writeLinBaudrate(file, stream, baudrate);
 
     stream << endl;
 }

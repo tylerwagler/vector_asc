@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "CanCommon.h"
 #include "CanSymbolsRegEx.h"
@@ -77,13 +78,18 @@ SystemVariablesEvent * SystemVariablesEvent::parse(File & file, std::string & li
 
 void SystemVariablesEvent::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
+    stream << ' ';
+
+    /* format: "SV: %d %d %d %s = " */
     stream
-            << std::fixed << time
-            << ' ' << (uint32_t) svtype
+            << "SV: " << (uint16_t) svtype
             << ' ' << (flag[0] ? '1' : '0')
             << ' ' << (flag[1] ? '1' : '0')
             << ' ' << path
-            << " = " << value;
+            << " = ";
+
+    stream << value;
 
     stream << endl;
 }

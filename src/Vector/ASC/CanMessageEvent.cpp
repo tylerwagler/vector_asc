@@ -108,16 +108,29 @@ void CanMessageEvent::write(File & file, std::ostream & stream)
     writeTime(file, stream, time);
     stream << ' ' << std::dec << (uint16_t) channel;
     stream << ' ';
-    // stream << std::setfill(' ') << std::setw(4) << std::hex << (uint32_t) id;
-    stream << std::setfill(' ') << std::setw(4) << std::dec << (uint32_t) id;
-    stream << "             ";
+    stream << std::setfill(' ');
+    switch(file.base) {
+    case 10:
+        stream << std::setw(4) << std::dec;
+        break;
+    case 16:
+        stream << std::setw(4) << std::hex;
+    }
+    stream << (uint32_t) id;
+    stream << " ";
     writeDir(file, stream, dir);
     stream << "   d";
     stream << ' ' << std::hex << (uint16_t) dlc;
     for(int i = 0; i < dlc && i < 8; ++i) {
         stream << ' ';
-        // stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
-        stream << std::setfill(' ') << std::setw(3) << std::dec;
+        switch(file.base) {
+        case 10:
+            stream << std::setfill(' ') << std::setw(3) << std::dec;
+            break;
+        case 16:
+            stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
+            break;
+        }
         stream << (uint16_t) data[i];
     }
     stream << ' ';

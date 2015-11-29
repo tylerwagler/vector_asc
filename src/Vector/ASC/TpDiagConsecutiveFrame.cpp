@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "TpDiagCommon.h"
 #include "TpDiagConsecutiveFrame.h"
@@ -63,10 +64,10 @@ TpDiagConsecutiveFrame * TpDiagConsecutiveFrame::parse(File & file, std::string 
 void TpDiagConsecutiveFrame::write(File & file, std::ostream & stream)
 {
     stream
-            << "CF Seq.Nr.: " << std::dec << sn
-            << " [" << std::hex;
+            << "CF Seq.Nr.: " << std::dec << (uint16_t) sn
+            << " [";
     for (uint8_t transportedByte : transportedBytes)
-        stream << ' ' << transportedByte;
+        stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) transportedByte;
     stream << " ]";
 
     stream << endl;

@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "TpDiagCommon.h"
 #include "TpDiagFlowControlFrame.h"
@@ -86,15 +87,15 @@ void TpDiagFlowControlFrame::write(File & file, std::ostream & stream)
 
     stream << ' ';
 
-    /* format: "Bsmax: " */
-    stream << "Bsmax: ";
+    /* format: "BSmax: " */
+    stream << "BSmax: ";
 
-    stream << "0x" << std::hex << bs;
+    stream << "0x" << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) bs;
 
     /* format: ", Stmin: "*/
     stream << ", STmin: ";
 
-    stream << "0x" << stMin << " ms";
+    stream << "0x" << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) stMin << " ms";
 
     stream << endl;
 }

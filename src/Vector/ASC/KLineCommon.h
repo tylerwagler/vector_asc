@@ -29,5 +29,7 @@
 namespace Vector {
 namespace ASC {
 
+#define writeKLineDirection(file, stream, kLineDirection) writeDir(file, stream, kLineDirection)
+
 }
 }

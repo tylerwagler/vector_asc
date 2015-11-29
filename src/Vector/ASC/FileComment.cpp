@@ -40,7 +40,7 @@ FileComment::~FileComment()
 
 FileComment * FileComment::parse(File & file, std::string & line)
 {
-    std::regex regex(REGEX_STOL "//" REGEX_ws "(.+?)" REGEX_ENDL);
+    std::regex regex(REGEX_STOL "//" "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FileComment * fileComment = new FileComment;
@@ -53,7 +53,7 @@ FileComment * FileComment::parse(File & file, std::string & line)
 
 void FileComment::write(File & file, std::ostream & stream)
 {
-    stream << "// " << comment;
+    stream << "//" << comment;
 
     stream << endl;
 }

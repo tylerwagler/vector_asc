@@ -82,7 +82,7 @@ void LinStatisticInfo::write(File & file, std::ostream & stream)
     stream << "              Statistic";
 
     stream << ' ' << std::dec << channelNum;
-    stream << ' ' << std::setprecision(4) << std::fixed << busLoad;
+    stream << ' ' << std::setprecision(6) << std::fixed << busLoad;
     stream << ' ' << std::dec << burstsTotal;
     stream << ' ' << std::dec << burstsOverrun;
     stream << ' ' << std::dec << framesSent;

@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "LinCommon.h"
 #include "LinDisturbanceEvent.h"
@@ -79,8 +80,8 @@ LinDisturbanceEvent * LinDisturbanceEvent::parse(File & file, std::string & line
         linDisturbanceEvent->bitIndex = std::stoul(match[5]);
         linDisturbanceEvent->bitOffset = std::stoul(match[6]);
         linDisturbanceEvent->length = std::stoul(match[7]);
-        linDisturbanceEvent->header = std::stoul(match[8], nullptr, 16);
-        linDisturbanceEvent->disturbingHeader = std::stoul(match[9], nullptr, 16);
+        linDisturbanceEvent->header = std::stoul(match[8], nullptr, file.base);
+        linDisturbanceEvent->disturbingHeader = std::stoul(match[9], nullptr, file.base);
         return linDisturbanceEvent;
     }
 
@@ -96,22 +97,50 @@ void LinDisturbanceEvent::write(File & file, std::ostream & stream)
     writeLinChannel(file, stream, channel);
     stream
             << " DisturbanceEvent"
-            << " Type = " /* << disturbanceType */
+            << " Type = ";
+    switch(disturbanceType) {
+    case LinDisturbanceType::Dominant:
+        stream << "dominant";
+        break;
+    case LinDisturbanceType::Recessive:
+        stream << "recessive";
+        break;
+    case LinDisturbanceType::Header:
+        stream << "header";
+        break;
+    case LinDisturbanceType::Bitstream:
+        stream << "bitstream";
+        break;
+    case LinDisturbanceType::VariableBitstream:
+        stream << "variableBitstream";
+        break;
+    }
+    stream
             << " ByteIndex = " << std::dec << (int16_t) byteIndex
             << " BitIndex = " << std::dec << (int16_t) bitIndex
             << " BitOffset = " << std::dec << (int16_t) bitOffset
             << " Length = " << std::dec << (int16_t) length
             << ' ';
 
-    /* format: "Header = %02X Disturbing header = %02X" */
-    stream
-            << "Header = " /* << %02X */
-            << " Disturbing header = "; /* << %02X */
+    switch(file.base) {
+    case 10:
+        /* format: "Header = %3d Disturbing header = %3d" */
+        stream
+                << "Header = "
+                << std::setw(3) << std::dec << (uint16_t) header
+                << " Disturbing header = "
+                << std::setw(3) << std::dec << (uint16_t) disturbingHeader;
+        break;
 
-    /* format: "Header = %3d Disturbing header = %3d" */
-    stream
-            << "Header = " /* << %3d */
-            << " Disturbing header = "; /* << %3d */
+    case 16:
+        /* format: "Header = %02X Disturbing header = %02X" */
+        stream
+                << "Header = "
+                << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) header
+                << " Disturbing header = "
+                << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) disturbingHeader;
+        break;
+    }
 
     stream << endl;
 }

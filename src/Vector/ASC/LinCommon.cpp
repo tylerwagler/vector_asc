@@ -152,7 +152,7 @@ void writeLinStartOfFrame(File & file, std::ostream & stream, LinStartOfFrame & 
     /* format: "  SOF = " */
     stream << "  SOF = ";
 
-    stream << std::right << std::setw(11) << std::setprecision(6) << std::fixed << startOfFrame;
+    stream << std::right << std::setfill(' ') << std::setw(11) << std::setprecision(6) << std::fixed << startOfFrame;
 }
 
 void writeLinStopBitOffsetInHeader(File & file, std::ostream & stream, LinStopBitOffsetInHeader & stopBitOffsetInHeader)
@@ -170,7 +170,7 @@ void writeLinStopBitOffsetInResponse(File & file, std::ostream & stream, LinStop
 void writeLinSyncDel(File & file, std::ostream & stream, LinSyncDel & syncDel)
 {
     /* format: " %-6u" */
-    stream << ' ' << std::left << std::setw(6) << (uint16_t) syncDel;
+    stream << ' ' << std::left << std::setw(6) << (uint32_t) syncDel;
 }
 
 void writeLinSyncDelimiterTime(File & file, std::ostream & stream, LinSyncDelimiterTime & syncDelimiterTime)
@@ -188,7 +188,7 @@ void writeLinSyncDelimiterTime(File & file, std::ostream & stream, LinSyncDelimi
 void writeLinSyncBreak(File & file, std::ostream & stream, LinSyncBreak & syncBreak)
 {
     /* format: "  break = %-6u" */
-    stream << "  break = " << std::left << std::setw(6) << (uint16_t) syncBreak;
+    stream << "  break = " << std::left << std::setw(6) << (uint32_t) syncBreak;
 }
 
 void writeLinSyncBreakTime(File & file, std::ostream & stream, LinSyncBreakTime & syncBreakTime)

@@ -117,9 +117,8 @@ void MostCommonRegisterEvent::write(File & file, std::ostream & stream)
             << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) regDataLen;
 
     /* format: " %02X" */
-    stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
     for (int i = 0; i < regDataLen; ++i)
-        stream << ' ' << (uint16_t) data[i];
+        stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) data[i];
 
     stream << endl;
 }

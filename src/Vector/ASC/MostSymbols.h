@@ -124,7 +124,7 @@ enum class MostEclState : uint8_t {
 typedef uint16_t MostFirstDataLen;
 
 /** Frame Counter */
-typedef uint16_t MostFrameCounter;
+typedef uint32_t MostFrameCounter;
 
 /**
  * Number of unreserved bytes for synchronous data

@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "TpDiagCommon.h"
 #include "TpDiagFirstFrame.h"
@@ -65,9 +66,9 @@ void TpDiagFirstFrame::write(File & file, std::ostream & stream)
     /* format: "FF Length: "*/
     stream << "FF Length: ";
 
-    stream << std::dec << length << " [" << std::hex;
+    stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << length << " [" << std::hex;
     for (uint8_t transportedByte : transportedBytes)
-        stream << ' ' << transportedByte;
+        stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) transportedByte;
     stream << " ]";
 
     stream << endl;

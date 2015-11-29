@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "LinCommon.h"
 #include "LinUnexpectedWakeup.h"
@@ -49,7 +50,7 @@ LinUnexpectedWakeup * LinUnexpectedWakeup::parse(File & file, std::string & line
                      "((" REGEX_ws "approx\\." REGEX_ws REGEX_LIN_Width REGEX_ws "us" ")|("
                      REGEX_ws "Signal" REGEX_ws "=" REGEX_ws REGEX_LIN_WakeupByte "))"
                      REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
-                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate REGEX_ENDL);
+                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate REGEX_ws REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinUnexpectedWakeup * linUnexpectedWakeup = new LinUnexpectedWakeup;
@@ -78,8 +79,25 @@ void LinUnexpectedWakeup::write(File & file, std::ostream & stream)
     writeLinChannel(file, stream, channel);
     stream << " Unexpected wakeup: ";
 
-    /* format: "Signal = %02X" */
-    /* format: "Signal = %3d" */
+    if (width > 0) {
+        /* LIN 2.x */
+        stream << "approx. " << std::dec << (uint16_t) width << " us";
+    } else {
+        /* LIN 1.x */
+        switch(file.base) {
+        case 10:
+            /* format: "Signal = %3d" */
+            stream << "Signal = " << std::setw(3) << std::dec << (uint16_t) wakeupByte;
+            break;
+        case 16:
+            /* format: "Signal = %02X" */
+            stream << "Signal = " << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) wakeupByte;
+            break;
+        }
+    }
+
+    writeLinStartOfFrame(file, stream, startOfFrame);
+    writeLinBaudrate(file, stream, baudrate);
 
     stream << endl;
 }

@@ -286,9 +286,9 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     /* Log and Trigger Events */
 {STOL}{Time}{WS}"log trigger event"{ENDL} {
     return Vector::ASC::Event::EventType::LogTriggerEvent; }
-{STOL}{Time}{WS}"log direct start"{ws}"("{PreTrigger}"ms)"{ENDL} {
+{STOL}{Time}{WS}"log direct start"{ws}"("{PreTrigger}"ms)"{ws}{ENDL} {
     return Vector::ASC::Event::EventType::LogDirectStartEvent; }
-{STOL}{Time}{WS}"log direct stop"{ws}"("{PostTrigger}"ms)"{ENDL} {
+{STOL}{Time}{WS}"log direct stop"{ws}"("{PostTrigger}"ms)"{ws}{ENDL} {
     return Vector::ASC::Event::EventType::LogDirectStopEvent; }
 {STOL}"Begin Triggerblock"{WS}{WeekDay}{WS}{Month}{WS}{Date}{WS}{FullTime}{WS}{Year}{ENDL} {
     return Vector::ASC::Event::EventType::BeginTriggerblockEvent; }
@@ -369,13 +369,13 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::LinSyncError; }
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}{LIN_ID}{WS}"CSErr"{WS}{LIN_Dir}{WS}{LIN_DLC}({WS}[[:xdigit:]]+){0,8}({WS}"slave"{ws}"="{ws}{LIN_slaveId}","{ws}"state"{ws}"="{ws}{LIN_state})?{WS}"checksum"{ws}"="{ws}{LIN_checksum}{WS}"header time"{ws}"="{ws}{LIN_headerTime}","{ws}"full time"{ws}"="{ws}{LIN_fullTime}({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{WS}"break"{ws}"="{ws}{LIN_SyncBreak}{WS}{LIN_SyncDel}({WS}"subId"{ws}"="{ws}{LIN_NAD}{WS}{LIN_MessageId}{WS}{LIN_SupplierId})?{WS}"EOH"{ws}"="{ws}{LIN_endOfFrame}{WS}"EOB"{ws}"="({WS}{LIN_T}){0,8}{WS}"sim"{ws}"="{ws}{LIN_simulated}({WS}"EOF"{ws}"="{ws}{LIN_endOfFrame}({WS}"RBR"{ws}"="{ws}{LIN_responseBaudrate}({WS}"HBR"{ws}"="{ws}{LIN_headerBaudrate}{WS}"HSO"{ws}"="{ws}{LIN_stopBitOffsetInHeader}{WS}"RSO"{ws}"="{ws}{LIN_stopBitOffsetInResponse}({WS}"CSM"{ws}"="{ws}{LIN_checksumModel})?)?)?)?)?{ENDL} {
     return Vector::ASC::Event::EventType::LinChecksumError; }
-{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Spike"{WS}{LIN_Dir}{WS}{LIN_SpikeLength}{WS}"microseconds"({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate})?{ENDL} {
+{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Spike"{WS}{LIN_Dir}{WS}{LIN_SpikeLength}{WS}"microseconds"({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{ws})?{ENDL} {
     return Vector::ASC::Event::EventType::LinSpikeEvent; }
-{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Dominant signal"{WS}{LIN_DomSigState}{WS}{LIN_DomSigLength}{WS}"microseconds"({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate})?{ENDL} {
+{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Dominant signal"{WS}{LIN_DomSigState}{WS}{LIN_DomSigLength}{WS}"microseconds"({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{ws})?{ENDL} {
     return Vector::ASC::Event::EventType::LinDominantSignal; }
 
     /* LIN Info Events */
-{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Baudrate"{WS}{LIN_baudrate}{ENDL} {
+{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Baudrate"{WS}{LIN_baudrate}{ws}{ENDL} {
     return Vector::ASC::Event::EventType::LinBaudrate; }
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}{LIN_ID}{WS}"DlcInfo"{WS}{LIN_DLC}{ENDL} {
     return Vector::ASC::Event::EventType::LinDlcInfo; }
@@ -399,7 +399,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::LinSleepMode; }
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"WakeupFrame"{WS}{LIN_Dir}{WS}{LIN_WakeupByte}({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{WS}"LengthCode"{ws}"="{ws}{LIN_WakeupLengthInfo})?{ENDL} {
     return Vector::ASC::Event::EventType::LinWakeupFrame; }
-{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Unexpected wakeup:"(({ws}"approx\."{ws}{LIN_Width}{ws}"us")|({ws}"Signal"{ws}"="{ws}{LIN_WakeupByte})){WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{ENDL} {
+{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Unexpected wakeup:"(({ws}"approx\."{ws}{LIN_Width}{ws}"us")|({ws}"Signal"{ws}"="{ws}{LIN_WakeupByte})){WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{ws}{ENDL} {
     return Vector::ASC::Event::EventType::LinUnexpectedWakeup; }
 
     /* MOST Events */
@@ -471,7 +471,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::TpDiagRequest; }
 
     /* Comment */
-{STOL}"//"{ws}.+?{ENDL} {
+{STOL}"//".+?{ENDL} {
     return Vector::ASC::Event::EventType::FileComment; }
 
     /* undocumented events */

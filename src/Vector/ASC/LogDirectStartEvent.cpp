@@ -41,7 +41,7 @@ LogDirectStartEvent::~LogDirectStartEvent()
 
 LogDirectStartEvent * LogDirectStartEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log direct start" REGEX_ws "\\(" REGEX_PreTrigger "ms\\)" REGEX_ENDL);
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log direct start" REGEX_ws "\\(" REGEX_PreTrigger "ms\\)" REGEX_ws REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LogDirectStartEvent * logDirectStartEvent = new LogDirectStartEvent;

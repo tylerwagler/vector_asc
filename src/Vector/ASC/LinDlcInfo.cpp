@@ -62,7 +62,16 @@ void LinDlcInfo::write(File & file, std::ostream & stream)
 {
     writeLinTime(file, stream, time);
     stream << ' ';
+
+    /* format: "%s %-12.1x DlcInfo   %d" */
+    /* format: "%s %-12.1d DlcInfo   %d" */
+    /* format: "%s %s DlcInfo   %d" */
     writeLinChannel(file, stream, channel);
+    stream
+            << ' '
+            << id
+            << " DlcInfo   "
+            << std::dec << dlc;
 
     stream << endl;
 }

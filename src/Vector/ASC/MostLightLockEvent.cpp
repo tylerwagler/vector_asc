@@ -48,7 +48,7 @@ MostLightLockEvent * MostLightLockEvent::parse(File & file, std::string & line)
         MostLightLockEvent * mostLightLockEvent = new MostLightLockEvent;
         mostLightLockEvent->time = std::stod(match[1]);
         mostLightLockEvent->channel = std::stoul(match[2]);
-        mostLightLockEvent->llState = std::stoul(match[3]);
+        mostLightLockEvent->llState = std::stoul(match[3], nullptr, file.base);
         return mostLightLockEvent;
     }
 
@@ -67,13 +67,12 @@ void MostLightLockEvent::write(File & file, std::ostream & stream)
     stream << "LL: ";
     switch(file.base) {
     case 10:
-        stream << std::dec;
+        stream << std::dec << (uint16_t) llState;
         break;
     case 16:
-        stream << std::uppercase << std::hex;
+        stream << std::uppercase << std::hex << (uint16_t) llState;
         break;
     }
-    stream << (uint16_t) llState;
 
     stream << endl;
 }

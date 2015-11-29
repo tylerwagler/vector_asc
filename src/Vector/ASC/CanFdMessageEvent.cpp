@@ -54,7 +54,7 @@ CanFdMessageEvent::~CanFdMessageEvent()
 
 CanFdMessageEvent * CanFdMessageEvent::parse(File & file, std::string & line)
 {
-    std::regex regex(REGEX_STOL REGEX_Time  REGEX_WS "CANFD" REGEX_WS REGEX_Channel REGEX_WS REGEX_Dir REGEX_WS REGEX_ID
+    std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "CANFD" REGEX_WS REGEX_Channel REGEX_WS REGEX_Dir REGEX_WS REGEX_ID
                      "(" REGEX_WS "([[:alnum:]_]+))?"
                      REGEX_WS REGEX_BRS REGEX_WS REGEX_ESI REGEX_WS REGEX_DLC REGEX_WS REGEX_DataLength
                      "((" REGEX_WS REGEX_Dx "){0,64})"

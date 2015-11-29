@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "TpDiagCommon.h"
 #include "TpDiagRequest.h"
@@ -47,7 +48,7 @@ TpDiagRequest * TpDiagRequest::parse(File & file, std::string & line)
         tpDiagRequest->ecuQualifier = match[2];
         std::istringstream iss(match[3]);
         iss >> std::hex;
-        for (uint8_t i = 0; !iss.eof(); ++i) {
+        for (int i = 0; !iss.eof(); ++i) {
             unsigned short s;
             iss >> s;
             tpDiagRequest->byteSequence[i] = s;
@@ -65,8 +66,9 @@ void TpDiagRequest::write(File & file, std::ostream & stream)
             << std::fixed << time
             << " DiagRequest[" << ecuQualifier << "] ";
 
-    for (uint8_t byte : byteSequence)
-        stream << byte << ' ';
+    /* format: " %02X" */
+    for (uint8_t b : byteSequence)
+        stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) b;
 
     stream << endl;
 }

@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "LinCommon.h"
 #include "LinShortOrSlowResponse.h"
@@ -82,7 +83,7 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & file, std::string 
         linShortOrSlowResponse->numberOfResponseBytes = std::stoul(match[5]);
         std::istringstream iss1(match[6]);
         iss1 >> std::hex;
-        for (uint8_t i = 0; i < linShortOrSlowResponse->numberOfResponseBytes; ++i) {
+        for (int i = 0; i < linShortOrSlowResponse->numberOfResponseBytes; ++i) {
             unsigned short s;
             iss1 >> s;
             linShortOrSlowResponse->data[i] = s;
@@ -100,7 +101,7 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & file, std::string 
         }
         linShortOrSlowResponse->endOfHeader = std::stod(match[18]);
         std::istringstream iss2(match[19]);
-        for (uint8_t i = 0; i < linShortOrSlowResponse->dlc && i < 8; ++i) {
+        for (int i = 0; i < linShortOrSlowResponse->dlc && i < 8; ++i) {
             double s;
             iss2 >> s;
             linShortOrSlowResponse->endOfByte[i] = s;
@@ -129,15 +130,47 @@ void LinShortOrSlowResponse::write(File & file, std::ostream & stream)
     writeLinTime(file, stream, time);
     stream << ' ';
     writeLinChannel(file, stream, channel);
+    stream << ' ';
 
     /* format: "%s %d ShortOrSlowResponse: " */
     /* format: "%-12.1d %d ShortOrSlowResponse: " */
     /* format: "%-12.1x %d ShortOrSlowResponse: " */
+    stream
+            << id
+            << ' '
+            << std::dec << (uint16_t) dlc
+            << " ShortOrSlowResponse: ";
 
     /* format: "NumRespBytes = %d  " */
-    /* format: " %02X" */
-    /* format: " %3d" */
+    stream << "NumRespBytes = " << std::dec << (uint16_t) numberOfResponseBytes << "  ";
+
+    for (int i = 0; i < numberOfResponseBytes; ++i) {
+        switch (file.base) {
+        case 10:
+            /* format: " %3d" */
+            stream << ' ' << std::setw(3) << std::dec << (uint16_t) data[i];
+            break;
+        case 16:
+            /* format: " %02X" */
+            stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) data[i];
+            break;
+        }
+    }
+
     /* format: " SlowResponse = %d InterruptedByBreak = %d" */
+    stream
+            << " SlowResponse = " << (isSlowResponse ? '1' : '0')
+            << " InterruptedByBreak = " << (responseWasInterruptedByBreak ? '1' : '0');
+
+    writeLinStartOfFrame(file, stream, startOfFrame);
+    writeLinBaudrate(file, stream, baudrate);
+    writeLinSyncBreak(file, stream, syncBreak);
+    writeLinSyncDel(file, stream, syncDel);
+    writeLinEndOfHeader(file, stream, endOfHeader);
+    writeLinEndOfByte(file, stream, endOfByte, dlc);
+    writeLinHeaderBaudrate(file, stream, headerBaudrate);
+    writeLinStopBitOffsetInHeader(file, stream, stopBitOffsetInHeader);
+    writeLinChecksumModel(file, stream, checksumModel);
 
     stream << endl;
 }

@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "CanCommon.h"
 #include "CanSymbolsRegEx.h"
@@ -55,7 +56,7 @@ FileSplitInformation * FileSplitInformation::parse(File & file, std::string & li
 
 void FileSplitInformation::write(File & file, std::ostream & stream)
 {
-    stream << "//  " << std::fixed << time;
+    stream << "// " << std::setw(8) << std::setprecision(4) << std::fixed << time;
 
     /* format: " previous log file: %s" */
     stream << " previous log file: " << fileName;

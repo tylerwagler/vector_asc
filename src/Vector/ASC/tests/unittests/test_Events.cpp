@@ -146,7 +146,7 @@ BOOST_AUTO_TEST_CASE(FileComment)
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileComment);
     fileComment = static_cast<Vector::ASC::FileComment *>(event);
-    BOOST_CHECK(fileComment->comment == "comment");
+    BOOST_CHECK(fileComment->comment == " comment");
     delete event;
 
     file.close();
@@ -161,6 +161,14 @@ BOOST_AUTO_TEST_CASE(CanMessageEvent)
 
     Vector::ASC::Event * event;
     Vector::ASC::CanMessageEvent * canMessageEvent;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
@@ -547,7 +555,7 @@ BOOST_AUTO_TEST_CASE(BeginTriggerblockEvent)
     BOOST_CHECK(beginTriggerblockEvent->date.tm_hour == 1+12);
     BOOST_CHECK(beginTriggerblockEvent->date.tm_min == 21);
     BOOST_CHECK(beginTriggerblockEvent->date.tm_sec == 51);
-    BOOST_CHECK(beginTriggerblockEvent->date.tm_year == 2005);
+    BOOST_CHECK(beginTriggerblockEvent->date.tm_year == (2005 - 1900));
     delete event;
 
     file.close();
@@ -1016,6 +1024,10 @@ BOOST_AUTO_TEST_CASE(AfdxPacket)
 
     Vector::ASC::Event * event;
     Vector::ASC::AfdxPacket * afdxPacket;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
@@ -1969,6 +1981,10 @@ BOOST_AUTO_TEST_CASE(LinDisturbanceEvent)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinDisturbanceEvent);
     linDisturbanceEvent = static_cast<Vector::ASC::LinDisturbanceEvent *>(event);
     BOOST_CHECK(isEqual(linDisturbanceEvent->time, 1.323661));
@@ -2066,7 +2082,6 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageNodeMode)
     Vector::ASC::Event * event;
     Vector::ASC::Most25ControlMessageNodeMode * most25ControlMessageNodeMode;
 
-    file.base = 16;
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most25ControlMessageNodeMode);
@@ -2109,7 +2124,6 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageSpyMode)
     Vector::ASC::Event * event;
     Vector::ASC::Most25ControlMessageSpyMode * most25ControlMessageSpyMode;
 
-    file.base = 16;
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most25ControlMessageSpyMode);

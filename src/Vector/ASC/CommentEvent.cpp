@@ -57,9 +57,12 @@ CommentEvent * CommentEvent::parse(File & file, std::string & line)
 
 void CommentEvent::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
+    stream << ' ';
+
+    /* format: "Comment: %d %s" */
     stream
-            << std::fixed << time
-            << " Comment:"
+            << "Comment: "
             << std::dec << type
             << ' '
             << commentText;

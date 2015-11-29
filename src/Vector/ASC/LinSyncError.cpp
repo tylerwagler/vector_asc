@@ -58,7 +58,7 @@ LinSyncError * LinSyncError::parse(File & file, std::string & line)
         linSyncError->time = std::stod(match[1]);
         linSyncError->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         std::istringstream iss1(match[3]);
-        for (uint8_t i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; ++i) {
             unsigned short s;
             iss1 >> s;
             linSyncError->timeInterval[i] = s;
@@ -79,7 +79,17 @@ void LinSyncError::write(File & file, std::ostream & stream)
 {
     writeLinTime(file, stream, time);
     stream << ' ';
+
+    /* format: "%s              SyncError " */
     writeLinChannel(file, stream, channel);
+    stream << "              SyncError ";
+
+    for (int i = 0; i < 4; ++i)
+        stream << std::dec << timeInterval[i] << ' ';
+    writeLinStartOfFrame(file, stream, startOfFrame);
+    writeLinBaudrate(file, stream, baudrate);
+    writeLinSyncBreak(file, stream, syncBreak);
+    writeLinSyncDel(file, stream, syncDel);
 
     stream << endl;
 }

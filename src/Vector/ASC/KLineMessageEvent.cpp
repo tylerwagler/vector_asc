@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "KLineCommon.h"
 #include "KLineMessageEvent.h"
@@ -83,6 +84,18 @@ KLineMessageEvent * KLineMessageEvent::parse(File & file, std::string & line)
 
 void KLineMessageEvent::write(File & file, std::ostream & stream)
 {
+    /* format: "// K-Line: " */
+    stream << "// K-Line: ";
+
+    stream << std::fixed << time << ' ' << port << ' ';
+    writeKLineDirection(file, stream, direction);
+    stream << ' ' << std::dec << baudrate;
+    stream << ' ' << std::dec << source;
+    stream << ' ' << std::dec << destination;
+    stream << ' ' << std::dec << length;
+    for (int i = 0; i < length; ++i)
+        stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) data[i];
+
     stream << endl;
 }
 

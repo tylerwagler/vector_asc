@@ -113,20 +113,13 @@ void FileDate::write(File & file, std::ostream & stream)
     stream
             << "date "
             << wdayNameEn[date.tm_wday]
-            << ' '
-            << monNameEn[date.tm_mon]
-            << ' '
-            << std::dec << date.tm_mday
-            << ' '
-            << std::setfill('0') << std::setw(2) << (date.tm_hour % 12)
-            << ':'
-            << std::setfill('0') << std::setw(2) << date.tm_min
-            << ':'
-            << std::setfill('0') << std::setw(2) << date.tm_sec
-            << ' '
-            << (date.tm_hour < 12 ? "am" : "pm")
-            << ' '
-            << date.tm_year + 1900;
+            << ' ' << monNameEn[date.tm_mon]
+            << ' ' << std::dec << date.tm_mday
+            << ' ' << std::setfill('0') << std::setw(2) << std::dec << (date.tm_hour % 12)
+            << ':' << std::setfill('0') << std::setw(2) << std::dec << date.tm_min
+            << ':' << std::setfill('0') << std::setw(2) << std::dec << date.tm_sec
+            << ' ' << (date.tm_hour < 12 ? "am" : "pm")
+            << ' ' << std::dec << date.tm_year + 1900;
 
     stream << endl;
 }

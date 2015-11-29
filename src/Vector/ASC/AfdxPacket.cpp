@@ -78,52 +78,48 @@ AfdxPacket * AfdxPacket::parse(File & file, std::string & line)
 void AfdxPacket::write(File & file, std::ostream & stream)
 {
     writeAfdxTime(file, stream, time);
+    stream << ' ';
 
-    /* AFDX */
-    stream
-            << "  "
-            << "AFDX";
+    switch (file.base) {
+    case 10:
+        /* format: "AFDX %d %s %d %d %d" */
+        /* format: "AFDX * %s %d %d %d" */
+        stream
+            << " AFDX "
+            << std::dec << channel
+            << ' ';
+        writeAfdxDir(file, stream, dir);
+        stream
+            << ' ' << std::dec << ethChannel
+            << ' ' << std::dec << flags
+            << ' ' << std::dec << bag;
 
-    /* <Channel> */
-    stream
-            << " "
-            << channel;
+        /* format: " %d:" */
+        stream
+                << ' ' << std::dec << dataLen << ':';
 
-    /* <Dir> */
-    stream
-            << " ";
-    switch(dir) {
-    case Dir::Rx:
-        stream << "Rx";
         break;
-    case Dir::Tx:
-        stream << "Tx";
-        break;
-    case Dir::TxRq:
-        stream << "TxRq";
+
+    case 16:
+        /* format: "AFDX %d %s %4x %4x %4x" */
+        /* format: "AFDX * %s %4x %4x %4x" */
+        stream
+            << " AFDX "
+            << std::dec << channel
+            << ' ';
+        writeAfdxDir(file, stream, dir);
+        stream
+            << ' ' << std::setw(4) << std::hex << ethChannel
+            << ' ' << std::setw(4) << std::hex << flags
+            << ' ' << std::setw(4) << std::hex << bag;
+
+        /* format: " %4x:" */
+        stream
+            << ' ' << std::setw(4) << std::hex << dataLen << ':';
+
         break;
     }
 
-    /* <ETH-channel> */
-    stream
-            << "   "
-            << ethChannel;
-
-    /* <Flags> */
-    stream
-            << " "
-            << flags;
-
-    /* <BAG> */
-    stream
-            << " "
-            << bag;
-
-    /* <DataLen>:<Data> */
-    stream
-            << " "
-            << dataLen
-            << ":";
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
     for (int i = 0; i < dataLen; ++i)
         stream << std::setfill('0') << std::setw(2) << (uint16_t) data[i];

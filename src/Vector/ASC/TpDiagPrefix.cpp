@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "TpDiagCommon.h"
 #include "TpDiagPrefix.h"
@@ -75,16 +76,30 @@ TpDiagPrefix * TpDiagPrefix::parse(File & file, std::string & line)
 
 void TpDiagPrefix::write(File & file, std::ostream & stream)
 {
-    stream << "// " << std::dec << canChannel;
+    stream << "// " << std::dec << (uint16_t) canChannel;
 
     /* format: "  OTP(" */
     stream << "  OTP(";
 
-    stream
-            << connectionId << ")"
-            << " " << source
-            << "->" << destination
-            << ":";
+    stream << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) connectionId << ") ";
+    switch(type) {
+    case TpDiagType::Info:
+        stream << "Info";
+        break;
+    case TpDiagType::Warn:
+        stream << "Warn";
+        break;
+    case TpDiagType::Error:
+        stream << "Error";
+        break;
+    case TpDiagType::Atom:
+        stream << "Atom";
+        break;
+    case TpDiagType::Data:
+        stream << "Data";
+        break;
+    }
+    stream << " " << source << "->" << destination << ":";
 
     stream << endl;
 }

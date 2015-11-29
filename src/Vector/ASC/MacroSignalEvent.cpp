@@ -92,7 +92,7 @@ void MacroSignalEvent::write(File & file, std::ostream & stream)
             << ' ' << node
             << "::" << message
             << "::" << signal
-            << "=" << value;
+            << " = " << value;
 
     stream << endl;
 }
