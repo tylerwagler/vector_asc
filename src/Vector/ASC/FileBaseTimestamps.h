@@ -35,28 +35,10 @@ public:
     virtual ~FileBaseTimestamps();
 
     /** Events can either be recorder in hexadecimal or decimal mode. */
-    enum class Base: uint8_t {
-        /** hexadecimal mode */
-        Hex = 16,
-
-        /** decimal mode */
-        Dec = 10
-    };
-
-    /** Events can either be recorder in hexadecimal or decimal mode. */
-    Base base;
+    File::Base base;
 
     /** Timestamps are written absolute or relative to the preceding event. */
-    enum class Timestamps {
-        /** absolute */
-        Absolute,
-
-        /** relative to preceding event */
-        Relative
-    };
-
-    /** Timestamps are written absolute or relative to the preceding event. */
-    Timestamps timestamps;
+    File::Timestamps timestamps;
 
     /** @copydoc Event::parse() */
     static FileBaseTimestamps * parse(File & file, std::string & line);

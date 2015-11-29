@@ -29,8 +29,8 @@ namespace ASC {
 
 FileBaseTimestamps::FileBaseTimestamps() :
     Event(),
-    base(Base::Hex),
-    timestamps(Timestamps::Absolute)
+    base(File::Base::Hex),
+    timestamps(File::Timestamps::Absolute)
 {
     eventType = EventType::FileBaseTimestamps;
 }
@@ -46,15 +46,15 @@ FileBaseTimestamps * FileBaseTimestamps::parse(File & file, std::string & line)
     if (std::regex_search(line, match, regex)) {
         FileBaseTimestamps * fileBaseTimestamps = new FileBaseTimestamps;
         if (match[1] == "hex")
-            fileBaseTimestamps->base = Base::Hex;
+            fileBaseTimestamps->base = File::Base::Hex;
         else
         if (match[1] == "dec")
-            fileBaseTimestamps->base = Base::Dec;
+            fileBaseTimestamps->base = File::Base::Dec;
         if (match[2] == "absolute")
-            fileBaseTimestamps->timestamps = Timestamps::Absolute;
+            fileBaseTimestamps->timestamps = File::Timestamps::Absolute;
         else
         if (match[2] == "relative")
-            fileBaseTimestamps->timestamps = Timestamps::Relative;
+            fileBaseTimestamps->timestamps = File::Timestamps::Relative;
         return fileBaseTimestamps;
     }
 
@@ -64,24 +64,11 @@ FileBaseTimestamps * FileBaseTimestamps::parse(File & file, std::string & line)
 void FileBaseTimestamps::write(File & file, std::ostream & stream)
 {
     /* format: "base %s  timestamps %s" */
-    stream << "base ";
-    switch(base) {
-    case Base::Hex:
-        stream << "hex";
-        break;
-    case Base::Dec:
-        stream << "dec";
-        break;
-    }
-    stream << "  timestamps ";
-    switch(timestamps) {
-    case Timestamps::Absolute:
-        stream << "absolute";
-        break;
-    case Timestamps::Relative:
-        stream << "relative";
-        break;
-    }
+    stream
+            << "base "
+            << (base == File::Base::Dec ? "dec" : "hex")
+            << "  timestamps "
+            << (timestamps == File::Timestamps::Absolute ? "absolute" : "relative");
 
     stream << endl;
 }

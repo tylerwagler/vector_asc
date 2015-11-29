@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE Logfile
+#define BOOST_TEST_MODULE AllEvents
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
 #endif
@@ -15,18 +15,13 @@
 #define WARNED(code) ((int)(code) & 0x40000000)
 #define FAILED(code) ((int)(code) < 0)
 
-static bool isEqual(double a, double b)
-{
-    return ((a-b) < 0.000001) && ((b-a) < 0.000001);
-}
-
-BOOST_AUTO_TEST_CASE(AllLogfiles)
+BOOST_AUTO_TEST_CASE(AllEvents)
 {
     /* input directory */
-    boost::filesystem::path indir(CMAKE_CURRENT_SOURCE_DIR "/data/");
+    boost::filesystem::path indir(CMAKE_CURRENT_SOURCE_DIR "/events/");
 
     /* output directory */
-    boost::filesystem::path outdir(CMAKE_CURRENT_BINARY_DIR "/data/");
+    boost::filesystem::path outdir(CMAKE_CURRENT_BINARY_DIR "/events/");
     if (!exists(outdir)) {
         BOOST_REQUIRE(create_directory(outdir));
     }
@@ -37,14 +32,14 @@ BOOST_AUTO_TEST_CASE(AllLogfiles)
 
         /* open input file */
         Vector::ASC::File filein;
-        boost::filesystem::path infile(CMAKE_CURRENT_SOURCE_DIR "/data/" + eventFile);
+        boost::filesystem::path infile(CMAKE_CURRENT_SOURCE_DIR "/events/" + eventFile);
         filein.openMode = Vector::ASC::File::OpenMode::Read;
         filein.open(infile.string());
         BOOST_REQUIRE(filein.is_open());
 
         /* open output file */
         Vector::ASC::File fileout;
-        boost::filesystem::path outfile(CMAKE_CURRENT_BINARY_DIR "/data/" + eventFile);
+        boost::filesystem::path outfile(CMAKE_CURRENT_BINARY_DIR "/events/" + eventFile);
         fileout.openMode = Vector::ASC::File::OpenMode::Write;
         fileout.open(outfile.string());
         BOOST_REQUIRE(fileout.is_open());

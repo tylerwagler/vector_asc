@@ -59,8 +59,8 @@ BOOST_AUTO_TEST_CASE(FileBaseTimestamps)
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
     fileBaseTimestamps = static_cast<Vector::ASC::FileBaseTimestamps *>(event);
-    BOOST_CHECK(fileBaseTimestamps->base == Vector::ASC::FileBaseTimestamps::Base::Hex);
-    BOOST_CHECK(fileBaseTimestamps->timestamps == Vector::ASC::FileBaseTimestamps::Timestamps::Relative);
+    BOOST_CHECK(fileBaseTimestamps->base == Vector::ASC::File::Base::Hex);
+    BOOST_CHECK(fileBaseTimestamps->timestamps == Vector::ASC::File::Timestamps::Relative);
     delete event;
 
     file.close();

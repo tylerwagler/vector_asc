@@ -22,6 +22,7 @@
 #pragma once
 
 #include <fstream>
+#include <time.h>
 
 #undef yyFlexLexer
 #define yyFlexLexer ascFlexLexer
@@ -102,20 +103,62 @@ public:
      */
     void write(class Event * event);
 
+    /** Date */
+    struct tm date;
+
+    /** Language */
+    enum Language : uint8_t {
+        /** English */
+        En = 0,
+
+        /** German */
+        De = 1
+    };
+
+    /** Language */
+    Language language;
+
+    /** Number base */
+    enum Base : uint8_t {
+        /** decimal mode */
+        Dec = 10,
+
+        /** hexadecimal mode */
+        Hex = 16,
+    };
+
+    /** Number base */
+    Base base;
+
+    /** Timestamps are written absolute or relative to the preceding event. */
+    enum class Timestamps : uint8_t {
+        /** absolute */
+        Absolute = 0,
+
+        /** relative to preceding event */
+        Relative = 1
+    };
+
+    /** Timestamps are written absolute or relative to the preceding event. */
+    Timestamps timestamps;
+
+    /** internal events logged */
+    bool internalEventsLogged;
+
     /** Version */
     enum Version : uint32_t {
-        Ver_7_0 = 0x070000,
-        Ver_7_2 = 0x070200,
-        Ver_7_5 = 0x070500,
-        Ver_8_0 = 0x080000,
-        Ver_8_1 = 0x080100
+        Ver_7_0 = 0x07000000,
+        Ver_7_2 = 0x07020000,
+        Ver_7_5 = 0x07050000,
+        Ver_8_0 = 0x08000000,
+        Ver_8_1 = 0x08010000
     };
 
     /** Version */
     uint32_t version;
 
-    /** Number base (10 or 16) */
-    uint8_t base;
+    /** time stamp precision (old is 4, new is 6) */
+    uint8_t timestampPrecision;
 
 private:
     /** file */

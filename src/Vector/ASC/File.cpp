@@ -29,8 +29,11 @@ namespace ASC {
 
 File::File() :
     openMode(OpenMode::Read),
+    language(Language::En),
+    base(Base::Dec),
+    timestamps(Timestamps::Absolute),
     version(Version::Ver_7_5),
-    base(16),
+    timestampPrecision(6),
     file(),
     scanner(nullptr)
 {
@@ -110,32 +113,38 @@ Event * File::read()
 
     /* File */
     case Event::EventType::FileDate:
-        return FileDate::parse(*this, line);
+    {
+        FileDate * fileDate = FileDate::parse(*this, line);
+        if (fileDate) {
+            date = fileDate->date;
+            language = fileDate->language;
+        }
+        return fileDate;
+    }
     case Event::EventType::FileBaseTimestamps:
-        {
-            FileBaseTimestamps * fileBaseTimestamps = FileBaseTimestamps::parse(*this, line);
-            if (fileBaseTimestamps) {
-                switch(fileBaseTimestamps->base) {
-                case FileBaseTimestamps::Base::Hex:
-                    base = 16;
-                    break;
-                case FileBaseTimestamps::Base::Dec:
-                    base = 10;
-                    break;
-                }
-            }
-            return fileBaseTimestamps;
+    {
+        FileBaseTimestamps * fileBaseTimestamps = FileBaseTimestamps::parse(*this, line);
+        if (fileBaseTimestamps) {
+            base = fileBaseTimestamps->base;
+            timestamps = fileBaseTimestamps->timestamps;
         }
+        return fileBaseTimestamps;
+    }
     case Event::EventType::FileInternalEventsLogged:
-        return FileInternalEventsLogged::parse(*this, line);
-    case Event::EventType::FileVersion:
-        {
-            FileVersion * fileVersion = FileVersion::parse(*this, line);
-            if (fileVersion) {
-                version = (fileVersion->versionMajor << 16) | (fileVersion->versionMinor << 8);
-            }
-            return fileVersion;
+    {
+        FileInternalEventsLogged * fileInternalEventsLogged = FileInternalEventsLogged::parse(*this, line);
+        if (fileInternalEventsLogged) {
+            internalEventsLogged = fileInternalEventsLogged->internalEventsLogged;
         }
+        return fileInternalEventsLogged;
+    }
+    case Event::EventType::FileVersion:
+    {
+        FileVersion * fileVersion = FileVersion::parse(*this, line);
+        if (fileVersion)
+            version = (fileVersion->versionMajor << 24) | (fileVersion->versionMinor << 16);
+        return fileVersion;
+    }
     case Event::EventType::FileSplitInformation:
         return FileSplitInformation::parse(*this, line);
     case Event::EventType::FileComment:

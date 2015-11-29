@@ -34,9 +34,7 @@ public:
     FileInternalEventsLogged();
     virtual ~FileInternalEventsLogged();
 
-    /**
-     * internal events logged
-     */
+    /** internal events logged */
     bool internalEventsLogged;
 
     /** @copydoc Event::parse() */
