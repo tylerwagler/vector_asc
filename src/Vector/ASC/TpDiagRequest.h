@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 #include "TpDiagSymbols.h"
 
@@ -40,7 +41,7 @@ public:
     TpDiagEcuQualifier ecuQualifier;
 
     /** @copydoc TpDiagByteSequence */
-    TpDiagByteSequence byteSequence[8];
+    std::array<TpDiagByteSequence, 2> byteSequence;
 
     /** @copydoc Event::parse() */
     static TpDiagRequest * parse(File & file, std::string & line);

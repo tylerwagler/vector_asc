@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 #include "CanSymbols.h"
 
@@ -45,7 +46,7 @@ public:
     Svtype svtype;
 
     /** two flags: Unused. */
-    bool flag[2];
+    std::array<bool, 2> flag;
 
     /** the full path (name with namespace) of the system variable */
     std::string path;

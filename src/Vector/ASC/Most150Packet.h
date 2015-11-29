@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 #include "MostSymbols.h"
 
@@ -84,7 +85,7 @@ public:
     MostPkt150Len pkt150Len;
 
     /** @copydoc MostDx */
-    MostDx data[1024];
+    std::array<MostDx, 1024> data;
 
     /** @copydoc Event::parse() */
     static Most150Packet * parse(File & file, std::string & line);

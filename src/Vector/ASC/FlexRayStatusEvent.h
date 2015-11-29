@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 
 namespace Vector {
@@ -62,7 +63,7 @@ public:
     uint32_t syncState;
 
     /** CC-Data[2] */
-    uint32_t ccData[2];
+    std::array<uint32_t, 2> ccData;
 
     /** Symbol */
     uint32_t symbol;

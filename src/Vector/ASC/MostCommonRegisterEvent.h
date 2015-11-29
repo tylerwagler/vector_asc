@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 #include "MostSymbols.h"
 
@@ -58,7 +59,7 @@ public:
     MostRegDataLen regDataLen;
 
     /** @copydoc MostDx */
-    MostDx data[1024];
+    std::array<MostDx, 1024> data;
 
     /** @copydoc Event::parse() */
     static MostCommonRegisterEvent * parse(File & file, std::string & line);

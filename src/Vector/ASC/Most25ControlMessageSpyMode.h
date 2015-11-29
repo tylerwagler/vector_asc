@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 #include "MostSymbols.h"
 
@@ -54,7 +55,7 @@ public:
     MostRtype rType;
 
     /** @copydoc MostDx */
-    MostDx data[17];
+    std::array<MostDx, 17> data;
 
     /** @copydoc MostState2 */
     MostState2 state;

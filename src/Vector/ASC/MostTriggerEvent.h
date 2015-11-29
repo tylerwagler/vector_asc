@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 #include "MostSymbols.h"
 
@@ -51,7 +52,7 @@ public:
     MostTrigHw trigHw;
 
     /** @copydoc MostTrigValue */
-    MostTrigValue trigValue[2];
+    std::array<MostTrigValue, 2> trigValue;
 
     /** @copydoc Event::parse() */
     static MostTriggerEvent * parse(File & file, std::string & line);

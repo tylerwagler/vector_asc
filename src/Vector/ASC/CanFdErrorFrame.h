@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 #include "CanSymbols.h"
 
@@ -88,7 +89,7 @@ public:
     DataLength dataLength;
 
     /** @copydoc Dx */
-    Dx data[64];
+    std::array<Dx, 64> data;
 
     /** @copydoc MessageDuration */
     MessageDuration messageDuration;

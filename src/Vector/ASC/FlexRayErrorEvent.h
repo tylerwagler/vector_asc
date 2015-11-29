@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 
 namespace Vector {
@@ -56,7 +57,7 @@ public:
     uint32_t ccType;
 
     /** CC-Data[4] */
-    uint32_t ccData[4];
+    std::array<uint32_t, 4> ccData;
 
     /** @copydoc Event::parse() */
     static FlexRayErrorEvent * parse(File & file, std::string & line);

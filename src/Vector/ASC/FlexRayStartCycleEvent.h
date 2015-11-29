@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 
 namespace Vector {
@@ -62,13 +63,13 @@ public:
     uint32_t ccType;
 
     /** CC-Data[5] */
-    uint32_t ccData[5];
+    std::array<uint32_t, 5> ccData;
 
     /** NM_Vect_L */
     uint32_t nmVectL;
 
     /** NM_Vect[n] */
-    uint32_t nmVect[12];
+    std::array<uint32_t, 12> nmVect;
 
     /** @copydoc Event::parse() */
     static FlexRayStartCycleEvent * parse(File & file, std::string & line);

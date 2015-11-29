@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 #include "LinSymbols.h"
 
@@ -55,7 +56,7 @@ public:
     LinChannel channel;
 
     /** @copydoc LinTimeInterval */
-    LinTimeInterval timeInterval[4];
+    std::array<LinTimeInterval, 4> timeInterval;
 
     /** @copydoc LinStartOfFrame */
     LinStartOfFrame startOfFrame;

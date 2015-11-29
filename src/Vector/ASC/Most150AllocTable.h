@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 #include "MostSymbols.h"
 
@@ -54,7 +55,7 @@ public:
     MostAt150Size at150Size;
 
     /** @copydoc MostWx */
-    MostWx w[1024];
+    std::array<MostWx, 1024> w;
 
     /** @copydoc Event::parse() */
     static Most150AllocTable * parse(File & file, std::string & line);

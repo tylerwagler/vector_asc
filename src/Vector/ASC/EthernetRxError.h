@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 #include "EthernetSymbols.h"
 
@@ -54,7 +55,7 @@ public:
     EthDataLen dataLen;
 
     /** @copydoc EthData */
-    EthData data[1518];
+    std::array<EthData, 1518> data;
 
     /** @copydoc Event::parse() */
     static EthernetRxError * parse(File & file, std::string & line);

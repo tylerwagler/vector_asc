@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 
 namespace Vector {
@@ -95,7 +96,7 @@ public:
     int32_t bufferLength;
 
     /** Data[n] */
-    uint32_t data[254];
+    std::array<uint32_t, 254> data;
 
     /** Frame CRC */
     uint32_t frameCrc;

@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 #include "MostSymbols.h"
 
@@ -54,7 +55,7 @@ public:
     MostDlAsync dlAsync;
 
     /** @copydoc MostDlTime */
-    MostDlTime dlTime[2];
+    std::array<MostDlTime, 2> dlTime;
 
     /** @copydoc Event::parse() */
     static MostDataLostEvent * parse(File & file, std::string & line);

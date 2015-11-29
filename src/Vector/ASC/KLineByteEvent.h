@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 #include "KLineSymbols.h"
 
@@ -50,7 +51,7 @@ public:
     KLineLength length;
 
     /** @copydoc KLineData */
-    KLineData data[1000];
+    std::array<KLineData, 1000> data;
 
     /** @copydoc Event::parse() */
     static KLineByteEvent * parse(File & file, std::string & line);

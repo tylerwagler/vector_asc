@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <array>
 #include "Event.h"
 #include "EthernetSymbols.h"
 
@@ -59,7 +60,7 @@ public:
     AfdxDataLen dataLen;
 
     /** @copydoc AfdxData */
-    AfdxData data[1518];
+    std::array<AfdxData, 1518> data;
 
     /** @copydoc Event::parse() */
     static AfdxPacket * parse(File & file, std::string & line);
