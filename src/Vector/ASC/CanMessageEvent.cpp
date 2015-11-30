@@ -38,8 +38,8 @@ CanMessageEvent::CanMessageEvent() :
     data(),
     messageDuration(0),
     messageLength(0),
-    messageId(),
-    messageFlags()
+    messageFlags(),
+    messageId(0)
 {
     eventType = EventType::CanMessageEvent;
 }

@@ -98,55 +98,53 @@ void CanErrorFrame::write(File & file, std::ostream & stream)
     /* format: "ErrorFrame" */
     stream << "ErrorFrame";
 
-    if (file.version >= File::Version::Ver_7_5) {
-        /* SJA 1000 */
-        if (flags & 0x1) {
-            stream << '\t';
-            /* format: "ECC: " */
-            stream << "ECC: ";
-            stream << ((code >> 7) & 1);
-            stream << ((code >> 6) & 1);
-            stream << ((code >> 5) & 1);
-            stream << ((code >> 4) & 1);
-            stream << ((code >> 3) & 1);
-            stream << ((code >> 2) & 1);
-            stream << ((code >> 1) & 1);
-            stream << ((code >> 0) & 1);
+    /* SJA 1000 */
+    if (flags & 0x1) {
+        stream << '\t';
+        /* format: "ECC: " */
+        stream << "ECC: ";
+        stream << ((code >> 7) & 1);
+        stream << ((code >> 6) & 1);
+        stream << ((code >> 5) & 1);
+        stream << ((code >> 4) & 1);
+        stream << ((code >> 3) & 1);
+        stream << ((code >> 2) & 1);
+        stream << ((code >> 1) & 1);
+        stream << ((code >> 0) & 1);
+    }
+
+    /* CAN Core */
+    if (flags & 0xe) {
+        /* format: "Flags = " */
+        stream << " Flags = ";
+        stream << "0x" << std::hex << flags;
+
+        /* format: "CodeExt = " */
+        stream << " CodeExt = ";
+        stream << "0x" << std::hex << codeExt;
+
+        /* format: "Code = " */
+        stream << " Code = ";
+        stream << "0x" << std::hex << code;
+
+        /* format: "ID = " */
+        stream << " ID = ";
+        stream << std::hex << id;
+        if (extendedId) {
+            stream << 'x';
         }
 
-        /* CAN Core */
-        if (flags & 0xe) {
-            /* format: "Flags = " */
-            stream << " Flags = ";
-            stream << "0x" << std::hex << flags;
+        /* format: "DLC = " */
+        stream << " DLC = ";
+        stream << std::hex << dlc << std::dec;
 
-            /* format: "CodeExt = " */
-            stream << " CodeExt = ";
-            stream << "0x" << std::hex << codeExt;
+        /* format: "Position = " */
+        stream << " Position = ";
+        stream << position;
 
-            /* format: "Code = " */
-            stream << " Code = ";
-            stream << "0x" << std::hex << code;
-
-            /* format: "ID = " */
-            stream << " ID = ";
-            stream << std::hex << id;
-            if (extendedId) {
-                stream << 'x';
-            }
-
-            /* format: "DLC = " */
-            stream << " DLC = ";
-            stream << std::hex << dlc << std::dec;
-
-            /* format: "Position = " */
-            stream << " Position = ";
-            stream << position;
-
-            /* format: "Length = " */
-            stream << " Length = ";
-            stream << length;
-        }
+        /* format: "Length = " */
+        stream << " Length = ";
+        stream << length;
     }
 
     stream << endl;

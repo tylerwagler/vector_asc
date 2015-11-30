@@ -38,7 +38,8 @@ CanExtendedMessageEvent::CanExtendedMessageEvent() :
     data(),
     messageDuration(0),
     messageLength(0),
-    messageFlags()
+    messageFlags(),
+    messageId(0)
 {
     eventType = EventType::CanExtendedMessageEvent;
 }

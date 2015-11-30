@@ -64,11 +64,11 @@ public:
     /** @copydoc MessageLength */
     MessageLength messageLength;
 
-    /** @copydoc IdNum */
-    IdNum messageId;
-
     /** @copydoc MessageFlags */
     MessageFlags messageFlags;
+
+    /** @copydoc IdNum */
+    IdNum messageId;
 
     /** @copydoc Event::parse() */
     static CanExtendedMessageEvent * parse(File & file, std::string & line);
