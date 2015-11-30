@@ -41,6 +41,21 @@ BOOST_AUTO_TEST_CASE(FileDate)
     BOOST_CHECK(fileDate->date.tm_min == 37);
     BOOST_CHECK(fileDate->date.tm_sec == 33);
     BOOST_CHECK(fileDate->date.tm_year == (2008 - 1900));
+    BOOST_CHECK(fileDate->language == Vector::ASC::File::Language::En);
+    delete event;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileDate);
+    fileDate = static_cast<Vector::ASC::FileDate *>(event);
+    BOOST_CHECK(fileDate->date.tm_wday == 2);
+    BOOST_CHECK(fileDate->date.tm_mon == 2);
+    BOOST_CHECK(fileDate->date.tm_mday == 13);
+    BOOST_CHECK(fileDate->date.tm_hour == 11);
+    BOOST_CHECK(fileDate->date.tm_min == 58);
+    BOOST_CHECK(fileDate->date.tm_sec == 02);
+    BOOST_CHECK(fileDate->date.tm_year == (2007 - 1900));
+    BOOST_CHECK(fileDate->language == Vector::ASC::File::Language::De);
     delete event;
 
     file.close();
@@ -199,6 +214,10 @@ BOOST_AUTO_TEST_CASE(CanExtendedMessageEvent)
 
     Vector::ASC::Event * event;
     Vector::ASC::CanExtendedMessageEvent * canExtendedMessageEvent;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
@@ -835,6 +854,10 @@ BOOST_AUTO_TEST_CASE(EthernetPacket)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EthernetPacket);
     ethernetPacket = static_cast<Vector::ASC::EthernetPacket *>(event);
     BOOST_CHECK(isEqual(ethernetPacket->time, 0.000000));
@@ -940,6 +963,10 @@ BOOST_AUTO_TEST_CASE(EthernetRxError)
 
     Vector::ASC::Event * event;
     Vector::ASC::EthernetRxError * ethernetRxError;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
@@ -1425,6 +1452,10 @@ BOOST_AUTO_TEST_CASE(KLineByteEvent)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::KLineByteEvent);
     kLineByteEvent = static_cast<Vector::ASC::KLineByteEvent *>(event);
     BOOST_CHECK(isEqual(kLineByteEvent->time, 12.315000));
@@ -1452,6 +1483,10 @@ BOOST_AUTO_TEST_CASE(KLineMessageEvent)
 
     Vector::ASC::Event * event;
     Vector::ASC::KLineMessageEvent * kLineMessageEvent;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
@@ -1485,6 +1520,10 @@ BOOST_AUTO_TEST_CASE(LinMessage)
 
     Vector::ASC::Event * event;
     Vector::ASC::LinMessage * linMessage;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
@@ -2084,6 +2123,10 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageNodeMode)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most25ControlMessageNodeMode);
     most25ControlMessageNodeMode = static_cast<Vector::ASC::Most25ControlMessageNodeMode *>(event);
     BOOST_CHECK(isEqual(most25ControlMessageNodeMode->time, 0.111757));
@@ -2123,6 +2166,10 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageSpyMode)
 
     Vector::ASC::Event * event;
     Vector::ASC::Most25ControlMessageSpyMode * most25ControlMessageSpyMode;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
@@ -3084,6 +3131,34 @@ BOOST_AUTO_TEST_CASE(TpDiagRequest)
     BOOST_CHECK(tpDiagRequest->ecuQualifier == "Any_ECU_example");
     BOOST_CHECK(tpDiagRequest->byteSequence[0] == 0x1A);
     BOOST_CHECK(tpDiagRequest->byteSequence[1] == 0x90);
+    delete event;
+
+    file.close();
+}
+
+BOOST_AUTO_TEST_CASE(StartOfMeasurement)
+{
+    Vector::ASC::File file;
+    file.open(CMAKE_CURRENT_SOURCE_DIR "/events/StartOfMeasurement.asc");
+    BOOST_REQUIRE(file.is_open());
+
+    Vector::ASC::Event * event;
+    Vector::ASC::StartOfMeasurement * startOfMeasurement;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::StartOfMeasurement);
+    startOfMeasurement = static_cast<Vector::ASC::StartOfMeasurement *>(event);
+    BOOST_CHECK(isEqual(startOfMeasurement->time, 0.000000));
+    BOOST_CHECK(startOfMeasurement->language == Vector::ASC::File::Language::De);
+    delete event;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::StartOfMeasurement);
+    startOfMeasurement = static_cast<Vector::ASC::StartOfMeasurement *>(event);
+    BOOST_CHECK(isEqual(startOfMeasurement->time, 1.000000));
+    BOOST_CHECK(startOfMeasurement->language == Vector::ASC::File::Language::En);
     delete event;
 
     file.close();
