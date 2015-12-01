@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <array>
+#include <vector>
 #include "Event.h"
 #include "TpDiagSymbols.h"
 
@@ -40,8 +40,29 @@ public:
     /** @copydoc TpDiagEcuQualifier */
     TpDiagEcuQualifier ecuQualifier;
 
+    /** Command */
+    enum class Command {
+        /** Close */
+        Close,
+
+        /** Open */
+        Open,
+
+        /** TPon */
+        TpOn,
+
+        /** TPoff */
+        TpOff,
+
+        /** byteSequence */
+        ByteSequence
+    };
+
+    /** Command */
+    Command command;
+
     /** @copydoc TpDiagByteSequence */
-    std::array<TpDiagByteSequence, 2> byteSequence;
+    std::vector<TpDiagByteSequence> byteSequence;
 
     /** @copydoc Event::parse() */
     static TpDiagRequest * parse(File & file, std::string & line);

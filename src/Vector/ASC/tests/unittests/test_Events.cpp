@@ -3229,8 +3229,8 @@ BOOST_AUTO_TEST_CASE(TpDiagFirstFrame)
     BOOST_CHECK(tpDiagFirstFrame->canChannel == 1);
     BOOST_CHECK(tpDiagFirstFrame->connectionId == 0x07);
     BOOST_CHECK(tpDiagFirstFrame->type == Vector::ASC::TpDiagType::Atom);
-    BOOST_CHECK(tpDiagFirstFrame->source == "<tester>");
-    BOOST_CHECK(tpDiagFirstFrame->destination == "Any_ECU_example");
+    BOOST_CHECK(tpDiagFirstFrame->source == "Any_ECU_example");
+    BOOST_CHECK(tpDiagFirstFrame->destination == "<tester>");
     BOOST_CHECK(tpDiagFirstFrame->length == 0x000C);
     BOOST_CHECK(tpDiagFirstFrame->transportedBytes[0] == 0x5A);
     BOOST_CHECK(tpDiagFirstFrame->transportedBytes[1] == 0x90);
@@ -3292,8 +3292,8 @@ BOOST_AUTO_TEST_CASE(TpDiagFlowControlFrame)
     BOOST_CHECK(tpDiagFlowControlFrame->canChannel == 1);
     BOOST_CHECK(tpDiagFlowControlFrame->connectionId == 0x07);
     BOOST_CHECK(tpDiagFlowControlFrame->type == Vector::ASC::TpDiagType::Atom);
-    BOOST_CHECK(tpDiagFlowControlFrame->source == "Any_ECU_example");
-    BOOST_CHECK(tpDiagFlowControlFrame->destination == "<tester>");
+    BOOST_CHECK(tpDiagFlowControlFrame->source == "<tester>");
+    BOOST_CHECK(tpDiagFlowControlFrame->destination == "Any_ECU_example");
     BOOST_CHECK(tpDiagFlowControlFrame->fcType == Vector::ASC::TpDiagFcType::Cts);
     BOOST_CHECK(tpDiagFlowControlFrame->bs == 0x00);
     BOOST_CHECK(tpDiagFlowControlFrame->stMin == 0x14);
@@ -3318,8 +3318,61 @@ BOOST_AUTO_TEST_CASE(TpDiagRequest)
     tpDiagRequest = static_cast<Vector::ASC::TpDiagRequest *>(event);
     BOOST_CHECK(isEqual(tpDiagRequest->time, 1.765500));
     BOOST_CHECK(tpDiagRequest->ecuQualifier == "Any_ECU_example");
+    BOOST_CHECK(tpDiagRequest->command == Vector::ASC::TpDiagRequest::Command::ByteSequence);
+    BOOST_CHECK(tpDiagRequest->byteSequence.size() == 2);
     BOOST_CHECK(tpDiagRequest->byteSequence[0] == 0x1A);
     BOOST_CHECK(tpDiagRequest->byteSequence[1] == 0x90);
+    delete event;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagRequest);
+    tpDiagRequest = static_cast<Vector::ASC::TpDiagRequest *>(event);
+    BOOST_CHECK(isEqual(tpDiagRequest->time, 1.000000));
+    BOOST_CHECK(tpDiagRequest->ecuQualifier == "Engine");
+    BOOST_CHECK(tpDiagRequest->command == Vector::ASC::TpDiagRequest::Command::Open);
+    BOOST_CHECK(tpDiagRequest->byteSequence.size() == 0);
+    delete event;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagRequest);
+    tpDiagRequest = static_cast<Vector::ASC::TpDiagRequest *>(event);
+    BOOST_CHECK(isEqual(tpDiagRequest->time, 1.000000));
+    BOOST_CHECK(tpDiagRequest->ecuQualifier == "Engine");
+    BOOST_CHECK(tpDiagRequest->command == Vector::ASC::TpDiagRequest::Command::ByteSequence);
+    BOOST_CHECK(tpDiagRequest->byteSequence.size() == 1);
+    BOOST_CHECK(tpDiagRequest->byteSequence[0] == 0x20);
+    delete event;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagRequest);
+    tpDiagRequest = static_cast<Vector::ASC::TpDiagRequest *>(event);
+    BOOST_CHECK(isEqual(tpDiagRequest->time, 1.000000));
+    BOOST_CHECK(tpDiagRequest->ecuQualifier == "Engine");
+    BOOST_CHECK(tpDiagRequest->command == Vector::ASC::TpDiagRequest::Command::Close);
+    BOOST_CHECK(tpDiagRequest->byteSequence.size() == 0);
+    delete event;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagRequest);
+    tpDiagRequest = static_cast<Vector::ASC::TpDiagRequest *>(event);
+    BOOST_CHECK(isEqual(tpDiagRequest->time, 1.000000));
+    BOOST_CHECK(tpDiagRequest->ecuQualifier == "Engine");
+    BOOST_CHECK(tpDiagRequest->command == Vector::ASC::TpDiagRequest::Command::TpOn);
+    BOOST_CHECK(tpDiagRequest->byteSequence.size() == 0);
+    delete event;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagRequest);
+    tpDiagRequest = static_cast<Vector::ASC::TpDiagRequest *>(event);
+    BOOST_CHECK(isEqual(tpDiagRequest->time, 1.000000));
+    BOOST_CHECK(tpDiagRequest->ecuQualifier == "Engine");
+    BOOST_CHECK(tpDiagRequest->command == Vector::ASC::TpDiagRequest::Command::TpOff);
+    BOOST_CHECK(tpDiagRequest->byteSequence.size() == 0);
     delete event;
 
     BOOST_CHECK(file.eof());

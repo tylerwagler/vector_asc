@@ -32,6 +32,7 @@ TpDiagRequest::TpDiagRequest() :
     Event(),
     time(0.0),
     ecuQualifier(),
+    command(Command::ByteSequence),
     byteSequence()
 {
     eventType = EventType::TpDiagRequest;
@@ -40,18 +41,33 @@ TpDiagRequest::TpDiagRequest() :
 TpDiagRequest * TpDiagRequest::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_TPDiag_timestamp REGEX_WS "DiagRequest" REGEX_ws
-                     "\\[" REGEX_TPDiag_ECUQualifier "\\]" REGEX_TPDiag_byteSequence REGEX_ENDL);
+                     "\\[" REGEX_TPDiag_ECUQualifier "\\]" REGEX_ws "(Close|Open|TPon|TPoff|" REGEX_TPDiag_byteSequence ")" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         TpDiagRequest * tpDiagRequest = new TpDiagRequest;
         tpDiagRequest->time = std::stod(match[1]);
         tpDiagRequest->ecuQualifier = match[2];
-        std::istringstream iss(match[3]);
-        iss >> std::hex;
-        for (int i = 0; !iss.eof(); ++i) {
-            unsigned short s;
-            iss >> s;
-            tpDiagRequest->byteSequence[i] = s;
+        if (match[3] == "Close")
+            tpDiagRequest->command = Command::Close;
+        else
+        if (match[3] == "Open")
+            tpDiagRequest->command = Command::Open;
+        else
+        if (match[3] == "TPon")
+            tpDiagRequest->command = Command::TpOn;
+        else
+        if (match[3] == "TPoff")
+            tpDiagRequest->command = Command::TpOff;
+        else
+        {
+            tpDiagRequest->command = Command::ByteSequence;
+            std::istringstream iss(match[3]);
+            iss >> std::hex;
+            for (int i = 0; !iss.eof(); ++i) {
+                unsigned short s;
+                iss >> s;
+                tpDiagRequest->byteSequence.push_back(s);
+            }
         }
         return tpDiagRequest;
     }
@@ -66,9 +82,28 @@ void TpDiagRequest::write(File & file, std::ostream & stream)
             << std::right << std::setfill(' ') << std::setw(9) << std::setprecision(4) << std::fixed << time
             << " DiagRequest[" << ecuQualifier << "] ";
 
-    /* format: " %02X" */
-    for (uint8_t b: byteSequence)
-        stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) b;
+    switch(command) {
+    case Command::Close:
+        /** format: " Close" */
+        stream << " Close";
+        break;
+    case Command::Open:
+        /** format: " Open" */
+        stream << " Open";
+        break;
+    case Command::TpOn:
+            /** format: " TPon" */
+        stream << " TPon";
+        break;
+    case Command::TpOff:
+        /** format: " TPoff" */
+        stream << " TPoff";
+        break;
+    case Command::ByteSequence:
+        /* format: " %02X" */
+        for (uint8_t b: byteSequence)
+            stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) b;
+    }
 
     stream << endl;
 }

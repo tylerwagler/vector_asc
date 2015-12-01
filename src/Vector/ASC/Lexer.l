@@ -465,7 +465,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::TpDiagConsecutiveFrame; }
 {STOL}"//"{ws}{TPDiag_CANChannel}{WS}"OTP("{TPDiag_connectionId}")"{WS}{TPDiag_type}{WS}{TPDiag_source}"->"{TPDiag_destination}":"{ws}"FC."{TPDiag_FCType}":"{ws}"BSmax:"{ws}"0x"{TPDiag_BS}","{ws}"STmin:"{ws}"0x"{TPDiag_STmin}{ws}"ms"{ENDL} {
     return Vector::ASC::Event::EventType::TpDiagFlowControlFrame; }
-{STOL}{TPDiag_timestamp}{WS}"DiagRequest"{ws}"["{TPDiag_ECUQualifier}"]"{TPDiag_byteSequence}{ENDL} {
+{STOL}{TPDiag_timestamp}{WS}"DiagRequest"{ws}"["{TPDiag_ECUQualifier}"]"{ws}("Close"|"Open"|"TPon"|"TPoff"|{TPDiag_byteSequence}){ENDL} {
     return Vector::ASC::Event::EventType::TpDiagRequest; }
 
     /* Comment */
