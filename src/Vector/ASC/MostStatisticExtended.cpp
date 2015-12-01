@@ -1,0 +1,80 @@
+/*
+ * Copyright (C) 2014-2015 Tobias Lorenz.
+ * Contact: tobias.lorenz@gmx.net
+ *
+ * This file is part of Tobias Lorenz's Toolkit.
+ *
+ * Commercial License Usage
+ * Licensees holding valid commercial licenses may use this file in
+ * accordance with the commercial license agreement provided with the
+ * Software or, alternatively, in accordance with the terms contained in
+ * a written agreement between you and Tobias Lorenz.
+ *
+ * GNU General Public License 3.0 Usage
+ * Alternatively, this file may be used under the terms of the GNU
+ * General Public License version 3.0 as published by the Free Software
+ * Foundation and appearing in the file LICENSE.GPL included in the
+ * packaging of this file.  Please review the following information to
+ * ensure the GNU General Public License version 3.0 requirements will be
+ * met: http://www.gnu.org/copyleft/gpl.html.
+ */
+
+#include <iomanip>
+#include <regex>
+#include "MostCommon.h"
+#include "MostStatisticExtended.h"
+#include "MostSymbolsRegEx.h"
+
+namespace Vector {
+namespace ASC {
+
+MostStatisticExtended::MostStatisticExtended() :
+    Event(),
+    time(0.0),
+    channel(0),
+    codingErrors(0),
+    frameCounter(0)
+{
+    eventType = EventType::MostStatisticExtended;
+}
+
+MostStatisticExtended::~MostStatisticExtended()
+{
+}
+
+MostStatisticExtended * MostStatisticExtended::parse(File & file, std::string & line)
+{
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "StatEx:"
+                     REGEX_ws REGEX_MOST_CodingErrors REGEX_WS REGEX_MOST_FrameCounter REGEX_ENDL);
+    std::smatch match;
+    if (std::regex_match(line, match, regex)) {
+        MostStatisticExtended * mostStatisticExtended = new MostStatisticExtended;
+        mostStatisticExtended->time = std::stod(match[1]);
+        mostStatisticExtended->channel = std::stoul(match[2]);
+        mostStatisticExtended->codingErrors = std::stoul(match[3], nullptr, 16);
+        mostStatisticExtended->frameCounter = std::stoul(match[4], nullptr, 16);
+        return mostStatisticExtended;
+    }
+
+    return nullptr;
+}
+
+void MostStatisticExtended::write(File & file, std::ostream & stream)
+{
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "StatEx:   %06X %06X" */
+    stream
+            << "StatEx:   "
+            << std::setfill('0') << std::setw(6) << std::uppercase << std::hex << codingErrors
+            << ' '
+            << std::setfill('0') << std::setw(6) << std::uppercase << std::hex << frameCounter;
+
+    stream << endl;
+}
+
+}
+}

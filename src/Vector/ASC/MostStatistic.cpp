@@ -1,0 +1,91 @@
+/*
+ * Copyright (C) 2014-2015 Tobias Lorenz.
+ * Contact: tobias.lorenz@gmx.net
+ *
+ * This file is part of Tobias Lorenz's Toolkit.
+ *
+ * Commercial License Usage
+ * Licensees holding valid commercial licenses may use this file in
+ * accordance with the commercial license agreement provided with the
+ * Software or, alternatively, in accordance with the terms contained in
+ * a written agreement between you and Tobias Lorenz.
+ *
+ * GNU General Public License 3.0 Usage
+ * Alternatively, this file may be used under the terms of the GNU
+ * General Public License version 3.0 as published by the Free Software
+ * Foundation and appearing in the file LICENSE.GPL included in the
+ * packaging of this file.  Please review the following information to
+ * ensure the GNU General Public License version 3.0 requirements will be
+ * met: http://www.gnu.org/copyleft/gpl.html.
+ */
+
+#include <iomanip>
+#include <regex>
+#include "MostCommon.h"
+#include "MostStatistic.h"
+#include "MostSymbolsRegEx.h"
+
+namespace Vector {
+namespace ASC {
+
+MostStatistic::MostStatistic() :
+    Event(),
+    time(0.0),
+    channel(0),
+    fr(0),
+    lt(0),
+    bl(0),
+    pk(0)
+{
+    eventType = EventType::MostStatistic;
+}
+
+MostStatistic::~MostStatistic()
+{
+}
+
+MostStatistic * MostStatistic::parse(File & file, std::string & line)
+{
+    std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "MostStatistic:"
+                     REGEX_ws "Fr:" REGEX_ws REGEX_MOST_StatVal
+                     REGEX_WS "Lt:" REGEX_ws REGEX_MOST_StatVal
+                     REGEX_WS "Bl:" REGEX_ws REGEX_MOST_StatVal
+                     REGEX_WS "Pk:" REGEX_ws REGEX_MOST_StatVal REGEX_ENDL);
+    std::smatch match;
+    if (std::regex_match(line, match, regex)) {
+        MostStatistic * mostStatistic = new MostStatistic;
+        mostStatistic->time = std::stod(match[1]);
+        mostStatistic->channel = std::stoul(match[2]);
+        mostStatistic->fr = std::stoul(match[3]);
+        mostStatistic->lt = std::stoul(match[4]);
+        mostStatistic->bl = std::stoul(match[5]);
+        mostStatistic->pk = std::stoul(match[6]);
+        return mostStatistic;
+    }
+
+    return nullptr;
+}
+
+void MostStatistic::write(File & file, std::ostream & stream)
+{
+    writeMostTime(file, stream, time);
+    stream << ' ';
+    writeMostChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "MostStatistic:  Fr: %5u Lt: %5u Bl: %5u Pk: %5u" */
+    stream
+            << "MostStatistic:  Fr: "
+            << std::setw(5) << std::dec << (uint16_t) fr
+            << " Lt: "
+            << std::setw(5) << std::dec << (uint16_t) lt
+            << " Bl: "
+            << std::setw(5) << std::dec << (uint16_t) bl
+            << " Pk: "
+            << std::setw(5) << std::dec << (uint16_t) pk;
+
+    stream << endl;
+}
+
+}
+}

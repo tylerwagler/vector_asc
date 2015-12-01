@@ -16,21 +16,21 @@ include_directories(
 
 set(source_files
   AfdxPacket.cpp
-  BeginTriggerblockEvent.cpp
-  CanBusStatisticsEvent.cpp
+  BeginTriggerblock.cpp
+  CanBusStatistics.cpp
   CanCommon.cpp
-  CanErrorEvent.cpp
+  CanError.cpp
   CanErrorFrame.cpp
-  CanExtendedMessageEvent.cpp
+  CanExtendedMessage.cpp
   CanFdErrorFrame.cpp
-  CanFdExtendedMessageEvent.cpp
-  CanFdMessageEvent.cpp
-  CanMessageEvent.cpp
-  CanOverloadFrameEvent.cpp
-  CanRemoteFrameEvent.cpp
-  CommentEvent.cpp
-  EndTriggerblockEvent.cpp
-  EnvironmentVariablesEvent.cpp
+  CanFdExtendedMessage.cpp
+  CanFdMessage.cpp
+  CanMessage.cpp
+  CanOverloadFrame.cpp
+  CanRemoteFrame.cpp
+  Comment.cpp
+  EndTriggerblock.cpp
+  EnvironmentVariables.cpp
   EthernetCommon.cpp
   EthernetPacket.cpp
   EthernetRxError.cpp
@@ -44,22 +44,22 @@ set(source_files
   FileSplitInformation.cpp
   FileVersion.cpp
   FlexRayCommon.cpp
-  FlexRayErrorEvent.cpp
-  FlexRayMessageEvent.cpp
-  FlexRayOldMessageEvent.cpp
-  FlexRayOldStartCycleEvent.cpp
-  FlexRayStartCycleEvent.cpp
-  FlexRayStatusEvent.cpp
-  GlobalMarkerEvent.cpp
-  GpsEvent.cpp
-  KLineByteEvent.cpp
+  FlexRayError.cpp
+  FlexRayMessage.cpp
+  FlexRayOldMessage.cpp
+  FlexRayOldStartCycle.cpp
+  FlexRayStartCycle.cpp
+  FlexRayStatus.cpp
+  GlobalMarker.cpp
+  Gps.cpp
+  KLineByte.cpp
   KLineCommon.cpp
-  KLineMessageEvent.cpp
+  KLineMessage.cpp
   LinBaudrate.cpp
   LinChecksumError.cpp
   LinChecksumInfo.cpp
   LinCommon.cpp
-  LinDisturbanceEvent.cpp
+  LinDisturbance.cpp
   LinDlcInfo.cpp
   LinDominantSignal.cpp
   LinEventTriggeredFrameInfo.cpp
@@ -69,16 +69,16 @@ set(source_files
   LinShortOrSlowResponse.cpp
   LinSlaveTimeout.cpp
   LinSleepMode.cpp
-  LinSpikeEvent.cpp
+  LinSpike.cpp
   LinStatisticInfo.cpp
   LinSyncError.cpp
   LinTransmissionError.cpp
   LinUnexpectedWakeup.cpp
   LinWakeupFrame.cpp
-  LogDirectStartEvent.cpp
-  LogDirectStopEvent.cpp
-  LogTriggerEvent.cpp
-  MacroSignalEvent.cpp
+  LogDirectStart.cpp
+  LogDirectStop.cpp
+  LogTrigger.cpp
+  MacroSignal.cpp
   Most150AllocTable.cpp
   Most150ControlMessage.cpp
   Most150ControlMessageFragment.cpp
@@ -91,23 +91,23 @@ set(source_files
   Most50ControlMessage.cpp
   Most50Packet.cpp
   MostCommon.cpp
-  MostCommonRegisterEvent.cpp
-  MostDataLostEvent.cpp
+  MostCommonRegister.cpp
+  MostDataLost.cpp
   MostEcl.cpp
   MostEthernetPacket.cpp
   MostEthernetPacketFragment.cpp
-  MostHwModeEvent.cpp
-  MostLightLockEvent.cpp
-  MostNetStateEvent.cpp
-  MostSpecialRegisterEvent.cpp
-  MostStatisticEvent.cpp
-  MostStatisticExtendedEvent.cpp
-  MostStressEvent.cpp
-  MostSystemEvent.cpp
-  MostTriggerEvent.cpp
+  MostHwMode.cpp
+  MostLightLock.cpp
+  MostNetState.cpp
+  MostSpecialRegister.cpp
+  MostStatistic.cpp
+  MostStatisticExtended.cpp
+  MostStress.cpp
+  MostSystem.cpp
+  MostTrigger.cpp
   MostTxLight.cpp
   StartOfMeasurement.cpp
-  SystemVariablesEvent.cpp
+  SystemVariables.cpp
   TpDiagCommon.cpp
   TpDiagConsecutiveFrame.cpp
   TpDiagFirstFrame.cpp
@@ -118,21 +118,21 @@ set(source_files
 
 set(public_header_files
   AfdxPacket.h
-  BeginTriggerblockEvent.h
-  CanBusStatisticsEvent.h
-  CanErrorEvent.h
+  BeginTriggerblock.h
+  CanBusStatistics.h
+  CanError.h
   CanErrorFrame.h
-  CanExtendedMessageEvent.h
+  CanExtendedMessage.h
   CanFdErrorFrame.h
-  CanFdExtendedMessageEvent.h
-  CanFdMessageEvent.h
-  CanMessageEvent.h
-  CanOverloadFrameEvent.h
-  CanRemoteFrameEvent.h
+  CanFdExtendedMessage.h
+  CanFdMessage.h
+  CanMessage.h
+  CanOverloadFrame.h
+  CanRemoteFrame.h
   CanSymbols.h
-  CommentEvent.h
-  EndTriggerblockEvent.h
-  EnvironmentVariablesEvent.h
+  Comment.h
+  EndTriggerblock.h
+  EnvironmentVariables.h
   EthernetPacket.h
   EthernetRxError.h
   EthernetStatus.h
@@ -145,22 +145,22 @@ set(public_header_files
   FileInternalEventsLogged.h
   FileSplitInformation.h
   FileVersion.h
-  FlexRayErrorEvent.h
-  FlexRayMessageEvent.h
-  FlexRayOldMessageEvent.h
-  FlexRayOldStartCycleEvent.h
-  FlexRayStartCycleEvent.h
-  FlexRayStatusEvent.h
+  FlexRayError.h
+  FlexRayMessage.h
+  FlexRayOldMessage.h
+  FlexRayOldStartCycle.h
+  FlexRayStartCycle.h
+  FlexRayStatus.h
   FlexRaySymbols.h
-  GlobalMarkerEvent.h
-  GpsEvent.h
-  KLineByteEvent.h
-  KLineMessageEvent.h
+  GlobalMarker.h
+  Gps.h
+  KLineByte.h
+  KLineMessage.h
   KLineSymbols.h
   LinBaudrate.h
   LinChecksumError.h
   LinChecksumInfo.h
-  LinDisturbanceEvent.h
+  LinDisturbance.h
   LinDlcInfo.h
   LinDominantSignal.h
   LinEventTriggeredFrameInfo.h
@@ -170,17 +170,17 @@ set(public_header_files
   LinShortOrSlowResponse.h
   LinSlaveTimeout.h
   LinSleepMode.h
-  LinSpikeEvent.h
+  LinSpike.h
   LinStatisticInfo.h
   LinSymbols.h
   LinSyncError.h
   LinTransmissionError.h
   LinUnexpectedWakeup.h
   LinWakeupFrame.h
-  LogDirectStartEvent.h
-  LogDirectStopEvent.h
-  LogTriggerEvent.h
-  MacroSignalEvent.h
+  LogDirectStart.h
+  LogDirectStop.h
+  LogTrigger.h
+  MacroSignal.h
   Most150AllocTable.h
   Most150ControlMessage.h
   Most150ControlMessageFragment.h
@@ -192,24 +192,24 @@ set(public_header_files
   Most25Packet.h
   Most50ControlMessage.h
   Most50Packet.h
-  MostCommonRegisterEvent.h
-  MostDataLostEvent.h
+  MostCommonRegister.h
+  MostDataLost.h
   MostEcl.h
   MostEthernetPacketFragment.h
   MostEthernetPacket.h
-  MostHwModeEvent.h
-  MostLightLockEvent.h
-  MostNetStateEvent.h
-  MostSpecialRegisterEvent.h
-  MostStatisticEvent.h
-  MostStatisticExtendedEvent.h
-  MostStressEvent.h
+  MostHwMode.h
+  MostLightLock.h
+  MostNetState.h
+  MostSpecialRegister.h
+  MostStatistic.h
+  MostStatisticExtended.h
+  MostStress.h
   MostSymbols.h
-  MostSystemEvent.h
-  MostTriggerEvent.h
+  MostSystem.h
+  MostTrigger.h
   MostTxLight.h
   StartOfMeasurement.h
-  SystemVariablesEvent.h
+  SystemVariables.h
   TpDiagConsecutiveFrame.h
   TpDiagFirstFrame.h
   TpDiagFlowControlFrame.h

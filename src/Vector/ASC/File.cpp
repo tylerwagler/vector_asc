@@ -157,71 +157,71 @@ Event * File::read()
         return FileComment::parse(*this, line);
 
     /* CAN Events */
-    case Event::EventType::CanMessageEvent:
-        return CanMessageEvent::parse(*this, line);
-    case Event::EventType::CanExtendedMessageEvent:
-        return CanExtendedMessageEvent::parse(*this, line);
-    case Event::EventType::CanRemoteFrameEvent:
-        return CanRemoteFrameEvent::parse(*this, line);
+    case Event::EventType::CanMessage:
+        return CanMessage::parse(*this, line);
+    case Event::EventType::CanExtendedMessage:
+        return CanExtendedMessage::parse(*this, line);
+    case Event::EventType::CanRemoteFrame:
+        return CanRemoteFrame::parse(*this, line);
     case Event::EventType::CanErrorFrame:
         return CanErrorFrame::parse(*this, line);
-    case Event::EventType::CanBusStatisticsEvent:
-        return CanBusStatisticsEvent::parse(*this, line);
-    case Event::EventType::CanErrorEvent:
-        return CanErrorEvent::parse(*this, line);
-    case Event::EventType::CanOverloadFrameEvent:
-        return CanOverloadFrameEvent::parse(*this, line);
+    case Event::EventType::CanBusStatistics:
+        return CanBusStatistics::parse(*this, line);
+    case Event::EventType::CanError:
+        return CanError::parse(*this, line);
+    case Event::EventType::CanOverloadFrame:
+        return CanOverloadFrame::parse(*this, line);
 
     /* CAN FD Events */
-    case Event::EventType::CanFdMessageEvent:
-        return CanFdMessageEvent::parse(*this, line);
-    case Event::EventType::CanFdExtendedMessageEvent:
-        return CanFdExtendedMessageEvent::parse(*this, line);
+    case Event::EventType::CanFdMessage:
+        return CanFdMessage::parse(*this, line);
+    case Event::EventType::CanFdExtendedMessage:
+        return CanFdExtendedMessage::parse(*this, line);
     case Event::EventType::CanFdErrorFrame:
         return CanFdErrorFrame::parse(*this, line);
     // CAN FD Bus Statistics Event
     // CAN FD Overload Frame
 
     /* Log and Trigger Events */
-    case Event::EventType::LogTriggerEvent:
-        return LogTriggerEvent::parse(*this, line);
-    case Event::EventType::LogDirectStartEvent:
-        return LogDirectStartEvent::parse(*this, line);
-    case Event::EventType::LogDirectStopEvent:
-        return LogDirectStopEvent::parse(*this, line);
-    case Event::EventType::BeginTriggerblockEvent:
+    case Event::EventType::LogTrigger:
+        return LogTrigger::parse(*this, line);
+    case Event::EventType::LogDirectStart:
+        return LogDirectStart::parse(*this, line);
+    case Event::EventType::LogDirectStop:
+        return LogDirectStop::parse(*this, line);
+    case Event::EventType::BeginTriggerblock:
     {
-        BeginTriggerblockEvent * beginTriggerblockEvent = BeginTriggerblockEvent::parse(*this, line);
-        if (beginTriggerblockEvent)
-            language = beginTriggerblockEvent->language;
-        return beginTriggerblockEvent;
+        BeginTriggerblock * beginTriggerblock = BeginTriggerblock::parse(*this, line);
+        if (beginTriggerblock)
+            language = beginTriggerblock->language;
+        return beginTriggerblock;
     }
-    case Event::EventType::EndTriggerblockEvent:
-        return EndTriggerblockEvent::parse(*this, line);
+    case Event::EventType::EndTriggerblock:
+        return EndTriggerblock::parse(*this, line);
 
     /* Environment Variables */
-    case Event::EventType::EnvironmentVariablesEvent:
-        return EnvironmentVariablesEvent::parse(*this, line);
+    case Event::EventType::EnvironmentVariables:
+        return EnvironmentVariables::parse(*this, line);
 
     /* System Variables */
-    case Event::EventType::SystemVariablesEvent:
-        return SystemVariablesEvent::parse(*this, line);
+    case Event::EventType::SystemVariables:
+        return SystemVariables::parse(*this, line);
 
     /* Macros Signal Events */
-    case Event::EventType::MacroSignalEvent:
-        return MacroSignalEvent::parse(*this, line);
+    case Event::EventType::MacroSignal:
+        return MacroSignal::parse(*this, line);
 
     /* GPS events */
-    case Event::EventType::GpsEvent:
-        return GpsEvent::parse(*this, line);
+    case Event::EventType::Gps:
+        return Gps::parse(*this, line);
 
     /* Comment events */
-    case Event::EventType::CommentEvent:
-        return CommentEvent::parse(*this, line);
+    case Event::EventType::Comment:
+        return Comment::parse(*this, line);
 
     /* Global market events */
-    case Event::EventType::GlobalMarkerEvent:
-        return GlobalMarkerEvent::parse(*this, line);
+    case Event::EventType::GlobalMarker:
+        return GlobalMarker::parse(*this, line);
 
     /* Ethernet Events */
     case Event::EventType::EthernetPacket:
@@ -236,26 +236,26 @@ Event * File::read()
         return AfdxPacket::parse(*this, line);
 
     /* FlexRay Events (Old Format) */
-    case Event::EventType::FlexRayOldMessageEvent:
-        return FlexRayOldMessageEvent::parse(*this, line);
-    case Event::EventType::FlexRayOldStartCycleEvent:
-        return FlexRayOldStartCycleEvent::parse(*this, line);
+    case Event::EventType::FlexRayOldMessage:
+        return FlexRayOldMessage::parse(*this, line);
+    case Event::EventType::FlexRayOldStartCycle:
+        return FlexRayOldStartCycle::parse(*this, line);
 
     /* FlexRay Events (New Format) */
-    case Event::EventType::FlexRayMessageEvent:
-        return FlexRayMessageEvent::parse(*this, line);
-    case Event::EventType::FlexRayStartCycleEvent:
-        return FlexRayStartCycleEvent::parse(*this, line);
-    case Event::EventType::FlexRayStatusEvent:
-        return FlexRayStatusEvent::parse(*this, line);
-    case Event::EventType::FlexRayErrorEvent:
-        return FlexRayErrorEvent::parse(*this, line);
+    case Event::EventType::FlexRayMessage:
+        return FlexRayMessage::parse(*this, line);
+    case Event::EventType::FlexRayStartCycle:
+        return FlexRayStartCycle::parse(*this, line);
+    case Event::EventType::FlexRayStatus:
+        return FlexRayStatus::parse(*this, line);
+    case Event::EventType::FlexRayError:
+        return FlexRayError::parse(*this, line);
 
     /* K-Line Events */
-    case Event::EventType::KLineByteEvent:
-        return KLineByteEvent::parse(*this, line);
-    case Event::EventType::KLineMessageEvent:
-        return KLineMessageEvent::parse(*this, line);
+    case Event::EventType::KLineByte:
+        return KLineByte::parse(*this, line);
+    case Event::EventType::KLineMessage:
+        return KLineMessage::parse(*this, line);
 
     /* LIN Events */
     case Event::EventType::LinMessage:
@@ -270,8 +270,8 @@ Event * File::read()
         return LinSyncError::parse(*this, line);
     case Event::EventType::LinChecksumError:
         return LinChecksumError::parse(*this, line);
-    case Event::EventType::LinSpikeEvent:
-        return LinSpikeEvent::parse(*this, line);
+    case Event::EventType::LinSpike:
+        return LinSpike::parse(*this, line);
     case Event::EventType::LinDominantSignal:
         return LinDominantSignal::parse(*this, line);
 
@@ -292,8 +292,8 @@ Event * File::read()
         return LinStatisticInfo::parse(*this, line);
     case Event::EventType::LinShortOrSlowResponse:
         return LinShortOrSlowResponse::parse(*this, line);
-    case Event::EventType::LinDisturbanceEvent:
-        return LinDisturbanceEvent::parse(*this, line);
+    case Event::EventType::LinDisturbance:
+        return LinDisturbance::parse(*this, line);
 
     /* LIN Sleep/Wakeup Events */
     case Event::EventType::LinSleepMode:
@@ -310,28 +310,28 @@ Event * File::read()
         return Most25ControlMessageSpyMode::parse(*this, line);
     case Event::EventType::Most25Packet:
         return Most25Packet::parse(*this, line);
-    case Event::EventType::MostLightLockEvent:
-        return MostLightLockEvent::parse(*this, line);
-    case Event::EventType::MostSpecialRegisterEvent:
-        return MostSpecialRegisterEvent::parse(*this, line);
-    case Event::EventType::MostCommonRegisterEvent:
-        return MostCommonRegisterEvent::parse(*this, line);
-    case Event::EventType::MostHwModeEvent:
-        return MostHwModeEvent::parse(*this, line);
-    case Event::EventType::MostNetStateEvent:
-        return MostNetStateEvent::parse(*this, line);
-    case Event::EventType::MostDataLostEvent:
-        return MostDataLostEvent::parse(*this, line);
-    case Event::EventType::MostTriggerEvent:
-        return MostTriggerEvent::parse(*this, line);
-    case Event::EventType::MostStatisticEvent:
-        return MostStatisticEvent::parse(*this, line);
-    case Event::EventType::MostStatisticExtendedEvent:
-        return MostStatisticExtendedEvent::parse(*this, line);
+    case Event::EventType::MostLightLock:
+        return MostLightLock::parse(*this, line);
+    case Event::EventType::MostSpecialRegister:
+        return MostSpecialRegister::parse(*this, line);
+    case Event::EventType::MostCommonRegister:
+        return MostCommonRegister::parse(*this, line);
+    case Event::EventType::MostHwMode:
+        return MostHwMode::parse(*this, line);
+    case Event::EventType::MostNetState:
+        return MostNetState::parse(*this, line);
+    case Event::EventType::MostDataLost:
+        return MostDataLost::parse(*this, line);
+    case Event::EventType::MostTrigger:
+        return MostTrigger::parse(*this, line);
+    case Event::EventType::MostStatistic:
+        return MostStatistic::parse(*this, line);
+    case Event::EventType::MostStatisticExtended:
+        return MostStatisticExtended::parse(*this, line);
     case Event::EventType::MostTxLight:
         return MostTxLight::parse(*this, line);
-    case Event::EventType::MostStressEvent:
-        return MostStressEvent::parse(*this, line);
+    case Event::EventType::MostStress:
+        return MostStress::parse(*this, line);
     case Event::EventType::Most25AllocTable:
         return Most25AllocTable::parse(*this, line);
     case Event::EventType::Most150ControlMessage:
@@ -346,8 +346,8 @@ Event * File::read()
         return MostEthernetPacket::parse(*this, line);
     case Event::EventType::MostEthernetPacketFragment:
         return MostEthernetPacketFragment::parse(*this, line);
-    case Event::EventType::MostSystemEvent:
-        return MostSystemEvent::parse(*this, line);
+    case Event::EventType::MostSystem:
+        return MostSystem::parse(*this, line);
     case Event::EventType::Most150AllocTable:
         return Most150AllocTable::parse(*this, line);
     case Event::EventType::Most50ControlMessage:
@@ -381,6 +381,7 @@ Event * File::read()
     case Event::EventType::Default:
     default:
         std::cout << "Default: " << line << std::endl;
+
     }
 
     return nullptr;

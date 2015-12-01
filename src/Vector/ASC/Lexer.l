@@ -259,65 +259,65 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
 
     /* CAN Events */
 {STOL}{Time}{WS}{Channel}{WS}{ID}{WS}{Dir}{WS}"d"{WS}{DLC}({WS}{Dx}){0,8}({WS}"Length"{ws}"="{ws}{MessageDuration})?({WS}"BitCount"{ws}"="{ws}{MessageLength})?({WS}{MessageFlags})?({WS}"ID"{ws}"="{ws}{IDnum})?{ENDL} {
-    return Vector::ASC::Event::EventType::CanMessageEvent; }
+    return Vector::ASC::Event::EventType::CanMessage; }
 {STOL}{Time}{WS}{Channel}{WS}{ID}"x"{WS}{Dir}{WS}"d"{WS}{DLC}({WS}{Dx}){0,8}({WS}"Length"{ws}"="{ws}{MessageDuration})?({WS}"BitCount"{ws}"="{ws}{MessageLength})?({WS}{MessageFlags})?({WS}"ID"{ws}"="{ws}{IDnum}"x")?{ENDL} {
-    return Vector::ASC::Event::EventType::CanExtendedMessageEvent; }
+    return Vector::ASC::Event::EventType::CanExtendedMessage; }
 {STOL}{Time}{WS}{Channel}{WS}{ID}{WS}{Dir}{WS}"r"{ENDL} {
-    return Vector::ASC::Event::EventType::CanRemoteFrameEvent; }
+    return Vector::ASC::Event::EventType::CanRemoteFrame; }
 {STOL}{Time}{WS}{Channel}{WS}"ErrorFrame"({WS}"ECC:"{ws}[01]+)?({WS}"Flags"{ws}"="{ws}"0x"[[:xdigit:]]+)?({WS}"CodeExt"{ws}"="{ws}"0x"[[:xdigit:]]+)?({WS}"Code"{ws}"="{ws}"0x"[[:xdigit:]]+)?({WS}"ID"{ws}"="{ws}[[:digit:]]+)?({WS}"DLC"{ws}"="{ws}[[:xdigit:]]{1,2})?({WS}"Position"{ws}"="{ws}[[:digit:]]+)?({WS}"Length"{ws}"="{ws}[[:digit:]]+)?{ENDL} {
     return Vector::ASC::Event::EventType::CanErrorFrame; }
 {STOL}{Time}{WS}{Channel}{WS}"Statistic:"{WS}"D"{WS}{StatNumber}{WS}"R"{WS}{StatNumber}{WS}"XD"{WS}{StatNumber}{WS}"XR"{WS}{StatNumber}{WS}"E"{WS}{StatNumber}{WS}"O"{WS}{StatNumber}{WS}"B"{WS}{StatPercent}"%"{ENDL} {
-    return Vector::ASC::Event::EventType::CanBusStatisticsEvent; }
+    return Vector::ASC::Event::EventType::CanBusStatistics; }
 {STOL}{Time}{WS}"CAN"{WS}{Channel}{WS}"Status:"{ws}{Error}{ENDL} {
-    return Vector::ASC::Event::EventType::CanErrorEvent; }
+    return Vector::ASC::Event::EventType::CanError; }
 {STOL}{Time}{WS}{Channel}{WS}"OverloadFrame"{ENDL} {
-    return Vector::ASC::Event::EventType::CanOverloadFrameEvent; }
+    return Vector::ASC::Event::EventType::CanOverloadFrame; }
 
     /* CAN FD Events */
 {STOL}{Time}{WS}"CANFD"{WS}{Channel}{WS}{Dir}{WS}{ID}({WS}[[:alnum:]_]+)?{WS}{BRS}{WS}{ESI}{WS}{DLC}{WS}{DataLength}({WS}{Dx}){0,64}{WS}{MessageDuration}{WS}{MessageLength}{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}{BitTimingConfArb}{WS}{BitTimingConfData}{ENDL} {
-    return Vector::ASC::Event::EventType::CanFdMessageEvent; }
+    return Vector::ASC::Event::EventType::CanFdMessage; }
 {STOL}{Time}{WS}"CANFD"{WS}{Channel}{WS}{Dir}{WS}{ID}"x"({WS}[[:alnum:]_]+)?{WS}{BRS}{WS}{ESI}{WS}{DLC}{WS}{DataLength}({WS}{Dx}){0,64}{WS}{MessageDuration}{WS}{MessageLength}{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}{BitTimingConfArb}{WS}{BitTimingConfData}{ENDL} {
-    return Vector::ASC::Event::EventType::CanFdExtendedMessageEvent; }
+    return Vector::ASC::Event::EventType::CanFdExtendedMessage; }
 {STOL}{Time}{WS}"CANFD"{WS}{Channel}{WS}{Dir}{WS}"ErrorFrame"{WS}"Not Acknowledge error, dominant error flag"{WS}[[:xdigit:]]{4}{WS}[[:xdigit:]]{2}{WS}[[:xdigit:]]{4}{WS}"Data"{WS}[[:digit:]]+{WS}{ID}{WS}{BRS}{WS}{ESI}{WS}{DLC}{WS}{DataLength}({WS}{Dx}){0,64}{WS}{MessageDuration}{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}{BitTimingConfArb}{WS}{BitTimingConfData}{ENDL} {
     return Vector::ASC::Event::EventType::CanFdErrorFrame; }
-    /* return Vector::ASC::Event::EventType::CanFdBusStatisticsEvent; }
+    /* return Vector::ASC::Event::EventType::CanFdBusStatistics; }
     /* return Vector::ASC::Event::EventType::CanFdOverloadFrame; }
 
     /* Log and Trigger Events */
 {STOL}{Time}{WS}"log trigger event"{ws}.+?{ENDL} {
-    return Vector::ASC::Event::EventType::LogTriggerEvent; }
+    return Vector::ASC::Event::EventType::LogTrigger; }
 {STOL}{Time}{WS}"log direct start"{ws}"("{PreTrigger}"ms)"{ws}{ENDL} {
-    return Vector::ASC::Event::EventType::LogDirectStartEvent; }
+    return Vector::ASC::Event::EventType::LogDirectStart; }
 {STOL}{Time}{WS}"log direct stop"{ws}"("{PostTrigger}"ms)"{ws}{ENDL} {
-    return Vector::ASC::Event::EventType::LogDirectStopEvent; }
+    return Vector::ASC::Event::EventType::LogDirectStop; }
 {STOL}"Begin Triggerblock"{WS}{WeekDay}{WS}{Month}{WS}{Date}{WS}{FullTime}{WS}{Year}{ENDL} {
-    return Vector::ASC::Event::EventType::BeginTriggerblockEvent; }
+    return Vector::ASC::Event::EventType::BeginTriggerblock; }
 {STOL}"End TriggerBlock"{ENDL} {
-    return Vector::ASC::Event::EventType::EndTriggerblockEvent; }
+    return Vector::ASC::Event::EventType::EndTriggerblock; }
 
     /* Environment Variables */
 {STOL}{Time}{WS}.+?{ws}":="{ws}.+?{ENDL} {
-    return Vector::ASC::Event::EventType::EnvironmentVariablesEvent; }
+    return Vector::ASC::Event::EventType::EnvironmentVariables; }
 
     /* System Variables */
 {STOL}{Time}{WS}"SV:"{ws}{svtype}{WS}"0"{WS}"0"{WS}.+?{ws}"="{ws}.+?{ENDL} {
-    return Vector::ASC::Event::EventType::SystemVariablesEvent; }
+    return Vector::ASC::Event::EventType::SystemVariables; }
 
     /* Macros Signal Events */
 {STOL}{Time}{WS}[LF]?[[:digit:]]+{WS}.+?"::".+?"::".+?{ws}"="{ws}.+?{ENDL} {
-    return Vector::ASC::Event::EventType::MacroSignalEvent; }
+    return Vector::ASC::Event::EventType::MacroSignal; }
 
     /* GPS events */
 {STOL}{Time}{WS}"GPS-Device:"{ws}[[:digit:]]+{WS}"La:"{ws}[[:digit:].]+{WS}"Lo:"{ws}[[:digit:].]+{WS}"Alt:"{ws}[[:digit:].]+{WS}"Sp:"{ws}[[:digit:].]+{WS}"Co:"{ws}[[:digit:].]+{ENDL} {
-    return Vector::ASC::Event::EventType::GpsEvent; }
+    return Vector::ASC::Event::EventType::Gps; }
 
     /* Comment events */
 {STOL}{Time}{WS}"Comment:"{ws}[[:digit:]]+{WS}.+?{ENDL} {
-    return Vector::ASC::Event::EventType::CommentEvent; }
+    return Vector::ASC::Event::EventType::Comment; }
 
     /* Global market events */
 {STOL}{Time}{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[01]{WS}"GMGroup:"{ws}.+?{WS}"GMMarker:"{ws}.+?{WS}"GMDescription:"{ws}.+?{ENDL} {
-    return Vector::ASC::Event::EventType::GlobalMarkerEvent; }
+    return Vector::ASC::Event::EventType::GlobalMarker; }
 
     /* Ethernet Events */
 {STOL}{Eth_Time}{WS}"ETH"{WS}{Eth_Channel}{WS}{Eth_Dir}{WS}{Eth_DataLen}":"{Eth_Data}{ENDL} {
@@ -333,28 +333,28 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
 
     /* FlexRay Events (Old Format) */
 {STOL}{FlexRayOld_Time}{WS}{FlexRayOld_Channel}{WS}"V9"{WS}{FlexRayOld_ID}{WS}{FlexRayOld_Cycle}{WS}{FlexRayOld_NM}{WS}{FlexRayOld_Sync}{WS}{FlexRayOld_HeaderCRC}{WS}{FlexRayOld_SymbolicName}{WS}{FlexRayOld_DLC}({WS}{FlexRayOld_Dx}){0,255}{WS}{FlexRayOld_FrameState}{WS}{FlexRayOld_HeaderBitMask}{ENDL} {
-    return Vector::ASC::Event::FlexRayOldMessageEvent; }
+    return Vector::ASC::Event::FlexRayOldMessage; }
 {STOL}{FlexRayOld_Time}{WS}{FlexRayOld_Channel}{WS}"StartCycleEvent"{WS}"NM Vector:"{ws}{FlexRayOld_DLC}({WS}{FlexRayOld_Dx}){0,255}{ENDL} {
-    return Vector::ASC::Event::FlexRayOldStartCycleEvent; }
+    return Vector::ASC::Event::FlexRayOldStartCycle; }
     /* FlexRayOldErrorFrameEvent */
 
     /* FlexRay Events (New Format) */
 {STOL}{FlexRay_Time}{WS}"Fr"{WS}"RMSG"{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}{FlexRay_Dir}{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:alnum:]_\[\|\]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+({WS}[[:xdigit:]]+){0,254}{WS}[[:xdigit:]]+{WS}[01]{WS}[[:digit:]]+{ENDL} {
-    return Vector::ASC::Event::FlexRayMessageEvent; }
+    return Vector::ASC::Event::FlexRayMessage; }
 {STOL}{FlexRay_Time}{WS}"Fr"{WS}"PDU"{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}{FlexRay_Dir}{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:alnum:]_\[\|\]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+({WS}[[:xdigit:]]+){0,254}{WS}[[:xdigit:]]+{WS}[01]{WS}[[:digit:]]+{WS}[[:digit:]]+{ENDL} {
-    return Vector::ASC::Event::FlexRayMessageEvent; }
+    return Vector::ASC::Event::FlexRayMessage; }
 {STOL}{FlexRay_Time}{WS}"Fr"{WS}"SCE"{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}{FlexRay_Dir}{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}"NM_Vector:"{ws}[[:xdigit:]]+({WS}[[:xdigit:]]+){0,12}{ENDL} {
-    return Vector::ASC::Event::FlexRayStartCycleEvent; }
+    return Vector::ASC::Event::FlexRayStartCycle; }
 {STOL}{FlexRay_Time}{WS}"Fr"{WS}"SE"{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:digit:]]+{WS}[012]{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[01234]{WS}[[:digit:]]+{WS}[01]{ENDL} {
-    return Vector::ASC::Event::FlexRayStatusEvent; }
+    return Vector::ASC::Event::FlexRayStatus; }
 {STOL}{FlexRay_Time}{WS}"Fr"{WS}"EE"{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:digit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{WS}[[:xdigit:]]+{ENDL} {
-    return Vector::ASC::Event::FlexRayErrorEvent; }
+    return Vector::ASC::Event::FlexRayError; }
 
     /* K-Line Events */
 {STOL}{KLine_time}{WS}{KLine_port}{WS}{KLine_direction}{WS}{KLine_baudrate}{WS}{KLine_length}({WS}{KLine_data})*{ENDL} {
-    return Vector::ASC::Event::EventType::KLineByteEvent; }
+    return Vector::ASC::Event::EventType::KLineByte; }
 {STOL}"//"{ws}"K-Line:"{ws}{KLine_time}{WS}{KLine_port}{WS}{KLine_direction}{WS}{KLine_baudrate}{WS}{KLine_source}{WS}{KLine_destination}{WS}{KLine_length}({WS}{KLine_data})*{ENDL} {
-    return Vector::ASC::Event::EventType::KLineMessageEvent; }
+    return Vector::ASC::Event::EventType::KLineMessage; }
 
     /* LIN Events */
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}{LIN_ID}{WS}{LIN_Dir}{WS}{LIN_DLC}({WS}{LIN_Dx}){0,8}({WS}"slave"{ws}"="{ws}{LIN_slaveId}","{ws}"state"{ws}"="{ws}{LIN_state})?{WS}"checksum"{ws}"="{ws}{LIN_checksum}{WS}"header time"{ws}"="{ws}{LIN_headerTime}","{ws}"full time"{ws}"="{ws}{LIN_fullTime}(({WS}"start of frame"{ws}"="{ws}{LIN_startOfFrame}","{ws}"sync break"{ws}"="{ws}{LIN_syncBreakTime}","{ws}"sync delimiter"{ws}"="{ws}{LIN_syncDelimiterTime})|({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{WS}"break"{ws}"="{ws}{LIN_SyncBreak}{WS}{LIN_SyncDel}({WS}"subId"{ws}"="{ws}{LIN_NAD}{WS}{LIN_MessageId}{WS}{LIN_SupplierId})?{WS}"EOH"{ws}"="{ws}{LIN_endOfHeader}{WS}"EOB"{ws}"="({ws}{LIN_T}){0,8}{WS}"sim"{ws}"="{ws}{LIN_simulated}({WS}"EOF"{ws}"="{ws}{LIN_endOfFrame}({WS}"RBR"{ws}"="{ws}{LIN_responseBaudrate}({WS}"HBR"{ws}"="{ws}{LIN_headerBaudrate}{WS}"HSO"{ws}"="{ws}{LIN_stopBitOffsetInHeader}{WS}"RSO"{ws}"="{ws}{LIN_stopBitOffsetInResponse}({WS}"CSM"{ws}"="{ws}{LIN_checksumModel})?)?)?)?)){ENDL} {
@@ -370,7 +370,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}{LIN_ID}{WS}"CSErr"{WS}{LIN_Dir}{WS}{LIN_DLC}({WS}[[:xdigit:]]+){0,8}({WS}"slave"{ws}"="{ws}{LIN_slaveId}","{ws}"state"{ws}"="{ws}{LIN_state})?{WS}"checksum"{ws}"="{ws}{LIN_checksum}{WS}"header time"{ws}"="{ws}{LIN_headerTime}","{ws}"full time"{ws}"="{ws}{LIN_fullTime}({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{WS}"break"{ws}"="{ws}{LIN_SyncBreak}{WS}{LIN_SyncDel}({WS}"subId"{ws}"="{ws}{LIN_NAD}{WS}{LIN_MessageId}{WS}{LIN_SupplierId})?{WS}"EOH"{ws}"="{ws}{LIN_endOfFrame}{WS}"EOB"{ws}"="({WS}{LIN_T}){0,8}{WS}"sim"{ws}"="{ws}{LIN_simulated}({WS}"EOF"{ws}"="{ws}{LIN_endOfFrame}({WS}"RBR"{ws}"="{ws}{LIN_responseBaudrate}({WS}"HBR"{ws}"="{ws}{LIN_headerBaudrate}{WS}"HSO"{ws}"="{ws}{LIN_stopBitOffsetInHeader}{WS}"RSO"{ws}"="{ws}{LIN_stopBitOffsetInResponse}({WS}"CSM"{ws}"="{ws}{LIN_checksumModel})?)?)?)?)?{ENDL} {
     return Vector::ASC::Event::EventType::LinChecksumError; }
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Spike"{WS}{LIN_Dir}{WS}{LIN_SpikeLength}{WS}"microseconds"({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{ws})?{ENDL} {
-    return Vector::ASC::Event::EventType::LinSpikeEvent; }
+    return Vector::ASC::Event::EventType::LinSpike; }
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Dominant signal"{WS}{LIN_DomSigState}{WS}{LIN_DomSigLength}{WS}"microseconds"({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{ws})?{ENDL} {
     return Vector::ASC::Event::EventType::LinDominantSignal; }
 
@@ -392,7 +392,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}{LIN_ID}{WS}{LIN_DLC}{WS}"ShortOrSlowResponse:"{ws}"NumRespBytes"{ws}"="{ws}{LIN_NumberOfResponseBytes}({WS}[[:xdigit:]]+){0,9}{WS}"SlowResponse"{ws}"="{ws}{LIN_IsSlowResponse}{WS}"InterruptedByBreak"{ws}"="{ws}{LIN_ResponseWasInterruptedByBreak}{WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{WS}"break"{ws}"="{ws}{LIN_SyncBreak}{WS}{LIN_SyncDel}("subId"{ws}"="{ws}{LIN_NAD}{WS}{LIN_MessageId}{WS}{LIN_SupplierId})?{WS}"EOH"{ws}"="{ws}{LIN_endOfHeader}{WS}"EOB"{ws}"="({WS}{LIN_T}){0,8}{WS}"HBR"{ws}"="{ws}{LIN_headerBaudrate}{WS}"HSO"{ws}"="{ws}{LIN_stopBitOffsetInHeader}{WS}"CSM"{ws}"="{ws}{LIN_checksumModel}{ENDL} {
     return Vector::ASC::Event::EventType::LinShortOrSlowResponse; }
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"DisturbanceEvent"{WS}"Type"{ws}"="{ws}{LIN_DisturbanceType}{WS}"ByteIndex"{ws}"="{ws}{LIN_ByteIndex}{WS}"BitIndex"{ws}"="{ws}{LIN_BitIndex}{WS}"BitOffset"{ws}"="{ws}{LIN_BitOffsetInSixteenthBits}{WS}"Length"{ws}"="{ws}{LIN_DisturbanceLengthInSixteenthBits}{WS}"Header"{ws}"="{ws}{LIN_IDorFF}{WS}"Disturbing header"{ws}"="{ws}{LIN_IDorFF}{ENDL} {
-    return Vector::ASC::Event::EventType::LinDisturbanceEvent; }
+    return Vector::ASC::Event::EventType::LinDisturbance; }
 
     /* LIN Sleep/Wakeup Events */
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"SleepModeEvent"{WS}{LIN_simulated}{WS}{LIN_description}{ENDL} {
@@ -410,27 +410,27 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"Pkt:"{ws}{MOST_Dir}{WS}{MOST_SourceAdr}{WS}{MOST_DestAdr}{WS}{MOST_PktState}{WS}{MOST_TransferType}{WS}{MOST_PktPrio}{WS}{MOST_PktArbitr}{WS}{MOST_CRC2}{WS}{MOST_PktLen}({WS}{MOST_Dx})+{ENDL} {
     return Vector::ASC::Event::EventType::Most25Packet; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"LL:"{ws}{MOST_LLState}{ENDL} {
-    return Vector::ASC::Event::EventType::MostLightLockEvent; }
+    return Vector::ASC::Event::EventType::MostLightLock; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"Register:"{ws}{MOST_RegSubType}{WS}{MOST_RegID}{WS}{MOST_RegValue}{ENDL} {
-    return Vector::ASC::Event::EventType::MostSpecialRegisterEvent; }
+    return Vector::ASC::Event::EventType::MostSpecialRegister; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"RegData:"{ws}{MOST_RegSubType}{WS}{MOST_RegChip}{WS}{MOST_RegOffset}{WS}{MOST_RegDataLen}({WS}{MOST_Dx})*{ENDL} {
-    return Vector::ASC::Event::EventType::MostCommonRegisterEvent; }
+    return Vector::ASC::Event::EventType::MostCommonRegister; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"HWMode:"{ws}{MOST_HWMode}{WS}{MOST_HWModeMask}{ENDL} {
-    return Vector::ASC::Event::EventType::MostHwModeEvent; }
+    return Vector::ASC::Event::EventType::MostHwMode; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"NetState:"{ws}{MOST_NetStateOld}{WS}{MOST_NetStateNew}{ENDL} {
-    return Vector::ASC::Event::EventType::MostNetStateEvent; }
+    return Vector::ASC::Event::EventType::MostNetState; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"DataLost:"{ws}{MOST_DLInfo}{WS}{MOST_DLCtrl}{WS}{MOST_DLAsync}{WS}{MOST_DLTime}{WS}{MOST_DLTime}{ENDL} {
-    return Vector::ASC::Event::EventType::MostDataLostEvent; }
+    return Vector::ASC::Event::EventType::MostDataLost; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"Trigger:"{ws}{MOST_TrigMode}{WS}{MOST_TrigHW}{WS}{MOST_TrigValue}{WS}{MOST_TrigValue}{ENDL} {
-    return Vector::ASC::Event::EventType::MostTriggerEvent; }
+    return Vector::ASC::Event::EventType::MostTrigger; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"MostStatistic:"{ws}"Fr:"{ws}{MOST_StatVal}{WS}"Lt:"{ws}{MOST_StatVal}{WS}"Bl:"{ws}{MOST_StatVal}{WS}"Pk:"{ws}{MOST_StatVal}{ENDL} {
-    return Vector::ASC::Event::EventType::MostStatisticEvent; }
+    return Vector::ASC::Event::EventType::MostStatistic; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"StatEx:"{ws}{MOST_CodingErrors}{WS}{MOST_FrameCounter}{ENDL} {
-    return Vector::ASC::Event::EventType::MostStatisticExtendedEvent; }
+    return Vector::ASC::Event::EventType::MostStatisticExtended; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"TxLight:"{ws}{MOST_TxLightState}{ENDL} {
     return Vector::ASC::Event::EventType::MostTxLight; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"Stress:"{ws}{MOST_StressMode}{WS}{MOST_StressState}{ENDL} {
-    return Vector::ASC::Event::EventType::MostStressEvent; }
+    return Vector::ASC::Event::EventType::MostStress; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"AllocTab:"{ws}{MOST_AllocTableSize}({WS}{MOST_DxAT})*{ENDL} {
     return Vector::ASC::Event::EventType::Most25AllocTable; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"Msg150:"{ws}{MOST_Dir}{WS}{MOST_SourceAdr}{WS}{MOST_DestAdr}{WS}{MOST_State}{WS}{MOST_AckNack}{WS}{MOST_TransferType}{WS}{MOST_Pack}{WS}{MOST_Priority}{WS}{MOST_Pindex}{WS}{MOST_CRC2}{WS}{MOST_Cack}{WS}{MOST_RsvdUL}{WS}{MOST_Msg150Len}({WS}{MOST_Dx})+{ENDL} {
@@ -446,7 +446,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"PktEthFrg:"{ws}{MOST_FrgMask}{WS}{MOST_SourceMacAdr}{WS}{MOST_DestMacAdr}{WS}{MOST_AckNack}{WS}{MOST_Pack}{WS}{MOST_CRC4}{WS}{MOST_Cack}{WS}{MOST_RsvdUL}{WS}{MOST_FrgDataLen}{WS}{MOST_FrgDataLenAnnounced}{WS}{MOST_FirstDataLen}({WS}{MOST_Dx})+{ENDL} {
     return Vector::ASC::Event::EventType::MostEthernetPacketFragment; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"System:"{ws}{MOST_SysID}{WS}{MOST_SysValue}{WS}{MOST_SysValueOld}{ENDL} {
-    return Vector::ASC::Event::EventType::MostSystemEvent; }
+    return Vector::ASC::Event::EventType::MostSystem; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"AT150:"{ws}{MOST_AT150EventModeFlags}{WS}{MOST_FreeBytes}{WS}{MOST_AT150Size}({WS}{MOST_Wx})*{ENDL} {
     return Vector::ASC::Event::EventType::Most150AllocTable; }
 {STOL}{MOST_Time}{WS}{MOST_Channel}{WS}"Msg50:"{ws}{MOST_Dir}{WS}{MOST_SourceAdr}{WS}{MOST_DestAdr}{WS}{MOST_State}{WS}{MOST_AckNack}{WS}{MOST_TransferType}{WS}{MOST_RsvdUC}{WS}{MOST_Priority}{WS}{MOST_RsvdUC}{WS}{MOST_CRC2}{WS}{MOST_RsvdUC}{WS}{MOST_RsvdUL}{WS}{MOST_Msg50Len}({WS}{MOST_Dx})+{ENDL} {

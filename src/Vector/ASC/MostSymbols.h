@@ -154,7 +154,7 @@ typedef uint32_t MostFrgDataLenAnnounced;
 typedef uint32_t MostFrgMask;
 
 /** HW mode */
-typedef uint8_t MostHwMode;
+typedef uint8_t MostHwModeType;
 
 /** bitmask of changed bits */
 typedef uint8_t MostHwModeMask;

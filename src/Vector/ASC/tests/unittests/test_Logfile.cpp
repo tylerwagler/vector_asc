@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(AllLogfiles)
                 case Vector::ASC::Event::EventType::FileVersion:
                     fileout.version = filein.version;
                     break;
-                case Vector::ASC::Event::EventType::BeginTriggerblockEvent:
+                case Vector::ASC::Event::EventType::BeginTriggerblock:
                     fileout.language = filein.language;
                     break;
                 case Vector::ASC::Event::EventType::StartOfMeasurement:
