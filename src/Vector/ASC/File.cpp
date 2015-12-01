@@ -358,8 +358,6 @@ Event * File::read()
         return MostEcl::parse(*this, line);
 
     /* TP/Diagnostics Events */
-    case Event::EventType::TpDiagPrefix:
-        return TpDiagPrefix::parse(*this, line);
     case Event::EventType::TpDiagSingleFrame:
         return TpDiagSingleFrame::parse(*this, line);
     case Event::EventType::TpDiagFirstFrame:

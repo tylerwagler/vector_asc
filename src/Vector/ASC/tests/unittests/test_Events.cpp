@@ -3186,30 +3186,6 @@ BOOST_AUTO_TEST_CASE(MostEcl)
 }
 
 /* TP/Diagnostics Events */
-BOOST_AUTO_TEST_CASE(TpDiagPrefix)
-{
-    Vector::ASC::File file;
-    file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpDiagPrefix.asc");
-    BOOST_REQUIRE(file.is_open());
-
-    Vector::ASC::Event * event;
-    Vector::ASC::TpDiagPrefix * tpDiagPrefix;
-
-    event = file.read();
-    BOOST_REQUIRE(event != nullptr);
-    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagPrefix);
-    tpDiagPrefix = static_cast<Vector::ASC::TpDiagPrefix *>(event);
-    BOOST_CHECK(tpDiagPrefix->canChannel == 1);
-    BOOST_CHECK(tpDiagPrefix->connectionId == 0x07);
-    BOOST_CHECK(tpDiagPrefix->type == Vector::ASC::TpDiagType::Atom);
-    BOOST_CHECK(tpDiagPrefix->source == "Any_ECU_example");
-    BOOST_CHECK(tpDiagPrefix->destination == "<tester>");
-    delete event;
-
-    BOOST_CHECK(file.eof());
-    file.close();
-}
-
 BOOST_AUTO_TEST_CASE(TpDiagSingleFrame)
 {
     Vector::ASC::File file;
@@ -3223,6 +3199,11 @@ BOOST_AUTO_TEST_CASE(TpDiagSingleFrame)
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagSingleFrame);
     tpDiagSingleFrame = static_cast<Vector::ASC::TpDiagSingleFrame *>(event);
+    BOOST_CHECK(tpDiagSingleFrame->canChannel == 1);
+    BOOST_CHECK(tpDiagSingleFrame->connectionId == 0x05);
+    BOOST_CHECK(tpDiagSingleFrame->type == Vector::ASC::TpDiagType::Atom);
+    BOOST_CHECK(tpDiagSingleFrame->source == "<tester>");
+    BOOST_CHECK(tpDiagSingleFrame->destination == "Any_ECU_example");
     BOOST_CHECK(tpDiagSingleFrame->length == 0x02);
     BOOST_CHECK(tpDiagSingleFrame->transportedBytes[0] == 0x1A);
     BOOST_CHECK(tpDiagSingleFrame->transportedBytes[1] == 0x90);
@@ -3245,6 +3226,11 @@ BOOST_AUTO_TEST_CASE(TpDiagFirstFrame)
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagFirstFrame);
     tpDiagFirstFrame = static_cast<Vector::ASC::TpDiagFirstFrame *>(event);
+    BOOST_CHECK(tpDiagFirstFrame->canChannel == 1);
+    BOOST_CHECK(tpDiagFirstFrame->connectionId == 0x07);
+    BOOST_CHECK(tpDiagFirstFrame->type == Vector::ASC::TpDiagType::Atom);
+    BOOST_CHECK(tpDiagFirstFrame->source == "<tester>");
+    BOOST_CHECK(tpDiagFirstFrame->destination == "Any_ECU_example");
     BOOST_CHECK(tpDiagFirstFrame->length == 0x000C);
     BOOST_CHECK(tpDiagFirstFrame->transportedBytes[0] == 0x5A);
     BOOST_CHECK(tpDiagFirstFrame->transportedBytes[1] == 0x90);
@@ -3271,6 +3257,11 @@ BOOST_AUTO_TEST_CASE(TpDiagConsecutiveFrame)
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagConsecutiveFrame);
     tpDiagConsecutiveFrame = static_cast<Vector::ASC::TpDiagConsecutiveFrame *>(event);
+    BOOST_CHECK(tpDiagConsecutiveFrame->canChannel == 1);
+    BOOST_CHECK(tpDiagConsecutiveFrame->connectionId == 0x07);
+    BOOST_CHECK(tpDiagConsecutiveFrame->type == Vector::ASC::TpDiagType::Atom);
+    BOOST_CHECK(tpDiagConsecutiveFrame->source == "Any_ECU_example");
+    BOOST_CHECK(tpDiagConsecutiveFrame->destination == "<tester>");
     BOOST_CHECK(tpDiagConsecutiveFrame->sn == 1);
     BOOST_CHECK(tpDiagConsecutiveFrame->transportedBytes[0] == 0x10);
     BOOST_CHECK(tpDiagConsecutiveFrame->transportedBytes[1] == 0x00);
@@ -3298,6 +3289,11 @@ BOOST_AUTO_TEST_CASE(TpDiagFlowControlFrame)
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagFlowControlFrame);
     tpDiagFlowControlFrame = static_cast<Vector::ASC::TpDiagFlowControlFrame *>(event);
+    BOOST_CHECK(tpDiagFlowControlFrame->canChannel == 1);
+    BOOST_CHECK(tpDiagFlowControlFrame->connectionId == 0x07);
+    BOOST_CHECK(tpDiagFlowControlFrame->type == Vector::ASC::TpDiagType::Atom);
+    BOOST_CHECK(tpDiagFlowControlFrame->source == "Any_ECU_example");
+    BOOST_CHECK(tpDiagFlowControlFrame->destination == "<tester>");
     BOOST_CHECK(tpDiagFlowControlFrame->fcType == Vector::ASC::TpDiagFcType::Cts);
     BOOST_CHECK(tpDiagFlowControlFrame->bs == 0x00);
     BOOST_CHECK(tpDiagFlowControlFrame->stMin == 0x14);

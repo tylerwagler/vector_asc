@@ -30,6 +30,11 @@ namespace ASC {
 
 TpDiagConsecutiveFrame::TpDiagConsecutiveFrame() :
     Event(),
+    canChannel(0),
+    connectionId(0),
+    type(TpDiagType::Info),
+    source(),
+    destination(),
     sn(0),
     transportedBytes()
 {
@@ -42,13 +47,33 @@ TpDiagConsecutiveFrame::~TpDiagConsecutiveFrame()
 
 TpDiagConsecutiveFrame * TpDiagConsecutiveFrame::parse(File & file, std::string & line)
 {
-    std::regex regex(REGEX_STOL "CF" REGEX_WS "Seq.Nr.:" REGEX_ws REGEX_TPDiag_SN REGEX_ws
+    std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_TPDiag_CANChannel REGEX_WS "OTP\\(" REGEX_TPDiag_connectionId "\\)"
+                     REGEX_WS REGEX_TPDiag_type REGEX_WS REGEX_TPDiag_source "->" REGEX_TPDiag_destination ":"
+                     REGEX_ws "CF" REGEX_WS "Seq.Nr.:" REGEX_ws REGEX_TPDiag_SN REGEX_ws
                      "\\[" REGEX_TPDiag_transportedBytes REGEX_WS "\\]" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         TpDiagConsecutiveFrame * tpDiagConsecutiveFrame = new TpDiagConsecutiveFrame;
-        tpDiagConsecutiveFrame->sn = std::stoul(match[1]);
-        std::istringstream iss(match[2]);
+        tpDiagConsecutiveFrame->canChannel = std::stoul(match[1]);
+        tpDiagConsecutiveFrame->connectionId = std::stoul(match[2], nullptr, 16);
+        if (match[3] == "Info")
+            tpDiagConsecutiveFrame->type = TpDiagType::Info;
+        else
+        if (match[3] == "Warn")
+            tpDiagConsecutiveFrame->type = TpDiagType::Warn;
+        else
+        if (match[3] == "Error")
+            tpDiagConsecutiveFrame->type = TpDiagType::Error;
+        else
+        if (match[3] == "Atom")
+            tpDiagConsecutiveFrame->type = TpDiagType::Atom;
+        else
+        if (match[3] == "Data")
+            tpDiagConsecutiveFrame->type = TpDiagType::Data;
+        tpDiagConsecutiveFrame->source = match[4];
+        tpDiagConsecutiveFrame->destination = match[5];
+        tpDiagConsecutiveFrame->sn = std::stoul(match[6]);
+        std::istringstream iss(match[7]);
         iss >> std::hex;
         for (uint8_t i = 0; !iss.eof(); ++i) {
             unsigned short s;
@@ -63,6 +88,31 @@ TpDiagConsecutiveFrame * TpDiagConsecutiveFrame::parse(File & file, std::string 
 
 void TpDiagConsecutiveFrame::write(File & file, std::ostream & stream)
 {
+    stream << "// " << std::dec << (uint16_t) canChannel;
+
+    /* format: "  OTP(" */
+    stream << "  OTP(";
+
+    stream << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) connectionId << ") ";
+    switch(type) {
+    case TpDiagType::Info:
+        stream << "Info";
+        break;
+    case TpDiagType::Warn:
+        stream << "Warn";
+        break;
+    case TpDiagType::Error:
+        stream << "Error";
+        break;
+    case TpDiagType::Atom:
+        stream << "Atom";
+        break;
+    case TpDiagType::Data:
+        stream << "Data";
+        break;
+    }
+    stream << " " << source << "->" << destination << ":";
+
     stream
             << "CF Seq.Nr.: " << std::dec << (uint16_t) sn
             << " [";

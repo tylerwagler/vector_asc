@@ -35,6 +35,21 @@ public:
     TpDiagConsecutiveFrame();
     virtual ~TpDiagConsecutiveFrame();
 
+    /** @copydoc TpDiagCanChannel */
+    TpDiagCanChannel canChannel;
+
+    /** @copydoc TpDiagConnectionId */
+    TpDiagConnectionId connectionId;
+
+    /** @copydoc TpDiagType */
+    TpDiagType type;
+
+    /** @copydoc TpDiagSource */
+    TpDiagSource source;
+
+    /** @copydoc TpDiagDestination */
+    TpDiagDestination destination;
+
     /** @copydoc TpDiagSn */
     TpDiagSn sn;
 

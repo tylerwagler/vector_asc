@@ -134,7 +134,6 @@
 #include "ASC/MostEcl.h"
 
 /* TP/Diagnostics Events */
-#include "ASC/TpDiagPrefix.h"
 #include "ASC/TpDiagSingleFrame.h"
 #include "ASC/TpDiagFirstFrame.h"
 #include "ASC/TpDiagConsecutiveFrame.h"

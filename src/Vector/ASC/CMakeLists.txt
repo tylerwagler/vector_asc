@@ -112,7 +112,6 @@ set(source_files
   TpDiagConsecutiveFrame.cpp
   TpDiagFirstFrame.cpp
   TpDiagFlowControlFrame.cpp
-  TpDiagPrefix.cpp
   TpDiagRequest.cpp
   TpDiagSingleFrame.cpp
   Unknown.cpp)
@@ -214,7 +213,6 @@ set(public_header_files
   TpDiagConsecutiveFrame.h
   TpDiagFirstFrame.h
   TpDiagFlowControlFrame.h
-  TpDiagPrefix.h
   TpDiagRequest.h
   TpDiagSingleFrame.h
   TpDiagSymbols.h

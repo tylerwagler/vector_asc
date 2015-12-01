@@ -457,15 +457,13 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::MostEcl; }
 
     /* TP/Diagnostics Events */
-{STOL}"//"{ws}{TPDiag_CANChannel}{WS}"OTP("{TPDiag_connectionId}")"{WS}{TPDiag_type}{WS}{TPDiag_source}"->"{TPDiag_destination}":"{ENDL} {
-    return Vector::ASC::Event::EventType::TpDiagPrefix; }
-{STOL}"SF"{WS}"Length:"{ws}{TPDiag_length}{ws}"["{TPDiag_transportedBytes}{WS}"]"{ENDL} {
+{STOL}"//"{ws}{TPDiag_CANChannel}{WS}"OTP("{TPDiag_connectionId}")"{WS}{TPDiag_type}{WS}{TPDiag_source}"->"{TPDiag_destination}":"{ws}"SF"{WS}"Length:"{ws}{TPDiag_length}{ws}"["{TPDiag_transportedBytes}{WS}"]"{ENDL} {
     return Vector::ASC::Event::EventType::TpDiagSingleFrame; }
-{STOL}"FF"{WS}"Length:"{ws}{TPDiag_length}{ws}"["{TPDiag_transportedBytes}{WS}"]"{ENDL} {
+{STOL}"//"{ws}{TPDiag_CANChannel}{WS}"OTP("{TPDiag_connectionId}")"{WS}{TPDiag_type}{WS}{TPDiag_source}"->"{TPDiag_destination}":"{ws}"FF"{WS}"Length:"{ws}{TPDiag_length}{ws}"["{TPDiag_transportedBytes}{WS}"]"{ENDL} {
     return Vector::ASC::Event::EventType::TpDiagFirstFrame; }
-{STOL}"CF"{WS}"Seq.Nr.:"{ws}{TPDiag_SN}{ws}"["{TPDiag_transportedBytes}{WS}"]"{ENDL} {
+{STOL}"//"{ws}{TPDiag_CANChannel}{WS}"OTP("{TPDiag_connectionId}")"{WS}{TPDiag_type}{WS}{TPDiag_source}"->"{TPDiag_destination}":"{ws}"CF"{WS}"Seq.Nr.:"{ws}{TPDiag_SN}{ws}"["{TPDiag_transportedBytes}{WS}"]"{ENDL} {
     return Vector::ASC::Event::EventType::TpDiagConsecutiveFrame; }
-{STOL}"FC."{TPDiag_FCType}":"{ws}"BSmax:"{ws}"0x"{TPDiag_BS}","{ws}"STmin:"{ws}"0x"{TPDiag_STmin}{ws}"ms"{ENDL} {
+{STOL}"//"{ws}{TPDiag_CANChannel}{WS}"OTP("{TPDiag_connectionId}")"{WS}{TPDiag_type}{WS}{TPDiag_source}"->"{TPDiag_destination}":"{ws}"FC."{TPDiag_FCType}":"{ws}"BSmax:"{ws}"0x"{TPDiag_BS}","{ws}"STmin:"{ws}"0x"{TPDiag_STmin}{ws}"ms"{ENDL} {
     return Vector::ASC::Event::EventType::TpDiagFlowControlFrame; }
 {STOL}{TPDiag_timestamp}{WS}"DiagRequest"{ws}"["{TPDiag_ECUQualifier}"]"{TPDiag_byteSequence}{ENDL} {
     return Vector::ASC::Event::EventType::TpDiagRequest; }
