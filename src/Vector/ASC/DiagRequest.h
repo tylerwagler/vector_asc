@@ -21,45 +21,51 @@
 
 #pragma once
 
+#include <vector>
 #include "Event.h"
 #include "TpDiagSymbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** TP-Diag Flow Control Frame */
-class TpDiagFlowControlFrame : public Event
+/** Diagnostic request */
+class DiagRequest : public Event
 {
 public:
-    TpDiagFlowControlFrame();
-    virtual ~TpDiagFlowControlFrame();
+    DiagRequest();
 
-    /** @copydoc TpDiagCanChannel */
-    TpDiagCanChannel canChannel;
+    /** @copydoc TpDiagTimestamp */
+    TpDiagTimestamp time;
 
-    /** @copydoc TpDiagConnectionId */
-    TpDiagConnectionId connectionId;
+    /** @copydoc TpDiagEcuQualifier */
+    TpDiagEcuQualifier ecuQualifier;
 
-    /** @copydoc TpDiagType */
-    TpDiagType type;
+    /** Command */
+    enum class Command {
+        /** Close */
+        Close,
 
-    /** @copydoc TpDiagSource */
-    TpDiagSource source;
+        /** Open */
+        Open,
 
-    /** @copydoc TpDiagDestination */
-    TpDiagDestination destination;
+        /** TPon */
+        TpOn,
 
-    /** @copydoc TpDiagFcType */
-    TpDiagFcType fcType;
+        /** TPoff */
+        TpOff,
 
-    /** @copydoc TpDiagBs */
-    TpDiagBs bs;
+        /** byteSequence */
+        ByteSequence
+    };
 
-    /** @copydoc TpDiagStMin */
-    TpDiagStMin stMin;
+    /** Command */
+    Command command;
+
+    /** @copydoc TpDiagByteSequence */
+    std::vector<TpDiagByteSequence> byteSequence;
 
     /** @copydoc Event::parse() */
-    static TpDiagFlowControlFrame * parse(File & file, std::string & line);
+    static DiagRequest * parse(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

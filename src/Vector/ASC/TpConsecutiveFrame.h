@@ -28,12 +28,12 @@
 namespace Vector {
 namespace ASC {
 
-/** TP-Diag Single Frame */
-class TpDiagSingleFrame : public Event
+/** TPg Consecutive Frame */
+class TpConsecutiveFrame : public Event
 {
 public:
-    TpDiagSingleFrame();
-    virtual ~TpDiagSingleFrame();
+    TpConsecutiveFrame();
+    virtual ~TpConsecutiveFrame();
 
     /** @copydoc TpDiagCanChannel */
     TpDiagCanChannel canChannel;
@@ -50,14 +50,14 @@ public:
     /** @copydoc TpDiagDestination */
     TpDiagDestination destination;
 
-    /** @copydoc TpDiagLength */
-    TpDiagLength length;
+    /** @copydoc TpDiagSn */
+    TpDiagSn sn;
 
     /** @copydoc TpDiagTransportedBytes */
-    std::array<TpDiagTransportedBytes, 2> transportedBytes;
+    std::array<TpDiagTransportedBytes, 7> transportedBytes;
 
     /** @copydoc Event::parse() */
-    static TpDiagSingleFrame * parse(File & file, std::string & line);
+    static TpConsecutiveFrame * parse(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

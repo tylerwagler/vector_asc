@@ -29,6 +29,7 @@ set(source_files
   CanOverloadFrame.cpp
   CanRemoteFrame.cpp
   Comment.cpp
+  DiagRequest.cpp
   EndTriggerblock.cpp
   EnvironmentVariables.cpp
   EthernetCommon.cpp
@@ -108,12 +109,11 @@ set(source_files
   MostTxLight.cpp
   StartOfMeasurement.cpp
   SystemVariables.cpp
+  TpConsecutiveFrame.cpp
   TpDiagCommon.cpp
-  TpDiagConsecutiveFrame.cpp
-  TpDiagFirstFrame.cpp
-  TpDiagFlowControlFrame.cpp
-  TpDiagRequest.cpp
-  TpDiagSingleFrame.cpp
+  TpFirstFrame.cpp
+  TpFlowControlFrame.cpp
+  TpSingleFrame.cpp
   Unknown.cpp)
 
 set(public_header_files
@@ -131,6 +131,7 @@ set(public_header_files
   CanRemoteFrame.h
   CanSymbols.h
   Comment.h
+  DiagRequest.h
   EndTriggerblock.h
   EnvironmentVariables.h
   EthernetPacket.h
@@ -210,12 +211,11 @@ set(public_header_files
   MostTxLight.h
   StartOfMeasurement.h
   SystemVariables.h
-  TpDiagConsecutiveFrame.h
-  TpDiagFirstFrame.h
-  TpDiagFlowControlFrame.h
-  TpDiagRequest.h
-  TpDiagSingleFrame.h
+  TpConsecutiveFrame.h
   TpDiagSymbols.h
+  TpFirstFrame.h
+  TpFlowControlFrame.h
+  TpSingleFrame.h
   Unknown.h)
 
 set(private_header_files

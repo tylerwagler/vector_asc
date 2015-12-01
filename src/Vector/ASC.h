@@ -134,11 +134,11 @@
 #include "ASC/MostEcl.h"
 
 /* TP/Diagnostics Events */
-#include "ASC/TpDiagSingleFrame.h"
-#include "ASC/TpDiagFirstFrame.h"
-#include "ASC/TpDiagConsecutiveFrame.h"
-#include "ASC/TpDiagFlowControlFrame.h"
-#include "ASC/TpDiagRequest.h"
+#include "ASC/TpSingleFrame.h"
+#include "ASC/TpFirstFrame.h"
+#include "ASC/TpConsecutiveFrame.h"
+#include "ASC/TpFlowControlFrame.h"
+#include "ASC/DiagRequest.h"
 
 /* undocumented events */
 #include "ASC/StartOfMeasurement.h"

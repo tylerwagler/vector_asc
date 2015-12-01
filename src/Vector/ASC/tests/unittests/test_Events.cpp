@@ -194,7 +194,7 @@ BOOST_AUTO_TEST_CASE(CanMessageEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanMessage);
-    canMessageEvent = static_cast<Vector::ASC::CanMessageEvent *>(event);
+    canMessage = static_cast<Vector::ASC::CanMessage *>(event);
     BOOST_CHECK(isEqual(canMessage->time, 0.003040));
     BOOST_CHECK(canMessage->channel == 1);
     BOOST_CHECK(canMessage->id == 0x123);
@@ -212,7 +212,7 @@ BOOST_AUTO_TEST_CASE(CanMessageEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanMessage);
-    canMessageEvent = static_cast<Vector::ASC::CanMessageEvent *>(event);
+    canMessage = static_cast<Vector::ASC::CanMessage *>(event);
     BOOST_CHECK(isEqual(canMessage->time, 2.500900));
     BOOST_CHECK(canMessage->channel == 1);
     BOOST_CHECK(canMessage->id == 0x64);
@@ -240,7 +240,7 @@ BOOST_AUTO_TEST_CASE(CanMessageEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanMessage);
-    canMessageEvent = static_cast<Vector::ASC::CanMessageEvent *>(event);
+    canMessage = static_cast<Vector::ASC::CanMessage *>(event);
     BOOST_CHECK(isEqual(canMessage->time, 1.047413));
     BOOST_CHECK(canMessage->channel == 1);
     BOOST_CHECK(canMessage->id == 1792);
@@ -281,7 +281,7 @@ BOOST_AUTO_TEST_CASE(CanExtendedMessageEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanExtendedMessage);
-    canExtendedMessageEvent = static_cast<Vector::ASC::CanExtendedMessageEvent *>(event);
+    canExtendedMessage = static_cast<Vector::ASC::CanExtendedMessage *>(event);
     BOOST_CHECK(isEqual(canExtendedMessage->time, 4.876870));
     BOOST_CHECK(canExtendedMessage->channel == 1);
     BOOST_CHECK(canExtendedMessage->id == 0x54C5638);
@@ -305,7 +305,7 @@ BOOST_AUTO_TEST_CASE(CanExtendedMessageEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanExtendedMessage);
-    canExtendedMessageEvent = static_cast<Vector::ASC::CanExtendedMessageEvent *>(event);
+    canExtendedMessage = static_cast<Vector::ASC::CanExtendedMessage *>(event);
     BOOST_CHECK(isEqual(canExtendedMessage->time, 2.501000));
     BOOST_CHECK(canExtendedMessage->channel == 2);
     BOOST_CHECK(canExtendedMessage->id == 0xC8);
@@ -342,7 +342,7 @@ BOOST_AUTO_TEST_CASE(CanRemoteFrameEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanRemoteFrame);
-    canRemoteFrameEvent = static_cast<Vector::ASC::CanRemoteFrameEvent *>(event);
+    canRemoteFrame = static_cast<Vector::ASC::CanRemoteFrame *>(event);
     BOOST_CHECK(isEqual(canRemoteFrame->time, 2.501000));
     BOOST_CHECK(canRemoteFrame->channel == 1);
     BOOST_CHECK(canRemoteFrame->id == 0x200);
@@ -412,7 +412,7 @@ BOOST_AUTO_TEST_CASE(CanBusStatisticsEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanBusStatistics);
-    canBusStatisticsEvent = static_cast<Vector::ASC::CanBusStatisticsEvent *>(event);
+    canBusStatistics = static_cast<Vector::ASC::CanBusStatistics *>(event);
     BOOST_CHECK(isEqual(canBusStatistics->time, 1.010000));
     BOOST_CHECK(canBusStatistics->channel == 1);
     BOOST_CHECK(canBusStatistics->dataFrames == 1000);
@@ -440,7 +440,7 @@ BOOST_AUTO_TEST_CASE(CanErrorEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanError);
-    canErrorEvent = static_cast<Vector::ASC::CanErrorEvent *>(event);
+    canError = static_cast<Vector::ASC::CanError *>(event);
     BOOST_CHECK(isEqual(canError->time, 0.000600));
     BOOST_CHECK(canError->channel == 2);
     BOOST_CHECK(canError->error == "chip status error active");
@@ -449,7 +449,7 @@ BOOST_AUTO_TEST_CASE(CanErrorEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanError);
-    canErrorEvent = static_cast<Vector::ASC::CanErrorEvent *>(event);
+    canError = static_cast<Vector::ASC::CanError *>(event);
     BOOST_CHECK(isEqual(canError->time, 2.501000));
     BOOST_CHECK(canError->channel == 1);
     BOOST_CHECK(canError->error == "chip status error active - TxErr: 0 RxErr: 1");
@@ -471,7 +471,7 @@ BOOST_AUTO_TEST_CASE(CanOverloadFrameEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanOverloadFrame);
-    canOverloadFrameEvent = static_cast<Vector::ASC::CanOverloadFrameEvent *>(event);
+    canOverloadFrame = static_cast<Vector::ASC::CanOverloadFrame *>(event);
     BOOST_CHECK(isEqual(canOverloadFrame->time, 2.515800));
     BOOST_CHECK(canOverloadFrame->channel == 1);
     delete event;
@@ -493,7 +493,7 @@ BOOST_AUTO_TEST_CASE(CanFdMessageEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanFdMessage);
-    canFdMessageEvent = static_cast<Vector::ASC::CanFdMessageEvent *>(event);
+    canFdMessage = static_cast<Vector::ASC::CanFdMessage *>(event);
     BOOST_CHECK(isEqual(canFdMessage->time, 8.151536));
     BOOST_CHECK(canFdMessage->channel == 2);
     BOOST_CHECK(canFdMessage->dir == Vector::ASC::Dir::Tx);
@@ -539,7 +539,7 @@ BOOST_AUTO_TEST_CASE(CanFdExtendedMessageEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanFdExtendedMessage);
-    canFdExtendedMessageEvent = static_cast<Vector::ASC::CanFdExtendedMessageEvent *>(event);
+    canFdExtendedMessage = static_cast<Vector::ASC::CanFdExtendedMessage *>(event);
     BOOST_CHECK(isEqual(canFdExtendedMessage->time, 0.248166));
     BOOST_CHECK(canFdExtendedMessage->channel == 2);
     BOOST_CHECK(canFdExtendedMessage->dir == Vector::ASC::Dir::Rx);
@@ -619,7 +619,7 @@ BOOST_AUTO_TEST_CASE(LogTriggerEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LogTrigger);
-    logTriggerEvent = static_cast<Vector::ASC::LogTriggerEvent *>(event);
+    logTrigger = static_cast<Vector::ASC::LogTrigger *>(event);
     BOOST_CHECK(logTrigger->time == 2.000000);
     BOOST_CHECK(logTrigger->information == "");
     delete event;
@@ -627,7 +627,7 @@ BOOST_AUTO_TEST_CASE(LogTriggerEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LogTrigger);
-    logTriggerEvent = static_cast<Vector::ASC::LogTriggerEvent *>(event);
+    logTrigger = static_cast<Vector::ASC::LogTrigger *>(event);
     BOOST_CHECK(logTrigger->time == 2.700000);
     BOOST_CHECK(logTrigger->information == "(this trigger was in post trigger time of last block)");
     delete event;
@@ -648,7 +648,7 @@ BOOST_AUTO_TEST_CASE(LogDirectStartEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LogDirectStart);
-    logDirectStartEvent = static_cast<Vector::ASC::LogDirectStartEvent *>(event);
+    logDirectStart = static_cast<Vector::ASC::LogDirectStart *>(event);
     BOOST_CHECK(isEqual(logDirectStart->time, 2.110000));
     BOOST_CHECK(logDirectStart->preTrigger == 2000);
     delete event;
@@ -669,7 +669,7 @@ BOOST_AUTO_TEST_CASE(LogDirectStopEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LogDirectStop);
-    logDirectStopEvent = static_cast<Vector::ASC::LogDirectStopEvent *>(event);
+    logDirectStop = static_cast<Vector::ASC::LogDirectStop *>(event);
     BOOST_CHECK(isEqual(logDirectStop->time, 2.110000));
     BOOST_CHECK(logDirectStop->postTrigger == 1000);
     delete event;
@@ -690,7 +690,7 @@ BOOST_AUTO_TEST_CASE(BeginTriggerblockEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::BeginTriggerblock);
-    beginTriggerblockEvent = static_cast<Vector::ASC::BeginTriggerblockEvent *>(event);
+    beginTriggerblock = static_cast<Vector::ASC::BeginTriggerblock *>(event);
     BOOST_CHECK(beginTriggerblock->date.tm_wday == 1);
     BOOST_CHECK(beginTriggerblock->date.tm_mon == 2);
     BOOST_CHECK(beginTriggerblock->date.tm_mday == 7);
@@ -716,7 +716,7 @@ BOOST_AUTO_TEST_CASE(EndTriggerblockEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EndTriggerblock);
-    endTriggerblockEvent = static_cast<Vector::ASC::EndTriggerblockEvent *>(event);
+    endTriggerblock = static_cast<Vector::ASC::EndTriggerblock *>(event);
     delete event;
 
     BOOST_CHECK(file.eof());
@@ -736,28 +736,28 @@ BOOST_AUTO_TEST_CASE(EnvironmentVariablesEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EnvironmentVariables);
-    environmentVariablesEvent = static_cast<Vector::ASC::EnvironmentVariablesEvent *>(event);
+    environmentVariables = static_cast<Vector::ASC::EnvironmentVariables *>(event);
     BOOST_CHECK(isEqual(environmentVariables->time, 2.130000));
     delete event;
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EnvironmentVariables);
-    environmentVariablesEvent = static_cast<Vector::ASC::EnvironmentVariablesEvent *>(event);
+    environmentVariables = static_cast<Vector::ASC::EnvironmentVariables *>(event);
     BOOST_CHECK(isEqual(environmentVariables->time, 2.567000));
     delete event;
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EnvironmentVariables);
-    environmentVariablesEvent = static_cast<Vector::ASC::EnvironmentVariablesEvent *>(event);
+    environmentVariables = static_cast<Vector::ASC::EnvironmentVariables *>(event);
     BOOST_CHECK(isEqual(environmentVariables->time, 3.830000));
     delete event;
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EnvironmentVariables);
-    environmentVariablesEvent = static_cast<Vector::ASC::EnvironmentVariablesEvent *>(event);
+    environmentVariables = static_cast<Vector::ASC::EnvironmentVariables *>(event);
     BOOST_CHECK(isEqual(environmentVariables->time, 2.250000));
     delete event;
 
@@ -778,7 +778,7 @@ BOOST_AUTO_TEST_CASE(SystemVariablesEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::SystemVariables);
-    systemVariablesEvent = static_cast<Vector::ASC::SystemVariablesEvent *>(event);
+    systemVariables = static_cast<Vector::ASC::SystemVariables *>(event);
     BOOST_CHECK(isEqual(systemVariables->time, 1.200000));
     BOOST_CHECK(systemVariables->svtype == Vector::ASC::Svtype::Int);
     BOOST_CHECK(systemVariables->path == "::NS1::IntVar");
@@ -788,7 +788,7 @@ BOOST_AUTO_TEST_CASE(SystemVariablesEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::SystemVariables);
-    systemVariablesEvent = static_cast<Vector::ASC::SystemVariablesEvent *>(event);
+    systemVariables = static_cast<Vector::ASC::SystemVariables *>(event);
     BOOST_CHECK(isEqual(systemVariables->time, 1.370000));
     BOOST_CHECK(systemVariables->svtype == Vector::ASC::Svtype::Float);
     BOOST_CHECK(systemVariables->path == "::NS1::FloatVar");
@@ -798,7 +798,7 @@ BOOST_AUTO_TEST_CASE(SystemVariablesEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::SystemVariables);
-    systemVariablesEvent = static_cast<Vector::ASC::SystemVariablesEvent *>(event);
+    systemVariables = static_cast<Vector::ASC::SystemVariables *>(event);
     BOOST_CHECK(isEqual(systemVariables->time, 1.580000));
     BOOST_CHECK(systemVariables->svtype == Vector::ASC::Svtype::String);
     BOOST_CHECK(systemVariables->path == "::NS1::StringVar");
@@ -808,7 +808,7 @@ BOOST_AUTO_TEST_CASE(SystemVariablesEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::SystemVariables);
-    systemVariablesEvent = static_cast<Vector::ASC::SystemVariablesEvent *>(event);
+    systemVariables = static_cast<Vector::ASC::SystemVariables *>(event);
     BOOST_CHECK(isEqual(systemVariables->time, 1.690000));
     BOOST_CHECK(systemVariables->svtype == Vector::ASC::Svtype::IntArray);
     BOOST_CHECK(systemVariables->path == "::NS1::IntArray");
@@ -818,7 +818,7 @@ BOOST_AUTO_TEST_CASE(SystemVariablesEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::SystemVariables);
-    systemVariablesEvent = static_cast<Vector::ASC::SystemVariablesEvent *>(event);
+    systemVariables = static_cast<Vector::ASC::SystemVariables *>(event);
     BOOST_CHECK(isEqual(systemVariables->time, 2.000000));
     BOOST_CHECK(systemVariables->svtype == Vector::ASC::Svtype::FloatArray);
     BOOST_CHECK(systemVariables->path == "::NS1::FloatArray");
@@ -842,9 +842,9 @@ BOOST_AUTO_TEST_CASE(MacroSignalEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MacroSignal);
-    macroSignalEvent = static_cast<Vector::ASC::MacroSignalEvent *>(event);
+    macroSignal = static_cast<Vector::ASC::MacroSignal *>(event);
     BOOST_CHECK(isEqual(macroSignal->time, 2.350000));
-    BOOST_CHECK(macroSignal->bussystem == Vector::ASC::MacroSignalEvent::Bussystem::Can);
+    BOOST_CHECK(macroSignal->bussystem == Vector::ASC::MacroSignal::Bussystem::Can);
     BOOST_CHECK(macroSignal->channel == 1);
     BOOST_CHECK(macroSignal->node == "Node");
     BOOST_CHECK(macroSignal->message == "aCANMessage");
@@ -855,9 +855,9 @@ BOOST_AUTO_TEST_CASE(MacroSignalEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MacroSignal);
-    macroSignalEvent = static_cast<Vector::ASC::MacroSignalEvent *>(event);
+    macroSignal = static_cast<Vector::ASC::MacroSignal *>(event);
     BOOST_CHECK(isEqual(macroSignal->time, 2.350000));
-    BOOST_CHECK(macroSignal->bussystem == Vector::ASC::MacroSignalEvent::Bussystem::Can);
+    BOOST_CHECK(macroSignal->bussystem == Vector::ASC::MacroSignal::Bussystem::Can);
     BOOST_CHECK(macroSignal->channel == 1);
     BOOST_CHECK(macroSignal->node == "Node");
     BOOST_CHECK(macroSignal->message == "aCANMessage");
@@ -868,9 +868,9 @@ BOOST_AUTO_TEST_CASE(MacroSignalEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MacroSignal);
-    macroSignalEvent = static_cast<Vector::ASC::MacroSignalEvent *>(event);
+    macroSignal = static_cast<Vector::ASC::MacroSignal *>(event);
     BOOST_CHECK(isEqual(macroSignal->time, 5.000000));
-    BOOST_CHECK(macroSignal->bussystem == Vector::ASC::MacroSignalEvent::Bussystem::Lin);
+    BOOST_CHECK(macroSignal->bussystem == Vector::ASC::MacroSignal::Bussystem::Lin);
     BOOST_CHECK(macroSignal->channel == 1);
     BOOST_CHECK(macroSignal->node == "L_Slave");
     BOOST_CHECK(macroSignal->message == "aLINMessage");
@@ -881,9 +881,9 @@ BOOST_AUTO_TEST_CASE(MacroSignalEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MacroSignal);
-    macroSignalEvent = static_cast<Vector::ASC::MacroSignalEvent *>(event);
+    macroSignal = static_cast<Vector::ASC::MacroSignal *>(event);
     BOOST_CHECK(isEqual(macroSignal->time, 1.110000));
-    BOOST_CHECK(macroSignal->bussystem == Vector::ASC::MacroSignalEvent::Bussystem::FlexRay);
+    BOOST_CHECK(macroSignal->bussystem == Vector::ASC::MacroSignal::Bussystem::FlexRay);
     BOOST_CHECK(macroSignal->channel == 1);
     BOOST_CHECK(macroSignal->node == "FR_ECU");
     BOOST_CHECK(macroSignal->message == "aFlexRayMessage");
@@ -908,7 +908,7 @@ BOOST_AUTO_TEST_CASE(GpsEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Gps);
-    gpsEvent = static_cast<Vector::ASC::GpsEvent *>(event);
+    gps = static_cast<Vector::ASC::Gps *>(event);
     BOOST_CHECK(isEqual(gps->time, 2.097603));
     BOOST_CHECK(gps->channel == 1);
     BOOST_CHECK(isEqual(gps->latitude, 48.825100));
@@ -935,7 +935,7 @@ BOOST_AUTO_TEST_CASE(CommentEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Comment);
-    commentEvent = static_cast<Vector::ASC::CommentEvent *>(event);
+    comment = static_cast<Vector::ASC::Comment *>(event);
     BOOST_CHECK(isEqual(comment->time, 1.593770));
     BOOST_CHECK(comment->type == 105);
     BOOST_CHECK(comment->commentText == "testComment");
@@ -958,7 +958,7 @@ BOOST_AUTO_TEST_CASE(GlobalMarkerEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::GlobalMarker);
-    globalMarkerEvent = static_cast<Vector::ASC::GlobalMarkerEvent *>(event);
+    globalMarker = static_cast<Vector::ASC::GlobalMarker *>(event);
     BOOST_CHECK(isEqual(globalMarker->time, 2.200804));
     BOOST_CHECK(globalMarker->type == 0);
     BOOST_CHECK(globalMarker->backgroundColor == 16777215);
@@ -1280,7 +1280,7 @@ BOOST_AUTO_TEST_CASE(FlexRayOldMessageEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayOldMessage);
-    flexRayOldMessageEvent = static_cast<Vector::ASC::FlexRayOldMessageEvent *>(event);
+    flexRayOldMessage = static_cast<Vector::ASC::FlexRayOldMessage *>(event);
     BOOST_CHECK(isEqual(flexRayOldMessage->time, 0.042000));
     BOOST_CHECK(flexRayOldMessage->channel == '1');
     BOOST_CHECK(flexRayOldMessage->id == 4);
@@ -1301,7 +1301,7 @@ BOOST_AUTO_TEST_CASE(FlexRayOldMessageEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayOldMessage);
-    flexRayOldMessageEvent = static_cast<Vector::ASC::FlexRayOldMessageEvent *>(event);
+    flexRayOldMessage = static_cast<Vector::ASC::FlexRayOldMessage *>(event);
     BOOST_CHECK(isEqual(flexRayOldMessage->time, 0.042600));
     BOOST_CHECK(flexRayOldMessage->channel == '2');
     BOOST_CHECK(flexRayOldMessage->id == 13);
@@ -1335,7 +1335,7 @@ BOOST_AUTO_TEST_CASE(FlexRayOldStartCycleEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayOldStartCycle);
-    flexRayOldStartCycleEvent = static_cast<Vector::ASC::FlexRayOldStartCycleEvent *>(event);
+    flexRayOldStartCycle = static_cast<Vector::ASC::FlexRayOldStartCycle *>(event);
     BOOST_CHECK(isEqual(flexRayOldStartCycle->time, 0.041700));
     BOOST_CHECK(flexRayOldStartCycle->channel == '*');
     BOOST_CHECK(flexRayOldStartCycle->dlc == 2);
@@ -1360,9 +1360,9 @@ BOOST_AUTO_TEST_CASE(FlexRayMessageEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayMessage);
-    flexRayMessageEvent = static_cast<Vector::ASC::FlexRayMessageEvent *>(event);
+    flexRayMessage = static_cast<Vector::ASC::FlexRayMessage *>(event);
     BOOST_CHECK(isEqual(flexRayMessage->time, 0.039255));
-    BOOST_CHECK(flexRayMessage->flexRayEventType == Vector::ASC::FlexRayMessageEvent::FlexRayEventType::RMSG);
+    BOOST_CHECK(flexRayMessage->flexRayEventType == Vector::ASC::FlexRayMessage::FlexRayEventType::RMSG);
     BOOST_CHECK(flexRayMessage->clusterNr == 0);
     BOOST_CHECK(flexRayMessage->clientId == 0);
     BOOST_CHECK(flexRayMessage->channelNr == 1);
@@ -1390,9 +1390,9 @@ BOOST_AUTO_TEST_CASE(FlexRayMessageEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayMessage);
-    flexRayMessageEvent = static_cast<Vector::ASC::FlexRayMessageEvent *>(event);
+    flexRayMessage = static_cast<Vector::ASC::FlexRayMessage *>(event);
     BOOST_CHECK(isEqual(flexRayMessage->time, 0.047906));
-    BOOST_CHECK(flexRayMessage->flexRayEventType == Vector::ASC::FlexRayMessageEvent::FlexRayEventType::PDU);
+    BOOST_CHECK(flexRayMessage->flexRayEventType == Vector::ASC::FlexRayMessage::FlexRayEventType::PDU);
     BOOST_CHECK(flexRayMessage->clusterNr == 0);
     BOOST_CHECK(flexRayMessage->clientId == 2);
     BOOST_CHECK(flexRayMessage->channelNr == 1);
@@ -1418,9 +1418,9 @@ BOOST_AUTO_TEST_CASE(FlexRayMessageEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayMessage);
-    flexRayMessageEvent = static_cast<Vector::ASC::FlexRayMessageEvent *>(event);
+    flexRayMessage = static_cast<Vector::ASC::FlexRayMessage *>(event);
     BOOST_CHECK(isEqual(flexRayMessage->time, 0.047906));
-    BOOST_CHECK(flexRayMessage->flexRayEventType == Vector::ASC::FlexRayMessageEvent::FlexRayEventType::RMSG);
+    BOOST_CHECK(flexRayMessage->flexRayEventType == Vector::ASC::FlexRayMessage::FlexRayEventType::RMSG);
     BOOST_CHECK(flexRayMessage->clusterNr == 0);
     BOOST_CHECK(flexRayMessage->clientId == 2);
     BOOST_CHECK(flexRayMessage->channelNr == 1);
@@ -1499,7 +1499,7 @@ BOOST_AUTO_TEST_CASE(FlexRayStartCycleEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayStartCycle);
-    flexRayStartCycleEvent = static_cast<Vector::ASC::FlexRayStartCycleEvent *>(event);
+    flexRayStartCycle = static_cast<Vector::ASC::FlexRayStartCycle *>(event);
     BOOST_CHECK(isEqual(flexRayStartCycle->time, 0.044115));
     BOOST_CHECK(flexRayStartCycle->clusterNr == 0);
     BOOST_CHECK(flexRayStartCycle->clientId == 0);
@@ -1532,7 +1532,7 @@ BOOST_AUTO_TEST_CASE(FlexRayStatusEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayStatus);
-    flexRayStatusEvent = static_cast<Vector::ASC::FlexRayStatusEvent *>(event);
+    flexRayStatus = static_cast<Vector::ASC::FlexRayStatus *>(event);
     BOOST_CHECK(isEqual(flexRayStatus->time, 0.003022));
     BOOST_CHECK(flexRayStatus->clusterNr == 0);
     BOOST_CHECK(flexRayStatus->clientId == 0);
@@ -1564,7 +1564,7 @@ BOOST_AUTO_TEST_CASE(FlexRayErrorEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayError);
-    flexRayErrorEvent = static_cast<Vector::ASC::FlexRayErrorEvent *>(event);
+    flexRayError = static_cast<Vector::ASC::FlexRayError *>(event);
     BOOST_CHECK(isEqual(flexRayError->time, 7.344250));
     BOOST_CHECK(flexRayError->clusterNr == 0);
     BOOST_CHECK(flexRayError->clientId == 0);
@@ -1598,7 +1598,7 @@ BOOST_AUTO_TEST_CASE(KLineByteEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::KLineByte);
-    kLineByteEvent = static_cast<Vector::ASC::KLineByteEvent *>(event);
+    kLineByte = static_cast<Vector::ASC::KLineByte *>(event);
     BOOST_CHECK(isEqual(kLineByte->time, 12.315000));
     BOOST_CHECK(kLineByte->port == "COM2");
     BOOST_CHECK(kLineByte->direction == Vector::ASC::Dir::Rx);
@@ -1633,7 +1633,7 @@ BOOST_AUTO_TEST_CASE(KLineMessageEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::KLineMessage);
-    kLineMessageEvent = static_cast<Vector::ASC::KLineMessageEvent *>(event);
+    kLineMessage = static_cast<Vector::ASC::KLineMessage *>(event);
     BOOST_CHECK(isEqual(kLineMessage->time, 12.315000));
     BOOST_CHECK(kLineMessage->port == "COM2");
     BOOST_CHECK(kLineMessage->direction == Vector::ASC::Dir::Rx);
@@ -1897,7 +1897,7 @@ BOOST_AUTO_TEST_CASE(LinSpikeEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinSpike);
-    linSpikeEvent = static_cast<Vector::ASC::LinSpikeEvent *>(event);
+    linSpike = static_cast<Vector::ASC::LinSpike *>(event);
     BOOST_CHECK(isEqual(linSpike->time, 5.990958));
     BOOST_CHECK(linSpike->channel == 2);
     BOOST_CHECK(linSpike->dir == Vector::ASC::Dir::Rx);
@@ -2183,7 +2183,7 @@ BOOST_AUTO_TEST_CASE(LinDisturbanceEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinDisturbance);
-    linDisturbanceEvent = static_cast<Vector::ASC::LinDisturbanceEvent *>(event);
+    linDisturbance = static_cast<Vector::ASC::LinDisturbance *>(event);
     BOOST_CHECK(isEqual(linDisturbance->time, 1.323661));
     BOOST_CHECK(linDisturbance->channel == 1);
     BOOST_CHECK(linDisturbance->disturbanceType == Vector::ASC::LinDisturbanceType::Dominant);
@@ -2422,7 +2422,7 @@ BOOST_AUTO_TEST_CASE(MostLightLockEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostLightLock);
-    mostLightLockEvent = static_cast<Vector::ASC::MostLightLockEvent *>(event);
+    mostLightLock = static_cast<Vector::ASC::MostLightLock *>(event);
     BOOST_CHECK(isEqual(mostLightLock->time, 0.008638));
     BOOST_CHECK(mostLightLock->channel == 1);
     BOOST_CHECK(mostLightLock->llState == 1);
@@ -2444,7 +2444,7 @@ BOOST_AUTO_TEST_CASE(MostSpecialRegisterEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostSpecialRegister);
-    mostSpecialRegisterEvent = static_cast<Vector::ASC::MostSpecialRegisterEvent *>(event);
+    mostSpecialRegister = static_cast<Vector::ASC::MostSpecialRegister *>(event);
     BOOST_CHECK(isEqual(mostSpecialRegister->time, 1.471300));
     BOOST_CHECK(mostSpecialRegister->channel == 1);
     BOOST_CHECK(mostSpecialRegister->regSubType == Vector::ASC::MostRegSubType::Notify);
@@ -2468,7 +2468,7 @@ BOOST_AUTO_TEST_CASE(MostCommonRegisterEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostCommonRegister);
-    mostCommonRegisterEvent = static_cast<Vector::ASC::MostCommonRegisterEvent *>(event);
+    mostCommonRegister = static_cast<Vector::ASC::MostCommonRegister *>(event);
     BOOST_CHECK(isEqual(mostCommonRegister->time, 9.050000));
     BOOST_CHECK(mostCommonRegister->channel == 1);
     BOOST_CHECK(mostCommonRegister->regSubType == Vector::ASC::MostRegSubType::Unspecified);
@@ -2509,7 +2509,7 @@ BOOST_AUTO_TEST_CASE(MostHwModeEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostHwMode);
-    mostHwModeEvent = static_cast<Vector::ASC::MostHwModeEvent *>(event);
+    mostHwMode = static_cast<Vector::ASC::MostHwMode *>(event);
     BOOST_CHECK(isEqual(mostHwMode->time, 3.560000));
     BOOST_CHECK(mostHwMode->channel == 1);
     BOOST_CHECK(mostHwMode->hwMode == 0x01);
@@ -2532,7 +2532,7 @@ BOOST_AUTO_TEST_CASE(MostNetStateEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostNetState);
-    mostNetStateEvent = static_cast<Vector::ASC::MostNetStateEvent *>(event);
+    mostNetState = static_cast<Vector::ASC::MostNetState *>(event);
     BOOST_CHECK(isEqual(mostNetState->time, 1.027900));
     BOOST_CHECK(mostNetState->channel == 1);
     BOOST_CHECK(mostNetState->netStateOld == 2);
@@ -2555,7 +2555,7 @@ BOOST_AUTO_TEST_CASE(MostDataLostEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostDataLost);
-    mostDataLostEvent = static_cast<Vector::ASC::MostDataLostEvent *>(event);
+    mostDataLost = static_cast<Vector::ASC::MostDataLost *>(event);
     BOOST_CHECK(isEqual(mostDataLost->time, 1.303700));
     BOOST_CHECK(mostDataLost->channel == 1);
     BOOST_CHECK(mostDataLost->dlInfo == 0x00000005);
@@ -2581,7 +2581,7 @@ BOOST_AUTO_TEST_CASE(MostTriggerEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostTrigger);
-    mostTriggerEvent = static_cast<Vector::ASC::MostTriggerEvent *>(event);
+    mostTrigger = static_cast<Vector::ASC::MostTrigger *>(event);
     BOOST_CHECK(isEqual(mostTrigger->time, 1.303700));
     BOOST_CHECK(mostTrigger->channel == 1);
     BOOST_CHECK(mostTrigger->trigMode == Vector::ASC::MostTrigMode::SynchronizationSlave);
@@ -2606,7 +2606,7 @@ BOOST_AUTO_TEST_CASE(MostStatisticEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostStatistic);
-    mostStatisticEvent = static_cast<Vector::ASC::MostStatisticEvent *>(event);
+    mostStatistic = static_cast<Vector::ASC::MostStatistic *>(event);
     BOOST_CHECK(isEqual(mostStatistic->time, 2.030000));
     BOOST_CHECK(mostStatistic->channel == 1);
     BOOST_CHECK(mostStatistic->fr == 0);
@@ -2631,7 +2631,7 @@ BOOST_AUTO_TEST_CASE(MostStatisticExtendedEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostStatisticExtended);
-    mostStatisticExtendedEvent = static_cast<Vector::ASC::MostStatisticExtendedEvent *>(event);
+    mostStatisticExtended = static_cast<Vector::ASC::MostStatisticExtended *>(event);
     BOOST_CHECK(isEqual(mostStatisticExtended->time, 2.024742));
     BOOST_CHECK(mostStatisticExtended->channel == 2);
     BOOST_CHECK(mostStatisticExtended->codingErrors == 0x000006);
@@ -2676,7 +2676,7 @@ BOOST_AUTO_TEST_CASE(MostStressEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostStress);
-    mostStressEvent = static_cast<Vector::ASC::MostStressEvent *>(event);
+    mostStress = static_cast<Vector::ASC::MostStress *>(event);
     BOOST_CHECK(isEqual(mostStress->time, 1.793083));
     BOOST_CHECK(mostStress->channel == 1);
     BOOST_CHECK(mostStress->stressMode == 2);
@@ -3023,7 +3023,7 @@ BOOST_AUTO_TEST_CASE(MostSystemEvent)
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostSystem);
-    mostSystemEvent = static_cast<Vector::ASC::MostSystemEvent *>(event);
+    mostSystem = static_cast<Vector::ASC::MostSystem *>(event);
     BOOST_CHECK(isEqual(mostSystem->time, 1.027900));
     BOOST_CHECK(mostSystem->channel == 1);
     BOOST_CHECK(mostSystem->sysId == Vector::ASC::MostSysId::SystemLock);
@@ -3186,19 +3186,19 @@ BOOST_AUTO_TEST_CASE(MostEcl)
 }
 
 /* TP/Diagnostics Events */
-BOOST_AUTO_TEST_CASE(TpDiagSingleFrame)
+BOOST_AUTO_TEST_CASE(TpSingleFrame)
 {
     Vector::ASC::File file;
-    file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpDiagSingleFrame.asc");
+    file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpSingleFrame.asc");
     BOOST_REQUIRE(file.is_open());
 
     Vector::ASC::Event * event;
-    Vector::ASC::TpDiagSingleFrame * tpDiagSingleFrame;
+    Vector::ASC::TpSingleFrame * tpDiagSingleFrame;
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
-    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagSingleFrame);
-    tpDiagSingleFrame = static_cast<Vector::ASC::TpDiagSingleFrame *>(event);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpSingleFrame);
+    tpDiagSingleFrame = static_cast<Vector::ASC::TpSingleFrame *>(event);
     BOOST_CHECK(tpDiagSingleFrame->canChannel == 1);
     BOOST_CHECK(tpDiagSingleFrame->connectionId == 0x05);
     BOOST_CHECK(tpDiagSingleFrame->type == Vector::ASC::TpDiagType::Atom);
@@ -3216,163 +3216,163 @@ BOOST_AUTO_TEST_CASE(TpDiagSingleFrame)
 BOOST_AUTO_TEST_CASE(TpDiagFirstFrame)
 {
     Vector::ASC::File file;
-    file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpDiagFirstFrame.asc");
+    file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpFirstFrame.asc");
     BOOST_REQUIRE(file.is_open());
 
     Vector::ASC::Event * event;
-    Vector::ASC::TpDiagFirstFrame * tpDiagFirstFrame;
+    Vector::ASC::TpFirstFrame * tpFirstFrame;
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
-    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagFirstFrame);
-    tpDiagFirstFrame = static_cast<Vector::ASC::TpDiagFirstFrame *>(event);
-    BOOST_CHECK(tpDiagFirstFrame->canChannel == 1);
-    BOOST_CHECK(tpDiagFirstFrame->connectionId == 0x07);
-    BOOST_CHECK(tpDiagFirstFrame->type == Vector::ASC::TpDiagType::Atom);
-    BOOST_CHECK(tpDiagFirstFrame->source == "Any_ECU_example");
-    BOOST_CHECK(tpDiagFirstFrame->destination == "<tester>");
-    BOOST_CHECK(tpDiagFirstFrame->length == 0x000C);
-    BOOST_CHECK(tpDiagFirstFrame->transportedBytes[0] == 0x5A);
-    BOOST_CHECK(tpDiagFirstFrame->transportedBytes[1] == 0x90);
-    BOOST_CHECK(tpDiagFirstFrame->transportedBytes[2] == 0x98);
-    BOOST_CHECK(tpDiagFirstFrame->transportedBytes[3] == 0x76);
-    BOOST_CHECK(tpDiagFirstFrame->transportedBytes[4] == 0x54);
-    BOOST_CHECK(tpDiagFirstFrame->transportedBytes[5] == 0x32);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpFirstFrame);
+    tpFirstFrame = static_cast<Vector::ASC::TpFirstFrame *>(event);
+    BOOST_CHECK(tpFirstFrame->canChannel == 1);
+    BOOST_CHECK(tpFirstFrame->connectionId == 0x07);
+    BOOST_CHECK(tpFirstFrame->type == Vector::ASC::TpDiagType::Atom);
+    BOOST_CHECK(tpFirstFrame->source == "Any_ECU_example");
+    BOOST_CHECK(tpFirstFrame->destination == "<tester>");
+    BOOST_CHECK(tpFirstFrame->length == 0x000C);
+    BOOST_CHECK(tpFirstFrame->transportedBytes[0] == 0x5A);
+    BOOST_CHECK(tpFirstFrame->transportedBytes[1] == 0x90);
+    BOOST_CHECK(tpFirstFrame->transportedBytes[2] == 0x98);
+    BOOST_CHECK(tpFirstFrame->transportedBytes[3] == 0x76);
+    BOOST_CHECK(tpFirstFrame->transportedBytes[4] == 0x54);
+    BOOST_CHECK(tpFirstFrame->transportedBytes[5] == 0x32);
     delete event;
 
     BOOST_CHECK(file.eof());
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(TpDiagConsecutiveFrame)
+BOOST_AUTO_TEST_CASE(TpConsecutiveFrame)
 {
     Vector::ASC::File file;
-    file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpDiagConsecutiveFrame.asc");
+    file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpConsecutiveFrame.asc");
     BOOST_REQUIRE(file.is_open());
 
     Vector::ASC::Event * event;
-    Vector::ASC::TpDiagConsecutiveFrame * tpDiagConsecutiveFrame;
+    Vector::ASC::TpConsecutiveFrame * tpConsecutiveFrame;
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
-    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagConsecutiveFrame);
-    tpDiagConsecutiveFrame = static_cast<Vector::ASC::TpDiagConsecutiveFrame *>(event);
-    BOOST_CHECK(tpDiagConsecutiveFrame->canChannel == 1);
-    BOOST_CHECK(tpDiagConsecutiveFrame->connectionId == 0x07);
-    BOOST_CHECK(tpDiagConsecutiveFrame->type == Vector::ASC::TpDiagType::Atom);
-    BOOST_CHECK(tpDiagConsecutiveFrame->source == "Any_ECU_example");
-    BOOST_CHECK(tpDiagConsecutiveFrame->destination == "<tester>");
-    BOOST_CHECK(tpDiagConsecutiveFrame->sn == 1);
-    BOOST_CHECK(tpDiagConsecutiveFrame->transportedBytes[0] == 0x10);
-    BOOST_CHECK(tpDiagConsecutiveFrame->transportedBytes[1] == 0x00);
-    BOOST_CHECK(tpDiagConsecutiveFrame->transportedBytes[2] == 0x99);
-    BOOST_CHECK(tpDiagConsecutiveFrame->transportedBytes[3] == 0x99);
-    BOOST_CHECK(tpDiagConsecutiveFrame->transportedBytes[4] == 0x00);
-    BOOST_CHECK(tpDiagConsecutiveFrame->transportedBytes[5] == 0x01);
-    BOOST_CHECK(tpDiagConsecutiveFrame->transportedBytes[6] == 0x00);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpConsecutiveFrame);
+    tpConsecutiveFrame = static_cast<Vector::ASC::TpConsecutiveFrame *>(event);
+    BOOST_CHECK(tpConsecutiveFrame->canChannel == 1);
+    BOOST_CHECK(tpConsecutiveFrame->connectionId == 0x07);
+    BOOST_CHECK(tpConsecutiveFrame->type == Vector::ASC::TpDiagType::Atom);
+    BOOST_CHECK(tpConsecutiveFrame->source == "Any_ECU_example");
+    BOOST_CHECK(tpConsecutiveFrame->destination == "<tester>");
+    BOOST_CHECK(tpConsecutiveFrame->sn == 1);
+    BOOST_CHECK(tpConsecutiveFrame->transportedBytes[0] == 0x10);
+    BOOST_CHECK(tpConsecutiveFrame->transportedBytes[1] == 0x00);
+    BOOST_CHECK(tpConsecutiveFrame->transportedBytes[2] == 0x99);
+    BOOST_CHECK(tpConsecutiveFrame->transportedBytes[3] == 0x99);
+    BOOST_CHECK(tpConsecutiveFrame->transportedBytes[4] == 0x00);
+    BOOST_CHECK(tpConsecutiveFrame->transportedBytes[5] == 0x01);
+    BOOST_CHECK(tpConsecutiveFrame->transportedBytes[6] == 0x00);
     delete event;
 
     BOOST_CHECK(file.eof());
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(TpDiagFlowControlFrame)
+BOOST_AUTO_TEST_CASE(TpFlowControlFrame)
 {
     Vector::ASC::File file;
-    file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpDiagFlowControlFrame.asc");
+    file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpFlowControlFrame.asc");
     BOOST_REQUIRE(file.is_open());
 
     Vector::ASC::Event * event;
-    Vector::ASC::TpDiagFlowControlFrame * tpDiagFlowControlFrame;
+    Vector::ASC::TpFlowControlFrame * tpFlowControlFrame;
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
-    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagFlowControlFrame);
-    tpDiagFlowControlFrame = static_cast<Vector::ASC::TpDiagFlowControlFrame *>(event);
-    BOOST_CHECK(tpDiagFlowControlFrame->canChannel == 1);
-    BOOST_CHECK(tpDiagFlowControlFrame->connectionId == 0x07);
-    BOOST_CHECK(tpDiagFlowControlFrame->type == Vector::ASC::TpDiagType::Atom);
-    BOOST_CHECK(tpDiagFlowControlFrame->source == "<tester>");
-    BOOST_CHECK(tpDiagFlowControlFrame->destination == "Any_ECU_example");
-    BOOST_CHECK(tpDiagFlowControlFrame->fcType == Vector::ASC::TpDiagFcType::Cts);
-    BOOST_CHECK(tpDiagFlowControlFrame->bs == 0x00);
-    BOOST_CHECK(tpDiagFlowControlFrame->stMin == 0x14);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpFlowControlFrame);
+    tpFlowControlFrame = static_cast<Vector::ASC::TpFlowControlFrame *>(event);
+    BOOST_CHECK(tpFlowControlFrame->canChannel == 1);
+    BOOST_CHECK(tpFlowControlFrame->connectionId == 0x07);
+    BOOST_CHECK(tpFlowControlFrame->type == Vector::ASC::TpDiagType::Atom);
+    BOOST_CHECK(tpFlowControlFrame->source == "<tester>");
+    BOOST_CHECK(tpFlowControlFrame->destination == "Any_ECU_example");
+    BOOST_CHECK(tpFlowControlFrame->fcType == Vector::ASC::TpDiagFcType::Cts);
+    BOOST_CHECK(tpFlowControlFrame->bs == 0x00);
+    BOOST_CHECK(tpFlowControlFrame->stMin == 0x14);
     delete event;
 
     BOOST_CHECK(file.eof());
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(TpDiagRequest)
+BOOST_AUTO_TEST_CASE(DiagRequest)
 {
     Vector::ASC::File file;
-    file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpDiagRequest.asc");
+    file.open(CMAKE_CURRENT_SOURCE_DIR "/events/DiagRequest.asc");
     BOOST_REQUIRE(file.is_open());
 
     Vector::ASC::Event * event;
-    Vector::ASC::TpDiagRequest * tpDiagRequest;
+    Vector::ASC::DiagRequest * diagRequest;
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
-    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagRequest);
-    tpDiagRequest = static_cast<Vector::ASC::TpDiagRequest *>(event);
-    BOOST_CHECK(isEqual(tpDiagRequest->time, 1.765500));
-    BOOST_CHECK(tpDiagRequest->ecuQualifier == "Any_ECU_example");
-    BOOST_CHECK(tpDiagRequest->command == Vector::ASC::TpDiagRequest::Command::ByteSequence);
-    BOOST_CHECK(tpDiagRequest->byteSequence.size() == 2);
-    BOOST_CHECK(tpDiagRequest->byteSequence[0] == 0x1A);
-    BOOST_CHECK(tpDiagRequest->byteSequence[1] == 0x90);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::DiagRequest);
+    diagRequest = static_cast<Vector::ASC::DiagRequest *>(event);
+    BOOST_CHECK(isEqual(diagRequest->time, 1.765500));
+    BOOST_CHECK(diagRequest->ecuQualifier == "Any_ECU_example");
+    BOOST_CHECK(diagRequest->command == Vector::ASC::DiagRequest::Command::ByteSequence);
+    BOOST_CHECK(diagRequest->byteSequence.size() == 2);
+    BOOST_CHECK(diagRequest->byteSequence[0] == 0x1A);
+    BOOST_CHECK(diagRequest->byteSequence[1] == 0x90);
     delete event;
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
-    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagRequest);
-    tpDiagRequest = static_cast<Vector::ASC::TpDiagRequest *>(event);
-    BOOST_CHECK(isEqual(tpDiagRequest->time, 1.000000));
-    BOOST_CHECK(tpDiagRequest->ecuQualifier == "Engine");
-    BOOST_CHECK(tpDiagRequest->command == Vector::ASC::TpDiagRequest::Command::Open);
-    BOOST_CHECK(tpDiagRequest->byteSequence.size() == 0);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::DiagRequest);
+    diagRequest = static_cast<Vector::ASC::DiagRequest *>(event);
+    BOOST_CHECK(isEqual(diagRequest->time, 1.000000));
+    BOOST_CHECK(diagRequest->ecuQualifier == "Engine");
+    BOOST_CHECK(diagRequest->command == Vector::ASC::DiagRequest::Command::Open);
+    BOOST_CHECK(diagRequest->byteSequence.size() == 0);
     delete event;
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
-    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagRequest);
-    tpDiagRequest = static_cast<Vector::ASC::TpDiagRequest *>(event);
-    BOOST_CHECK(isEqual(tpDiagRequest->time, 1.000000));
-    BOOST_CHECK(tpDiagRequest->ecuQualifier == "Engine");
-    BOOST_CHECK(tpDiagRequest->command == Vector::ASC::TpDiagRequest::Command::ByteSequence);
-    BOOST_CHECK(tpDiagRequest->byteSequence.size() == 1);
-    BOOST_CHECK(tpDiagRequest->byteSequence[0] == 0x20);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::DiagRequest);
+    diagRequest = static_cast<Vector::ASC::DiagRequest *>(event);
+    BOOST_CHECK(isEqual(diagRequest->time, 1.000000));
+    BOOST_CHECK(diagRequest->ecuQualifier == "Engine");
+    BOOST_CHECK(diagRequest->command == Vector::ASC::DiagRequest::Command::ByteSequence);
+    BOOST_CHECK(diagRequest->byteSequence.size() == 1);
+    BOOST_CHECK(diagRequest->byteSequence[0] == 0x20);
     delete event;
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
-    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagRequest);
-    tpDiagRequest = static_cast<Vector::ASC::TpDiagRequest *>(event);
-    BOOST_CHECK(isEqual(tpDiagRequest->time, 1.000000));
-    BOOST_CHECK(tpDiagRequest->ecuQualifier == "Engine");
-    BOOST_CHECK(tpDiagRequest->command == Vector::ASC::TpDiagRequest::Command::Close);
-    BOOST_CHECK(tpDiagRequest->byteSequence.size() == 0);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::DiagRequest);
+    diagRequest = static_cast<Vector::ASC::DiagRequest *>(event);
+    BOOST_CHECK(isEqual(diagRequest->time, 1.000000));
+    BOOST_CHECK(diagRequest->ecuQualifier == "Engine");
+    BOOST_CHECK(diagRequest->command == Vector::ASC::DiagRequest::Command::Close);
+    BOOST_CHECK(diagRequest->byteSequence.size() == 0);
     delete event;
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
-    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagRequest);
-    tpDiagRequest = static_cast<Vector::ASC::TpDiagRequest *>(event);
-    BOOST_CHECK(isEqual(tpDiagRequest->time, 1.000000));
-    BOOST_CHECK(tpDiagRequest->ecuQualifier == "Engine");
-    BOOST_CHECK(tpDiagRequest->command == Vector::ASC::TpDiagRequest::Command::TpOn);
-    BOOST_CHECK(tpDiagRequest->byteSequence.size() == 0);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::DiagRequest);
+    diagRequest = static_cast<Vector::ASC::DiagRequest *>(event);
+    BOOST_CHECK(isEqual(diagRequest->time, 1.000000));
+    BOOST_CHECK(diagRequest->ecuQualifier == "Engine");
+    BOOST_CHECK(diagRequest->command == Vector::ASC::DiagRequest::Command::TpOn);
+    BOOST_CHECK(diagRequest->byteSequence.size() == 0);
     delete event;
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
-    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpDiagRequest);
-    tpDiagRequest = static_cast<Vector::ASC::TpDiagRequest *>(event);
-    BOOST_CHECK(isEqual(tpDiagRequest->time, 1.000000));
-    BOOST_CHECK(tpDiagRequest->ecuQualifier == "Engine");
-    BOOST_CHECK(tpDiagRequest->command == Vector::ASC::TpDiagRequest::Command::TpOff);
-    BOOST_CHECK(tpDiagRequest->byteSequence.size() == 0);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::DiagRequest);
+    diagRequest = static_cast<Vector::ASC::DiagRequest *>(event);
+    BOOST_CHECK(isEqual(diagRequest->time, 1.000000));
+    BOOST_CHECK(diagRequest->ecuQualifier == "Engine");
+    BOOST_CHECK(diagRequest->command == Vector::ASC::DiagRequest::Command::TpOff);
+    BOOST_CHECK(diagRequest->byteSequence.size() == 0);
     delete event;
 
     BOOST_CHECK(file.eof());

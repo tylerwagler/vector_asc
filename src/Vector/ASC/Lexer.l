@@ -458,15 +458,15 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
 
     /* TP/Diagnostics Events */
 {STOL}"//"{ws}{TPDiag_CANChannel}{WS}"OTP("{TPDiag_connectionId}")"{WS}{TPDiag_type}{WS}{TPDiag_source}"->"{TPDiag_destination}":"{ws}"SF"{WS}"Length:"{ws}{TPDiag_length}{ws}"["{TPDiag_transportedBytes}{WS}"]"{ENDL} {
-    return Vector::ASC::Event::EventType::TpDiagSingleFrame; }
+    return Vector::ASC::Event::EventType::TpSingleFrame; }
 {STOL}"//"{ws}{TPDiag_CANChannel}{WS}"OTP("{TPDiag_connectionId}")"{WS}{TPDiag_type}{WS}{TPDiag_source}"->"{TPDiag_destination}":"{ws}"FF"{WS}"Length:"{ws}{TPDiag_length}{ws}"["{TPDiag_transportedBytes}{WS}"]"{ENDL} {
-    return Vector::ASC::Event::EventType::TpDiagFirstFrame; }
+    return Vector::ASC::Event::EventType::TpFirstFrame; }
 {STOL}"//"{ws}{TPDiag_CANChannel}{WS}"OTP("{TPDiag_connectionId}")"{WS}{TPDiag_type}{WS}{TPDiag_source}"->"{TPDiag_destination}":"{ws}"CF"{WS}"Seq.Nr.:"{ws}{TPDiag_SN}{ws}"["{TPDiag_transportedBytes}{WS}"]"{ENDL} {
-    return Vector::ASC::Event::EventType::TpDiagConsecutiveFrame; }
+    return Vector::ASC::Event::EventType::TpConsecutiveFrame; }
 {STOL}"//"{ws}{TPDiag_CANChannel}{WS}"OTP("{TPDiag_connectionId}")"{WS}{TPDiag_type}{WS}{TPDiag_source}"->"{TPDiag_destination}":"{ws}"FC."{TPDiag_FCType}":"{ws}"BSmax:"{ws}"0x"{TPDiag_BS}","{ws}"STmin:"{ws}"0x"{TPDiag_STmin}{ws}"ms"{ENDL} {
-    return Vector::ASC::Event::EventType::TpDiagFlowControlFrame; }
+    return Vector::ASC::Event::EventType::TpFlowControlFrame; }
 {STOL}{TPDiag_timestamp}{WS}"DiagRequest"{ws}"["{TPDiag_ECUQualifier}"]"{ws}("Close"|"Open"|"TPon"|"TPoff"|{TPDiag_byteSequence}){ENDL} {
-    return Vector::ASC::Event::EventType::TpDiagRequest; }
+    return Vector::ASC::Event::EventType::DiagRequest; }
 
     /* Comment */
 {STOL}"//".+?{ENDL} {

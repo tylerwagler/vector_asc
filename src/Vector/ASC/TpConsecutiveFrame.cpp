@@ -21,72 +21,72 @@
 
 #include <iomanip>
 #include <regex>
+#include "TpConsecutiveFrame.h"
 #include "TpDiagCommon.h"
-#include "TpDiagFirstFrame.h"
 #include "TpDiagSymbolsRegEx.h"
 
 namespace Vector {
 namespace ASC {
 
-TpDiagFirstFrame::TpDiagFirstFrame() :
+TpConsecutiveFrame::TpConsecutiveFrame() :
     Event(),
     canChannel(0),
     connectionId(0),
     type(TpDiagType::Info),
     source(),
     destination(),
-    length(0),
+    sn(0),
     transportedBytes()
 {
-    eventType = EventType::TpDiagFirstFrame;
+    eventType = EventType::TpConsecutiveFrame;
 }
 
-TpDiagFirstFrame::~TpDiagFirstFrame()
+TpConsecutiveFrame::~TpConsecutiveFrame()
 {
 }
 
-TpDiagFirstFrame * TpDiagFirstFrame::parse(File & file, std::string & line)
+TpConsecutiveFrame * TpConsecutiveFrame::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_TPDiag_CANChannel REGEX_WS "OTP\\(" REGEX_TPDiag_connectionId "\\)"
                      REGEX_WS REGEX_TPDiag_type REGEX_WS REGEX_TPDiag_source "->" REGEX_TPDiag_destination ":"
-                     REGEX_ws "FF" REGEX_WS "Length:" REGEX_ws REGEX_TPDiag_length
-                     REGEX_ws "\\[" REGEX_TPDiag_transportedBytes REGEX_WS "\\]" REGEX_ENDL);
+                     REGEX_ws "CF" REGEX_WS "Seq.Nr.:" REGEX_ws REGEX_TPDiag_SN REGEX_ws
+                     "\\[" REGEX_TPDiag_transportedBytes REGEX_WS "\\]" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        TpDiagFirstFrame * tpDiagFirstFrame = new TpDiagFirstFrame;
-        tpDiagFirstFrame->canChannel = std::stoul(match[1]);
-        tpDiagFirstFrame->connectionId = std::stoul(match[2], nullptr, 16);
+        TpConsecutiveFrame * tpConsecutiveFrame = new TpConsecutiveFrame;
+        tpConsecutiveFrame->canChannel = std::stoul(match[1]);
+        tpConsecutiveFrame->connectionId = std::stoul(match[2], nullptr, 16);
         if (match[3] == "Info")
-            tpDiagFirstFrame->type = TpDiagType::Info;
+            tpConsecutiveFrame->type = TpDiagType::Info;
         else
         if (match[3] == "Warn")
-            tpDiagFirstFrame->type = TpDiagType::Warn;
+            tpConsecutiveFrame->type = TpDiagType::Warn;
         else
         if (match[3] == "Error")
-            tpDiagFirstFrame->type = TpDiagType::Error;
+            tpConsecutiveFrame->type = TpDiagType::Error;
         else
         if (match[3] == "Atom")
-            tpDiagFirstFrame->type = TpDiagType::Atom;
+            tpConsecutiveFrame->type = TpDiagType::Atom;
         else
         if (match[3] == "Data")
-            tpDiagFirstFrame->type = TpDiagType::Data;
-        tpDiagFirstFrame->source = match[4];
-        tpDiagFirstFrame->destination = match[5];
-        tpDiagFirstFrame->length = std::stoul(match[6], nullptr, 16);
+            tpConsecutiveFrame->type = TpDiagType::Data;
+        tpConsecutiveFrame->source = match[4];
+        tpConsecutiveFrame->destination = match[5];
+        tpConsecutiveFrame->sn = std::stoul(match[6]);
         std::istringstream iss(match[7]);
         iss >> std::hex;
         for (uint8_t i = 0; !iss.eof(); ++i) {
             unsigned short s;
             iss >> s;
-            tpDiagFirstFrame->transportedBytes[i] = s;
+            tpConsecutiveFrame->transportedBytes[i] = s;
         }
-        return tpDiagFirstFrame;
+        return tpConsecutiveFrame;
     }
 
     return nullptr;
 }
 
-void TpDiagFirstFrame::write(File & file, std::ostream & stream)
+void TpConsecutiveFrame::write(File & file, std::ostream & stream)
 {
     stream << "// " << std::dec << (uint16_t) canChannel;
 
@@ -113,10 +113,9 @@ void TpDiagFirstFrame::write(File & file, std::ostream & stream)
     }
     stream << " " << source << "->" << destination << ":";
 
-    /* format: "FF Length: "*/
-    stream << "FF Length: ";
-
-    stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << length << " [" << std::hex;
+    stream
+            << "CF Seq.Nr.: " << std::dec << (uint16_t) sn
+            << " [";
     for (uint8_t transportedByte : transportedBytes)
         stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) transportedByte;
     stream << " ]";

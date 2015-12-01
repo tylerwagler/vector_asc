@@ -21,19 +21,18 @@
 
 #pragma once
 
-#include <array>
 #include "Event.h"
 #include "TpDiagSymbols.h"
 
 namespace Vector {
 namespace ASC {
 
-/** TP-Diag First Frame */
-class TpDiagFirstFrame : public Event
+/** TP Flow Control Frame */
+class TpFlowControlFrame : public Event
 {
 public:
-    TpDiagFirstFrame();
-    virtual ~TpDiagFirstFrame();
+    TpFlowControlFrame();
+    virtual ~TpFlowControlFrame();
 
     /** @copydoc TpDiagCanChannel */
     TpDiagCanChannel canChannel;
@@ -50,14 +49,17 @@ public:
     /** @copydoc TpDiagDestination */
     TpDiagDestination destination;
 
-    /** @copydoc TpDiagLength */
-    TpDiagLength length;
+    /** @copydoc TpDiagFcType */
+    TpDiagFcType fcType;
 
-    /** @copydoc TpDiagTransportedBytes */
-    std::array<TpDiagTransportedBytes, 6> transportedBytes;
+    /** @copydoc TpDiagBs */
+    TpDiagBs bs;
+
+    /** @copydoc TpDiagStMin */
+    TpDiagStMin stMin;
 
     /** @copydoc Event::parse() */
-    static TpDiagFirstFrame * parse(File & file, std::string & line);
+    static TpFlowControlFrame * parse(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

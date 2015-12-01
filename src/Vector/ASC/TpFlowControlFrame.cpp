@@ -22,13 +22,13 @@
 #include <iomanip>
 #include <regex>
 #include "TpDiagCommon.h"
-#include "TpDiagFlowControlFrame.h"
 #include "TpDiagSymbolsRegEx.h"
+#include "TpFlowControlFrame.h"
 
 namespace Vector {
 namespace ASC {
 
-TpDiagFlowControlFrame::TpDiagFlowControlFrame() :
+TpFlowControlFrame::TpFlowControlFrame() :
     Event(),
     canChannel(0),
     connectionId(0),
@@ -39,14 +39,14 @@ TpDiagFlowControlFrame::TpDiagFlowControlFrame() :
     bs(0),
     stMin(0)
 {
-    eventType = EventType::TpDiagFlowControlFrame;
+    eventType = EventType::TpFlowControlFrame;
 }
 
-TpDiagFlowControlFrame::~TpDiagFlowControlFrame()
+TpFlowControlFrame::~TpFlowControlFrame()
 {
 }
 
-TpDiagFlowControlFrame * TpDiagFlowControlFrame::parse(File & file, std::string & line)
+TpFlowControlFrame * TpFlowControlFrame::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_TPDiag_CANChannel REGEX_WS "OTP\\(" REGEX_TPDiag_connectionId "\\)"
                      REGEX_WS REGEX_TPDiag_type REGEX_WS REGEX_TPDiag_source "->" REGEX_TPDiag_destination ":"
@@ -54,42 +54,42 @@ TpDiagFlowControlFrame * TpDiagFlowControlFrame::parse(File & file, std::string 
                      REGEX_ws "STmin:" REGEX_ws "0x" REGEX_TPDiag_STmin REGEX_ws "ms" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        TpDiagFlowControlFrame * tpDiagFlowControlFrame = new TpDiagFlowControlFrame;
-        tpDiagFlowControlFrame->canChannel = std::stoul(match[1]);
-        tpDiagFlowControlFrame->connectionId = std::stoul(match[2], nullptr, 16);
+        TpFlowControlFrame * tpFlowControlFrame = new TpFlowControlFrame;
+        tpFlowControlFrame->canChannel = std::stoul(match[1]);
+        tpFlowControlFrame->connectionId = std::stoul(match[2], nullptr, 16);
         if (match[3] == "Info")
-            tpDiagFlowControlFrame->type = TpDiagType::Info;
+            tpFlowControlFrame->type = TpDiagType::Info;
         else
         if (match[3] == "Warn")
-            tpDiagFlowControlFrame->type = TpDiagType::Warn;
+            tpFlowControlFrame->type = TpDiagType::Warn;
         else
         if (match[3] == "Error")
-            tpDiagFlowControlFrame->type = TpDiagType::Error;
+            tpFlowControlFrame->type = TpDiagType::Error;
         else
         if (match[3] == "Atom")
-            tpDiagFlowControlFrame->type = TpDiagType::Atom;
+            tpFlowControlFrame->type = TpDiagType::Atom;
         else
         if (match[3] == "Data")
-            tpDiagFlowControlFrame->type = TpDiagType::Data;
-        tpDiagFlowControlFrame->source = match[4];
-        tpDiagFlowControlFrame->destination = match[5];
+            tpFlowControlFrame->type = TpDiagType::Data;
+        tpFlowControlFrame->source = match[4];
+        tpFlowControlFrame->destination = match[5];
         if (match[6] == "CTS")
-            tpDiagFlowControlFrame->fcType = TpDiagFcType::Cts;
+            tpFlowControlFrame->fcType = TpDiagFcType::Cts;
         else
         if (match[6] == "WT")
-            tpDiagFlowControlFrame->fcType = TpDiagFcType::Wt;
+            tpFlowControlFrame->fcType = TpDiagFcType::Wt;
         else
         if (match[6] == "OVFLW")
-            tpDiagFlowControlFrame->fcType = TpDiagFcType::Ovflw;
-        tpDiagFlowControlFrame->bs = std::stoul(match[7], nullptr, 16);
-        tpDiagFlowControlFrame->stMin = std::stoul(match[8], nullptr, 16);
-        return tpDiagFlowControlFrame;
+            tpFlowControlFrame->fcType = TpDiagFcType::Ovflw;
+        tpFlowControlFrame->bs = std::stoul(match[7], nullptr, 16);
+        tpFlowControlFrame->stMin = std::stoul(match[8], nullptr, 16);
+        return tpFlowControlFrame;
     }
 
     return nullptr;
 }
 
-void TpDiagFlowControlFrame::write(File & file, std::ostream & stream)
+void TpFlowControlFrame::write(File & file, std::ostream & stream)
 {
     stream << "// " << std::dec << (uint16_t) canChannel;
 

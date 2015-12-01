@@ -22,13 +22,13 @@
 #include <iomanip>
 #include <regex>
 #include "TpDiagCommon.h"
-#include "TpDiagSingleFrame.h"
 #include "TpDiagSymbolsRegEx.h"
+#include "TpSingleFrame.h"
 
 namespace Vector {
 namespace ASC {
 
-TpDiagSingleFrame::TpDiagSingleFrame() :
+TpSingleFrame::TpSingleFrame() :
     Event(),
     canChannel(0),
     connectionId(0),
@@ -38,14 +38,14 @@ TpDiagSingleFrame::TpDiagSingleFrame() :
     length(0),
     transportedBytes()
 {
-    eventType = EventType::TpDiagSingleFrame;
+    eventType = EventType::TpSingleFrame;
 }
 
-TpDiagSingleFrame::~TpDiagSingleFrame()
+TpSingleFrame::~TpSingleFrame()
 {
 }
 
-TpDiagSingleFrame * TpDiagSingleFrame::parse(File & file, std::string & line)
+TpSingleFrame * TpSingleFrame::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_TPDiag_CANChannel REGEX_WS "OTP\\(" REGEX_TPDiag_connectionId "\\)"
                      REGEX_WS REGEX_TPDiag_type REGEX_WS REGEX_TPDiag_source "->" REGEX_TPDiag_destination ":"
@@ -53,40 +53,40 @@ TpDiagSingleFrame * TpDiagSingleFrame::parse(File & file, std::string & line)
                      REGEX_ws "\\[" REGEX_TPDiag_transportedBytes REGEX_WS "\\]" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        TpDiagSingleFrame * tpDiagSingleFrame = new TpDiagSingleFrame;
-        tpDiagSingleFrame->canChannel = std::stoul(match[1]);
-        tpDiagSingleFrame->connectionId = std::stoul(match[2], nullptr, 16);
+        TpSingleFrame * tpSingleFrame = new TpSingleFrame;
+        tpSingleFrame->canChannel = std::stoul(match[1]);
+        tpSingleFrame->connectionId = std::stoul(match[2], nullptr, 16);
         if (match[3] == "Info")
-            tpDiagSingleFrame->type = TpDiagType::Info;
+            tpSingleFrame->type = TpDiagType::Info;
         else
         if (match[3] == "Warn")
-            tpDiagSingleFrame->type = TpDiagType::Warn;
+            tpSingleFrame->type = TpDiagType::Warn;
         else
         if (match[3] == "Error")
-            tpDiagSingleFrame->type = TpDiagType::Error;
+            tpSingleFrame->type = TpDiagType::Error;
         else
         if (match[3] == "Atom")
-            tpDiagSingleFrame->type = TpDiagType::Atom;
+            tpSingleFrame->type = TpDiagType::Atom;
         else
         if (match[3] == "Data")
-            tpDiagSingleFrame->type = TpDiagType::Data;
-        tpDiagSingleFrame->source = match[4];
-        tpDiagSingleFrame->destination = match[5];
-        tpDiagSingleFrame->length = std::stoul(match[6], nullptr, 16);
+            tpSingleFrame->type = TpDiagType::Data;
+        tpSingleFrame->source = match[4];
+        tpSingleFrame->destination = match[5];
+        tpSingleFrame->length = std::stoul(match[6], nullptr, 16);
         std::istringstream iss(match[7]);
         iss >> std::hex;
-        for (uint8_t i = 0; i < tpDiagSingleFrame->length; ++i) {
+        for (uint8_t i = 0; i < tpSingleFrame->length; ++i) {
             unsigned short s;
             iss >> s;
-            tpDiagSingleFrame->transportedBytes[i] = s;
+            tpSingleFrame->transportedBytes[i] = s;
         }
-        return tpDiagSingleFrame;
+        return tpSingleFrame;
     }
 
     return nullptr;
 }
 
-void TpDiagSingleFrame::write(File & file, std::ostream & stream)
+void TpSingleFrame::write(File & file, std::ostream & stream)
 {
     stream << "// " << std::dec << (uint16_t) canChannel;
 

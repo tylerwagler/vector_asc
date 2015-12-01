@@ -358,16 +358,16 @@ Event * File::read()
         return MostEcl::parse(*this, line);
 
     /* TP/Diagnostics Events */
-    case Event::EventType::TpDiagSingleFrame:
-        return TpDiagSingleFrame::parse(*this, line);
-    case Event::EventType::TpDiagFirstFrame:
-        return TpDiagFirstFrame::parse(*this, line);
-    case Event::EventType::TpDiagConsecutiveFrame:
-        return TpDiagConsecutiveFrame::parse(*this, line);
-    case Event::EventType::TpDiagFlowControlFrame:
-        return TpDiagFlowControlFrame::parse(*this, line);
-    case Event::EventType::TpDiagRequest:
-        return TpDiagRequest::parse(*this, line);
+    case Event::EventType::TpSingleFrame:
+        return TpSingleFrame::parse(*this, line);
+    case Event::EventType::TpFirstFrame:
+        return TpFirstFrame::parse(*this, line);
+    case Event::EventType::TpConsecutiveFrame:
+        return TpConsecutiveFrame::parse(*this, line);
+    case Event::EventType::TpFlowControlFrame:
+        return TpFlowControlFrame::parse(*this, line);
+    case Event::EventType::DiagRequest:
+        return DiagRequest::parse(*this, line);
 
     /* undocumented events */
     case Event::EventType::StartOfMeasurement:
