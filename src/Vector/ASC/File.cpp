@@ -29,9 +29,11 @@ namespace ASC {
 
 File::File() :
     openMode(OpenMode::Read),
+    date(),
     language(Language::En),
     base(Base::Dec),
     timestamps(Timestamps::Absolute),
+    internalEventsLogged(true),
     version(0), // version will be set as soon as FileVersion is read
     timestampPrecision(0), // automatically set dependent on file version
     file(),

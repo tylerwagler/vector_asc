@@ -30,6 +30,7 @@ namespace ASC {
 Most150ControlMessage::Most150ControlMessage() :
     Event(),
     time(0.0),
+    channel(0),
     dir(Dir::Rx),
     sourceAdr(0),
     destAdr(0),

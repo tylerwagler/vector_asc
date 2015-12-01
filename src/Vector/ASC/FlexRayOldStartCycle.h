@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <array>
+#include <vector>
 #include "Event.h"
 #include "FlexRaySymbols.h"
 
@@ -49,7 +49,7 @@ public:
     FlexRayOldDlc dlc;
 
     /** @copydoc FlexRayOldDx */
-    std::array<FlexRayOldDx, 255> data;
+    std::vector<FlexRayOldDx> data;
 
     /** @copydoc Event::parse() */
     static FlexRayOldStartCycle * parse(File & file, std::string & line);

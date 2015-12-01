@@ -73,7 +73,7 @@ FlexRayOldMessage * FlexRayOldMessage::parse(File & file, std::string & line)
         for (uint8_t i = 0; i < flexRayOldMessage->dlc && i <= 255; ++i) {
             unsigned short s;
             iss >> s;
-            flexRayOldMessage->data[i] = s;
+            flexRayOldMessage->data.push_back(s);
         }
         flexRayOldMessage->frameState = std::stoul(match[12], nullptr, 16);
         flexRayOldMessage->headerBitMask = std::stoul(match[13], nullptr, 16);

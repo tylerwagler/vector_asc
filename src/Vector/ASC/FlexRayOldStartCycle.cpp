@@ -55,7 +55,7 @@ FlexRayOldStartCycle * FlexRayOldStartCycle::parse(File & file, std::string & li
         for (uint8_t i = 0; i < flexRayOldStartCycle->dlc && i <= 255; ++i) {
             unsigned short s;
             iss >> s;
-            flexRayOldStartCycle->data[i] = s;
+            flexRayOldStartCycle->data.push_back(s);
         }
         return flexRayOldStartCycle;
     }

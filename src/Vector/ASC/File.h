@@ -58,51 +58,6 @@ public:
     /** open mode */
     OpenMode openMode;
 
-    /**
-     * open file
-     *
-     * @param filename file name
-     */
-    void open(const char * filename);
-
-    /**
-     * open file
-     *
-     * @param filename file name
-     */
-    void open(const std::string & filename);
-
-    /**
-     * is file open?
-     *
-     * @return true if file is open
-     */
-    bool is_open() const;
-
-    /** close file */
-    void close();
-
-    /**
-     * check for end-of-file
-     *
-     * @return true if end-of-file reached
-     */
-    bool eof();
-
-    /**
-     * read object from file
-     *
-     * @return read object or nullptr
-     */
-    class Event * read();
-
-    /**
-     * write object to file
-     *
-     * @param event object
-     */
-    void write(class Event * event);
-
     /** Date */
     struct tm date;
 
@@ -164,6 +119,51 @@ public:
      * If left at default 0, the precision is automatically set dependent on file version.
      */
     uint8_t timestampPrecision;
+
+    /**
+     * open file
+     *
+     * @param filename file name
+     */
+    void open(const char * filename);
+
+    /**
+     * open file
+     *
+     * @param filename file name
+     */
+    void open(const std::string & filename);
+
+    /**
+     * is file open?
+     *
+     * @return true if file is open
+     */
+    bool is_open() const;
+
+    /** close file */
+    void close();
+
+    /**
+     * check for end-of-file
+     *
+     * @return true if end-of-file reached
+     */
+    bool eof();
+
+    /**
+     * read object from file
+     *
+     * @return read object or nullptr
+     */
+    class Event * read();
+
+    /**
+     * write object to file
+     *
+     * @param event object
+     */
+    void write(class Event * event);
 
 private:
     /** file */

@@ -30,6 +30,7 @@ namespace ASC {
 Most150ControlMessageFragment::Most150ControlMessageFragment() :
     Event(),
     time(0.0),
+    channel(0),
     frgMask(0),
     sourceAdr(0),
     destAdr(0),

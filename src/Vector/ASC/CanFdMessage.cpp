@@ -38,6 +38,7 @@ CanFdMessage::CanFdMessage() :
     brs(false),
     esi(false),
     dlc(0),
+    dataLength(0),
     data(),
     messageDuration(0),
     messageLength(0),
