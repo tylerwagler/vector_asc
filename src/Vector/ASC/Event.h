@@ -53,45 +53,45 @@ public:
         FileComment,
 
         /* CAN Events */
-        CanMessageEvent = 20,
-        CanExtendedMessageEvent,
-        CanRemoteFrameEvent,
+        CanMessage = 20,
+        CanExtendedMessage,
+        CanRemoteFrame,
         CanErrorFrame,
-        CanBusStatisticsEvent,
-        CanErrorEvent,
-        CanOverloadFrameEvent,
+        CanBusStatistics,
+        CanError,
+        CanOverloadFrame,
 
         /* CAN FD Events */
-        CanFdMessageEvent = 30,
-        CanFdExtendedMessageEvent,
+        CanFdMessage = 30,
+        CanFdExtendedMessage,
         CanFdErrorFrame,
-        // CAN FD Bus Statistics Event
+        // CAN FD Bus Statistics
         // CAN FD Overload Frame
 
         /* Log and Trigger Events */
-        LogTriggerEvent = 40,
-        LogDirectStartEvent,
-        LogDirectStopEvent,
-        BeginTriggerblockEvent,
-        EndTriggerblockEvent,
+        LogTrigger = 40,
+        LogDirectStart,
+        LogDirectStop,
+        BeginTriggerblock,
+        EndTriggerblock,
 
         /* Environment Variables */
-        EnvironmentVariablesEvent = 50,
+        EnvironmentVariables = 50,
 
         /* System Variables */
-        SystemVariablesEvent = 60,
+        SystemVariables = 60,
 
         /* Macros Signal Events */
-        MacroSignalEvent = 70,
+        MacroSignal = 70,
 
         /* GPS events */
-        GpsEvent = 80,
+        Gps = 80,
 
         /* Comment events */
-        CommentEvent = 90,
+        Comment = 90,
 
         /* Global market events */
-        GlobalMarkerEvent = 100,
+        GlobalMarker = 100,
 
         /* Ethernet Events */
         EthernetPacket = 110,
@@ -102,18 +102,18 @@ public:
         AfdxPacket = 120,
 
         /* FlexRay Events (Old Format) */
-        FlexRayOldMessageEvent = 130,
-        FlexRayOldStartCycleEvent,
+        FlexRayOldMessage = 130,
+        FlexRayOldStartCycle,
 
         /* FlexRay Events (New Format) */
-        FlexRayMessageEvent = 140,
-        FlexRayStartCycleEvent,
-        FlexRayStatusEvent,
-        FlexRayErrorEvent,
+        FlexRayMessage = 140,
+        FlexRayStartCycle,
+        FlexRayStatus,
+        FlexRayError,
 
         /* K-Line Events */
-        KLineByteEvent = 150,
-        KLineMessageEvent,
+        KLineByte = 150,
+        KLineMessage,
 
         /* LIN Events */
         LinMessage = 160,
@@ -123,7 +123,7 @@ public:
         LinReceiveError,
         LinSyncError,
         LinChecksumError,
-        LinSpikeEvent,
+        LinSpike,
         LinDominantSignal,
 
         /* LIN Info Events */
@@ -135,7 +135,7 @@ public:
         LinEventTriggeredFrameInfo,
         LinStatisticInfo,
         LinShortOrSlowResponse,
-        LinDisturbanceEvent,
+        LinDisturbance,
 
         /* LIN Sleep/Wakeup Events */
         LinSleepMode = 190,
@@ -146,17 +146,17 @@ public:
         Most25ControlMessageNodeMode = 200,
         Most25ControlMessageSpyMode,
         Most25Packet,
-        MostLightLockEvent,
-        MostSpecialRegisterEvent,
-        MostCommonRegisterEvent,
-        MostHwModeEvent,
-        MostNetStateEvent,
-        MostDataLostEvent,
-        MostTriggerEvent,
-        MostStatisticEvent,
-        MostStatisticExtendedEvent,
+        MostLightLock,
+        MostSpecialRegister,
+        MostCommonRegister,
+        MostHwMode,
+        MostNetState,
+        MostDataLost,
+        MostTrigger,
+        MostStatistic,
+        MostStatisticExtended,
         MostTxLight,
-        MostStressEvent,
+        MostStress,
         Most25AllocTable,
         Most150ControlMessage,
         Most150ControlMessageFragment,
@@ -164,19 +164,18 @@ public:
         Most150PacketFragment,
         MostEthernetPacket,
         MostEthernetPacketFragment,
-        MostSystemEvent,
+        MostSystem,
         Most150AllocTable,
         Most50ControlMessage,
         Most50Packet,
         MostEcl,
 
         /* TP/Diagnostics Events */
-        TpDiagPrefix = 230,
-        TpDiagSingleFrame,
-        TpDiagFirstFrame,
-        TpDiagConsecutiveFrame,
-        TpDiagFlowControlFrame,
-        TpDiagRequest,
+        TpSingleFrame = 230,
+        TpFirstFrame,
+        TpConsecutiveFrame,
+        TpFlowControlFrame,
+        DiagRequest,
 
         /* undocumented events */
         StartOfMeasurement = 240
