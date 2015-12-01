@@ -62,6 +62,8 @@ void writeLinStopBitOffsetInHeader(File & file, std::ostream & stream, LinStopBi
 
 void writeLinStopBitOffsetInResponse(File & file, std::ostream & stream, LinStopBitOffsetInResponse & stopBitOffsetInResponse);
 
+void writeLinSubId(File & file, std::ostream & stream, LinNad & nad, LinMessageId & messageId, LinSupplierId & supplierId);
+
 void writeLinSyncDel(File & file, std::ostream & stream, LinSyncDel & syncDel);
 
 void writeLinSyncDelimiterTime(File & file, std::ostream & stream, LinSyncDelimiterTime & syncDelimiterTime);

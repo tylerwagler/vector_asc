@@ -167,6 +167,27 @@ void writeLinStopBitOffsetInResponse(File & file, std::ostream & stream, LinStop
     stream << "  RSO = " << std::left << std::setw(8) << std::dec << (uint32_t) stopBitOffsetInResponse;
 }
 
+void writeLinSubId(File & file, std::ostream & stream, LinNad & nad, LinMessageId & messageId, LinSupplierId & supplierId)
+{
+    /* format: "  subId = %-3u %-5u %-5u" */
+    /* format: "  subId = %2.2x %4.4x %4.4x" */
+    stream << "  subId = ";
+    switch(file.base) {
+    case 10:
+        stream
+                << std::left << std::setw(3) << std::dec << (uint16_t) nad << ' '
+                << std::left << std::setw(5) << std::dec << (uint16_t) messageId << ' '
+                << std::left << std::setw(5) << std::dec << (uint16_t) supplierId;
+        break;
+    case 16:
+        stream
+                << std::setw(2) << std::setprecision(2) << std::hex << (uint16_t) nad << ' '
+                << std::setw(2) << std::setprecision(2) << std::hex << (uint16_t) messageId << ' '
+                << std::setw(2) << std::setprecision(2) << std::hex << (uint16_t) supplierId;
+        break;
+    }
+}
+
 void writeLinSyncDel(File & file, std::ostream & stream, LinSyncDel & syncDel)
 {
     /* format: " %-6u" */
