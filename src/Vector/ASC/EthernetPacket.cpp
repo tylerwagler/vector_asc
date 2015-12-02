@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "EthernetCommon.h"
 #include "EthernetPacket.h"
@@ -50,17 +51,20 @@ EthernetPacket * EthernetPacket::parse(File & file, std::string & line)
     if (std::regex_match(line, match, regex)) {
         EthernetPacket * ethernetPacket = new EthernetPacket;
         ethernetPacket->time = std::stod(match[1]);
-        ethernetPacket->channel = std::stoul(match[2], nullptr, file.base);
+        ethernetPacket->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
                 ethernetPacket->dir = Dir::Rx;
         else
         if (match[3] == "Tx")
                 ethernetPacket->dir = Dir::Tx;
+        else
+        if (match[3] == "TxRq")
+                ethernetPacket->dir = Dir::TxRq;
         ethernetPacket->dataLen = std::stoul(match[4], nullptr, file.base);
         for (int i = 0; i < ethernetPacket->dataLen; ++i) {
             std::string s;
             s.append(match[5], 2*i, 2);
-            ethernetPacket->data[i] = std::stoul(s, nullptr, 16);
+            ethernetPacket->data.push_back(std::stoul(s, nullptr, 16));
         }
         return ethernetPacket;
     }
@@ -71,16 +75,23 @@ EthernetPacket * EthernetPacket::parse(File & file, std::string & line)
 void EthernetPacket::write(File & file, std::ostream & stream)
 {
     writeEthTime(file, stream, time);
-#if 0
-    stream << ' ' << channel;
-    stream << ' ' << (dirTx ? "Tx" : "Rx");
-    stream << ' ' << std::hex << dataLen << std::dec;
-    stream << ':' << std::setfill('0') << std::hex << std::setw(2);
-    for (std::vector<unsigned short>::iterator it=data.begin(); it!=data.end(); ++it) {
-        stream << *it;
+    stream << ' ';
+
+    /* format: " ETH %d %s" */
+    /* format: " ETH * %s" */
+    stream << " ETH " << std::dec << (uint16_t) channel << ' ';
+    writeEthDir(file, stream, dir);
+
+    switch(file.base) {
+    case 10:
+        stream << ' ' << std::setfill(' ') << std::setw(5) << std::dec << dataLen << ':';
+        break;
+    case 16:
+        stream << ' ' << std::setfill(' ') << std::setw(4) << std::hex << dataLen << ':';
+        break;
     }
-    stream << std::dec << std::setw(0);
-#endif
+    for (EthData d: data)
+        stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) d;
 
     stream << endl;
 }

@@ -30,7 +30,7 @@ namespace Vector {
 namespace ASC {
 
 /** Application Channel */
-typedef uint16_t EthChannel;
+typedef uint8_t EthChannel;
 
 /**
  * Data of Ethernet packet. Starting with the target Ethernet MAC ID and ending with data or

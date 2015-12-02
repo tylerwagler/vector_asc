@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "EthernetCommon.h"
 #include "EthernetRxError.h"
@@ -52,14 +53,14 @@ EthernetRxError * EthernetRxError::parse(File & file, std::string & line)
     if (std::regex_match(line, match, regex)) {
         EthernetRxError * ethernetRxError = new EthernetRxError;
         ethernetRxError->time = std::stod(match[1]);
-        ethernetRxError->channel = std::stoul(match[2], nullptr, file.base);
+        ethernetRxError->channel = std::stoul(match[2]);
         ethernetRxError->errorCode = std::stoul(match[3], nullptr, file.base);
         ethernetRxError->frameChecksum = std::stoul(match[4], nullptr, 16);
         ethernetRxError->dataLen = std::stoul(match[5], nullptr, file.base);
         for (int i = 0; i < ethernetRxError->dataLen; ++i) {
             std::string s;
             s.append(match[6], 2*i, 2);
-            ethernetRxError->data[i] = std::stoul(s, nullptr, 16);
+            ethernetRxError->data.push_back(std::stoul(s, nullptr, 16));
         }
         return ethernetRxError;
     }
@@ -70,6 +71,28 @@ EthernetRxError * EthernetRxError::parse(File & file, std::string & line)
 void EthernetRxError::write(File & file, std::ostream & stream)
 {
     writeEthTime(file, stream, time);
+    stream << ' ';
+
+    /* format: " ETH %d RxEr %02x %08x" */
+    /* format: " ETH * RxEr %02x %08x" */
+    stream
+            << " ETH "
+            << std::dec << (uint16_t) channel
+            << " RxEr "
+            << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) errorCode
+            << ' '
+            << std::setfill('0') << std::setw(8) << std::hex << (uint32_t) frameChecksum;
+
+    switch(file.base) {
+    case 10:
+        stream << ' ' << std::setfill(' ') << std::setw(5) << std::dec << dataLen << ':';
+        break;
+    case 16:
+        stream << ' ' << std::setfill(' ') << std::setw(4) << std::hex << dataLen << ':';
+        break;
+    }
+    for (EthData d: data)
+        stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) d;
 
     stream << endl;
 }

@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "EthernetCommon.h"
 #include "EthernetStatus.h"
@@ -61,7 +62,7 @@ EthernetStatus * EthernetStatus::parse(File & file, std::string & line)
     if (std::regex_match(line, match, regex)) {
         EthernetStatus * ethernetStatus = new EthernetStatus;
         ethernetStatus->time = std::stod(match[1]);
-        ethernetStatus->channel = std::stoul(match[2], nullptr, file.base);
+        ethernetStatus->channel = std::stoul(match[2]);
         ethernetStatus->link = match[3];
         ethernetStatus->linkSpeed = match[4];
         ethernetStatus->physical = match[5];

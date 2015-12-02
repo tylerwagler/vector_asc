@@ -51,7 +51,7 @@ AfdxPacket * AfdxPacket::parse(File & file, std::string & line)
     if (std::regex_match(line, match, regex)) {
         AfdxPacket * afdxPacket = new AfdxPacket;
         afdxPacket->time = std::stod(match[1]);
-        afdxPacket->channel = std::stoul(match[2], nullptr, file.base);
+        afdxPacket->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
                 afdxPacket->dir = Dir::Rx;
         else
@@ -67,7 +67,7 @@ AfdxPacket * AfdxPacket::parse(File & file, std::string & line)
         for (int i = 0; i < afdxPacket->dataLen; ++i) {
             std::string s;
             s.append(match[8], 2*i, 2);
-            afdxPacket->data[i] = std::stoul(s, nullptr, 16);
+            afdxPacket->data.push_back(std::stoul(s, nullptr, 16));
         }
         return afdxPacket;
     }
@@ -82,15 +82,15 @@ void AfdxPacket::write(File & file, std::ostream & stream)
 
     switch (file.base) {
     case 10:
-        /* format: "AFDX %d %s %d %d %d" */
-        /* format: "AFDX * %s %d %d %d" */
+        /* format: " AFDX %d %s %d %d %d" */
+        /* format: " AFDX * %s %d %d %d" */
         stream
             << " AFDX "
-            << std::dec << channel
+            << std::dec << (uint16_t) channel
             << ' ';
         writeAfdxDir(file, stream, dir);
         stream
-            << ' ' << std::dec << ethChannel
+            << ' ' << std::dec << (uint16_t) ethChannel
             << ' ' << std::dec << flags
             << ' ' << std::dec << bag;
 
@@ -101,15 +101,15 @@ void AfdxPacket::write(File & file, std::ostream & stream)
         break;
 
     case 16:
-        /* format: "AFDX %d %s %4x %4x %4x" */
-        /* format: "AFDX * %s %4x %4x %4x" */
+        /* format: " AFDX %d %s %4x %4x %4x" */
+        /* format: " AFDX * %s %4x %4x %4x" */
         stream
             << " AFDX "
-            << std::dec << channel
+            << std::dec << (uint16_t) channel
             << ' ';
         writeAfdxDir(file, stream, dir);
         stream
-            << ' ' << std::setw(4) << std::hex << ethChannel
+            << ' ' << std::setw(4) << std::hex << (uint16_t) ethChannel
             << ' ' << std::setw(4) << std::hex << flags
             << ' ' << std::setw(4) << std::hex << bag;
 
@@ -120,9 +120,8 @@ void AfdxPacket::write(File & file, std::ostream & stream)
         break;
     }
 
-    stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
-    for (int i = 0; i < dataLen; ++i)
-        stream << std::setfill('0') << std::setw(2) << (uint16_t) data[i];
+    for (AfdxData d: data)
+        stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) d;
 
     stream << endl;
 }
