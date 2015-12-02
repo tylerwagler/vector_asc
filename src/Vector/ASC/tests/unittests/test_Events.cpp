@@ -1841,6 +1841,10 @@ BOOST_AUTO_TEST_CASE(LinChecksumError)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinChecksumError);
     linChecksumError = static_cast<Vector::ASC::LinChecksumError *>(event);
     BOOST_CHECK(isEqual(linChecksumError->time, 0.462829));
@@ -2231,6 +2235,10 @@ BOOST_AUTO_TEST_CASE(LinWakeupFrame)
 
     Vector::ASC::Event * event;
     Vector::ASC::LinWakeupFrame * linWakeupFrame;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
@@ -3390,11 +3398,19 @@ BOOST_AUTO_TEST_CASE(StartOfMeasurement)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileDate);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::StartOfMeasurement);
     startOfMeasurement = static_cast<Vector::ASC::StartOfMeasurement *>(event);
     BOOST_CHECK(isEqual(startOfMeasurement->time, 0.000000));
     BOOST_CHECK(startOfMeasurement->language == Vector::ASC::File::Language::De);
     delete event;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileDate);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);

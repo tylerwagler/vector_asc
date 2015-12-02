@@ -111,7 +111,7 @@ void TpConsecutiveFrame::write(File & file, std::ostream & stream)
         stream << "Data";
         break;
     }
-    stream << " " << source << "->" << destination << ":";
+    stream << " " << source << "->" << destination << ": ";
 
     stream
             << "CF Seq.Nr.: " << std::dec << (uint16_t) sn

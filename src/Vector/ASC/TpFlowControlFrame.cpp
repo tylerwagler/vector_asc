@@ -114,7 +114,7 @@ void TpFlowControlFrame::write(File & file, std::ostream & stream)
         stream << "Data";
         break;
     }
-    stream << " " << source << "->" << destination << ":";
+    stream << " " << source << "->" << destination << ": ";
 
     switch(fcType) {
     case TpDiagFcType::Cts:

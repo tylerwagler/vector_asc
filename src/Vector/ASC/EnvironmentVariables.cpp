@@ -59,9 +59,7 @@ EnvironmentVariables * EnvironmentVariables::parse(File & file, std::string & li
 void EnvironmentVariables::write(File & file, std::ostream & stream)
 {
     writeTime(file, stream, time);
-    stream << ' ';
-
-    stream << "   " << std::left << std::setw(12) << evname << " := " << value;
+    stream << "    " << std::left << std::setw(12) << evname << " := " << value;
 
     stream << endl;
 }

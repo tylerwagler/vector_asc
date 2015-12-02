@@ -81,6 +81,7 @@ void EthernetStatus::write(File & file, std::ostream & stream)
 
     /* format: "ETH ", "ETH *" */
     stream << "ETH ";
+    stream << std::dec << (uint16_t) channel;
 
     /* format: " STAT" */
     stream << " STAT";
@@ -88,34 +89,44 @@ void EthernetStatus::write(File & file, std::ostream & stream)
     /* format: " Link:" */
     stream << " Link:";
     /* format: "Link_up", "Link_error", "Negotiate_link", "Link_down" */
+    stream << link;
 
     /* format: " LinkSpeed:" */
     stream << " LinkSpeed:";
     /* format: "Mbit/s" */
+    stream << linkSpeed;
 
     /* format: " Physical:" */
     stream << " Physical:";
     /* format: "IEEE802.3", "BroadR-Reach" */
+    stream << physical;
 
     /* format: " Duplex:" */
     stream << " Duplex:";
     /* format: "Full", "Half" */
+    stream << duplex;
 
     /* format: " MDI:" */
     stream << " MDI:";
     /* format: "Crossover", "Direct" */
+    stream << mdi;
 
     /* format: " Connector:" */
     stream << " Connector:";
     /* format: "RJ45", "D-Sub" */
+    stream << connector;
 
-    /* format: " BRClockMode:" */
-    stream << " BRClockMode:";
-    /* format: "Master", "Slave" */
+    if (physical == "BroadR-Reach") {
+        /* format: " BRClockMode:" */
+        stream << " BRClockMode:";
+        /* format: "Master", "Slave" */
+        stream << brClockMode;
 
-    /* format: " BrPairs:" */
-    stream << " BrPairs:";
-    /* format: "1-pair", "2-pair", "4-pair" */
+        /* format: " BrPairs:" */
+        stream << " BrPairs:";
+        /* format: "1-pair", "2-pair", "4-pair" */
+        stream << brPairs;
+    }
 
     stream << endl;
 }

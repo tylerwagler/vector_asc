@@ -29,5 +29,7 @@
 namespace Vector {
 namespace ASC {
 
+#define writeTpDiagTime(file, stream, tpDiagTime) writeTime(file, stream, tpDiagTime);
+
 }
 }

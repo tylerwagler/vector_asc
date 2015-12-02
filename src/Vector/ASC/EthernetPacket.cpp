@@ -76,7 +76,7 @@ void EthernetPacket::write(File & file, std::ostream & stream)
     stream << ' ' << (dirTx ? "Tx" : "Rx");
     stream << ' ' << std::hex << dataLen << std::dec;
     stream << ':' << std::setfill('0') << std::hex << std::setw(2);
-    for(std::vector<unsigned short>::iterator it=data.begin(); it!=data.end(); ++it) {
+    for (std::vector<unsigned short>::iterator it=data.begin(); it!=data.end(); ++it) {
         stream << *it;
     }
     stream << std::dec << std::setw(0);

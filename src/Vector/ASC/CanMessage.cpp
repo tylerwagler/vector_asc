@@ -120,7 +120,7 @@ void CanMessage::write(File & file, std::ostream & stream)
     writeDir(file, stream, dir);
     stream << "   d";
     stream << ' ' << std::hex << (uint16_t) dlc;
-    for(int i = 0; i < dlc && i < 8; ++i) {
+    for (int i = 0; i < dlc && i < 8; ++i) {
         stream << ' ';
         switch(file.base) {
         case 10:

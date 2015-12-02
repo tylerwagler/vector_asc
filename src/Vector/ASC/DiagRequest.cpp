@@ -77,10 +77,10 @@ DiagRequest * DiagRequest::parse(File & file, std::string & line)
 
 void DiagRequest::write(File & file, std::ostream & stream)
 {
-    /* format: "%f DiagRequest[%199s] " */
-    stream
-            << std::right << std::setfill(' ') << std::setw(9) << std::setprecision(4) << std::fixed << time
-            << " DiagRequest[" << ecuQualifier << "] ";
+    writeTpDiagTime(file, stream, time);
+
+    /* format: "DiagRequest[%s]" */
+    stream << " DiagRequest[" << ecuQualifier << "]";
 
     switch(command) {
     case Command::Close:

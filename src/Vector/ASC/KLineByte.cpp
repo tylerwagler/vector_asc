@@ -79,7 +79,8 @@ KLineByte * KLineByte::parse(File & file, std::string & line)
 
 void KLineByte::write(File & file, std::ostream & stream)
 {
-    stream << std::fixed << time << ' ' << port << ' ';
+    writeKLineTime(file, stream, time);
+    stream << ' ' << port << ' ';
     writeKLineDirection(file, stream, direction);
     stream << ' ' << std::dec << baudrate;
     stream << ' ' << std::dec << length;

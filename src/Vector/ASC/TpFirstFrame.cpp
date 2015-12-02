@@ -111,7 +111,7 @@ void TpFirstFrame::write(File & file, std::ostream & stream)
         stream << "Data";
         break;
     }
-    stream << " " << source << "->" << destination << ":";
+    stream << " " << source << "->" << destination << ": ";
 
     /* format: "FF Length: "*/
     stream << "FF Length: ";

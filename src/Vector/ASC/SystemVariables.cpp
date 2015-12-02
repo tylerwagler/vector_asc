@@ -79,7 +79,7 @@ SystemVariables * SystemVariables::parse(File & file, std::string & line)
 void SystemVariables::write(File & file, std::ostream & stream)
 {
     writeTime(file, stream, time);
-    stream << ' ';
+    stream << "    ";
 
     /* format: "SV: %d %d %d %s = " */
     stream
