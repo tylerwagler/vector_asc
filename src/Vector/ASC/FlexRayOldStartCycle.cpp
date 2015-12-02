@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "FlexRayCommon.h"
 #include "FlexRayOldStartCycle.h"
@@ -52,6 +53,7 @@ FlexRayOldStartCycle * FlexRayOldStartCycle::parse(File & file, std::string & li
         flexRayOldStartCycle->channel = std::string(match[2])[0];
         flexRayOldStartCycle->dlc = std::stoul(match[3]);
         std::istringstream iss(match[4]);
+        iss >> std::hex;
         for (uint8_t i = 0; i < flexRayOldStartCycle->dlc && i <= 255; ++i) {
             unsigned short s;
             iss >> s;
@@ -65,6 +67,15 @@ FlexRayOldStartCycle * FlexRayOldStartCycle::parse(File & file, std::string & li
 
 void FlexRayOldStartCycle::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
+    stream
+            << " Fr "
+            << channel
+            << " StartCycleEvent NM Vector: "
+            << std::dec << (uint16_t) dlc;
+    for (FlexRayOldDx d: data)
+        stream << ' ' << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) d;
+
     stream << endl;
 }
 

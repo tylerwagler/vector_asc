@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "FlexRayCommon.h"
 #include "FlexRayError.h"
@@ -58,11 +59,11 @@ FlexRayError * FlexRayError::parse(File & file, std::string & line)
         flexRayError->clientId = std::stoul(match[3]);
         flexRayError->channelNr = std::stoul(match[4]);
         flexRayError->channelMask = std::stoul(match[5]);
-        flexRayError->ccType = std::stoul(match[6]);
-        flexRayError->ccData[0] = std::stoul(match[7]);
-        flexRayError->ccData[1] = std::stoul(match[8]);
-        flexRayError->ccData[2] = std::stoul(match[9]);
-        flexRayError->ccData[3] = std::stoul(match[10]);
+        flexRayError->ccType = std::stoul(match[6], nullptr, file.base);
+        flexRayError->ccData[0] = std::stoul(match[7], nullptr, file.base);
+        flexRayError->ccData[1] = std::stoul(match[8], nullptr, file.base);
+        flexRayError->ccData[2] = std::stoul(match[9], nullptr, file.base);
+        flexRayError->ccData[3] = std::stoul(match[10], nullptr, file.base);
         return flexRayError;
     }
 
@@ -71,6 +72,38 @@ FlexRayError * FlexRayError::parse(File & file, std::string & line)
 
 void FlexRayError::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
+    stream << " Fr ";
+
+    /* format: "EE " */
+    stream << "EE ";
+
+    stream
+            << std::dec
+            << clusterNr
+            << ' ' << clientId
+            << ' ' << channelNr
+            << ' ' << channelMask;
+
+    switch(file.base) {
+    case 10:
+        stream
+                << ' ' << std::dec << ccType
+                << ' ' << std::dec << ccData[0]
+                << ' ' << std::dec << ccData[1]
+                << ' ' << std::dec << ccData[2]
+                << ' ' << std::dec << ccData[3];
+        break;
+    case 16:
+        stream
+                << ' ' << std::hex << ccType
+                << ' ' << std::hex << ccData[0]
+                << ' ' << std::hex << ccData[1]
+                << ' ' << std::hex << ccData[2]
+                << ' ' << std::hex << ccData[3];
+        break;
+    }
+
     stream << endl;
 }
 

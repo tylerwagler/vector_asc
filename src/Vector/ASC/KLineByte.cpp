@@ -69,7 +69,7 @@ KLineByte * KLineByte::parse(File & file, std::string & line)
         for (uint8_t i = 0; i < kLineByte->length; ++i) {
             unsigned short s;
             iss >> s;
-            kLineByte->data[i] = s;
+            kLineByte->data.push_back(s);
         }
         return kLineByte;
     }
@@ -80,12 +80,12 @@ KLineByte * KLineByte::parse(File & file, std::string & line)
 void KLineByte::write(File & file, std::ostream & stream)
 {
     writeKLineTime(file, stream, time);
-    stream << ' ' << port << ' ';
+    stream << "    " << port << ' ';
     writeKLineDirection(file, stream, direction);
-    stream << ' ' << std::dec << baudrate;
-    stream << ' ' << std::dec << length;
-    for (int i = 0; i < length; ++i)
-        stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) data[i];
+    stream << "   " << std::setfill(' ') << std::setw(6) << std::dec << baudrate;
+    stream << "   " << std::setfill(' ') << std::setw(4) << std::dec << length;
+    stream << "  ";
+    writeData(file, stream, data);
 
     stream << endl;
 }

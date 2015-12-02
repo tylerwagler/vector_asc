@@ -25,6 +25,42 @@
 namespace Vector {
 namespace ASC {
 
+void writeData(File & file, std::ostream & stream, std::vector<uint8_t> & data)
+{
+    for (uint8_t d: data) {
+        switch(file.base) {
+        case 10:
+            stream << ' ' << std::right
+                   << std::setfill(' ') << std::setw(3)
+                   << std::dec << (uint16_t) d;
+            break;
+        case 16:
+            stream << ' ' << std::right
+                   << std::setfill('0') << std::setw(2)
+                   << std::uppercase << std::hex << (uint16_t) d;
+            break;
+        }
+    }
+}
+
+void writeDir(File & file, std::ostream & stream, Dir dir)
+{
+    switch(dir) {
+    case Dir::Rx:
+        /* format: "Rx" */
+        stream << "Rx";
+        break;
+    case Dir::Tx:
+        /* format: "Tx" */
+        stream << "Tx";
+        break;
+    case Dir::TxRq:
+        /* format: "TxRq" */
+        stream << "TxRq";
+        break;
+    }
+}
+
 void writeTime(File & file, std::ostream & stream, Time & time)
 {
     uint8_t timestampPrecision = file.timestampPrecision;
@@ -48,24 +84,6 @@ void writeTime(File & file, std::ostream & stream, Time & time)
             << std::setw(5+timestampPrecision)
             << std::setprecision(timestampPrecision)
             << std::fixed << time;
-}
-
-void writeDir(File & file, std::ostream & stream, Dir dir)
-{
-    switch(dir) {
-    case Dir::Rx:
-        /* format: "Rx" */
-        stream << "Rx";
-        break;
-    case Dir::Tx:
-        /* format: "Tx" */
-        stream << "Tx";
-        break;
-    case Dir::TxRq:
-        /* format: "TxRq" */
-        stream << "TxRq";
-        break;
-    }
 }
 
 }

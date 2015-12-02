@@ -57,7 +57,7 @@ public:
     KLineLength length;
 
     /** @copydoc KLineData */
-    std::array<KLineData, 1000> data;
+    std::vector<KLineData> data;
 
     /** @copydoc Event::parse() */
     static KLineMessage * parse(File & file, std::string & line);

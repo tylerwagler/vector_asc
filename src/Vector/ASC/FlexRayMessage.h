@@ -21,8 +21,9 @@
 
 #pragma once
 
-#include <array>
+#include <vector>
 #include "Event.h"
+#include "FlexRaySymbols.h"
 
 namespace Vector {
 namespace ASC {
@@ -69,7 +70,7 @@ public:
     uint32_t cycleNo;
 
     /** Direction */
-    std::string direction;
+    Dir direction;
 
     /** App. param. */
     uint32_t appParam;
@@ -96,13 +97,13 @@ public:
     int32_t bufferLength;
 
     /** Data[n] */
-    std::array<uint32_t, 254> data;
+    std::vector<uint8_t> data;
 
     /** Frame CRC */
     uint32_t frameCrc;
 
     /** Spy Flag */
-    uint32_t spyFlag;
+    bool spyFlag;
 
     /** Frame Length NS */
     uint32_t frameLengthNs;

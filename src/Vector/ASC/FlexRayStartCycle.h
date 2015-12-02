@@ -21,8 +21,9 @@
 
 #pragma once
 
-#include <array>
+#include <vector>
 #include "Event.h"
+#include "FlexRaySymbols.h"
 
 namespace Vector {
 namespace ASC {
@@ -57,7 +58,7 @@ public:
     uint32_t cycleNo;
 
     /** Direction */
-    std::string direction;
+    Dir direction;
 
     /** CC-Type. */
     uint32_t ccType;
@@ -69,7 +70,7 @@ public:
     uint32_t nmVectL;
 
     /** NM_Vect[n] */
-    std::array<uint32_t, 12> nmVect;
+    std::vector<uint8_t> nmVect;
 
     /** @copydoc Event::parse() */
     static FlexRayStartCycle * parse(File & file, std::string & line);

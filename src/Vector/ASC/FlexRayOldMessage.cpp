@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "FlexRayCommon.h"
 #include "FlexRayOldMessage.h"
@@ -85,6 +86,24 @@ FlexRayOldMessage * FlexRayOldMessage::parse(File & file, std::string & line)
 
 void FlexRayOldMessage::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
+    stream
+            << " Fr "
+            << channel
+            << " V9  "
+            << std::dec << (uint16_t) id
+            << ' ' << (uint16_t) cycle
+            << ' ' << (nm ? '1' : '0')
+            << ' ' << (sync ? '1' : '0')
+            << ' ' << (uint16_t) headerCrc
+            << ' ' << symbolicName
+            << ' ' << std::setfill(' ') << std::setw(2) << std::dec << (uint16_t) dlc;
+    for (FlexRayOldDx d: data)
+        stream << ' ' << std::setfill(' ') << std::setw(3) << std::dec << (uint16_t) d;
+    stream
+            << ' ' << std::setfill('0') << std::setw(4) << std::hex << (uint16_t) frameState
+            << ' ' << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) headerBitMask;
+
     stream << endl;
 }
 

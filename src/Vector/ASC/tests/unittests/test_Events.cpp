@@ -1279,6 +1279,10 @@ BOOST_AUTO_TEST_CASE(FlexRayOldMessageEvent)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayOldMessage);
     flexRayOldMessage = static_cast<Vector::ASC::FlexRayOldMessage *>(event);
     BOOST_CHECK(isEqual(flexRayOldMessage->time, 0.042000));
@@ -1334,6 +1338,10 @@ BOOST_AUTO_TEST_CASE(FlexRayOldStartCycleEvent)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayOldStartCycle);
     flexRayOldStartCycle = static_cast<Vector::ASC::FlexRayOldStartCycle *>(event);
     BOOST_CHECK(isEqual(flexRayOldStartCycle->time, 0.041700));
@@ -1359,6 +1367,10 @@ BOOST_AUTO_TEST_CASE(FlexRayMessageEvent)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayMessage);
     flexRayMessage = static_cast<Vector::ASC::FlexRayMessage *>(event);
     BOOST_CHECK(isEqual(flexRayMessage->time, 0.039255));
@@ -1369,7 +1381,7 @@ BOOST_AUTO_TEST_CASE(FlexRayMessageEvent)
     BOOST_CHECK(flexRayMessage->channelMask == 1);
     BOOST_CHECK(flexRayMessage->slotId == 4);
     BOOST_CHECK(flexRayMessage->cycleNo == 7);
-    BOOST_CHECK(flexRayMessage->direction == "Rx");
+    BOOST_CHECK(flexRayMessage->direction == Vector::ASC::Dir::Rx);
     BOOST_CHECK(flexRayMessage->appParam == 0);
     BOOST_CHECK(flexRayMessage->flags == 14);
     BOOST_CHECK(flexRayMessage->ccType == 5);
@@ -1399,7 +1411,7 @@ BOOST_AUTO_TEST_CASE(FlexRayMessageEvent)
     BOOST_CHECK(flexRayMessage->channelMask == 1);
     BOOST_CHECK(flexRayMessage->slotId == 3);
     BOOST_CHECK(flexRayMessage->cycleNo == 7);
-    BOOST_CHECK(flexRayMessage->direction == "Tx");
+    BOOST_CHECK(flexRayMessage->direction == Vector::ASC::Dir::Tx);
     BOOST_CHECK(flexRayMessage->appParam == 0);
     BOOST_CHECK(flexRayMessage->flags == 2313218);
     BOOST_CHECK(flexRayMessage->ccType == 5);
@@ -1427,7 +1439,7 @@ BOOST_AUTO_TEST_CASE(FlexRayMessageEvent)
     BOOST_CHECK(flexRayMessage->channelMask == 1);
     BOOST_CHECK(flexRayMessage->slotId == 3);
     BOOST_CHECK(flexRayMessage->cycleNo == 7);
-    BOOST_CHECK(flexRayMessage->direction == "Tx");
+    BOOST_CHECK(flexRayMessage->direction == Vector::ASC::Dir::Tx);
     BOOST_CHECK(flexRayMessage->appParam == 0);
     BOOST_CHECK(flexRayMessage->flags == 2640898);
     BOOST_CHECK(flexRayMessage->ccType == 5);
@@ -1498,6 +1510,10 @@ BOOST_AUTO_TEST_CASE(FlexRayStartCycleEvent)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayStartCycle);
     flexRayStartCycle = static_cast<Vector::ASC::FlexRayStartCycle *>(event);
     BOOST_CHECK(isEqual(flexRayStartCycle->time, 0.044115));
@@ -1506,7 +1522,7 @@ BOOST_AUTO_TEST_CASE(FlexRayStartCycleEvent)
     BOOST_CHECK(flexRayStartCycle->channelNr == 1);
     BOOST_CHECK(flexRayStartCycle->channelMask == 3);
     BOOST_CHECK(flexRayStartCycle->cycleNo == 8);
-    BOOST_CHECK(flexRayStartCycle->direction == "Rx");
+    BOOST_CHECK(flexRayStartCycle->direction == Vector::ASC::Dir::Rx);
     BOOST_CHECK(flexRayStartCycle->ccType == 5);
     BOOST_CHECK(flexRayStartCycle->ccData[0] == 0);
     BOOST_CHECK(flexRayStartCycle->ccData[1] == 4);
@@ -1528,6 +1544,10 @@ BOOST_AUTO_TEST_CASE(FlexRayStatusEvent)
 
     Vector::ASC::Event * event;
     Vector::ASC::FlexRayStatus * flexRayStatus;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
@@ -1560,6 +1580,10 @@ BOOST_AUTO_TEST_CASE(FlexRayErrorEvent)
 
     Vector::ASC::Event * event;
     Vector::ASC::FlexRayError * flexRayError;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);

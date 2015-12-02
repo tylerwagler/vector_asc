@@ -73,8 +73,8 @@ GlobalMarker * GlobalMarker::parse(File & file, std::string & line)
 
 void GlobalMarker::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
     stream
-            << std::fixed << time
             << ' ' << std::dec << type
             << ' ' << backgroundColor
             << ' ' << foregroundColor

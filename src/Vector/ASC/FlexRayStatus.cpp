@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "FlexRayCommon.h"
 #include "FlexRayStatus.h"
@@ -64,11 +65,11 @@ FlexRayStatus * FlexRayStatus::parse(File & file, std::string & line)
         flexRayStatus->clientId = std::stoul(match[3]);
         flexRayStatus->channelNr = std::stoul(match[4]);
         flexRayStatus->channelMask = std::stoul(match[5]);
-        flexRayStatus->cycleNo = std::stoul(match[6]);
+        flexRayStatus->cycleNo = std::stoul(match[6], nullptr, file.base);
         flexRayStatus->ccType = std::stoul(match[7]);
         flexRayStatus->syncState = std::stoul(match[8]);
-        flexRayStatus->ccData[0] = std::stoul(match[9]);
-        flexRayStatus->ccData[1] = std::stoul(match[10]);
+        flexRayStatus->ccData[0] = std::stoul(match[9], nullptr, file.base);
+        flexRayStatus->ccData[1] = std::stoul(match[10], nullptr, file.base);
         flexRayStatus->symbol = std::stoul(match[11]);
         flexRayStatus->wakeUpState = std::stoul(match[12]);
         flexRayStatus->spyFlag = (match[13] == '1');
@@ -80,6 +81,44 @@ FlexRayStatus * FlexRayStatus::parse(File & file, std::string & line)
 
 void FlexRayStatus::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
+    stream << " Fr ";
+
+    /* format: "SE " */
+    stream << "SE ";
+
+    stream
+            << std::dec
+            << clusterNr
+            << ' ' << clientId
+            << ' ' << channelNr
+            << ' ' << channelMask;
+
+    switch(file.base) {
+    case 10:
+        stream
+                << ' ' << std::dec << cycleNo
+                << ' ' << std::dec << ccType
+                << ' ' << std::dec << syncState
+                << ' ' << std::dec << ccData[0]
+                << ' ' << std::dec << ccData[1]
+                << ' ' << std::dec << symbol
+                << ' ' << std::dec << wakeUpState
+                << ' ' << (spyFlag ? '1' : '0');
+        break;
+    case 16:
+        stream
+                << ' ' << std::hex << cycleNo
+                << ' ' << std::dec << ccType
+                << ' ' << std::dec << syncState
+                << ' ' << std::hex << ccData[0]
+                << ' ' << std::hex << ccData[1]
+                << ' ' << std::dec << symbol
+                << ' ' << std::dec << wakeUpState
+                << ' ' << (spyFlag ? '1' : '0');
+        break;
+    }
+
     stream << endl;
 }
 

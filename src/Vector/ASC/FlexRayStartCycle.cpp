@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "FlexRayCommon.h"
 #include "FlexRayStartCycle.h"
@@ -35,7 +36,7 @@ FlexRayStartCycle::FlexRayStartCycle() :
     channelNr(0),
     channelMask(0),
     cycleNo(0),
-    direction(),
+    direction(Dir::Rx),
     ccType(0),
     ccData(),
     nmVectL(0),
@@ -65,16 +66,31 @@ FlexRayStartCycle * FlexRayStartCycle::parse(File & file, std::string & line)
         flexRayStartCycle->clientId = std::stoul(match[3]);
         flexRayStartCycle->channelNr = std::stoul(match[4]);
         flexRayStartCycle->channelMask = std::stoul(match[5]);
-        flexRayStartCycle->cycleNo = std::stoul(match[6]);
-        flexRayStartCycle->direction = match[7];
-        flexRayStartCycle->ccType = std::stoul(match[8]);
-        flexRayStartCycle->ccData[0] = std::stoul(match[9]);
-        flexRayStartCycle->ccData[1] = std::stoul(match[10]);
-        flexRayStartCycle->ccData[2] = std::stoul(match[11]);
-        flexRayStartCycle->ccData[3] = std::stoul(match[12]);
-        flexRayStartCycle->ccData[4] = std::stoul(match[13]);
-        flexRayStartCycle->nmVectL = std::stoul(match[14]);
+        flexRayStartCycle->cycleNo = std::stoul(match[6], nullptr, file.base);
+        if (match[7] == "Rx")
+                flexRayStartCycle->direction = Dir::Rx;
+        else
+        if (match[7] == "Tx")
+                flexRayStartCycle->direction = Dir::Tx;
+        else
+        if (match[7] == "TxRq")
+                flexRayStartCycle->direction = Dir::TxRq;
+        flexRayStartCycle->ccType = std::stoul(match[8], nullptr, file.base);
+        flexRayStartCycle->ccData[0] = std::stoul(match[9], nullptr, file.base);
+        flexRayStartCycle->ccData[1] = std::stoul(match[10], nullptr, file.base);
+        flexRayStartCycle->ccData[2] = std::stoul(match[11], nullptr, file.base);
+        flexRayStartCycle->ccData[3] = std::stoul(match[12], nullptr, file.base);
+        flexRayStartCycle->ccData[4] = std::stoul(match[13], nullptr, file.base);
+        flexRayStartCycle->nmVectL = std::stoul(match[14], nullptr, file.base);
         std::istringstream iss(match[15]);
+        switch(file.base) {
+        case 10:
+            iss >> std::dec;
+            break;
+        case 16:
+            iss >> std::hex;
+            break;
+        }
         for (uint8_t i = 0; i < flexRayStartCycle->nmVectL; ++i) {
             unsigned short s;
             iss >> s;
@@ -88,6 +104,52 @@ FlexRayStartCycle * FlexRayStartCycle::parse(File & file, std::string & line)
 
 void FlexRayStartCycle::write(File & file, std::ostream & stream)
 {
+    writeTime(file, stream, time);
+    stream << " Fr ";
+
+    /* format: "SCE " */
+    stream << "SCE ";
+
+    stream
+            << std::dec
+            << clusterNr
+            << ' ' << clientId
+            << ' ' << channelNr
+            << ' ' << channelMask;
+
+    switch(file.base) {
+    case 10:
+        stream
+                << ' ' << std::dec << cycleNo
+                << ' ';
+        writeDir(file, stream, direction);
+        stream
+                << ' ' << std::dec << ccType
+                << ' ' << std::dec << ccData[0]
+                << ' ' << std::dec << ccData[1]
+                << ' ' << std::dec << ccData[2]
+                << ' ' << std::dec << ccData[3]
+                << ' ' << std::dec << ccData[4]
+                << " NM_Vector: " << std::dec << nmVectL;
+        writeData(file, stream, nmVect);
+        break;
+    case 16:
+        stream
+                << ' ' << std::hex << cycleNo
+                << ' ';
+        writeDir(file, stream, direction);
+        stream
+                << ' ' << std::hex << ccType
+                << ' ' << std::hex << ccData[0]
+                << ' ' << std::hex << ccData[1]
+                << ' ' << std::hex << ccData[2]
+                << ' ' << std::hex << ccData[3]
+                << ' ' << std::hex << ccData[4]
+                << " NM_Vector: " << std::hex << nmVectL;
+        writeData(file, stream, nmVect);
+        break;
+    }
+
     stream << endl;
 }
 

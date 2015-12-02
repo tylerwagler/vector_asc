@@ -72,8 +72,8 @@ Gps * Gps::parse(File & file, std::string & line)
 void Gps::write(File & file, std::ostream & stream)
 {
     /* format: "%f GPS-Device: %d    La: %lf    Lo: %lf    Alt: %lf    Sp: %lf    Co: %lf" */
+    writeTime(file, stream, time);
     stream
-            << std::fixed << time
             << " GPS-Device: " << channel
             << "    La: " << latitude
             << "    Lo: " << longitude

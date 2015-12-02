@@ -22,6 +22,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include "File.h"
 #include "CanSymbols.h"
 
@@ -31,9 +32,11 @@ namespace ASC {
 /* force Linux to use Windows line ending */
 static const char endl[] = "\r\n";
 
-void writeTime(File & file, std::ostream & stream, Time & time);
+void writeData(File & file, std::ostream & stream, std::vector<uint8_t> & data);
 
 void writeDir(File & file, std::ostream & stream, Dir dir);
+
+void writeTime(File & file, std::ostream & stream, Time & time);
 
 }
 }
