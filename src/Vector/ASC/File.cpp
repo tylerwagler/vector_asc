@@ -150,7 +150,10 @@ Event * File::read()
     {
         FileVersion * fileVersion = FileVersion::parse(*this, line);
         if (fileVersion)
-            version = (fileVersion->versionMajor << 24) | (fileVersion->versionMinor << 16);
+            version =
+                    (fileVersion->versionMajor << 24) |
+                    (fileVersion->versionMinor << 16) |
+                    (fileVersion->versionPatch);
         return fileVersion;
     }
     case Event::EventType::FileSplitInformation:

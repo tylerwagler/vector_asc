@@ -72,6 +72,9 @@ LinUnexpectedWakeup * LinUnexpectedWakeup::parse(File & file, std::string & line
 
 void LinUnexpectedWakeup::write(File & file, std::ostream & stream)
 {
+    if (file.version < File::Version::Ver_7_5)
+        return;
+
     writeLinTime(file, stream, time);
     stream << ' ';
 

@@ -21,8 +21,8 @@
 
 #pragma once
 
-#include <array>
 #include <string>
+#include <vector>
 #include "CanCommon.h"
 #include "File.h"
 #include "LinSymbols.h"
@@ -38,9 +38,11 @@ void writeLinChecksum(File & file, std::ostream & stream, LinChecksum & checksum
 
 void writeLinChecksumModel(File & file, std::ostream & stream, LinChecksumModel & checksumModel);
 
+void writeLinData(File & file, std::ostream & stream, std::vector<LinDx> & data);
+
 #define writeLinDir(file, stream, linDir) writeDir(file, stream, linDir)
 
-void writeLinEndOfByte(File & file, std::ostream & stream, std::array<LinT, 8> & endOfByte, LinDlc & dlc);
+void writeLinEndOfByte(File & file, std::ostream & stream, std::vector<LinT> & endOfByte, LinDlc & dlc);
 
 void writeLinEndOfFrame(File & file, std::ostream & stream, LinEndOfFrame & endOfFrame);
 
@@ -50,6 +52,10 @@ void writeLinHeaderBaudrate(File & file, std::ostream & stream, LinHeaderBaudrat
 
 void writeLinHeaderTimeLinFullTime(File & file, std::ostream & stream, LinHeaderTime & headerTime, LinFullTime & fullTime);
 
+void writeLinIsShortErrorLinIsDlcTimeoutLinHasDatabytes(File & file, std::ostream & stream, LinIsShortError & isShortError, LinIsDlcTimeout & isDlcTimeout, LinHasDatabytes & hasDatabytes);
+
+void writeLinOffendingByte(File & file, std::ostream & stream, LinOffendingByte & offendingByte);
+
 void writeLinResponseBaudrate(File & file, std::ostream & stream, LinResponseBaudrate & responseBaudrate);
 
 void writeLinSimulated(File & file, std::ostream & stream, LinSimulated & simulated);
@@ -57,6 +63,8 @@ void writeLinSimulated(File & file, std::ostream & stream, LinSimulated & simula
 void writeLinSlaveIdLinState(File & file, std::ostream & stream, LinSlaveId & slaveId, LinState & linState);
 
 void writeLinStartOfFrame(File & file, std::ostream & stream, LinStartOfFrame & startOfFrame);
+
+void writeLinStateReason(File & file, std::ostream & stream, LinStateReason & stateReason);
 
 void writeLinStopBitOffsetInHeader(File & file, std::ostream & stream, LinStopBitOffsetInHeader & stopBitOffsetInHeader);
 

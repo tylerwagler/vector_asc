@@ -79,8 +79,8 @@ void LinWakeupFrame::write(File & file, std::ostream & stream)
     writeLinTime(file, stream, time);
     stream << ' ';
 
-    /* format: "%s WakeupFrame     %s       %02x" */
     /* format: "%s WakeupFrame     %s       %-3d" */
+    /* format: "%s WakeupFrame     %s       %02x" */
     writeLinChannel(file, stream, channel);
     stream << " WakeupFrame     ";
     writeLinDir(file, stream, dir);
@@ -94,10 +94,11 @@ void LinWakeupFrame::write(File & file, std::ostream & stream)
         break;
     }
 
-    writeLinStartOfFrame(file, stream, startOfFrame);
-    stream << ' ';
-    writeLinBaudrate(file, stream, baudrate);
-    writeLinWakeupLengthInfo(file, stream, wakeupLengthInfo);
+    if (file.version >= File::Version::Ver_6_1) {
+        writeLinStartOfFrame(file, stream, startOfFrame);
+        writeLinBaudrate(file, stream, baudrate);
+        writeLinWakeupLengthInfo(file, stream, wakeupLengthInfo);
+    }
 
     stream << endl;
 }

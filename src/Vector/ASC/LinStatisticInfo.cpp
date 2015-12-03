@@ -74,6 +74,9 @@ LinStatisticInfo * LinStatisticInfo::parse(File & file, std::string & line)
 
 void LinStatisticInfo::write(File & file, std::ostream & stream)
 {
+    if (file.version > File::Version::Ver_5_2)
+        return;
+
     writeLinTime(file, stream, time);
     stream << ' ';
     writeLinChannel(file, stream, channel);

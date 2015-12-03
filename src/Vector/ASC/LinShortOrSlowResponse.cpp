@@ -86,7 +86,7 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & file, std::string 
         for (int i = 0; i < linShortOrSlowResponse->numberOfResponseBytes; ++i) {
             unsigned short s;
             iss1 >> s;
-            linShortOrSlowResponse->data[i] = s;
+            linShortOrSlowResponse->data.push_back(s);
         }
         linShortOrSlowResponse->isSlowResponse = (match[8] == '1');
         linShortOrSlowResponse->responseWasInterruptedByBreak = (match[9] == '1');
@@ -104,7 +104,7 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & file, std::string 
         for (int i = 0; i < linShortOrSlowResponse->dlc && i < 8; ++i) {
             double s;
             iss2 >> s;
-            linShortOrSlowResponse->endOfByte[i] = s;
+            linShortOrSlowResponse->endOfByte.push_back(s);
         }
         linShortOrSlowResponse->headerBaudrate = std::stod(match[21]);
         linShortOrSlowResponse->stopBitOffsetInHeader = std::stoul(match[22]);
@@ -127,6 +127,9 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & file, std::string 
 
 void LinShortOrSlowResponse::write(File & file, std::ostream & stream)
 {
+    if (file.version < File::Version::Ver_7_5)
+        return;
+
     writeLinTime(file, stream, time);
     stream << ' ';
     writeLinChannel(file, stream, channel);
@@ -136,26 +139,15 @@ void LinShortOrSlowResponse::write(File & file, std::ostream & stream)
     /* format: "%-12.1d %d ShortOrSlowResponse: " */
     /* format: "%-12.1x %d ShortOrSlowResponse: " */
     stream
-            << id
+            << std::left << std::setw(12) << id
             << ' '
-            << std::dec << (uint16_t) dlc
+            << std::right << std::dec << (uint16_t) dlc
             << " ShortOrSlowResponse: ";
 
     /* format: "NumRespBytes = %d  " */
     stream << "NumRespBytes = " << std::dec << (uint16_t) numberOfResponseBytes << "  ";
 
-    for (int i = 0; i < numberOfResponseBytes; ++i) {
-        switch (file.base) {
-        case 10:
-            /* format: " %3d" */
-            stream << ' ' << std::setw(3) << std::dec << (uint16_t) data[i];
-            break;
-        case 16:
-            /* format: " %02X" */
-            stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) data[i];
-            break;
-        }
-    }
+    writeLinData(file, stream, data);
 
     /* format: " SlowResponse = %d InterruptedByBreak = %d" */
     stream
@@ -166,6 +158,8 @@ void LinShortOrSlowResponse::write(File & file, std::ostream & stream)
     writeLinBaudrate(file, stream, baudrate);
     writeLinSyncBreak(file, stream, syncBreak);
     writeLinSyncDel(file, stream, syncDel);
+    if ((nad != 0) || (messageId != 0) || (supplierId != 0))
+        writeLinSubId(file, stream, nad, messageId, supplierId);
     writeLinEndOfHeader(file, stream, endOfHeader);
     writeLinEndOfByte(file, stream, endOfByte, dlc);
     writeLinHeaderBaudrate(file, stream, headerBaudrate);

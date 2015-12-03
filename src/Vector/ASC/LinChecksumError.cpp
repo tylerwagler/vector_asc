@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "LinChecksumError.h"
 #include "LinCommon.h"
@@ -97,19 +98,26 @@ LinChecksumError * LinChecksumError::parse(File & file, std::string & line)
         else
         if (match[4] == "Tx")
                 linChecksumError->dir = Dir::Tx;
-        linChecksumError->dlc = std::stoul(match[5]);
+        linChecksumError->dlc = std::stoul(match[5], nullptr, file.base);
         std::istringstream iss1(match[6]);
-        iss1 >> std::hex;
+        switch(file.base) {
+        case 10:
+            iss1 >> std::dec;
+            break;
+        case 16:
+            iss1 >> std::hex;
+            break;
+        }
         for (uint8_t i = 0; i < linChecksumError->dlc && i < 8; ++i) {
             unsigned short s;
             iss1 >> s;
-            linChecksumError->data[i] = s;
+            linChecksumError->data.push_back(s);
         }
         if (match[8] != "") {
             linChecksumError->slaveId = std::stoul(match[9]);
             linChecksumError->state = std::stoul(match[10]);
         }
-        linChecksumError->checksum = std::stoul(match[11], nullptr, 16);
+        linChecksumError->checksum = std::stoul(match[11], nullptr, file.base);
         linChecksumError->headerTime = std::stoul(match[12]);
         linChecksumError->fullTime = std::stoul(match[13]);
         if (match[14] != "") {
@@ -127,7 +135,7 @@ LinChecksumError * LinChecksumError::parse(File & file, std::string & line)
             for (uint8_t i = 0; i < linChecksumError->dlc && i < 8; ++i) {
                 double s;
                 iss2 >> s;
-                linChecksumError->endOfByte[i] = s;
+                linChecksumError->endOfByte.push_back(s);
             }
             linChecksumError->simulated = (match[26] == '1');
             if (match[27] != "") {
@@ -165,24 +173,47 @@ void LinChecksumError::write(File & file, std::ostream & stream)
 {
     writeLinTime(file, stream, time);
     stream << ' ';
-    writeLinChannel(file, stream, channel);
 
-    /* format: "%s %-12.12s    %s     %d" */
-    /* format: "%s %-12.1d    %s     %d" */
-    /* format: "%s %-12.1x    %s     %d" */
-    /* format: "  BR = %-5u" */
-    /* format: " %-6u" */
-    /* format: "  break = %-6u" */
-    /* format: "  subId = %2.2x %4.4x %4.4x" */
-    /* format: "  subId = %-3u %-5u %-5u" */
-    /* format: "  CSM = %s" */
-    /* format: "  RSO = %-8u" */
-    /* format: "  HSO = %-8u" */
-    /* format: "  HBR = %-5.6f" */
-    /* format: "  RBR = %-5u" */
-    /* format: "  sim = %d " */
-    /* format: ", sync delimiter = %3u us " */
-    /* format: "(%f bits)" */
+    /* format: "%s %-12.1x CSErr %s  %d" */
+    /* format: "%s %-12.1d CSErr %s  %d" */
+    /* format: "%s %s CSErr %s  %d" */
+    writeLinChannel(file, stream, channel);
+    stream << ' ';
+    stream << id; // @todo other formats
+    stream << " CSErr ";
+    writeLinDir(file, stream, dir);
+    stream << "  ";
+    stream << std::dec << (uint16_t) dlc;
+
+    writeLinData(file, stream, data);
+    if ((slaveId != 0) || (state != 0))
+        writeLinSlaveIdLinState(file, stream, slaveId, state);
+    writeLinChecksum(file, stream, checksum);
+    writeLinHeaderTimeLinFullTime(file, stream, headerTime, fullTime);
+    if (file.version >= File::Version::Ver_6_1) {
+        writeLinStartOfFrame(file, stream, startOfFrame);
+        writeLinBaudrate(file, stream, baudrate);
+        writeLinSyncBreak(file, stream, syncBreak);
+        writeLinSyncDel(file, stream, syncDel);
+        if ((nad != 0) || (messageId != 0) || (supplierId != 0))
+            writeLinSubId(file, stream, nad, messageId, supplierId);
+        writeLinEndOfHeader(file, stream, endOfHeader);
+        writeLinEndOfByte(file, stream, endOfByte, dlc);
+        writeLinSimulated(file, stream, simulated);
+        if (file.version >= File::Version::Ver_7_0) {
+            writeLinEndOfFrame(file, stream, endOfFrame);
+            if (file.version >= File::Version::Ver_7_1_SP3) {
+                writeLinResponseBaudrate(file, stream, responseBaudrate);
+                if (file.version >= File::Version::Ver_7_2) {
+                    writeLinHeaderBaudrate(file, stream, headerBaudrate);
+                    writeLinStopBitOffsetInHeader(file, stream, stopBitOffsetInHeader);
+                    writeLinStopBitOffsetInResponse(file, stream, stopBitOffsetInResponse);
+                    if (file.version >= File::Version::Ver_7_2_SP3)
+                        writeLinChecksumModel(file, stream, checksumModel);
+                }
+            }
+        }
+    }
 
     stream << endl;
 }

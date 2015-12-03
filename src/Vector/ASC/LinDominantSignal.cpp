@@ -96,8 +96,10 @@ void LinDominantSignal::write(File & file, std::ostream & stream)
             << std::setw(8) << std::dec << (uint32_t) domSigLength
             << " microseconds";
 
-    writeLinStartOfFrame(file, stream, startOfFrame);
-    writeLinBaudrate(file, stream, baudrate);
+    if (file.version >= File::Version::Ver_6_1) {
+        writeLinStartOfFrame(file, stream, startOfFrame);
+        writeLinBaudrate(file, stream, baudrate);
+    }
 
     stream << endl;
 }

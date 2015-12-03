@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <array>
+#include <vector>
 #include "Event.h"
 #include "LinSymbols.h"
 
@@ -56,7 +56,7 @@ public:
     LinDlc dlc;
 
     /** @copydoc LinDx */
-    std::array<LinDx, 8> data;
+    std::vector<LinDx> data;
 
     /** @copydoc LinSlaveId */
     LinSlaveId slaveId;
@@ -98,7 +98,7 @@ public:
     LinEndOfHeader endOfHeader;
 
     /** @copydoc LinT */
-    std::array<LinT, 8> endOfByte;
+    std::vector<LinT> endOfByte;
 
     /** @copydoc LinSimulated */
     LinSimulated simulated;

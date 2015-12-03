@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "LinCommon.h"
 #include "LinTransmissionError.h"
@@ -88,9 +89,9 @@ LinTransmissionError * LinTransmissionError::parse(File & file, std::string & li
             linTransmissionError->syncBreak = std::stoul(match[12]);
             linTransmissionError->syncDel = std::stoul(match[13]);
             if (match[14] != "") {
-                linTransmissionError->nad = std::stoul(match[15]);
-                linTransmissionError->messageId = std::stoul(match[16]);
-                linTransmissionError->supplierId = std::stoul(match[17]);
+                linTransmissionError->nad = std::stoul(match[15], nullptr, file.base);
+                linTransmissionError->messageId = std::stoul(match[16], nullptr, file.base);
+                linTransmissionError->supplierId = std::stoul(match[17], nullptr, file.base);
             }
             linTransmissionError->endOfHeader = std::stod(match[18]);
             if (match[19] != "")
@@ -120,8 +121,34 @@ void LinTransmissionError::write(File & file, std::ostream & stream)
 {
     writeLinTime(file, stream, time);
     stream << ' ';
+
+    /* format: "%s %-12.1x TransmErr " */
+    /* format: "%s %-12.1d TransmErr " */
+    /* format: "%s %s TransmErr " */
     writeLinChannel(file, stream, channel);
-    stream << ' ';
+    stream
+            << ' '
+            << std::left << std::setw(12) << id
+            << " TransmErr ";
+
+    if ((slaveId != 0) || (state != 0))
+        writeLinSlaveIdLinState(file, stream, slaveId, state);
+    writeLinHeaderTimeLinFullTime(file, stream, headerTime, fullTime);
+    if (file.version >= File::Version::Ver_6_1) {
+        writeLinStartOfFrame(file, stream, startOfFrame);
+        writeLinBaudrate(file, stream, baudrate);
+        writeLinSyncBreak(file, stream, syncBreak);
+        writeLinSyncDel(file, stream, syncDel);
+        if ((nad != 0) || (messageId != 0) || (supplierId != 0))
+            writeLinSubId(file, stream, nad, messageId, supplierId);
+        writeLinEndOfHeader(file, stream, endOfHeader);
+        if (file.version >= File::Version::Ver_7_2) {
+            writeLinHeaderBaudrate(file, stream, headerBaudrate);
+            writeLinStopBitOffsetInHeader(file, stream, stopBitOffsetInHeader);
+            if (file.version >= File::Version::Ver_7_2_SP2)
+                writeLinChecksumModel(file, stream, checksumModel);
+        }
+    }
 
     stream << endl;
 }

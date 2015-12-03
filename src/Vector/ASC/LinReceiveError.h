@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <array>
+#include <vector>
 #include "Event.h"
 #include "LinSymbols.h"
 
@@ -90,7 +90,7 @@ public:
     LinHasDatabytes hasDataBytes;
 
     /** @copydoc LinDx */
-    std::array<LinDx, 8> data;
+    std::vector<LinDx> data;
 
     /** @copydoc LinStartOfFrame */
     LinStartOfFrame startOfFrame;
@@ -117,7 +117,7 @@ public:
     LinEndOfHeader endOfHeader;
 
     /** @copydoc LinT */
-    std::array<LinT, 8> endOfByte;
+    std::vector<LinT> endOfByte;
 
     /** @copydoc LinResponseBaudrate */
     LinResponseBaudrate responseBaudrate;

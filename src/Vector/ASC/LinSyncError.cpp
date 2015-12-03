@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "LinCommon.h"
 #include "LinSyncError.h"
@@ -85,11 +86,13 @@ void LinSyncError::write(File & file, std::ostream & stream)
     stream << "              SyncError ";
 
     for (int i = 0; i < 4; ++i)
-        stream << std::dec << timeInterval[i] << ' ';
-    writeLinStartOfFrame(file, stream, startOfFrame);
-    writeLinBaudrate(file, stream, baudrate);
-    writeLinSyncBreak(file, stream, syncBreak);
-    writeLinSyncDel(file, stream, syncDel);
+        stream << ' ' << std::setw(3) << std::dec << timeInterval[i];
+    if (file.version >= File::Version::Ver_6_1) {
+        writeLinStartOfFrame(file, stream, startOfFrame);
+        writeLinBaudrate(file, stream, baudrate);
+        writeLinSyncBreak(file, stream, syncBreak);
+        writeLinSyncDel(file, stream, syncDel);
+    }
 
     stream << endl;
 }

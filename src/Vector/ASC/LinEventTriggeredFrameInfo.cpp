@@ -62,9 +62,20 @@ LinEventTriggeredFrameInfo * LinEventTriggeredFrameInfo::parse(File & file, std:
 
 void LinEventTriggeredFrameInfo::write(File & file, std::ostream & stream)
 {
+    if (file.version > File::Version::Ver_5_2)
+        return;
+
     writeLinTime(file, stream, time);
     stream << ' ';
     writeLinChannel(file, stream, channel);
+    stream << ' ' << id << ' ';
+
+    /* format: "EvTrigFrmInfo" */
+    stream << "EvTrigFrmInfo";
+
+    stream
+            << ' ' << etfName
+            << ' ' << description;
 
     stream << endl;
 }

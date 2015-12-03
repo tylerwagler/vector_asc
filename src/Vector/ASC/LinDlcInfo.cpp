@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "LinCommon.h"
 #include "LinDlcInfo.h"
@@ -69,9 +70,9 @@ void LinDlcInfo::write(File & file, std::ostream & stream)
     writeLinChannel(file, stream, channel);
     stream
             << ' '
-            << id
+            << std::left << std::setw(12) << id
             << " DlcInfo   "
-            << std::dec << dlc;
+            << std::right << std::dec << dlc;
 
     stream << endl;
 }

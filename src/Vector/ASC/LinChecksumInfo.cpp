@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "LinChecksumInfo.h"
 #include "LinCommon.h"
@@ -71,7 +72,7 @@ void LinChecksumInfo::write(File & file, std::ostream & stream)
     stream << ' ';
     writeLinChannel(file, stream, channel);
     stream << ' ';
-    stream << id;
+    stream << std::left << std::setw(12) << id;
     stream << " CSInfo    ";
     switch(checksumModelInfo) {
     case LinChecksumModelInfo::Classic:

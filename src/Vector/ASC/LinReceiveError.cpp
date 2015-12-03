@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "LinCommon.h"
 #include "LinReceiveError.h"
@@ -97,31 +98,38 @@ LinReceiveError * LinReceiveError::parse(File & file, std::string & line)
         }
         linReceiveError->description = match[6];
         if (match[7] != "")
-            linReceiveError->offendingByte = std::stoul(match[8]);
+            linReceiveError->offendingByte = std::stoul(match[8], nullptr, file.base);
         if (match[9] != "") {
             linReceiveError->slaveId = std::stoul(match[10]);
             linReceiveError->state = std::stoul(match[11]);
         }
         if (match[12] != "") {
-            linReceiveError->stateReason = std::stoul(match[13], nullptr, 16);
+            linReceiveError->stateReason = std::stoul(match[13], nullptr, file.base);
             linReceiveError->isShortError = (match[14] == '1');
             linReceiveError->isDlcTimeout = (match[15] == '1');
             linReceiveError->hasDataBytes = (match[16] == '1');
             std::istringstream iss1(match[17]);
-            iss1 >> std::hex;
+            switch(file.base) {
+            case 10:
+                iss1 >> std::dec;
+                break;
+            case 16:
+                iss1 >> std::hex;
+                break;
+            }
             for (uint8_t i = 0; i < linReceiveError->dlc && i < 8; ++i) {
                 unsigned short s;
                 iss1 >> s;
-                linReceiveError->data[i] = s;
+                linReceiveError->data.push_back(s);
             }
             linReceiveError->startOfFrame = std::stod(match[19]);
             linReceiveError->baudrate = std::stoul(match[20]);
             linReceiveError->syncBreak = std::stoul(match[21]);
             linReceiveError->syncDel = std::stoul(match[22]);
             if (match[23] != "") {
-                linReceiveError->nad = std::stoul(match[24]);
-                linReceiveError->messageId = std::stoul(match[25]);
-                linReceiveError->supplierId = std::stoul(match[26]);
+                linReceiveError->nad = std::stoul(match[24], nullptr, file.base);
+                linReceiveError->messageId = std::stoul(match[25], nullptr, file.base);
+                linReceiveError->supplierId = std::stoul(match[26], nullptr, file.base);
             }
             if (match[27] != "")
                 linReceiveError->endOfHeader = std::stod(match[28]);
@@ -130,7 +138,7 @@ LinReceiveError * LinReceiveError::parse(File & file, std::string & line)
                 for (uint8_t i = 0; i < linReceiveError->dlc && i < 8; ++i) {
                     double s;
                     iss2 >> s;
-                    linReceiveError->endOfByte[i] = s;
+                    linReceiveError->endOfByte.push_back(s);
                 }
             }
             if (match[32] != "") {
@@ -165,7 +173,46 @@ void LinReceiveError::write(File & file, std::ostream & stream)
 {
     writeLinTime(file, stream, time);
     stream << ' ';
+
     writeLinChannel(file, stream, channel);
+    stream << ' ';
+
+    /* format: "%-12.1x %d RcvError: " */
+    /* format: "%-12.1d %d RcvError: " */
+    /* format: "%s %d RcvError: " */
+    stream
+            << std::left << std::setw(12) << id
+            << ' '
+            << std::right << std::setw(0) << std::dec << (uint16_t) dlc
+            << " RcvError: ";
+
+    stream << description;
+    // writeLinOffendingByte(file, stream, offendingByte); // @todo actually opt.
+    if ((slaveId != 0) || (state != 0))
+        writeLinSlaveIdLinState(file, stream, slaveId, state);
+    if (file.version >= File::Version::Ver_6_1) {
+        writeLinStateReason(file, stream, stateReason);
+        writeLinIsShortErrorLinIsDlcTimeoutLinHasDatabytes(file, stream, isShortError, isDlcTimeout, hasDataBytes);
+        writeLinData(file, stream, data);
+        writeLinStartOfFrame(file, stream, startOfFrame);
+        writeLinBaudrate(file, stream, baudrate);
+        writeLinSyncBreak(file, stream, syncBreak);
+        writeLinSyncDel(file, stream, syncDel);
+        if ((nad != 0) || (messageId != 0) || (supplierId != 0))
+            writeLinSubId(file, stream, nad, messageId, supplierId);
+        writeLinEndOfHeader(file, stream, endOfHeader); // @todo actually opt.
+        writeLinEndOfByte(file, stream, endOfByte, dlc); // @todo actually opt.
+        if (file.version >= File::Version::Ver_7_1_SP3) {
+            writeLinResponseBaudrate(file, stream, responseBaudrate); // @todo actually opt. in 7.1 SP3
+            if (file.version >= File::Version::Ver_7_2) {
+                writeLinHeaderBaudrate(file, stream, headerBaudrate);
+                writeLinStopBitOffsetInHeader(file, stream, stopBitOffsetInHeader);
+                writeLinStopBitOffsetInResponse(file, stream, stopBitOffsetInResponse);
+                if (file.version >= File::Version::Ver_7_2_SP3)
+                    writeLinChecksumModel(file, stream, checksumModel);
+            }
+        }
+    }
 
     stream << endl;
 }

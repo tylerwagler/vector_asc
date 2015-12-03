@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "LinCommon.h"
 #include "LinMessage.h"
@@ -117,13 +118,13 @@ LinMessage * LinMessage::parse(File & file, std::string & line)
         for (int i = 0; i < linMessage->dlc && i < 8; ++i) {
             unsigned short s;
             iss1 >> s;
-            linMessage->data[i] = s;
+            linMessage->data.push_back(s);
         }
         if (match[8] != "") {
             linMessage->slaveId = std::stoul(match[9]);
             linMessage->state = std::stoul(match[10]);
         }
-        linMessage->checksum = std::stoul(match[11]);
+        linMessage->checksum = std::stoul(match[11], nullptr, file.base);
         linMessage->headerTime = std::stoul(match[12]);
         linMessage->fullTime = std::stoul(match[13]);
         if (match[14] != "") {
@@ -140,16 +141,16 @@ LinMessage * LinMessage::parse(File & file, std::string & line)
                 linMessage->syncBreak = std::stoul(match[24]);
                 linMessage->syncDel = std::stoul(match[25]);
                 if (match[26] != "") {
-                    linMessage->nad = std::stoul(match[27]);
-                    linMessage->messageId = std::stoul(match[28]);
-                    linMessage->supplierId = std::stoul(match[29]);
+                    linMessage->nad = std::stoul(match[27], nullptr, file.base);
+                    linMessage->messageId = std::stoul(match[28], nullptr, file.base);
+                    linMessage->supplierId = std::stoul(match[29], nullptr, file.base);
                 }
                 linMessage->endOfHeader = std::stod(match[30]);
                 std::istringstream iss2(match[31]);
                 for (uint8_t i = 0; i < linMessage->dlc && i < 8; ++i) {
                     double s;
                     iss2 >> s;
-                    linMessage->endOfByte[i] = s;
+                    linMessage->endOfByte.push_back(s);
                 }
                 linMessage->simulated = (match[33] == '1');
                 if (match[34] != "")
@@ -185,35 +186,55 @@ void LinMessage::write(File & file, std::ostream & stream)
 {
     writeLinTime(file, stream, time);
     stream << ' ';
+
+    /* format: "%s %-12.12s    %s     %d" */
+    /* format: "%s %-12.1d    %s     %d" */
+    /* format: "%s %-12.1x    %s     %d" */
     writeLinChannel(file, stream, channel);
-    stream << ' ';
-    stream << std::dec << id;
-    stream << "               ";
+    stream
+            << ' '
+            << std::left << std::setw(12) << id
+            << "    ";
     writeLinDir(file, stream, dir);
-    stream << "     ";
-    stream << std::dec << (uint16_t) dlc;
-    for(int i = 0; i < dlc ; ++i)
-        stream << ' ' << std::dec << (uint16_t) data[i];
-    stream << "                            ";
+    stream
+            << "     "
+            << std::right << std::setw(0) << std::dec << (uint16_t) dlc;
+
+    writeLinData(file, stream, data);
+    stream << ' ';
+    if ((slaveId != 0) || (state != 0))
+        writeLinSlaveIdLinState(file, stream, slaveId, state);
+    else
+        stream << "                           ";
     writeLinChecksum(file, stream, checksum);
     writeLinHeaderTimeLinFullTime(file, stream, headerTime, fullTime);
     writeLinStartOfFrame(file, stream, startOfFrame);
-    stream << ' ';
-    writeLinBaudrate(file, stream, baudrate);
-    writeLinSyncBreak(file, stream, syncBreak);
-    writeLinSyncDel(file, stream, syncDel);
-    writeLinEndOfHeader(file, stream, endOfHeader);
-    stream << ' ';
-    writeLinEndOfByte(file, stream, endOfByte, dlc);
-    stream << "  ";
-    writeLinSimulated(file, stream, simulated);
-    writeLinEndOfFrame(file, stream, endOfFrame);
-    stream << ' ';
-    writeLinResponseBaudrate(file, stream, responseBaudrate);
-    writeLinHeaderBaudrate(file, stream, headerBaudrate);
-    writeLinStopBitOffsetInHeader(file, stream, stopBitOffsetInHeader);
-    writeLinStopBitOffsetInResponse(file, stream, stopBitOffsetInResponse);
-    writeLinChecksumModel(file, stream, checksumModel);
+    if (file.version < File::Version::Ver_6_1) {
+        writeLinSyncBreakTime(file, stream, syncBreakTime);
+        writeLinSyncDelimiterTime(file, stream, syncDelimiterTime);
+    } else {
+        writeLinBaudrate(file, stream, baudrate);
+        writeLinSyncBreak(file, stream, syncBreak);
+        writeLinSyncDel(file, stream, syncDel);
+        if ((nad != 0) || (messageId != 0) || (supplierId != 0))
+            writeLinSubId(file, stream, nad, messageId, supplierId);
+        writeLinEndOfHeader(file, stream, endOfHeader);
+        writeLinEndOfByte(file, stream, endOfByte, dlc);
+        writeLinSimulated(file, stream, simulated);
+        if (file.version >= File::Version::Ver_7_0) {
+            writeLinEndOfFrame(file, stream, endOfFrame);
+            if (file.version >= File::Version::Ver_7_1_SP3) {
+                writeLinResponseBaudrate(file, stream, responseBaudrate);
+                if (file.version >= File::Version::Ver_7_2) {
+                    writeLinHeaderBaudrate(file, stream, headerBaudrate);
+                    writeLinStopBitOffsetInHeader(file, stream, stopBitOffsetInHeader);
+                    writeLinStopBitOffsetInResponse(file, stream, stopBitOffsetInResponse);
+                    if (file.version >= File::Version::Ver_7_2_SP3)
+                        writeLinChecksumModel(file, stream, checksumModel);
+                }
+            }
+        }
+    }
 
     stream << endl;
 }

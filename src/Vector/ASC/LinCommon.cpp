@@ -37,7 +37,7 @@ void writeLinChannel(File & file, std::ostream & stream, LinChannel & linChannel
     if (linChannel == 1)
         stream << 'i';
     else
-        stream << std::dec << (uint16_t) linChannel;
+        stream << std::setw(0) << std::dec << (uint16_t) linChannel;
 }
 
 void writeLinChecksum(File & file, std::ostream & stream, LinChecksum & checksum)
@@ -76,14 +76,31 @@ void writeLinChecksumModel(File & file, std::ostream & stream, LinChecksumModel 
     }
 }
 
-void writeLinEndOfByte(File & file, std::ostream & stream, std::array<LinT, 8> & endOfByte, LinDlc & dlc)
+void writeLinData(File & file, std::ostream & stream, std::vector<LinDx> & data)
+{
+    for (LinDx d: data) {
+        switch(file.base) {
+        case 10:
+            stream << ' ' << std::right
+                   << std::setfill(' ') << std::setw(3)
+                   << std::dec << (uint16_t) d;
+            break;
+        case 16:
+            stream << ' ' << std::right
+                   << std::setfill('0') << std::setw(2)
+                   << std::hex << (uint16_t) d;
+            break;
+        }
+    }
+}
+
+void writeLinEndOfByte(File & file, std::ostream & stream, std::vector<LinT> & endOfByte, LinDlc & dlc)
 {
     /* format: "   EOB = " */
     stream << "   EOB = ";
 
-    stream << "  ";
-    for(int i = 0; i < dlc; ++i)
-        stream << ' ' << std::fixed << endOfByte[i];
+    for (LinT t: endOfByte)
+        stream << ' ' << std::setw(0) << std::setprecision(6) << std::fixed << t;
 }
 
 void writeLinEndOfFrame(File & file, std::ostream & stream, LinEndOfFrame & endOfFrame)
@@ -91,7 +108,7 @@ void writeLinEndOfFrame(File & file, std::ostream & stream, LinEndOfFrame & endO
     /* format: "   EOF = " */
     stream << "   EOF = ";
 
-    stream << "  " << std::fixed << endOfFrame;
+    stream << std::setw(0) << std::setprecision(6) << std::fixed << endOfFrame;
 }
 
 void writeLinEndOfHeader(File & file, std::ostream & stream, LinEndOfHeader & endOfHeader)
@@ -99,7 +116,7 @@ void writeLinEndOfHeader(File & file, std::ostream & stream, LinEndOfHeader & en
     /* format: "   EOH = " */
     stream << "   EOH = ";
 
-    stream << "   " << std::fixed << endOfHeader;
+    stream << std::setw(0) << std::setprecision(6) << std::fixed << endOfHeader;
 }
 
 void writeLinHeaderBaudrate(File & file, std::ostream & stream, LinHeaderBaudrate & headerBaudrate)
@@ -110,12 +127,39 @@ void writeLinHeaderBaudrate(File & file, std::ostream & stream, LinHeaderBaudrat
 
 void writeLinHeaderTimeLinFullTime(File & file, std::ostream & stream, LinHeaderTime & headerTime, LinFullTime & fullTime)
 {
+    stream << std::setfill(' ');
+
     /* format: "   header time = %3u, full time = %3u" */
     stream
             << "   header time = "
-            << std::setw(3) << std::dec << (uint16_t) headerTime
+            << std::right << std::setw(3) << std::dec << (uint16_t) headerTime
             << ", full time = "
-            << std::setw(3) << std::dec << (uint16_t) fullTime;
+            << std::right << std::setw(3) << std::dec << (uint16_t) fullTime;
+}
+
+void writeLinIsShortErrorLinIsDlcTimeoutLinHasDatabytes(File & file, std::ostream & stream, LinIsShortError & isShortError, LinIsDlcTimeout & isDlcTimeout, LinHasDatabytes & hasDatabytes)
+{
+    /* format: "  ShortError = %d  DlcTimeout = %d  HasDatabytes = %d" */
+    stream
+            << "  ShortError = " << (isShortError ? '1': '0')
+            << "  DlcTimeout = " << (isDlcTimeout ? '1': '0')
+            << "  HasDatabytes = " << (hasDatabytes ? '1': '0');
+}
+
+void writeLinOffendingByte(File & file, std::ostream & stream, LinOffendingByte & offendingByte)
+{
+    /* format: "char = %3d" */
+    /* format: "char = %2.2x" */
+    stream << "char = ";
+    switch(file.base) {
+    case 10:
+        stream << std::setw(3) << std::dec << (uint16_t) offendingByte;
+        break;
+    case 16:
+        stream << std::setw(2) << std::hex << (uint16_t) offendingByte;
+        break;
+    }
+
 }
 
 void writeLinResponseBaudrate(File & file, std::ostream & stream, LinResponseBaudrate & responseBaudrate)
@@ -127,32 +171,49 @@ void writeLinResponseBaudrate(File & file, std::ostream & stream, LinResponseBau
 void writeLinSimulated(File & file, std::ostream & stream, LinSimulated & simulated)
 {
     /* format: "  sim = %d " */
-    stream << "  sim = " << std::dec << (int16_t) simulated << ' ';
+    stream << "  sim = " << (simulated ? '1' : '0') << ' ';
 }
 
 void writeLinSlaveIdLinState(File & file, std::ostream & stream, LinSlaveId & slaveId, LinState & linState)
 {
     /* format: "  slave = %2u, state = %3u," */
+    /* format: "slave = %2u, state = %3u " */
+    /* format: "slave = %2u, state = %3u" */
     stream
             << "  slave = "
-            << std::setw(2) << std::dec << (uint16_t) slaveId
+            << std::right << std::setw(2) << std::dec << (uint16_t) slaveId
             << ", state = "
-            << std::setw(3) << std::dec << (uint16_t) linState;
+            << std::right << std::setw(3) << std::dec << (uint16_t) linState;
 }
 
 void writeLinStartOfFrame(File & file, std::ostream & stream, LinStartOfFrame & startOfFrame)
 {
-#if 0
-    /* format: ", start of frame = %s" */
-    stream
-            << ", start of frame = "
-            << std::fixed << startOfFrame;
-#endif
+    if(file.version < File::Version::Ver_6_1) {
+        /* format: ", start of frame = %s" */
+        stream
+                << ", start of frame = "
+                << std::setw(0) << std::setprecision(6) << std::fixed << startOfFrame;
+    } else {
+        /* format: "  SOF = " */
+        stream << "  SOF = ";
 
-    /* format: "  SOF = " */
-    stream << "  SOF = ";
+        stream << std::right << std::setfill(' ') << std::setw(0) << std::setprecision(6) << std::fixed << startOfFrame;
+    }
+}
 
-    stream << std::right << std::setfill(' ') << std::setw(11) << std::setprecision(6) << std::fixed << startOfFrame;
+void writeLinStateReason(File & file, std::ostream & stream, LinStateReason & stateReason)
+{
+    /* format: "  StateReason = %-3d */
+    /* format: "  StateReason = %2.2x" */
+    stream << "  StateReason = ";
+    switch(file.base) {
+    case 10:
+        stream << std::left << std::setw(3) << std::dec << (uint16_t) stateReason;
+        break;
+    case 16:
+        stream << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) stateReason;
+        break;
+    }
 }
 
 void writeLinStopBitOffsetInHeader(File & file, std::ostream & stream, LinStopBitOffsetInHeader & stopBitOffsetInHeader)

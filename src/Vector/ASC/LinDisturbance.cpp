@@ -90,6 +90,9 @@ LinDisturbance * LinDisturbance::parse(File & file, std::string & line)
 
 void LinDisturbance::write(File & file, std::ostream & stream)
 {
+    if (file.version < File::Version::Ver_7_5)
+        return;
+
     writeLinTime(file, stream, time);
     stream << ' ';
 

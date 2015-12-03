@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <array>
+#include <vector>
 #include "Event.h"
 #include "LinSymbols.h"
 
@@ -58,7 +58,7 @@ public:
     LinNumberOfResponseBytes numberOfResponseBytes;
 
     /** @copydoc LinDx */
-    std::array<LinDx, 9> data;
+    std::vector<LinDx> data;
 
     /** @copydoc LinIsSlowResponse */
     LinIsSlowResponse isSlowResponse;
@@ -91,7 +91,7 @@ public:
     LinEndOfHeader endOfHeader;
 
     /** @copydoc LinT */
-    std::array<LinT, 8> endOfByte;
+    std::vector<LinT> endOfByte;
 
     /** @copydoc LinHeaderBaudrate */
     LinHeaderBaudrate headerBaudrate;

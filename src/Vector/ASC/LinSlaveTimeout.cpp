@@ -66,7 +66,16 @@ void LinSlaveTimeout::write(File & file, std::ostream & stream)
 {
     writeLinTime(file, stream, time);
     stream << ' ';
+
+    /* format: "%s SlaveTimeout  slave-id = %d, current state = %d, following state = %d" */
     writeLinChannel(file, stream, channel);
+    stream
+            << " SlaveTimeout  slave-id = "
+            << std::dec << (uint16_t) slaveId
+            << ", current state = "
+            << std::dec << (uint16_t) currentState
+            << ", following state = "
+            << std::dec << (uint16_t) followingState;
 
     stream << endl;
 }
