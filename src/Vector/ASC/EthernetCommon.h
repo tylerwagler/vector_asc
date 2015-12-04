@@ -29,10 +29,10 @@
 namespace Vector {
 namespace ASC {
 
-#define writeEthDir(file, stream, ethDir) writeDir(file, stream, ethDir);
+#define writeEthDir(file, stream, ethDir) writeDir(file, stream, ethDir)
 #define writeEthTime(file, stream, ethTime) writeTime(file, stream, ethTime)
 
-#define writeAfdxDir(file, stream, afdxDir) writeDir(file, stream, afdxDir);
+#define writeAfdxDir(file, stream, afdxDir) writeDir(file, stream, afdxDir)
 #define writeAfdxTime(file, stream, afdxTime) writeTime(file, stream, afdxTime)
 
 }

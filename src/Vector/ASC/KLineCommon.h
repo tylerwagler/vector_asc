@@ -31,7 +31,7 @@ namespace ASC {
 
 #define writeKLineDirection(file, stream, kLineDirection) writeDir(file, stream, kLineDirection)
 
-#define writeKLineTime(file, stream, kLineTime) writeTime(file, stream, kLineTime);
+#define writeKLineTime(file, stream, kLineTime) writeTime(file, stream, kLineTime)
 
 }
 }
