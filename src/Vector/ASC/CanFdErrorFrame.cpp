@@ -91,10 +91,10 @@ CanFdErrorFrame * CanFdErrorFrame::parse(File & file, std::string & line)
         canFdErrorFrame->dataLength = std::stoul(match[14]);
         std::istringstream iss(match[15]);
         iss >> std::hex;
-        for (uint8_t i = 0; i < canFdErrorFrame->dataLength && i < 64; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
-            canFdErrorFrame->data[i] = s;
+            canFdErrorFrame->data.push_back(s);
         }
         canFdErrorFrame->messageDuration = std::stoul(match[17]);
         canFdErrorFrame->flags2 = std::stoul(match[18]);

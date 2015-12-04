@@ -71,7 +71,7 @@ KLineMessage * KLineMessage::parse(File & file, std::string & line)
             iss >> std::dec;
         if (file.base == 16)
             iss >> std::hex;
-        for (uint8_t i = 0; i < kLineMessage->length; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             kLineMessage->data.push_back(s);

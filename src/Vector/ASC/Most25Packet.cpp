@@ -91,7 +91,7 @@ Most25Packet * Most25Packet::parse(File & file, std::string & line)
             iss >> std::hex;
             break;
         }
-        for (uint8_t i = 0; i < most25Packet->pktLen; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             most25Packet->data.push_back(s);

@@ -83,10 +83,10 @@ CanFdMessage * CanFdMessage::parse(File & file, std::string & line)
         canFdMessage->dataLength = std::stoul(match[10]);
         std::istringstream iss(match[11]);
         iss >> std::hex;
-        for (uint8_t i = 0; i < canFdMessage->dataLength && i < 64; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
-            canFdMessage->data[i] = s;
+            canFdMessage->data.push_back(s);
         }
         canFdMessage->messageDuration = std::stoul(match[13]);
         canFdMessage->messageLength = std::stoul(match[14]);

@@ -83,7 +83,7 @@ Most150ControlMessageFragment * Most150ControlMessageFragment::parse(File & file
         most150ControlMessageFragment->firstDataLen = std::stoul(match[15], nullptr, 16);
         std::istringstream iss(match[16]);
         iss >> std::hex;
-        for (uint8_t i = 0; i < most150ControlMessageFragment->firstDataLen; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             most150ControlMessageFragment->data.push_back(s);

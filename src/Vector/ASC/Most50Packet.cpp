@@ -93,7 +93,7 @@ Most50Packet * Most50Packet::parse(File & file, std::string & line)
         most50Packet->pktLen = std::stoul(match[15], nullptr, 16);
         std::istringstream iss(match[16]);
         iss >> std::hex;
-        for (uint8_t i = 0; i < most50Packet->pktLen; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             most50Packet->data.push_back(s);

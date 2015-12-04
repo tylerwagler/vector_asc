@@ -93,7 +93,7 @@ Most50ControlMessage * Most50ControlMessage::parse(File & file, std::string & li
         most50ControlMessage->msg50Len = std::stoul(match[15], nullptr, 16);
         std::istringstream iss(match[16]);
         iss >> std::hex;
-        for (uint8_t i = 0; i < most50ControlMessage->msg50Len; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             most50ControlMessage->data.push_back(s);

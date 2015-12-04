@@ -111,14 +111,14 @@ void BeginTriggerblock::write(File & file, std::ostream & stream)
 
 void BeginTriggerblock::parseWday(std::string wday)
 {
-    for (int i = 0; i < 7; ++i) {
+    for(int i = 0; i < 7; ++i) {
         if (wdayNameEn[i] == wday) {
             date.tm_wday = i;
             language = File::Language::En;
             return;
         }
     }
-    for (int i = 0; i < 7; ++i) {
+    for(int i = 0; i < 7; ++i) {
         if (wdayNameDe[i] == wday) {
             date.tm_wday = i;
             language = File::Language::De;
@@ -130,14 +130,14 @@ void BeginTriggerblock::parseWday(std::string wday)
 
 void BeginTriggerblock::parseMon(std::string mon)
 {
-    for (int i = 0; i < 12; ++i) {
+    for(int i = 0; i < 12; ++i) {
         if (monNameEn[i] == mon) {
             date.tm_mon = i;
             language = File::Language::En;
             return;
         }
     }
-    for (int i = 0; i < 12; ++i) {
+    for(int i = 0; i < 12; ++i) {
         if (monNameDe[i] == mon) {
             date.tm_mon = i;
             language = File::Language::De;

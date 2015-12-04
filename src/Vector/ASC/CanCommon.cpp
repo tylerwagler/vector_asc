@@ -27,7 +27,7 @@ namespace ASC {
 
 void writeData(File & file, std::ostream & stream, std::vector<uint8_t> & data)
 {
-    for (uint8_t d: data) {
+    for(uint8_t d: data) {
         switch(file.base) {
         case 10:
             stream << ' ' << std::right

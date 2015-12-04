@@ -54,7 +54,7 @@ FlexRayOldStartCycle * FlexRayOldStartCycle::parse(File & file, std::string & li
         flexRayOldStartCycle->dlc = std::stoul(match[3]);
         std::istringstream iss(match[4]);
         iss >> std::hex;
-        for (uint8_t i = 0; i < flexRayOldStartCycle->dlc && i <= 255; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             flexRayOldStartCycle->data.push_back(s);
@@ -73,7 +73,7 @@ void FlexRayOldStartCycle::write(File & file, std::ostream & stream)
             << channel
             << " StartCycleEvent NM Vector: "
             << std::dec << (uint16_t) dlc;
-    for (FlexRayOldDx d: data)
+    for(FlexRayOldDx d: data)
         stream << ' ' << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) d;
 
     stream << endl;

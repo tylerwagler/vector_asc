@@ -70,7 +70,7 @@ Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::parse(File & file, st
             iss >> std::hex;
             break;
         }
-        for (int i = 0; !iss.eof(); ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             most25ControlMessageSpyMode->data.push_back(s);

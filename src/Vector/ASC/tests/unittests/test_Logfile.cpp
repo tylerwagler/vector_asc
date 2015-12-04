@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(AllLogfiles)
         BOOST_REQUIRE(create_directory(outdir));
     }
 
-    for (boost::filesystem::directory_entry & x : boost::filesystem::directory_iterator(indir)) {
+    for(boost::filesystem::directory_entry & x : boost::filesystem::directory_iterator(indir)) {
         std::string eventFile = x.path().filename().string();
         std::cout << eventFile << std::endl;
 

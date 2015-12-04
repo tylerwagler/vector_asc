@@ -78,7 +78,7 @@ MostEthernetPacketFragment * MostEthernetPacketFragment::parse(File & file, std:
         mostEthernetPacketFragment->firstDataLen = std::stoul(match[13], nullptr, 16);
         std::istringstream iss(match[14]);
         iss >> std::hex;
-        for (uint8_t i = 0; i < mostEthernetPacketFragment->firstDataLen; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             mostEthernetPacketFragment->data.push_back(s);

@@ -83,10 +83,10 @@ CanFdExtendedMessage * CanFdExtendedMessage::parse(File & file, std::string & li
         canFdExtendedMessage->dataLength = std::stoul(match[10]);
         std::istringstream iss(match[11]);
         iss >> std::hex;
-        for (uint8_t i = 0; i < canFdExtendedMessage->dataLength && i < 64; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
-            canFdExtendedMessage->data[i] = s;
+            canFdExtendedMessage->data.push_back(s);
         }
         canFdExtendedMessage->messageDuration = std::stoul(match[13]);
         canFdExtendedMessage->messageLength = std::stoul(match[14]);
@@ -117,7 +117,7 @@ void CanFdExtendedMessage::write(File & file, std::ostream & stream)
     writeDir(file, stream, dir);
     stream << "   d";
     stream << ' ' << std::hex << (uint16_t) dlc;
-    for (int i = 0; i < dlc && i < 8; ++i) {
+    for(Dx d: data) {
         stream << ' ';
         switch(file.base) {
         case 10:
@@ -127,7 +127,7 @@ void CanFdExtendedMessage::write(File & file, std::ostream & stream)
             stream << std::right << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
             break;
         }
-        stream << (uint16_t) data[i];
+        stream << (uint16_t) d;
     }
 
     if (file.version >= File::Version::Ver_7_5) {

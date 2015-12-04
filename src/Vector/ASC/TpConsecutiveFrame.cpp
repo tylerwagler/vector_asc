@@ -75,10 +75,10 @@ TpConsecutiveFrame * TpConsecutiveFrame::parse(File & file, std::string & line)
         tpConsecutiveFrame->sn = std::stoul(match[6]);
         std::istringstream iss(match[7]);
         iss >> std::hex;
-        for (uint8_t i = 0; !iss.eof(); ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
-            tpConsecutiveFrame->transportedBytes[i] = s;
+            tpConsecutiveFrame->transportedBytes.push_back(s);
         }
         return tpConsecutiveFrame;
     }
@@ -116,7 +116,7 @@ void TpConsecutiveFrame::write(File & file, std::ostream & stream)
     stream
             << "CF Seq.Nr.: " << std::dec << (uint16_t) sn
             << " [";
-    for (uint8_t transportedByte : transportedBytes)
+    for(TpDiagTransportedBytes transportedByte : transportedBytes)
         stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) transportedByte;
     stream << " ]";
 

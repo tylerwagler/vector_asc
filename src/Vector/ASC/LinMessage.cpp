@@ -115,7 +115,7 @@ LinMessage * LinMessage::parse(File & file, std::string & line)
             iss1 >> std::hex;
             break;
         }
-        for (int i = 0; i < linMessage->dlc && i < 8; ++i) {
+        while(!iss1.eof()) {
             unsigned short s;
             iss1 >> s;
             linMessage->data.push_back(s);
@@ -147,7 +147,7 @@ LinMessage * LinMessage::parse(File & file, std::string & line)
                 }
                 linMessage->endOfHeader = std::stod(match[30]);
                 std::istringstream iss2(match[31]);
-                for (uint8_t i = 0; i < linMessage->dlc && i < 8; ++i) {
+                while(!iss2.eof()) {
                     double s;
                     iss2 >> s;
                     linMessage->endOfByte.push_back(s);

@@ -71,7 +71,7 @@ FlexRayOldMessage * FlexRayOldMessage::parse(File & file, std::string & line)
         flexRayOldMessage->symbolicName = match[8];
         flexRayOldMessage->dlc = std::stoul(match[9]);
         std::istringstream iss(match[10]);
-        for (uint8_t i = 0; i < flexRayOldMessage->dlc && i <= 255; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             flexRayOldMessage->data.push_back(s);
@@ -98,7 +98,7 @@ void FlexRayOldMessage::write(File & file, std::ostream & stream)
             << ' ' << (uint16_t) headerCrc
             << ' ' << symbolicName
             << ' ' << std::setfill(' ') << std::setw(2) << std::dec << (uint16_t) dlc;
-    for (FlexRayOldDx d: data)
+    for(FlexRayOldDx d: data)
         stream << ' ' << std::setfill(' ') << std::setw(3) << std::dec << (uint16_t) d;
     stream
             << ' ' << std::setfill('0') << std::setw(4) << std::hex << (uint16_t) frameState

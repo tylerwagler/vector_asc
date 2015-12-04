@@ -75,10 +75,10 @@ TpFirstFrame * TpFirstFrame::parse(File & file, std::string & line)
         tpFirstFrame->length = std::stoul(match[6], nullptr, 16);
         std::istringstream iss(match[7]);
         iss >> std::hex;
-        for (uint8_t i = 0; !iss.eof(); ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
-            tpFirstFrame->transportedBytes[i] = s;
+            tpFirstFrame->transportedBytes.push_back(s);
         }
         return tpFirstFrame;
     }
@@ -117,7 +117,7 @@ void TpFirstFrame::write(File & file, std::ostream & stream)
     stream << "FF Length: ";
 
     stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << length << " [" << std::hex;
-    for (uint8_t transportedByte : transportedBytes)
+    for(TpDiagTransportedBytes transportedByte : transportedBytes)
         stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) transportedByte;
     stream << " ]";
 

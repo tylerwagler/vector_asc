@@ -87,7 +87,7 @@ MostCommonRegister * MostCommonRegister::parse(File & file, std::string & line)
         mostCommonRegister->regDataLen = std::stoul(match[6], nullptr, 16);
         std::istringstream iss(match[7]);
         iss >> std::hex;
-        for (int i = 0; !iss.eof(); ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             mostCommonRegister->data.push_back(s);
@@ -115,7 +115,7 @@ void MostCommonRegister::write(File & file, std::ostream & stream)
             << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) regDataLen;
 
     /* format: " %02X" */
-    for (MostDx d: data)
+    for(MostDx d: data)
         stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) d;
 
     stream << endl;

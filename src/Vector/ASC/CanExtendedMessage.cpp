@@ -74,10 +74,10 @@ CanExtendedMessage * CanExtendedMessage::parse(File & file, std::string & line)
             iss >> std::dec;
         if (file.base == 16)
             iss >> std::hex;
-        for (uint8_t i = 0; i < canExtendedMessage->dlc && i < 8; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
-            canExtendedMessage->data[i] = s;
+            canExtendedMessage->data.push_back(s);
         }
         if (match[8] != "")
             canExtendedMessage->messageDuration = std::stoul(match[9]);
@@ -123,7 +123,7 @@ void CanExtendedMessage::write(File & file, std::ostream & stream)
     writeDir(file, stream, dir);
     stream << "   d";
     stream << ' ' << std::hex << (uint16_t) dlc;
-    for (int i = 0; i < dlc && i < 8; ++i) {
+    for(Dx d: data) {
         stream << ' ';
         switch(file.base) {
         case 10:
@@ -133,7 +133,7 @@ void CanExtendedMessage::write(File & file, std::ostream & stream)
             stream << std::right << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
             break;
         }
-        stream << (uint16_t) data[i];
+        stream << (uint16_t) d;
     }
 
     if (file.version >= File::Version::Ver_7_5) {

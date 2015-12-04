@@ -21,8 +21,7 @@
 
 #pragma once
 
-#include <array>
-#include <string>
+#include <vector>
 #include "Event.h"
 #include "CanSymbols.h"
 
@@ -56,7 +55,7 @@ public:
     Dlc dlc;
 
     /** @copydoc Dx */
-    std::array<Dx, 8> data;
+    std::vector<Dx> data;
 
     /** @copydoc MessageLength */
     MessageDuration messageDuration;

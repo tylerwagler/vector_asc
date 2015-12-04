@@ -89,7 +89,7 @@ MostEthernetPacket * MostEthernetPacket::parse(File & file, std::string & line)
         mostEthernetPacket->pktEthLen = std::stoul(match[13], nullptr, 16);
         std::istringstream iss(match[14]);
         iss >> std::hex;
-        for (uint8_t i = 0; i < mostEthernetPacket->pktEthLen; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             mostEthernetPacket->data.push_back(s);

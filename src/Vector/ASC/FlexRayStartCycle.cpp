@@ -82,19 +82,19 @@ FlexRayStartCycle * FlexRayStartCycle::parse(File & file, std::string & line)
         flexRayStartCycle->ccData[3] = std::stoul(match[12], nullptr, file.base);
         flexRayStartCycle->ccData[4] = std::stoul(match[13], nullptr, file.base);
         flexRayStartCycle->nmVectL = std::stoul(match[14], nullptr, file.base);
-        std::istringstream iss(match[15]);
-        switch(file.base) {
-        case 10:
-            iss >> std::dec;
-            break;
-        case 16:
-            iss >> std::hex;
-            break;
-        }
-        for (uint8_t i = 0; i < flexRayStartCycle->nmVectL; ++i) {
-            unsigned short s;
-            iss >> s;
-            flexRayStartCycle->nmVect[i] = s;
+            std::istringstream iss(match[15]);
+            switch(file.base) {
+            case 10:
+                iss >> std::dec;
+                break;
+            case 16:
+                iss >> std::hex;
+                break;
+            }
+            while(!iss.eof()) {
+                unsigned short s;
+                iss >> s;
+                flexRayStartCycle->nmVect.push_back(s);
         }
         return flexRayStartCycle;
     }

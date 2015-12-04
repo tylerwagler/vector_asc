@@ -100,7 +100,7 @@ FlexRayMessage * FlexRayMessage::parseRmsg(File & file, std::string & line)
         flexRayMessage->payloadLength = std::stoul(match[15]);
         flexRayMessage->bufferLength = std::stoul(match[16]);
         std::istringstream iss(match[17]);
-        for (uint8_t i = 0; i < flexRayMessage->bufferLength; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             flexRayMessage->data.push_back(s);
@@ -162,7 +162,7 @@ FlexRayMessage * FlexRayMessage::parsePdu(File & file, std::string & line)
             iss >> std::hex;
             break;
         }
-        for (uint8_t i = 0; i < flexRayMessage->bufferLength; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             flexRayMessage->data.push_back(s);

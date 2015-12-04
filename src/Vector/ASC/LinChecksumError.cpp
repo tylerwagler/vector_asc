@@ -108,7 +108,7 @@ LinChecksumError * LinChecksumError::parse(File & file, std::string & line)
             iss1 >> std::hex;
             break;
         }
-        for (uint8_t i = 0; i < linChecksumError->dlc && i < 8; ++i) {
+        while(!iss1.eof()) {
             unsigned short s;
             iss1 >> s;
             linChecksumError->data.push_back(s);
@@ -132,7 +132,7 @@ LinChecksumError * LinChecksumError::parse(File & file, std::string & line)
             }
             linChecksumError->endOfHeader = std::stod(match[23]);
             std::istringstream iss2(match[24]);
-            for (uint8_t i = 0; i < linChecksumError->dlc && i < 8; ++i) {
+            while(!iss2.eof()) {
                 double s;
                 iss2 >> s;
                 linChecksumError->endOfByte.push_back(s);

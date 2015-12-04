@@ -549,7 +549,7 @@ BOOST_AUTO_TEST_CASE(CanFdExtendedMessage)
     BOOST_CHECK(canFdExtendedMessage->esi == false);
     BOOST_CHECK(canFdExtendedMessage->dlc == 0xf);
     BOOST_CHECK(canFdExtendedMessage->dataLength == 64);
-    for (int i = 0; i < 64; ++i)
+    for(int i = 0; i < 64; ++i)
         BOOST_CHECK(canFdExtendedMessage->data[i] == i+1);
     BOOST_CHECK(canFdExtendedMessage->messageDuration == 1238000);
     BOOST_CHECK(canFdExtendedMessage->messageLength == 111);
@@ -590,7 +590,7 @@ BOOST_AUTO_TEST_CASE(CanFdErrorFrame)
     BOOST_CHECK(canFdErrorFrame->esi == false);
     BOOST_CHECK(canFdErrorFrame->dlc == 0xf);
     BOOST_CHECK(canFdErrorFrame->dataLength == 64);
-    for (int i = 0; i < 64; ++i)
+    for(int i = 0; i < 64; ++i)
         BOOST_CHECK(canFdErrorFrame->data[i] == 0xaa);
     BOOST_CHECK(canFdErrorFrame->messageDuration == 336484);
     BOOST_CHECK(canFdErrorFrame->flags2 == 3);

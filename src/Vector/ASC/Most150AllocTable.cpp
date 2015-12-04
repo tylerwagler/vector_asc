@@ -59,7 +59,7 @@ Most150AllocTable * Most150AllocTable::parse(File & file, std::string & line)
         most150AllocTable->at150Size = std::stoul(match[5], nullptr, 16);
         std::istringstream iss(match[6]);
         iss >> std::hex;
-        for (uint8_t i = 0; i < most150AllocTable->at150Size; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             most150AllocTable->wordData.push_back(s);

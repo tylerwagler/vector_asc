@@ -63,7 +63,7 @@ DiagRequest * DiagRequest::parse(File & file, std::string & line)
             diagRequest->command = Command::ByteSequence;
             std::istringstream iss(match[3]);
             iss >> std::hex;
-            for (int i = 0; !iss.eof(); ++i) {
+            while(!iss.eof()) {
                 unsigned short s;
                 iss >> s;
                 diagRequest->byteSequence.push_back(s);
@@ -101,7 +101,7 @@ void DiagRequest::write(File & file, std::ostream & stream)
         break;
     case Command::ByteSequence:
         /* format: " %02X" */
-        for (uint8_t b: byteSequence)
+        for(TpDiagByteSequence b: byteSequence)
             stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) b;
     }
 

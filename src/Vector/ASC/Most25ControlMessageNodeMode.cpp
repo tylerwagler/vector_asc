@@ -74,7 +74,7 @@ Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::parse(File & file, 
             iss >> std::hex;
             break;
         }
-        for (int i = 0; !iss.eof(); ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             most25ControlMessageNodeMode->data.push_back(s);

@@ -54,7 +54,7 @@ Most25AllocTable * Most25AllocTable::parse(File & file, std::string & line)
         most25AllocTable->allocTableSize = std::stoul(match[3], nullptr, 16);
         std::istringstream iss(match[4]);
         iss >> std::hex;
-        for (uint8_t i = 0; i < most25AllocTable->allocTableSize; ++i) {
+        while(!iss.eof()) {
             unsigned short s;
             iss >> s;
             most25AllocTable->data.push_back(s);

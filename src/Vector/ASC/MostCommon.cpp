@@ -87,7 +87,7 @@ void writeMostDestMacAdr(File & file, std::ostream & stream, MostDestMacAdr & mo
 
 void writeMostData(File & file, std::ostream & stream, std::vector<MostDx> & mostData)
 {
-    for (MostDx d: mostData)
+    for(MostDx d: mostData)
         stream << std::right
                << std::setfill('0') << std::setw(2)
                << std::uppercase << std::hex << (uint16_t) d
@@ -249,7 +249,7 @@ void writeMostTransferType(File & file, std::ostream & stream, MostTransferType 
 
 void writeMostWordData(File & file, std::ostream & stream, std::vector<MostWx> & mostWordData)
 {
-    for (MostWx w: mostWordData)
+    for(MostWx w: mostWordData)
         stream << std::right
                << std::setfill('0') << std::setw(4)
                << std::uppercase << std::hex << w

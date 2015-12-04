@@ -83,7 +83,7 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & file, std::string 
         linShortOrSlowResponse->numberOfResponseBytes = std::stoul(match[5]);
         std::istringstream iss1(match[6]);
         iss1 >> std::hex;
-        for (int i = 0; i < linShortOrSlowResponse->numberOfResponseBytes; ++i) {
+        while(!iss1.eof()) {
             unsigned short s;
             iss1 >> s;
             linShortOrSlowResponse->data.push_back(s);
@@ -101,7 +101,7 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & file, std::string 
         }
         linShortOrSlowResponse->endOfHeader = std::stod(match[18]);
         std::istringstream iss2(match[19]);
-        for (int i = 0; i < linShortOrSlowResponse->dlc && i < 8; ++i) {
+        while(!iss2.eof()) {
             double s;
             iss2 >> s;
             linShortOrSlowResponse->endOfByte.push_back(s);

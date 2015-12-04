@@ -117,7 +117,7 @@ LinReceiveError * LinReceiveError::parse(File & file, std::string & line)
                 iss1 >> std::hex;
                 break;
             }
-            for (uint8_t i = 0; i < linReceiveError->dlc && i < 8; ++i) {
+            while(!iss1.eof()) {
                 unsigned short s;
                 iss1 >> s;
                 linReceiveError->data.push_back(s);
@@ -135,7 +135,7 @@ LinReceiveError * LinReceiveError::parse(File & file, std::string & line)
                 linReceiveError->endOfHeader = std::stod(match[28]);
             if (match[29] != "") {
                 std::istringstream iss2(match[30]);
-                for (uint8_t i = 0; i < linReceiveError->dlc && i < 8; ++i) {
+                while(!iss2.eof()) {
                     double s;
                     iss2 >> s;
                     linReceiveError->endOfByte.push_back(s);

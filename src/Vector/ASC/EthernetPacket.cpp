@@ -61,7 +61,7 @@ EthernetPacket * EthernetPacket::parse(File & file, std::string & line)
         if (match[3] == "TxRq")
                 ethernetPacket->dir = Dir::TxRq;
         ethernetPacket->dataLen = std::stoul(match[4], nullptr, file.base);
-        for (int i = 0; i < ethernetPacket->dataLen; ++i) {
+        for(int i = 0; i < ethernetPacket->dataLen; ++i) {
             std::string s;
             s.append(match[5], 2*i, 2);
             ethernetPacket->data.push_back(std::stoul(s, nullptr, 16));
@@ -90,7 +90,7 @@ void EthernetPacket::write(File & file, std::ostream & stream)
         stream << ' ' << std::setfill(' ') << std::setw(4) << std::hex << dataLen << ':';
         break;
     }
-    for (EthData d: data)
+    for(EthData d: data)
         stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) d;
 
     stream << endl;

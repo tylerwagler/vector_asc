@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <array>
+#include <vector>
 #include "Event.h"
 #include "TpDiagSymbols.h"
 
@@ -54,7 +54,7 @@ public:
     TpDiagSn sn;
 
     /** @copydoc TpDiagTransportedBytes */
-    std::array<TpDiagTransportedBytes, 7> transportedBytes;
+    std::vector<TpDiagTransportedBytes> transportedBytes;
 
     /** @copydoc Event::parse() */
     static TpConsecutiveFrame * parse(File & file, std::string & line);
