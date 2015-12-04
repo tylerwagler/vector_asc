@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "Most50Packet.h"
 #include "MostCommon.h"
@@ -95,7 +96,7 @@ Most50Packet * Most50Packet::parse(File & file, std::string & line)
         for (uint8_t i = 0; i < most50Packet->pktLen; ++i) {
             unsigned short s;
             iss >> s;
-            most50Packet->data[i] = s;
+            most50Packet->data.push_back(s);
         }
         return most50Packet;
     }
@@ -106,12 +107,25 @@ Most50Packet * Most50Packet::parse(File & file, std::string & line)
 void Most50Packet::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "Pkt50:  " */
     stream << "Pkt50:  ";
+
+    writeMostDir(file, stream, dir);
+    writeMostSourceAdr(file, stream, sourceAdr);
+    writeMostDestAdr(file, stream, destAdr);
+    writeMostState(file, stream, state);
+    writeMostAckNack(file, stream, ackNack);
+    writeMostTransferType(file, stream, transferType);
+    writeMostRsvdUc(file, stream, rsvdUc1);
+    writeMostRsvdUc(file, stream, rsvdUc2);
+    writeMostRsvdUc(file, stream, rsvdUc3);
+    writeMostCrc2(file, stream, crc2);
+    writeMostRsvdUc(file, stream, rsvdUc4);
+    writeMostRsvdUl(file, stream, rsvdUl);
+    writeMostPktLen(file, stream, pktLen);
+    writeMostData(file, stream, data);
 
     stream << endl;
 }

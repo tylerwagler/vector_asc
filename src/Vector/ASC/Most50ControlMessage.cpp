@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "Most50ControlMessage.h"
 #include "MostCommon.h"
@@ -95,7 +96,7 @@ Most50ControlMessage * Most50ControlMessage::parse(File & file, std::string & li
         for (uint8_t i = 0; i < most50ControlMessage->msg50Len; ++i) {
             unsigned short s;
             iss >> s;
-            most50ControlMessage->data[i] = s;
+            most50ControlMessage->data.push_back(s);
         }
         return most50ControlMessage;
     }
@@ -106,12 +107,25 @@ Most50ControlMessage * Most50ControlMessage::parse(File & file, std::string & li
 void Most50ControlMessage::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "Msg50:  " */
     stream << "Msg50:  ";
+
+    writeMostDir(file, stream, dir);
+    writeMostSourceAdr(file, stream, sourceAdr);
+    writeMostDestAdr(file, stream, destAdr);
+    writeMostState(file, stream, state);
+    writeMostAckNack(file, stream, ackNack);
+    writeMostTransferType(file, stream, transferType);
+    writeMostRsvdUc(file, stream, rsvdUc1);
+    writeMostPriority(file, stream, priority);
+    writeMostRsvdUc(file, stream, rsvdUc2);
+    writeMostCrc2(file, stream, crc2);
+    writeMostRsvdUc(file, stream, rsvdUc3);
+    writeMostRsvdUl(file, stream, rsvdUl);
+    writeMostMsg50Len(file, stream, msg50Len);
+    writeMostData(file, stream, data);
 
     stream << endl;
 }

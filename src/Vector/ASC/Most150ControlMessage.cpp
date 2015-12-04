@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "Most150ControlMessage.h"
 #include "MostCommon.h"
@@ -37,7 +38,7 @@ Most150ControlMessage::Most150ControlMessage() :
     state(0),
     ackNack(0),
     transferType(MostTransferType::Node),
-    pack(0),
+    pAck(0),
     priority(0),
     pIndex(0),
     crc2(0),
@@ -83,7 +84,7 @@ Most150ControlMessage * Most150ControlMessage::parse(File & file, std::string & 
             most150ControlMessage->transferType = MostTransferType::Spy;
             break;
         }
-        most150ControlMessage->pack = std::stoul(match[9], nullptr, 16);
+        most150ControlMessage->pAck = std::stoul(match[9], nullptr, 16);
         most150ControlMessage->priority = std::stoul(match[10], nullptr, 16);
         most150ControlMessage->pIndex = std::stoul(match[11], nullptr, 16);
         most150ControlMessage->crc2 = std::stoul(match[12], nullptr, 16);
@@ -95,7 +96,7 @@ Most150ControlMessage * Most150ControlMessage::parse(File & file, std::string & 
         for (uint8_t i = 0; i < most150ControlMessage->msg150Len; ++i) {
             unsigned short s;
             iss >> s;
-            most150ControlMessage->data[i] = s;
+            most150ControlMessage->data.push_back(s);
         }
         return most150ControlMessage;
     }
@@ -106,9 +107,25 @@ Most150ControlMessage * Most150ControlMessage::parse(File & file, std::string & 
 void Most150ControlMessage::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
+
+    /* format: "Msg150: " */
+    stream << "Msg150: ";
+
+    writeMostDir(file, stream, dir);
+    writeMostSourceAdr(file, stream, sourceAdr);
+    writeMostDestAdr(file, stream, destAdr);
+    writeMostState(file, stream, state);
+    writeMostAckNack(file, stream, ackNack);
+    writeMostTransferType(file, stream, transferType);
+    writeMostPAck(file, stream, pAck);
+    writeMostPriority(file, stream, priority);
+    writeMostPIndex(file, stream, pIndex);
+    writeMostCrc2(file, stream, crc2);
+    writeMostCAck(file, stream, cAck);
+    writeMostRsvdUl(file, stream, rsvdUl);
+    writeMostMsg150Len(file, stream, msg150Len);
+    writeMostData(file, stream, data);
 
     stream << endl;
 }

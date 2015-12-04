@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "MostCommon.h"
 #include "MostEthernetPacketFragment.h"
@@ -80,7 +81,7 @@ MostEthernetPacketFragment * MostEthernetPacketFragment::parse(File & file, std:
         for (uint8_t i = 0; i < mostEthernetPacketFragment->firstDataLen; ++i) {
             unsigned short s;
             iss >> s;
-            mostEthernetPacketFragment->data[i] = s;
+            mostEthernetPacketFragment->data.push_back(s);
         }
         return mostEthernetPacketFragment;
     }
@@ -91,9 +92,23 @@ MostEthernetPacketFragment * MostEthernetPacketFragment::parse(File & file, std:
 void MostEthernetPacketFragment::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
+
+    /* format: "PktEthFrg: " */
+    stream << "PktEthFrg: ";
+
+    writeMostFrgMask(file, stream, frgMask);
+    writeMostSourceMacAdr(file, stream, sourceMacAdr);
+    writeMostDestMacAdr(file, stream, destMacAdr);
+    writeMostAckNack(file, stream, ackNack);
+    writeMostPAck(file, stream, pAck);
+    writeMostCrc4(file, stream, crc4);
+    writeMostCAck(file, stream, cAck);
+    writeMostRsvdUl(file, stream, rsvdUl);
+    writeMostFrgDataLen(file, stream, frgDataLen);
+    writeMostFrgDataLenAnnounced(file, stream, frgDataLenAnnounced);
+    writeMostFirstDataLen(file, stream, firstDataLen);
+    writeMostData(file, stream, data);
 
     stream << endl;
 }

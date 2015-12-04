@@ -62,9 +62,7 @@ MostStatisticExtended * MostStatisticExtended::parse(File & file, std::string & 
 void MostStatisticExtended::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "StatEx:   %06X %06X" */
     stream

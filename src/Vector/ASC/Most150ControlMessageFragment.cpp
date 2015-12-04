@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "Most150ControlMessageFragment.h"
 #include "MostCommon.h"
@@ -85,7 +86,7 @@ Most150ControlMessageFragment * Most150ControlMessageFragment::parse(File & file
         for (uint8_t i = 0; i < most150ControlMessageFragment->firstDataLen; ++i) {
             unsigned short s;
             iss >> s;
-            most150ControlMessageFragment->data[i] = s;
+            most150ControlMessageFragment->data.push_back(s);
         }
         return most150ControlMessageFragment;
     }
@@ -96,9 +97,25 @@ Most150ControlMessageFragment * Most150ControlMessageFragment::parse(File & file
 void Most150ControlMessageFragment::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
+
+    /* format: "Msg150Frg: " */
+    stream << "Msg150Frg: ";
+
+    writeMostFrgMask(file, stream, frgMask);
+    writeMostSourceAdr(file, stream, sourceAdr);
+    writeMostDestAdr(file, stream, destAdr);
+    writeMostAckNack(file, stream, ackNack);
+    writeMostPAck(file, stream, pAck);
+    writeMostPriority(file, stream, priority);
+    writeMostPIndex(file, stream, pIndex);
+    writeMostCrc2(file, stream, crc2);
+    writeMostCAck(file, stream, cAck);
+    writeMostRsvdUl(file, stream, rsvdUl);
+    writeMostFrgDataLen(file, stream ,frgDataLen);
+    writeMostFrgDataLenAnnounced(file, stream, frgDataLenAnnounced);
+    writeMostFirstDataLen(file, stream, firstDataLen);
+    writeMostData(file, stream, data);
 
     stream << endl;
 }

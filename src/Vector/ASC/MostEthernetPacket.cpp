@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "MostCommon.h"
 #include "MostEthernetPacket.h"
@@ -91,7 +92,7 @@ MostEthernetPacket * MostEthernetPacket::parse(File & file, std::string & line)
         for (uint8_t i = 0; i < mostEthernetPacket->pktEthLen; ++i) {
             unsigned short s;
             iss >> s;
-            mostEthernetPacket->data[i] = s;
+            mostEthernetPacket->data.push_back(s);
         }
         return mostEthernetPacket;
     }
@@ -102,9 +103,23 @@ MostEthernetPacket * MostEthernetPacket::parse(File & file, std::string & line)
 void MostEthernetPacket::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
+
+    /* format: "PktEth: " */
+    stream << "PktEth: ";
+
+    writeMostDir(file, stream, dir);
+    writeMostSourceMacAdr(file, stream, sourceMacAdr);
+    writeMostDestMacAdr(file, stream, destMacAdr);
+    writeMostState(file, stream, state);
+    writeMostAckNack(file, stream, ackNack);
+    writeMostTransferType(file, stream, transferType);
+    writeMostPAck(file, stream, pAck);
+    writeMostCrc4(file, stream, crc4);
+    writeMostCAck(file, stream, cAck);
+    writeMostRsvdUl(file, stream, rsvdUl);
+    writeMostPktEthLen(file, stream, pktEthLen);
+    writeMostData(file, stream, data);
 
     stream << endl;
 }

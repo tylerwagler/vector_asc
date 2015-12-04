@@ -2878,7 +2878,7 @@ BOOST_AUTO_TEST_CASE(Most150ControlMessage)
     BOOST_CHECK(most150ControlMessage->state == 0x02);
     BOOST_CHECK(most150ControlMessage->ackNack == 0x11);
     BOOST_CHECK(most150ControlMessage->transferType == Vector::ASC::MostTransferType::Node);
-    BOOST_CHECK(most150ControlMessage->pack == 0x22);
+    BOOST_CHECK(most150ControlMessage->pAck == 0x22);
     BOOST_CHECK(most150ControlMessage->priority == 0x01);
     BOOST_CHECK(most150ControlMessage->pIndex == 0x33);
     BOOST_CHECK(most150ControlMessage->crc2 == 0xAABB);
@@ -3141,10 +3141,10 @@ BOOST_AUTO_TEST_CASE(Most150AllocTable)
     BOOST_CHECK(most150AllocTable->at150EventModeFlags == 0x00);
     BOOST_CHECK(most150AllocTable->freeBytes == 0x002E);
     BOOST_CHECK(most150AllocTable->at150Size == 0x0004);
-    BOOST_CHECK(most150AllocTable->w[0] == 0x010B);
-    BOOST_CHECK(most150AllocTable->w[1] == 0x0004);
-    BOOST_CHECK(most150AllocTable->w[2] == 0x4151);
-    BOOST_CHECK(most150AllocTable->w[3] == 0x0046);
+    BOOST_CHECK(most150AllocTable->wordData[0] == 0x010B);
+    BOOST_CHECK(most150AllocTable->wordData[1] == 0x0004);
+    BOOST_CHECK(most150AllocTable->wordData[2] == 0x4151);
+    BOOST_CHECK(most150AllocTable->wordData[3] == 0x0046);
     delete event;
 
     event = file.read();
@@ -3156,10 +3156,10 @@ BOOST_AUTO_TEST_CASE(Most150AllocTable)
     BOOST_CHECK(most150AllocTable->at150EventModeFlags == 0x00);
     BOOST_CHECK(most150AllocTable->freeBytes == 0x0074);
     BOOST_CHECK(most150AllocTable->at150Size == 0x0004);
-    BOOST_CHECK(most150AllocTable->w[0] == 0x010B);
-    BOOST_CHECK(most150AllocTable->w[1] == 0x0004);
-    BOOST_CHECK(most150AllocTable->w[2] == 0x8151);
-    BOOST_CHECK(most150AllocTable->w[3] == 0x0046);
+    BOOST_CHECK(most150AllocTable->wordData[0] == 0x010B);
+    BOOST_CHECK(most150AllocTable->wordData[1] == 0x0004);
+    BOOST_CHECK(most150AllocTable->wordData[2] == 0x8151);
+    BOOST_CHECK(most150AllocTable->wordData[3] == 0x0046);
     delete event;
 
     BOOST_CHECK(file.eof());

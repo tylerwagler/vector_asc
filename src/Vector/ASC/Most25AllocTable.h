@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <array>
+#include <vector>
 #include "Event.h"
 #include "MostSymbols.h"
 
@@ -54,8 +54,8 @@ public:
     /** @copydoc MostAllocTableSize */
     MostAllocTableSize allocTableSize;
 
-    /** @copydoc MostDx */
-    std::array<MostDx, 1024> data;
+    /** @copydoc MostDxAt */
+    std::vector<MostDxAt> data;
 
     /** @copydoc Event::parse() */
     static Most25AllocTable * parse(File & file, std::string & line);

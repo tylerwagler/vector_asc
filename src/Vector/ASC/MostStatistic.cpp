@@ -69,9 +69,7 @@ MostStatistic * MostStatistic::parse(File & file, std::string & line)
 void MostStatistic::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "MostStatistic:  Fr: %5u Lt: %5u Bl: %5u Pk: %5u" */
     stream

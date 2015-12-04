@@ -74,9 +74,7 @@ MostSystem * MostSystem::parse(File & file, std::string & line)
 void MostSystem::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "System:   %02X %04X %04X" */
     stream

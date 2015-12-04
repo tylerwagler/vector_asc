@@ -47,7 +47,7 @@ typedef uint16_t MostAt150Size;
  *   - 0x01: CRC error
  *   - 0x04: OK
  */
-typedef uint8_t MostCack;
+typedef uint8_t MostCAck;
 
 /** application channel */
 typedef uint8_t MostChannel;
@@ -64,7 +64,7 @@ typedef uint16_t MostCrc2;
 /** 4 byte CRC */
 typedef uint32_t MostCrc4;
 
-/* Allocation Table byte */
+/** Allocation Table byte values */
 typedef uint8_t MostDxAt;
 
 /** target address */
@@ -121,7 +121,7 @@ enum class MostEclState : uint8_t {
  * counted bytes (s. FrgDataLen) on bus will be
  * stored in the payload of the logging event.
  */
-typedef uint16_t MostFirstDataLen;
+typedef uint8_t MostFirstDataLen;
 
 /** Frame Counter */
 typedef uint32_t MostFrameCounter;
@@ -187,10 +187,10 @@ typedef uint8_t MostNetStateOld;
  *   - 0x01: Buffer full
  *   - 0x04: OK
  */
-typedef uint8_t MostPack;
+typedef uint8_t MostPAck;
 
 /** message/packet index */
-typedef uint8_t MostPindex;
+typedef uint8_t MostPIndex;
 
 /** number of data bytes */
 typedef uint16_t MostPkt150Len;
@@ -278,7 +278,7 @@ typedef uint32_t MostRsvdUl;
  *   - 5 - GetSource
  *   - >5 - not used so far
  */
-typedef uint8_t MostRtype;
+typedef uint8_t MostRType;
 
 /** source address */
 typedef uint16_t MostSourceAdr;

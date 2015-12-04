@@ -84,9 +84,7 @@ MostEcl * MostEcl::parse(File & file, std::string & line)
 void MostEcl::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "Ecl:      %1X %1X" */
     stream

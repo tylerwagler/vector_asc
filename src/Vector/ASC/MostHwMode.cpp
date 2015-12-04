@@ -62,9 +62,7 @@ MostHwMode * MostHwMode::parse(File & file, std::string & line)
 void MostHwMode::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "HWMode:   %02X %02X" */
     stream

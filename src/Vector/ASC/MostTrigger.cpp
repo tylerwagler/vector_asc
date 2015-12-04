@@ -76,26 +76,15 @@ MostTrigger * MostTrigger::parse(File & file, std::string & line)
 void MostTrigger::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "Trigger:  %1X %1X %08X %08X" */
-    stream << "Trigger:  " << std::setw(1) << std::uppercase << std::hex;
-    switch(trigMode) {
-    case MostTrigMode::Unknown:
-        stream << 0;
-        break;
-    case MostTrigMode::SynchronizationMaster:
-        stream << 1;
-        break;
-    case MostTrigMode::SynchronizationSlave:
-        stream << 2;
-        break;
-    }
-    stream << ' ' << std::setw(1) << std::uppercase << std::hex << trigHw;
-    stream << ' ' << std::setfill('0') << std::setw(8) << std::uppercase << std::hex << trigValue[0];
-    stream << ' ' << std::setfill('0') << std::setw(8) << std::uppercase << std::hex << trigValue[1];
+    stream
+            << "Trigger:  "
+            << std::setw(1) << std::uppercase << std::hex << (uint16_t) trigMode
+            << ' ' << std::setw(1) << std::uppercase << std::hex << (uint16_t) trigHw
+            << ' ' << std::setfill('0') << std::setw(8) << std::uppercase << std::hex << trigValue[0]
+            << ' ' << std::setfill('0') << std::setw(8) << std::uppercase << std::hex << trigValue[1];
 
     stream << endl;
 }

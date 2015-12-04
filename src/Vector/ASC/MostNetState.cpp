@@ -62,9 +62,7 @@ MostNetState * MostNetState::parse(File & file, std::string & line)
 void MostNetState::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "NetState: %1X %1X" */
     stream

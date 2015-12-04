@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <array>
+#include <vector>
 #include "Event.h"
 #include "MostSymbols.h"
 
@@ -64,13 +64,13 @@ public:
     MostTransferType transferType;
 
     /** @copydoc MostPack */
-    MostPack pAck;
+    MostPAck pAck;
 
     /** @copydoc MostCrc4 */
     MostCrc4 crc4;
 
     /** @copydoc MostCack */
-    MostCack cAck;
+    MostCAck cAck;
 
     /** @copydoc MostRsvdUl */
     MostRsvdUl rsvdUl;
@@ -79,7 +79,7 @@ public:
     MostPktEthLen pktEthLen;
 
     /** @copydoc MostDx */
-    std::array<MostDx, 1024> data;
+    std::vector<MostDx> data;
 
     /** @copydoc Event::parse() */
     static MostEthernetPacket * parse(File & file, std::string & line);

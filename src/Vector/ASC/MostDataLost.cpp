@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "MostCommon.h"
 #include "MostDataLost.h"
@@ -54,8 +55,8 @@ MostDataLost * MostDataLost::parse(File & file, std::string & line)
         mostDataLost->time = std::stod(match[1]);
         mostDataLost->channel = std::stoul(match[2]);
         mostDataLost->dlInfo = std::stoul(match[3], nullptr, 16);
-        mostDataLost->dlCtrl = std::stoul(match[4], nullptr, 16);
-        mostDataLost->dlAsync = std::stoul(match[5], nullptr, 16);
+        mostDataLost->dlCtrl = std::stoul(match[4], nullptr, file.base);
+        mostDataLost->dlAsync = std::stoul(match[5], nullptr, file.base);
         mostDataLost->dlTime[0] = std::stod(match[6]);
         mostDataLost->dlTime[1] = std::stod(match[7]);
         return mostDataLost;
@@ -67,12 +68,31 @@ MostDataLost * MostDataLost::parse(File & file, std::string & line)
 void MostDataLost::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "DataLost: %08X %5d %5d %s %s" */
     /* format: "DataLost: %08X %04X %04X %s %s" */
+    stream
+            << "DataLost: "
+            << std::setfill('0') << std::setw(8) << std::uppercase << std::hex << dlInfo
+            << ' ';
+    switch(file.base) {
+    case 10:
+        stream
+                << std::setfill(' ') << std::setw(5) << std::dec << dlCtrl
+                << ' '
+                << std::setfill(' ') << std::setw(5) << std::dec << dlAsync;
+        break;
+    case 16:
+        stream
+                << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << dlCtrl
+                << ' '
+                << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << dlAsync;
+        break;
+    }
+    stream
+            << ' ' << std::setprecision(5) << std::fixed << dlTime[0]
+            << ' ' << std::setprecision(5) << std::fixed << dlTime[1];
 
     stream << endl;
 }

@@ -89,9 +89,7 @@ MostSpecialRegister * MostSpecialRegister::parse(File & file, std::string & line
 void MostSpecialRegister::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "Register: %1X %02X %012I64X" */
     /* format: "Register: %1X %02X %04I64X" */
@@ -101,7 +99,7 @@ void MostSpecialRegister::write(File & file, std::ostream & stream)
             << ' '
             << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) regId
             << ' '
-            << std::setfill('0') << std::setw(4 /* @todo or 16 */) << std::uppercase << std::hex << (uint16_t) regValue;
+            << std::setfill('0') << std::setw(4 /* @todo 4 or 12 */) << std::uppercase << std::hex << (uint16_t) regValue;
 
     stream << endl;
 }

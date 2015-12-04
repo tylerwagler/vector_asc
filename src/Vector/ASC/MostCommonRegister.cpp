@@ -90,7 +90,7 @@ MostCommonRegister * MostCommonRegister::parse(File & file, std::string & line)
         for (int i = 0; !iss.eof(); ++i) {
             unsigned short s;
             iss >> s;
-            mostCommonRegister->data[i] = s;
+            mostCommonRegister->data.push_back(s);
         }
         return mostCommonRegister;
     }
@@ -101,9 +101,7 @@ MostCommonRegister * MostCommonRegister::parse(File & file, std::string & line)
 void MostCommonRegister::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "RegData:  %1X %02X %04X %02X " */
     stream
@@ -117,8 +115,8 @@ void MostCommonRegister::write(File & file, std::ostream & stream)
             << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) regDataLen;
 
     /* format: " %02X" */
-    for (int i = 0; i < regDataLen; ++i)
-        stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) data[i];
+    for (MostDx d: data)
+        stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) d;
 
     stream << endl;
 }

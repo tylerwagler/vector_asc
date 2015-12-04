@@ -69,9 +69,7 @@ MostStress * MostStress::parse(File & file, std::string & line)
 void MostStress::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "Stress:   %1X %1X" */
     stream

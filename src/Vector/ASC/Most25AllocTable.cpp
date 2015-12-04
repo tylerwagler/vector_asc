@@ -57,7 +57,7 @@ Most25AllocTable * Most25AllocTable::parse(File & file, std::string & line)
         for (uint8_t i = 0; i < most25AllocTable->allocTableSize; ++i) {
             unsigned short s;
             iss >> s;
-            most25AllocTable->data[i] = s;
+            most25AllocTable->data.push_back(s);
         }
         return most25AllocTable;
     }
@@ -68,9 +68,7 @@ Most25AllocTable * Most25AllocTable::parse(File & file, std::string & line)
 void Most25AllocTable::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "AllocTab: %04X  " */
     stream
@@ -78,13 +76,7 @@ void Most25AllocTable::write(File & file, std::ostream & stream)
             << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << (uint16_t) allocTableSize
             << "  ";
 
-    /* format: " %02X" */
-    stream << std::setfill('0') << std::uppercase << std::hex;
-    for (int i = 0; i < allocTableSize; ++i) {
-        if (i > 0)
-            stream << ' '; /* not nice, but otherwise I have to shorten the previous format string */
-        stream << std::setw(2) << (uint16_t) data[i];
-    }
+    writeMostData(file, stream, data);
 
     stream << endl;
 }

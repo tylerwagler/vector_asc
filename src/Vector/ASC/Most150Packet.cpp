@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "Most150Packet.h"
 #include "MostCommon.h"
@@ -95,7 +96,7 @@ Most150Packet * Most150Packet::parse(File & file, std::string & line)
         for (uint8_t i = 0; i < most150Packet->pkt150Len; ++i) {
             unsigned short s;
             iss >> s;
-            most150Packet->data[i] = s;
+            most150Packet->data.push_back(s);
         }
         return most150Packet;
     }
@@ -106,9 +107,25 @@ Most150Packet * Most150Packet::parse(File & file, std::string & line)
 void Most150Packet::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
+
+    /* format: "Pkt150: " */
+    stream << "Pkt150: ";
+
+    writeMostDir(file, stream, dir);
+    writeMostSourceAdr(file, stream, sourceAdr);
+    writeMostDestAdr(file, stream, destAdr);
+    writeMostState(file, stream, state);
+    writeMostAckNack(file, stream, ackNack);
+    writeMostTransferType(file, stream, transferType);
+    writeMostPAck(file, stream, pAck);
+    writeMostRsvdUc(file, stream, rsvdUc);
+    writeMostPIndex(file, stream, pIndex);
+    writeMostCrc2(file, stream, crc2);
+    writeMostCAck(file, stream, cAck);
+    writeMostRsvdUl(file, stream, rsvdUl);
+    writeMostPkt150Len(file, stream, pkt150Len);
+    writeMostData(file, stream, data);
 
     stream << endl;
 }

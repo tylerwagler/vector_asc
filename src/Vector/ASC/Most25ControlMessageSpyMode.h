@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <array>
+#include <vector>
 #include "Event.h"
 #include "MostSymbols.h"
 
@@ -52,13 +52,13 @@ public:
     MostDestAdr destAdr;
 
     /** @copydoc MostRtype */
-    MostRtype rType;
+    MostRType rType;
 
     /** @copydoc MostDx */
-    std::array<MostDx, 17> data;
+    std::vector<MostDx> data;
 
-    /** @copydoc MostState2 */
-    MostState2 state;
+    /** @copydoc MostState */
+    MostState state;
 
     /** @copydoc MostAckNack */
     MostAckNack ackNack;

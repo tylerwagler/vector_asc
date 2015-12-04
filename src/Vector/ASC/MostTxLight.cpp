@@ -70,9 +70,7 @@ MostTxLight * MostTxLight::parse(File & file, std::string & line)
 void MostTxLight::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "TxLight:  %1X" */
     stream

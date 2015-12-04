@@ -58,9 +58,7 @@ MostLightLock * MostLightLock::parse(File & file, std::string & line)
 void MostLightLock::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "LL: %hu" */
     /* format: "LL: %hX" */

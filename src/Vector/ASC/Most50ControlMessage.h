@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <array>
+#include <vector>
 #include "Event.h"
 #include "MostSymbols.h"
 
@@ -85,7 +85,7 @@ public:
     MostMsg50Len msg50Len;
 
     /** @copydoc MostDx */
-    std::array<MostDx, 1024> data;
+    std::vector<MostDx> data;
 
     /** @copydoc Event::parse() */
     static Most50ControlMessage * parse(File & file, std::string & line);

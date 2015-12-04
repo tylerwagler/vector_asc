@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "Most150AllocTable.h"
 #include "MostCommon.h"
@@ -34,7 +35,7 @@ Most150AllocTable::Most150AllocTable() :
     at150EventModeFlags(0),
     freeBytes(0),
     at150Size(0),
-    w()
+    wordData()
 {
     eventType = EventType::Most150AllocTable;
 }
@@ -61,7 +62,7 @@ Most150AllocTable * Most150AllocTable::parse(File & file, std::string & line)
         for (uint8_t i = 0; i < most150AllocTable->at150Size; ++i) {
             unsigned short s;
             iss >> s;
-            most150AllocTable->w[i] = s;
+            most150AllocTable->wordData.push_back(s);
         }
         return most150AllocTable;
     }
@@ -72,12 +73,15 @@ Most150AllocTable * Most150AllocTable::parse(File & file, std::string & line)
 void Most150AllocTable::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
 
     /* format: "AT150:    " */
     stream << "AT150:    ";
+
+    writeMostAt150EventModeFlags(file, stream, at150EventModeFlags);
+    writeMostFreeBytes(file, stream, freeBytes);
+    writeMostAt150Size(file, stream, at150Size);
+    writeMostWordData(file, stream, wordData);
 
     stream << endl;
 }

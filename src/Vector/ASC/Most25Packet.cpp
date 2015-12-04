@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "Most25Packet.h"
 #include "MostCommon.h"
@@ -80,13 +81,20 @@ Most25Packet * Most25Packet::parse(File & file, std::string & line)
         most25Packet->pktPrio = std::stoul(match[8], nullptr, 16);
         most25Packet->pktArbitr = std::stoul(match[9], nullptr, 16);
         most25Packet->crc2 = std::stoul(match[10], nullptr, 16);
-        most25Packet->pktLen = std::stoul(match[11], nullptr, 16);
+        most25Packet->pktLen = std::stoul(match[11], nullptr, file.base);
         std::istringstream iss(match[12]);
-        iss >> std::hex;
+        switch(file.base) {
+        case 10:
+            iss >> std::dec;
+            break;
+        case 16:
+            iss >> std::hex;
+            break;
+        }
         for (uint8_t i = 0; i < most25Packet->pktLen; ++i) {
             unsigned short s;
             iss >> s;
-            most25Packet->data[i] = s;
+            most25Packet->data.push_back(s);
         }
         return most25Packet;
     }
@@ -97,9 +105,47 @@ Most25Packet * Most25Packet::parse(File & file, std::string & line)
 void Most25Packet::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
+
+    /* format: "Pkt: " */
+    stream << "Pkt: ";
+
+    writeMostDir(file, stream, dir);
+    writeMostSourceAdr(file, stream, sourceAdr);
+    writeMostSourceAdr(file, stream, destAdr);
+
+    /* format: "%02X %02X %1X %02X %04X %4d " */
+    /* format: "%02X %02X %1X %02X %04X %03X " */
+    stream
+            << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) pktState
+            << ' ';
+    switch(transferType) {
+    case MostTransferType::Node:
+        stream << "01";
+        break;
+    case MostTransferType::Spy:
+        stream << "02";
+        break;
+    }
+    stream
+            << ' '
+            << std::setw(1) << std::uppercase << std::hex << (uint16_t) pktPrio
+            << ' '
+            << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) pktArbitr
+            << ' '
+            << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << crc2
+            << ' ';
+    switch(file.base) {
+    case 10:
+        stream << std::setfill(' ') << std::setw(4) << std::dec << pktLen;
+        break;
+    case 16:
+        stream << std::setfill('0') << std::setw(3) << std::uppercase << std::hex << pktLen;
+        break;
+    }
     stream << ' ';
+
+    writeMostData(file, stream, data);
 
     stream << endl;
 }

@@ -77,7 +77,7 @@ Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::parse(File & file, 
         for (int i = 0; !iss.eof(); ++i) {
             unsigned short s;
             iss >> s;
-            most25ControlMessageNodeMode->data[i] = s;
+            most25ControlMessageNodeMode->data.push_back(s);
         }
         most25ControlMessageNodeMode->state2 = std::stoul(match[9], nullptr, file.base);
         return most25ControlMessageNodeMode;
@@ -89,17 +89,15 @@ Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::parse(File & file, 
 void Most25ControlMessageNodeMode::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
     writeMostDir(file, stream, dir);
-    stream << "    " << std::dec << (uint16_t) sourceAdr;
-    stream << ' ' << std::dec << (uint16_t) destAdr;
-    stream << "   " << std::dec << (uint16_t) rType;
+    writeMostSourceAdr(file, stream, sourceAdr);
+    writeMostDestAdr(file, stream, destAdr);
+    writeMostRType(file, stream, rType);
     stream << ' ';
-    for (int i = 0; i < 17; ++i)
-        stream << ' ' << std::setw(3) << std::dec << (uint16_t) data[i];
-    stream << "   " << std::dec << (uint16_t) state2;
+    writeMostData(file, stream, data);
+    stream << ' ';
+    writeMostState2(file, stream, state2);
 
     stream << endl;
 }

@@ -73,7 +73,7 @@ Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::parse(File & file, st
         for (int i = 0; !iss.eof(); ++i) {
             unsigned short s;
             iss >> s;
-            most25ControlMessageSpyMode->data[i] = s;
+            most25ControlMessageSpyMode->data.push_back(s);
         }
         most25ControlMessageSpyMode->state = std::stoul(match[8], nullptr, file.base);
         most25ControlMessageSpyMode->ackNack = std::stoul(match[9], nullptr, file.base);
@@ -87,19 +87,17 @@ Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::parse(File & file, st
 void Most25ControlMessageSpyMode::write(File & file, std::ostream & stream)
 {
     writeMostTime(file, stream, time);
-    stream << ' ';
     writeMostChannel(file, stream, channel);
-    stream << ' ';
     writeMostDir(file, stream, Dir::Rx);
-    stream << "    " << std::dec << (uint16_t) sourceAdr;
-    stream << ' ' << std::dec << (uint16_t) destAdr;
-    stream << "   " << std::dec << (uint16_t) rType;
+    writeMostSourceAdr(file, stream, sourceAdr);
+    writeMostDestAdr(file, stream, destAdr);
+    writeMostRType(file, stream, rType);
     stream << ' ';
-    for (int i = 0; i < 17; ++i)
-        stream << ' ' << std::setw(3) << std::dec << (uint16_t) data[i];
-    stream << "   " << std::dec << (uint16_t) state;
-    stream << ' ' << std::dec << (uint16_t) ackNack;
-    stream << ' ' << std::dec << (uint16_t) crc;
+    writeMostData(file, stream, data);
+    stream << ' ';
+    writeMostState(file, stream, state);
+    writeMostAckNack(file, stream, ackNack);
+    writeMostCrc(file, stream, crc);
 
     stream << endl;
 }
