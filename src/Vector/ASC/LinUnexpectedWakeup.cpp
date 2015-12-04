@@ -50,7 +50,7 @@ LinUnexpectedWakeup * LinUnexpectedWakeup::parse(File & file, std::string & line
                      "((" REGEX_ws "approx\\." REGEX_ws REGEX_LIN_Width REGEX_ws "us" ")|("
                      REGEX_ws "Signal" REGEX_ws "=" REGEX_ws REGEX_LIN_WakeupByte "))"
                      REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
-                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate REGEX_ws REGEX_ENDL);
+                     REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         LinUnexpectedWakeup * linUnexpectedWakeup = new LinUnexpectedWakeup;

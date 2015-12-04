@@ -28,7 +28,7 @@ namespace ASC {
 
 /* Format Symbols */
 #define REGEX_STOL "^[[:blank:]]*"
-#define REGEX_ENDL "[\r\n]*$"
+#define REGEX_ENDL "[[:blank:]]*[\r\n]*$"
 #define REGEX_WS "[[:blank:]]+"
 #define REGEX_ws "[[:blank:]]*"
 

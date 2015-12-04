@@ -17,7 +17,7 @@
 
     // Format Symbols
 STOL ^[[:blank:]]*
-ENDL [\r\n]*$
+ENDL [[:blank:]]*[\r\n]*$
 WS [[:blank:]]+
 ws [[:blank:]]*
 
@@ -286,9 +286,9 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     /* Log and Trigger Events */
 {STOL}{Time}{WS}"log trigger event"{ws}.+?{ENDL} {
     return Vector::ASC::Event::EventType::LogTrigger; }
-{STOL}{Time}{WS}"log direct start"{ws}"("{PreTrigger}"ms)"{ws}{ENDL} {
+{STOL}{Time}{WS}"log direct start"{ws}"("{PreTrigger}"ms)"{ENDL} {
     return Vector::ASC::Event::EventType::LogDirectStart; }
-{STOL}{Time}{WS}"log direct stop"{ws}"("{PostTrigger}"ms)"{ws}{ENDL} {
+{STOL}{Time}{WS}"log direct stop"{ws}"("{PostTrigger}"ms)"{ENDL} {
     return Vector::ASC::Event::EventType::LogDirectStop; }
 {STOL}"Begin Triggerblock"{WS}{WeekDay}{WS}{Month}{WS}{Date}{WS}{FullTime}{WS}{Year}{ENDL} {
     return Vector::ASC::Event::EventType::BeginTriggerblock; }
@@ -375,7 +375,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::LinDominantSignal; }
 
     /* LIN Info Events */
-{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Baudrate"{WS}{LIN_baudrate}{ws}{ENDL} {
+{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Baudrate"{WS}{LIN_baudrate}{ENDL} {
     return Vector::ASC::Event::EventType::LinBaudrate; }
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}{LIN_ID}{WS}"DlcInfo"{WS}{LIN_DLC}{ENDL} {
     return Vector::ASC::Event::EventType::LinDlcInfo; }
@@ -399,7 +399,7 @@ TPDiag_byteSequence ({WS}[[:xdigit:]]+)*
     return Vector::ASC::Event::EventType::LinSleepMode; }
 {STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"WakeupFrame"{WS}{LIN_Dir}{WS}{LIN_WakeupByte}({WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{WS}"LengthCode"{ws}"="{ws}{LIN_WakeupLengthInfo})?{ENDL} {
     return Vector::ASC::Event::EventType::LinWakeupFrame; }
-{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Unexpected wakeup:"(({ws}"approx\."{ws}{LIN_Width}{ws}"us")|({ws}"Signal"{ws}"="{ws}{LIN_WakeupByte})){WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{ws}{ENDL} {
+{STOL}{LIN_Time}{WS}{LIN_Channel}{WS}"Unexpected wakeup:"(({ws}"approx\."{ws}{LIN_Width}{ws}"us")|({ws}"Signal"{ws}"="{ws}{LIN_WakeupByte})){WS}"SOF"{ws}"="{ws}{LIN_startOfFrame}{WS}"BR"{ws}"="{ws}{LIN_baudrate}{ENDL} {
     return Vector::ASC::Event::EventType::LinUnexpectedWakeup; }
 
     /* MOST Events */
