@@ -200,6 +200,7 @@ BOOST_AUTO_TEST_CASE(CanMessage)
     BOOST_CHECK(canMessage->id == 0x123);
     BOOST_CHECK(canMessage->dir == Vector::ASC::Dir::Tx);
     BOOST_CHECK(canMessage->dlc == 2);
+    BOOST_REQUIRE(canMessage->data.size() == 2);
     BOOST_CHECK(canMessage->data[0] == 0x00);
     BOOST_CHECK(canMessage->data[1] == 0x00);
     BOOST_CHECK(canMessage->messageDuration == 768000);
@@ -211,6 +212,10 @@ BOOST_AUTO_TEST_CASE(CanMessage)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanMessage);
     canMessage = static_cast<Vector::ASC::CanMessage *>(event);
     BOOST_CHECK(isEqual(canMessage->time, 2.500900));
@@ -218,6 +223,7 @@ BOOST_AUTO_TEST_CASE(CanMessage)
     BOOST_CHECK(canMessage->id == 0x64);
     BOOST_CHECK(canMessage->dir == Vector::ASC::Dir::Tx);
     BOOST_CHECK(canMessage->dlc == 8);
+    BOOST_REQUIRE(canMessage->data.size() == 8);
     BOOST_CHECK(canMessage->data[0] == 0x00);
     BOOST_CHECK(canMessage->data[1] == 0x01);
     BOOST_CHECK(canMessage->data[2] == 0x02);
@@ -239,6 +245,10 @@ BOOST_AUTO_TEST_CASE(CanMessage)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanMessage);
     canMessage = static_cast<Vector::ASC::CanMessage *>(event);
     BOOST_CHECK(isEqual(canMessage->time, 1.047413));
@@ -246,6 +256,7 @@ BOOST_AUTO_TEST_CASE(CanMessage)
     BOOST_CHECK(canMessage->id == 1792);
     BOOST_CHECK(canMessage->dir == Vector::ASC::Dir::Tx);
     BOOST_CHECK(canMessage->dlc == 8);
+    BOOST_REQUIRE(canMessage->data.size() == 8);
     BOOST_CHECK(canMessage->data[0] == 2);
     BOOST_CHECK(canMessage->data[1] == 16);
     BOOST_CHECK(canMessage->data[2] == 0);
@@ -280,6 +291,10 @@ BOOST_AUTO_TEST_CASE(CanExtendedMessage)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanExtendedMessage);
     canExtendedMessage = static_cast<Vector::ASC::CanExtendedMessage *>(event);
     BOOST_CHECK(isEqual(canExtendedMessage->time, 4.876870));
@@ -287,6 +302,7 @@ BOOST_AUTO_TEST_CASE(CanExtendedMessage)
     BOOST_CHECK(canExtendedMessage->id == 0x54C5638);
     BOOST_CHECK(canExtendedMessage->dir == Vector::ASC::Dir::Tx);
     BOOST_CHECK(canExtendedMessage->dlc == 8);
+    BOOST_REQUIRE(canExtendedMessage->data.size() == 8);
     BOOST_CHECK(canExtendedMessage->data[0] == 0x00);
     BOOST_CHECK(canExtendedMessage->data[1] == 0x00);
     BOOST_CHECK(canExtendedMessage->data[2] == 0x00);
@@ -297,10 +313,14 @@ BOOST_AUTO_TEST_CASE(CanExtendedMessage)
     BOOST_CHECK(canExtendedMessage->data[7] == 0x00);
     BOOST_CHECK(canExtendedMessage->messageDuration == 1704000);
     BOOST_CHECK(canExtendedMessage->messageLength == 145);
-    BOOST_CHECK(canExtendedMessage->messageId == 0x88888888);
+    BOOST_CHECK(canExtendedMessage->messageId == 88888888);
     BOOST_CHECK(canExtendedMessage->messageFlags.te == false);
     BOOST_CHECK(canExtendedMessage->messageFlags.wu == false);
     delete event;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
@@ -311,6 +331,7 @@ BOOST_AUTO_TEST_CASE(CanExtendedMessage)
     BOOST_CHECK(canExtendedMessage->id == 0xC8);
     BOOST_CHECK(canExtendedMessage->dir == Vector::ASC::Dir::Rx);
     BOOST_CHECK(canExtendedMessage->dlc == 8);
+    BOOST_REQUIRE(canExtendedMessage->data.size() == 8);
     BOOST_CHECK(canExtendedMessage->data[0] == 0x09);
     BOOST_CHECK(canExtendedMessage->data[1] == 0x08);
     BOOST_CHECK(canExtendedMessage->data[2] == 0x07);
@@ -338,6 +359,10 @@ BOOST_AUTO_TEST_CASE(CanRemoteFrame)
 
     Vector::ASC::Event * event;
     Vector::ASC::CanRemoteFrame * canRemoteFrame;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
@@ -503,6 +528,7 @@ BOOST_AUTO_TEST_CASE(CanFdMessage)
     BOOST_CHECK(canFdMessage->esi == false);
     BOOST_CHECK(canFdMessage->dlc == 9);
     BOOST_CHECK(canFdMessage->dataLength == 12);
+    BOOST_REQUIRE(canFdMessage->data.size() == 12);
     BOOST_CHECK(canFdMessage->data[0] == 0x29);
     BOOST_CHECK(canFdMessage->data[1] == 0x00);
     BOOST_CHECK(canFdMessage->data[2] == 0x00);
@@ -549,6 +575,7 @@ BOOST_AUTO_TEST_CASE(CanFdExtendedMessage)
     BOOST_CHECK(canFdExtendedMessage->esi == false);
     BOOST_CHECK(canFdExtendedMessage->dlc == 0xf);
     BOOST_CHECK(canFdExtendedMessage->dataLength == 64);
+    BOOST_REQUIRE(canFdExtendedMessage->data.size() == 12);
     for(int i = 0; i < 64; ++i)
         BOOST_CHECK(canFdExtendedMessage->data[i] == i+1);
     BOOST_CHECK(canFdExtendedMessage->messageDuration == 1238000);
@@ -590,6 +617,7 @@ BOOST_AUTO_TEST_CASE(CanFdErrorFrame)
     BOOST_CHECK(canFdErrorFrame->esi == false);
     BOOST_CHECK(canFdErrorFrame->dlc == 0xf);
     BOOST_CHECK(canFdErrorFrame->dataLength == 64);
+    BOOST_REQUIRE(canFdErrorFrame->data.size() == 64);
     for(int i = 0; i < 64; ++i)
         BOOST_CHECK(canFdErrorFrame->data[i] == 0xaa);
     BOOST_CHECK(canFdErrorFrame->messageDuration == 336484);
@@ -995,6 +1023,7 @@ BOOST_AUTO_TEST_CASE(EthernetPacket)
     BOOST_CHECK(ethernetPacket->channel == 2);
     BOOST_CHECK(ethernetPacket->dir == Vector::ASC::Dir::Tx);
     BOOST_CHECK(ethernetPacket->dataLen == 0x3c);
+    BOOST_REQUIRE(ethernetPacket->data.size() == 0x3c);
     BOOST_CHECK(ethernetPacket->data[0x00] == 0xFF);
     BOOST_CHECK(ethernetPacket->data[0x01] == 0xFF);
     BOOST_CHECK(ethernetPacket->data[0x02] == 0xFF);
@@ -1110,6 +1139,7 @@ BOOST_AUTO_TEST_CASE(EthernetRxError)
     BOOST_CHECK(ethernetRxError->errorCode == 0x02);
     BOOST_CHECK(ethernetRxError->frameChecksum == 0x00001234);
     BOOST_CHECK(ethernetRxError->dataLen == 0x3c);
+    BOOST_REQUIRE(ethernetRxError->data.size() == 0x3c);
     BOOST_CHECK(ethernetRxError->data[0x00] == 0x00);
     BOOST_CHECK(ethernetRxError->data[0x01] == 0x00);
     BOOST_CHECK(ethernetRxError->data[0x02] == 0x00);
@@ -1201,6 +1231,7 @@ BOOST_AUTO_TEST_CASE(AfdxPacket)
     BOOST_CHECK(afdxPacket->flags == 0x64);
     BOOST_CHECK(afdxPacket->bag == 0);
     BOOST_CHECK(afdxPacket->dataLen == 0x3c);
+    BOOST_REQUIRE(afdxPacket->data.size() == 0x3c);
     BOOST_CHECK(afdxPacket->data[0x00] == 0xFF);
     BOOST_CHECK(afdxPacket->data[0x01] == 0xFF);
     BOOST_CHECK(afdxPacket->data[0x02] == 0xFF);
@@ -1294,6 +1325,7 @@ BOOST_AUTO_TEST_CASE(FlexRayOldMessage)
     BOOST_CHECK(flexRayOldMessage->headerCrc == 151);
     BOOST_CHECK(flexRayOldMessage->symbolicName == "Ident_04_Rnd_0");
     BOOST_CHECK(flexRayOldMessage->dlc == 4);
+    BOOST_REQUIRE(flexRayOldMessage->data.size() == 4);
     BOOST_CHECK(flexRayOldMessage->data[0] == 21);
     BOOST_CHECK(flexRayOldMessage->data[1] == 87);
     BOOST_CHECK(flexRayOldMessage->data[2] == 22);
@@ -1315,6 +1347,7 @@ BOOST_AUTO_TEST_CASE(FlexRayOldMessage)
     BOOST_CHECK(flexRayOldMessage->headerCrc == 620);
     BOOST_CHECK(flexRayOldMessage->symbolicName == "x");
     BOOST_CHECK(flexRayOldMessage->dlc == 4);
+    BOOST_REQUIRE(flexRayOldMessage->data.size() == 4);
     BOOST_CHECK(flexRayOldMessage->data[0] == 2);
     BOOST_CHECK(flexRayOldMessage->data[1] == 89);
     BOOST_CHECK(flexRayOldMessage->data[2] == 0);
@@ -1347,6 +1380,7 @@ BOOST_AUTO_TEST_CASE(FlexRayOldStartCycle)
     BOOST_CHECK(isEqual(flexRayOldStartCycle->time, 0.041700));
     BOOST_CHECK(flexRayOldStartCycle->channel == '*');
     BOOST_CHECK(flexRayOldStartCycle->dlc == 2);
+    BOOST_REQUIRE(flexRayOldStartCycle->data.size() == 4);
     BOOST_CHECK(flexRayOldStartCycle->data[0] == 0);
     BOOST_CHECK(flexRayOldStartCycle->data[1] == 0);
     delete event;
@@ -1390,6 +1424,7 @@ BOOST_AUTO_TEST_CASE(FlexRayMessage)
     BOOST_CHECK(flexRayMessage->name == "Message_2");
     BOOST_CHECK(flexRayMessage->payloadLength == 4);
     BOOST_CHECK(flexRayMessage->bufferLength == 4);
+    BOOST_REQUIRE(flexRayMessage->data.size() == 4);
     BOOST_CHECK(flexRayMessage->data[0] == 27);
     BOOST_CHECK(flexRayMessage->data[1] == 24);
     BOOST_CHECK(flexRayMessage->data[2] == 29);
@@ -1420,6 +1455,7 @@ BOOST_AUTO_TEST_CASE(FlexRayMessage)
     BOOST_CHECK(flexRayMessage->name == "PDU_DEMO_1");
     BOOST_CHECK(flexRayMessage->payloadLength == 1);
     BOOST_CHECK(flexRayMessage->bufferLength == 1);
+    BOOST_REQUIRE(flexRayMessage->data.size() == 1);
     BOOST_CHECK(flexRayMessage->data[0] == 0);
     BOOST_CHECK(flexRayMessage->frameCrc == 0);
     BOOST_CHECK(flexRayMessage->spyFlag == 0);
@@ -1448,6 +1484,7 @@ BOOST_AUTO_TEST_CASE(FlexRayMessage)
     BOOST_CHECK(flexRayMessage->name == "FlexRay_Frame_[3|0|1]");
     BOOST_CHECK(flexRayMessage->payloadLength == 42);
     BOOST_CHECK(flexRayMessage->bufferLength == 42);
+    BOOST_REQUIRE(flexRayMessage->data.size() == 42);
     BOOST_CHECK(flexRayMessage->data[ 0] == 0);
     BOOST_CHECK(flexRayMessage->data[ 1] == 0);
     BOOST_CHECK(flexRayMessage->data[ 2] == 0);
@@ -1530,6 +1567,7 @@ BOOST_AUTO_TEST_CASE(FlexRayStartCycle)
     BOOST_CHECK(flexRayStartCycle->ccData[3] == 0);
     BOOST_CHECK(flexRayStartCycle->ccData[4] == 0);
     BOOST_CHECK(flexRayStartCycle->nmVectL == 0);
+    BOOST_REQUIRE(flexRayStartCycle->nmVect.size() == 0);
     delete event;
 
     BOOST_CHECK(file.eof());
@@ -1628,6 +1666,7 @@ BOOST_AUTO_TEST_CASE(KLineByte)
     BOOST_CHECK(kLineByte->direction == Vector::ASC::Dir::Rx);
     BOOST_CHECK(kLineByte->baudrate == 10400);
     BOOST_CHECK(kLineByte->length == 7);
+    BOOST_REQUIRE(kLineByte->data.size() == 7);
     BOOST_CHECK(kLineByte->data[0] == 0x83);
     BOOST_CHECK(kLineByte->data[1] == 0x11);
     BOOST_CHECK(kLineByte->data[2] == 0x61);
@@ -1665,6 +1704,7 @@ BOOST_AUTO_TEST_CASE(KLineMessage)
     BOOST_CHECK(kLineMessage->source == "61");
     BOOST_CHECK(kLineMessage->destination == "11");
     BOOST_CHECK(kLineMessage->length == 7);
+    BOOST_REQUIRE(kLineMessage->data.size() == 7);
     BOOST_CHECK(kLineMessage->data[0] == 0x83);
     BOOST_CHECK(kLineMessage->data[1] == 0x11);
     BOOST_CHECK(kLineMessage->data[2] == 0x61);
@@ -1705,6 +1745,7 @@ BOOST_AUTO_TEST_CASE(LinMessage)
     BOOST_CHECK(linMessage->id == "2d");
     BOOST_CHECK(linMessage->dir == Vector::ASC::Dir::Tx);
     BOOST_CHECK(linMessage->dlc == 8);
+    BOOST_REQUIRE(linMessage->data.size() == 8);
     BOOST_CHECK(linMessage->data[0] == 0x00);
     BOOST_CHECK(linMessage->data[1] == 0xf0);
     BOOST_CHECK(linMessage->data[2] == 0xf0);
@@ -1721,6 +1762,7 @@ BOOST_AUTO_TEST_CASE(LinMessage)
     BOOST_CHECK(linMessage->syncBreak == 937125);
     BOOST_CHECK(linMessage->syncDel == 114062);
     BOOST_CHECK(isEqual(linMessage->endOfHeader, 0.069266));
+    BOOST_REQUIRE(linMessage->endOfByte.size() == 8);
     BOOST_CHECK(isEqual(linMessage->endOfByte[0], 0.069789));
     BOOST_CHECK(isEqual(linMessage->endOfByte[1], 0.070312));
     BOOST_CHECK(isEqual(linMessage->endOfByte[2], 0.070835));
@@ -1809,6 +1851,7 @@ BOOST_AUTO_TEST_CASE(LinReceiveError)
     BOOST_CHECK(linReceiveError->isShortError == false);
     BOOST_CHECK(linReceiveError->isDlcTimeout == false);
     BOOST_CHECK(linReceiveError->hasDataBytes == true);
+    BOOST_REQUIRE(linReceiveError->data.size() == 8);
     BOOST_CHECK(linReceiveError->data[0] == 0x05);
     BOOST_CHECK(linReceiveError->data[1] == 0x00);
     BOOST_CHECK(linReceiveError->data[2] == 0x00);
@@ -1822,6 +1865,7 @@ BOOST_AUTO_TEST_CASE(LinReceiveError)
     BOOST_CHECK(linReceiveError->syncBreak == 937187);
     BOOST_CHECK(linReceiveError->syncDel == 112437);
     BOOST_CHECK(isEqual(linReceiveError->endOfHeader, 0.548121));
+    BOOST_REQUIRE(linReceiveError->endOfByte.size() == 8);
     BOOST_CHECK(isEqual(linReceiveError->endOfByte[0], 0.548644));
     BOOST_CHECK(isEqual(linReceiveError->endOfByte[1], 0.549167));
     BOOST_CHECK(isEqual(linReceiveError->endOfByte[2], 0.549690));
@@ -1900,6 +1944,7 @@ BOOST_AUTO_TEST_CASE(LinChecksumError)
     BOOST_CHECK(linChecksumError->id == "33");
     BOOST_CHECK(linChecksumError->dir == Vector::ASC::Dir::Tx);
     BOOST_CHECK(linChecksumError->dlc == 8);
+    BOOST_REQUIRE(linChecksumError->data.size() == 8);
     BOOST_CHECK(linChecksumError->data[0] == 0x05);
     BOOST_CHECK(linChecksumError->data[1] == 0x00);
     BOOST_CHECK(linChecksumError->data[2] == 0x00);
@@ -1916,6 +1961,7 @@ BOOST_AUTO_TEST_CASE(LinChecksumError)
     BOOST_CHECK(linChecksumError->syncBreak == 937187);
     BOOST_CHECK(linChecksumError->syncDel == 114875);
     BOOST_CHECK(isEqual(linChecksumError->endOfHeader, 0.458122));
+    BOOST_REQUIRE(linChecksumError->endOfByte.size() == 8);
     BOOST_CHECK(isEqual(linChecksumError->endOfByte[0], 0.458645));
     BOOST_CHECK(isEqual(linChecksumError->endOfByte[1], 0.459168));
     BOOST_CHECK(isEqual(linChecksumError->endOfByte[2], 0.459691));
@@ -2210,6 +2256,7 @@ BOOST_AUTO_TEST_CASE(LinShortOrSlowResponse)
     BOOST_CHECK(linShortOrSlowResponse->id == "1");
     BOOST_CHECK(linShortOrSlowResponse->dlc == 8);
     BOOST_CHECK(linShortOrSlowResponse->numberOfResponseBytes == 9);
+    BOOST_REQUIRE(linShortOrSlowResponse->data.size() == 9);
     BOOST_CHECK(linShortOrSlowResponse->data[0] == 0x11);
     BOOST_CHECK(linShortOrSlowResponse->data[1] == 0x12);
     BOOST_CHECK(linShortOrSlowResponse->data[2] == 0x13);
@@ -2226,6 +2273,7 @@ BOOST_AUTO_TEST_CASE(LinShortOrSlowResponse)
     BOOST_CHECK(linShortOrSlowResponse->syncBreak == 937250);
     BOOST_CHECK(linShortOrSlowResponse->syncDel == 102625);
     BOOST_CHECK(isEqual(linShortOrSlowResponse->endOfHeader, 1.281570));
+    BOOST_REQUIRE(linShortOrSlowResponse->endOfByte.size() == 8);
     BOOST_CHECK(isEqual(linShortOrSlowResponse->endOfByte[0], 1.283679));
     BOOST_CHECK(isEqual(linShortOrSlowResponse->endOfByte[1], 1.285759));
     BOOST_CHECK(isEqual(linShortOrSlowResponse->endOfByte[2], 1.287839));
@@ -2318,6 +2366,10 @@ BOOST_AUTO_TEST_CASE(LinWakeupFrame)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinWakeupFrame);
     linWakeupFrame = static_cast<Vector::ASC::LinWakeupFrame *>(event);
     BOOST_CHECK(isEqual(linWakeupFrame->time, 2.318672));
@@ -2385,6 +2437,7 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageNodeMode)
     BOOST_CHECK(most25ControlMessageNodeMode->sourceAdr == 0x0100);
     BOOST_CHECK(most25ControlMessageNodeMode->destAdr == 0x0401);
     BOOST_CHECK(most25ControlMessageNodeMode->rType == 0x00);
+    BOOST_REQUIRE(most25ControlMessageNodeMode->data.size() == 17);
     BOOST_CHECK(most25ControlMessageNodeMode->data[0] == 0x01);
     BOOST_CHECK(most25ControlMessageNodeMode->data[1] == 0x01);
     BOOST_CHECK(most25ControlMessageNodeMode->data[2] == 0x00);
@@ -2431,6 +2484,7 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageSpyMode)
     BOOST_CHECK(most25ControlMessageSpyMode->sourceAdr == 0xFFFF);
     BOOST_CHECK(most25ControlMessageSpyMode->destAdr == 0x0100);
     BOOST_CHECK(most25ControlMessageSpyMode->rType == 0x00);
+    BOOST_REQUIRE(most25ControlMessageSpyMode->data.size() == 17);
     BOOST_CHECK(most25ControlMessageSpyMode->data[0] == 0x01);
     BOOST_CHECK(most25ControlMessageSpyMode->data[1] == 0x01);
     BOOST_CHECK(most25ControlMessageSpyMode->data[2] == 0x00);
@@ -2468,6 +2522,10 @@ BOOST_AUTO_TEST_CASE(Most25Packet)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most25Packet);
     most25Packet = static_cast<Vector::ASC::Most25Packet *>(event);
     BOOST_CHECK(isEqual(most25Packet->time, 4.445080));
@@ -2481,6 +2539,7 @@ BOOST_AUTO_TEST_CASE(Most25Packet)
     BOOST_CHECK(most25Packet->pktArbitr == 0x03);
     BOOST_CHECK(most25Packet->crc2 == 0x0000);
     BOOST_CHECK(most25Packet->pktLen == 0x00A);
+    BOOST_REQUIRE(most25Packet->data.size() == 0x00A);
     BOOST_CHECK(most25Packet->data[0] == 0x52);
     BOOST_CHECK(most25Packet->data[1] == 0x01);
     BOOST_CHECK(most25Packet->data[2] == 0xE0);
@@ -2491,7 +2550,6 @@ BOOST_AUTO_TEST_CASE(Most25Packet)
     BOOST_CHECK(most25Packet->data[7] == 0x00);
     BOOST_CHECK(most25Packet->data[8] == 0x00);
     BOOST_CHECK(most25Packet->data[9] == 0x00);
-    BOOST_CHECK(most25Packet->data[10] == 0x00);
     delete event;
 
     BOOST_CHECK(file.eof());
@@ -2563,6 +2621,7 @@ BOOST_AUTO_TEST_CASE(MostCommonRegister)
     BOOST_CHECK(mostCommonRegister->regChip == 0x01);
     BOOST_CHECK(mostCommonRegister->regOffset == 0x0000);
     BOOST_CHECK(mostCommonRegister->regDataLen == 0x10);
+    BOOST_REQUIRE(mostCommonRegister->data.size() == 0x10);
     BOOST_CHECK(mostCommonRegister->data[0] == 0x00);
     BOOST_CHECK(mostCommonRegister->data[1] == 0x01);
     BOOST_CHECK(mostCommonRegister->data[2] == 0x02);
@@ -2639,6 +2698,10 @@ BOOST_AUTO_TEST_CASE(MostDataLost)
 
     Vector::ASC::Event * event;
     Vector::ASC::MostDataLost * mostDataLost;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
@@ -2791,6 +2854,7 @@ BOOST_AUTO_TEST_CASE(Most25AllocTable)
     BOOST_CHECK(isEqual(most25AllocTable->time, 0.032775));
     BOOST_CHECK(most25AllocTable->channel == 2);
     BOOST_CHECK(most25AllocTable->allocTableSize == 0x003C);
+    BOOST_REQUIRE(most25AllocTable->data.size() == 0x003C);
     BOOST_CHECK(most25AllocTable->data[0x00] == 0x70);
     BOOST_CHECK(most25AllocTable->data[0x01] == 0x70);
     BOOST_CHECK(most25AllocTable->data[0x02] == 0x70);
@@ -2868,6 +2932,10 @@ BOOST_AUTO_TEST_CASE(Most150ControlMessage)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most150ControlMessage);
     most150ControlMessage = static_cast<Vector::ASC::Most150ControlMessage *>(event);
     BOOST_CHECK(isEqual(most150ControlMessage->time, 5.708800));
@@ -2885,6 +2953,7 @@ BOOST_AUTO_TEST_CASE(Most150ControlMessage)
     BOOST_CHECK(most150ControlMessage->cAck == 0x44);
     BOOST_CHECK(most150ControlMessage->rsvdUl == 0x00);
     BOOST_CHECK(most150ControlMessage->msg150Len == 0x08);
+    BOOST_REQUIRE(most150ControlMessage->data.size() == 0x08);
     BOOST_CHECK(most150ControlMessage->data[0] == 0x11);
     BOOST_CHECK(most150ControlMessage->data[1] == 0x22);
     BOOST_CHECK(most150ControlMessage->data[2] == 0x33);
@@ -2910,6 +2979,10 @@ BOOST_AUTO_TEST_CASE(Most150ControlMessageFragment)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most150ControlMessageFragment);
     most150ControlMessageFragment = static_cast<Vector::ASC::Most150ControlMessageFragment *>(event);
     BOOST_CHECK(isEqual(most150ControlMessageFragment->time, 5.708800));
@@ -2927,6 +3000,7 @@ BOOST_AUTO_TEST_CASE(Most150ControlMessageFragment)
     BOOST_CHECK(most150ControlMessageFragment->frgDataLen == 0x0006);
     BOOST_CHECK(most150ControlMessageFragment->frgDataLenAnnounced == 0x0210);
     BOOST_CHECK(most150ControlMessageFragment->firstDataLen == 0x06);
+    BOOST_REQUIRE(most150ControlMessageFragment->data.size() == 0x06);
     BOOST_CHECK(most150ControlMessageFragment->data[0] == 0x01);
     BOOST_CHECK(most150ControlMessageFragment->data[1] == 0x02);
     BOOST_CHECK(most150ControlMessageFragment->data[2] == 0x03);
@@ -2950,6 +3024,10 @@ BOOST_AUTO_TEST_CASE(Most150Packet)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most150Packet);
     most150Packet = static_cast<Vector::ASC::Most150Packet *>(event);
     BOOST_CHECK(isEqual(most150Packet->time, 5.708800));
@@ -2967,6 +3045,7 @@ BOOST_AUTO_TEST_CASE(Most150Packet)
     BOOST_CHECK(most150Packet->cAck == 0x44);
     BOOST_CHECK(most150Packet->rsvdUl == 0x00);
     BOOST_CHECK(most150Packet->pkt150Len == 0x08);
+    BOOST_REQUIRE(most150Packet->data.size() == 0x08);
     BOOST_CHECK(most150Packet->data[0] == 0x11);
     BOOST_CHECK(most150Packet->data[1] == 0x22);
     BOOST_CHECK(most150Packet->data[2] == 0x33);
@@ -2992,6 +3071,10 @@ BOOST_AUTO_TEST_CASE(Most150PacketFragment)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most150PacketFragment);
     most150PacketFragment = static_cast<Vector::ASC::Most150PacketFragment *>(event);
     BOOST_CHECK(isEqual(most150PacketFragment->time, 5.708800));
@@ -3009,6 +3092,7 @@ BOOST_AUTO_TEST_CASE(Most150PacketFragment)
     BOOST_CHECK(most150PacketFragment->frgDataLen == 0x0006);
     BOOST_CHECK(most150PacketFragment->frgDataLenAnnounced == 0x0210);
     BOOST_CHECK(most150PacketFragment->firstDataLen == 0x06);
+    BOOST_REQUIRE(most150PacketFragment->data.size() == 0x06);
     BOOST_CHECK(most150PacketFragment->data[0] == 0x01);
     BOOST_CHECK(most150PacketFragment->data[1] == 0x02);
     BOOST_CHECK(most150PacketFragment->data[2] == 0x03);
@@ -3032,6 +3116,10 @@ BOOST_AUTO_TEST_CASE(MostEthernetPacket)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostEthernetPacket);
     mostEthernetPacket = static_cast<Vector::ASC::MostEthernetPacket *>(event);
     BOOST_CHECK(isEqual(mostEthernetPacket->time, 5.708800));
@@ -3047,6 +3135,7 @@ BOOST_AUTO_TEST_CASE(MostEthernetPacket)
     BOOST_CHECK(mostEthernetPacket->cAck == 0x44);
     BOOST_CHECK(mostEthernetPacket->rsvdUl == 0x00);
     BOOST_CHECK(mostEthernetPacket->pktEthLen == 0x08);
+    BOOST_REQUIRE(mostEthernetPacket->data.size() == 0x08);
     BOOST_CHECK(mostEthernetPacket->data[0] == 0x11);
     BOOST_CHECK(mostEthernetPacket->data[1] == 0x22);
     BOOST_CHECK(mostEthernetPacket->data[2] == 0x33);
@@ -3072,6 +3161,10 @@ BOOST_AUTO_TEST_CASE(MostEthernetPacketFragment)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostEthernetPacketFragment);
     mostEthernetPacketFragment = static_cast<Vector::ASC::MostEthernetPacketFragment *>(event);
     BOOST_CHECK(isEqual(mostEthernetPacketFragment->time, 5.708800));
@@ -3087,6 +3180,7 @@ BOOST_AUTO_TEST_CASE(MostEthernetPacketFragment)
     BOOST_CHECK(mostEthernetPacketFragment->frgDataLen == 0x0006);
     BOOST_CHECK(mostEthernetPacketFragment->frgDataLenAnnounced == 0x0210);
     BOOST_CHECK(mostEthernetPacketFragment->firstDataLen == 0x06);
+    BOOST_REQUIRE(mostEthernetPacketFragment->data.size() == 0x06);
     BOOST_CHECK(mostEthernetPacketFragment->data[0] == 0x01);
     BOOST_CHECK(mostEthernetPacketFragment->data[1] == 0x02);
     BOOST_CHECK(mostEthernetPacketFragment->data[2] == 0x03);
@@ -3141,6 +3235,7 @@ BOOST_AUTO_TEST_CASE(Most150AllocTable)
     BOOST_CHECK(most150AllocTable->at150EventModeFlags == 0x00);
     BOOST_CHECK(most150AllocTable->freeBytes == 0x002E);
     BOOST_CHECK(most150AllocTable->at150Size == 0x0004);
+    BOOST_REQUIRE(most150AllocTable->wordData.size() == 0x0004);
     BOOST_CHECK(most150AllocTable->wordData[0] == 0x010B);
     BOOST_CHECK(most150AllocTable->wordData[1] == 0x0004);
     BOOST_CHECK(most150AllocTable->wordData[2] == 0x4151);
@@ -3156,6 +3251,7 @@ BOOST_AUTO_TEST_CASE(Most150AllocTable)
     BOOST_CHECK(most150AllocTable->at150EventModeFlags == 0x00);
     BOOST_CHECK(most150AllocTable->freeBytes == 0x0074);
     BOOST_CHECK(most150AllocTable->at150Size == 0x0004);
+    BOOST_REQUIRE(most150AllocTable->wordData.size() == 0x0004);
     BOOST_CHECK(most150AllocTable->wordData[0] == 0x010B);
     BOOST_CHECK(most150AllocTable->wordData[1] == 0x0004);
     BOOST_CHECK(most150AllocTable->wordData[2] == 0x8151);
@@ -3177,6 +3273,10 @@ BOOST_AUTO_TEST_CASE(Most50ControlMessage)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most50ControlMessage);
     most50ControlMessage = static_cast<Vector::ASC::Most50ControlMessage *>(event);
     BOOST_CHECK(isEqual(most50ControlMessage->time, 0.200000));
@@ -3194,6 +3294,7 @@ BOOST_AUTO_TEST_CASE(Most50ControlMessage)
     BOOST_CHECK(most50ControlMessage->rsvdUc3 == 0x00);
     BOOST_CHECK(most50ControlMessage->rsvdUl == 0x00);
     BOOST_CHECK(most50ControlMessage->msg50Len == 0x09);
+    BOOST_REQUIRE(most50ControlMessage->data.size() == 0x09);
     BOOST_CHECK(most50ControlMessage->data[0] == 0x11);
     BOOST_CHECK(most50ControlMessage->data[1] == 0x01);
     BOOST_CHECK(most50ControlMessage->data[2] == 0x22);
@@ -3220,6 +3321,10 @@ BOOST_AUTO_TEST_CASE(Most50Packet)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most50Packet);
     most50Packet = static_cast<Vector::ASC::Most50Packet *>(event);
     BOOST_CHECK(isEqual(most50Packet->time, 5.708800));
@@ -3237,6 +3342,7 @@ BOOST_AUTO_TEST_CASE(Most50Packet)
     BOOST_CHECK(most50Packet->rsvdUc4 == 0x00);
     BOOST_CHECK(most50Packet->rsvdUl == 0x00);
     BOOST_CHECK(most50Packet->pktLen == 0x08);
+    BOOST_REQUIRE(most50Packet->data.size() == 0x08);
     BOOST_CHECK(most50Packet->data[0] == 0x11);
     BOOST_CHECK(most50Packet->data[1] == 0x22);
     BOOST_CHECK(most50Packet->data[2] == 0x33);
@@ -3293,6 +3399,7 @@ BOOST_AUTO_TEST_CASE(TpSingleFrame)
     BOOST_CHECK(tpDiagSingleFrame->source == "<tester>");
     BOOST_CHECK(tpDiagSingleFrame->destination == "Any_ECU_example");
     BOOST_CHECK(tpDiagSingleFrame->length == 0x02);
+    BOOST_REQUIRE(tpDiagSingleFrame->transportedBytes.size() == 0x02);
     BOOST_CHECK(tpDiagSingleFrame->transportedBytes[0] == 0x1A);
     BOOST_CHECK(tpDiagSingleFrame->transportedBytes[1] == 0x90);
     delete event;
@@ -3320,6 +3427,7 @@ BOOST_AUTO_TEST_CASE(TpDiagFirstFrame)
     BOOST_CHECK(tpFirstFrame->source == "Any_ECU_example");
     BOOST_CHECK(tpFirstFrame->destination == "<tester>");
     BOOST_CHECK(tpFirstFrame->length == 0x000C);
+    BOOST_REQUIRE(tpFirstFrame->transportedBytes.size() == 0x000C);
     BOOST_CHECK(tpFirstFrame->transportedBytes[0] == 0x5A);
     BOOST_CHECK(tpFirstFrame->transportedBytes[1] == 0x90);
     BOOST_CHECK(tpFirstFrame->transportedBytes[2] == 0x98);
@@ -3351,6 +3459,7 @@ BOOST_AUTO_TEST_CASE(TpConsecutiveFrame)
     BOOST_CHECK(tpConsecutiveFrame->source == "Any_ECU_example");
     BOOST_CHECK(tpConsecutiveFrame->destination == "<tester>");
     BOOST_CHECK(tpConsecutiveFrame->sn == 1);
+    BOOST_REQUIRE(tpConsecutiveFrame->transportedBytes.size() == 7);
     BOOST_CHECK(tpConsecutiveFrame->transportedBytes[0] == 0x10);
     BOOST_CHECK(tpConsecutiveFrame->transportedBytes[1] == 0x00);
     BOOST_CHECK(tpConsecutiveFrame->transportedBytes[2] == 0x99);
@@ -3407,7 +3516,7 @@ BOOST_AUTO_TEST_CASE(DiagRequest)
     BOOST_CHECK(isEqual(diagRequest->time, 1.765500));
     BOOST_CHECK(diagRequest->ecuQualifier == "Any_ECU_example");
     BOOST_CHECK(diagRequest->command == Vector::ASC::DiagRequest::Command::ByteSequence);
-    BOOST_CHECK(diagRequest->byteSequence.size() == 2);
+    BOOST_REQUIRE(diagRequest->byteSequence.size() == 2);
     BOOST_CHECK(diagRequest->byteSequence[0] == 0x1A);
     BOOST_CHECK(diagRequest->byteSequence[1] == 0x90);
     delete event;
@@ -3429,7 +3538,7 @@ BOOST_AUTO_TEST_CASE(DiagRequest)
     BOOST_CHECK(isEqual(diagRequest->time, 1.000000));
     BOOST_CHECK(diagRequest->ecuQualifier == "Engine");
     BOOST_CHECK(diagRequest->command == Vector::ASC::DiagRequest::Command::ByteSequence);
-    BOOST_CHECK(diagRequest->byteSequence.size() == 1);
+    BOOST_REQUIRE(diagRequest->byteSequence.size() == 1);
     BOOST_CHECK(diagRequest->byteSequence[0] == 0x20);
     delete event;
 
