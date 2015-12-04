@@ -103,21 +103,21 @@ void CanErrorFrame::write(File & file, std::ostream & stream)
         stream << '\t';
         /* format: "ECC: " */
         stream << "ECC: ";
-        stream << ((code >> 7) & 1);
-        stream << ((code >> 6) & 1);
-        stream << ((code >> 5) & 1);
-        stream << ((code >> 4) & 1);
-        stream << ((code >> 3) & 1);
-        stream << ((code >> 2) & 1);
-        stream << ((code >> 1) & 1);
-        stream << ((code >> 0) & 1);
+        stream << (uint16_t) ((code >> 7) & 1);
+        stream << (uint16_t) ((code >> 6) & 1);
+        stream << (uint16_t) ((code >> 5) & 1);
+        stream << (uint16_t) ((code >> 4) & 1);
+        stream << (uint16_t) ((code >> 3) & 1);
+        stream << (uint16_t) ((code >> 2) & 1);
+        stream << (uint16_t) ((code >> 1) & 1);
+        stream << (uint16_t) ((code >> 0) & 1);
     }
 
     /* CAN Core */
     if (flags & 0xe) {
         /* format: "Flags = " */
         stream << " Flags = ";
-        stream << "0x" << std::hex << flags;
+        stream << "0x" << std::hex << (uint16_t) flags;
 
         /* format: "CodeExt = " */
         stream << " CodeExt = ";
@@ -125,7 +125,7 @@ void CanErrorFrame::write(File & file, std::ostream & stream)
 
         /* format: "Code = " */
         stream << " Code = ";
-        stream << "0x" << std::hex << code;
+        stream << "0x" << std::hex << (uint16_t) code;
 
         /* format: "ID = " */
         stream << " ID = ";
@@ -136,15 +136,15 @@ void CanErrorFrame::write(File & file, std::ostream & stream)
 
         /* format: "DLC = " */
         stream << " DLC = ";
-        stream << std::hex << dlc << std::dec;
+        stream << std::hex << (uint16_t) dlc;
 
         /* format: "Position = " */
         stream << " Position = ";
-        stream << position;
+        stream << std::dec << position;
 
         /* format: "Length = " */
         stream << " Length = ";
-        stream << length;
+        stream << std::dec << length;
     }
 
     stream << endl;

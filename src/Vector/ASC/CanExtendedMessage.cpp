@@ -96,7 +96,7 @@ CanExtendedMessage * CanExtendedMessage::parse(File & file, std::string & line)
             }
         }
         if (match[14] != "")
-            canExtendedMessage->messageId = std::stoul(match[15], nullptr, 16);
+            canExtendedMessage->messageId = std::stoul(match[15]);
         return canExtendedMessage;
     }
 
@@ -137,8 +137,6 @@ void CanExtendedMessage::write(File & file, std::ostream & stream)
     }
 
     if (file.version >= File::Version::Ver_7_5) {
-        stream << ' ';
-
         /* format: " Length= " */
         stream << " Length = ";
 
@@ -157,14 +155,13 @@ void CanExtendedMessage::write(File & file, std::ostream & stream)
     }
 #endif
 
-#if 0
     if (file.version >= File::Version::Ver_8_0) {
         /* format: " ID = " */
         stream << " ID = ";
 
         stream << std::dec << (uint32_t) messageId;
+        stream << 'x';
     }
-#endif
 
     stream << endl;
 }
