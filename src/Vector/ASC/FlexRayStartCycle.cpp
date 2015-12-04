@@ -82,6 +82,7 @@ FlexRayStartCycle * FlexRayStartCycle::parse(File & file, std::string & line)
         flexRayStartCycle->ccData[3] = std::stoul(match[12], nullptr, file.base);
         flexRayStartCycle->ccData[4] = std::stoul(match[13], nullptr, file.base);
         flexRayStartCycle->nmVectL = std::stoul(match[14], nullptr, file.base);
+        if (match[15] != "") {
             std::istringstream iss(match[15]);
             switch(file.base) {
             case 10:
@@ -95,6 +96,7 @@ FlexRayStartCycle * FlexRayStartCycle::parse(File & file, std::string & line)
                 unsigned short s;
                 iss >> s;
                 flexRayStartCycle->nmVect.push_back(s);
+            }
         }
         return flexRayStartCycle;
     }
