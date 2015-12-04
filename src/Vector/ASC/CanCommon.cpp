@@ -63,26 +63,10 @@ void writeDir(File & file, std::ostream & stream, Dir dir)
 
 void writeTime(File & file, std::ostream & stream, Time & time)
 {
-    uint8_t timestampPrecision = file.timestampPrecision;
-
-    /* If left at default 0, the precision is automatically set dependent on file version. */
-    if (timestampPrecision == 0) {
-#if 0
-        /* Old versions used to have precision 4 and newer versions use to have 6. */
-        if (file.version <= File::Version::Ver_7_0)
-            timestampPrecision = 4;
-        else
-            timestampPrecision = 6;
-#else
-        /* even is no version is set, the precision is usually 6 */
-        timestampPrecision = 6;
-#endif
-    }
-
     stream
             << std::right << std::setfill(' ')
-            << std::setw(5+timestampPrecision)
-            << std::setprecision(timestampPrecision)
+            << std::setw(5 + file.timestampPrecision)
+            << std::setprecision(file.timestampPrecision)
             << std::fixed << time;
 }
 
