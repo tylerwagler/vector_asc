@@ -82,7 +82,7 @@ void KLineByte::write(File & file, std::ostream & stream)
     writeKLineTime(file, stream, time);
     stream << "    " << port << ' ';
     writeKLineDirection(file, stream, direction);
-    stream << "   " << std::setfill(' ') << std::setw(6) << std::dec << baudrate;
+    stream << ' ' << std::setfill(' ') << std::setw(6) << std::dec << baudrate;
     stream << "   " << std::setfill(' ') << std::setw(4) << std::dec << length;
     stream << "  ";
     stream << std::uppercase;

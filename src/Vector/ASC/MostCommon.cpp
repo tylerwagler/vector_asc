@@ -97,15 +97,15 @@ void writeMostData(File & file, std::ostream & stream, std::vector<MostDx> & mos
 void writeMostDir(File & file, std::ostream & stream, MostDir mostDir)
 {
     switch(mostDir) {
-    case Dir::Rx:
+    case MostDir::Rx:
         /* format: "Rx   " */
         stream << "Rx   ";
         break;
-    case Dir::Tx:
+    case MostDir::Tx:
         /* format: "Tx   " */
         stream << "Tx   ";
         break;
-    case Dir::TxRq:
+    case MostDir::TxRq:
         /* format: "TxRq " */
         stream << "TxRq ";
         break;

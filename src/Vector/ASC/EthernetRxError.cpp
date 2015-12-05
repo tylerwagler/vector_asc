@@ -85,10 +85,10 @@ void EthernetRxError::write(File & file, std::ostream & stream)
 
     switch(file.base) {
     case 10:
-        stream << ' ' << std::setfill(' ') << std::setw(5) << std::dec << dataLen << ':';
+        stream << ' ' << std::setfill(' ') << std::setw(4) << std::dec << dataLen << ':';
         break;
     case 16:
-        stream << ' ' << std::setfill(' ') << std::setw(4) << std::hex << dataLen << ':';
+        stream << ' ' << std::setfill(' ') << std::setw(3) << std::hex << dataLen << ':';
         break;
     }
     for(EthData d: data)

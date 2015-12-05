@@ -76,7 +76,7 @@ void CanRemoteFrame::write(File & file, std::ostream & stream)
     }
     stream << ' ';
     writeDir(file, stream, dir);
-    stream << "   r";
+    stream << " r";
 
     stream << endl;
 }

@@ -29,10 +29,12 @@
 namespace Vector {
 namespace ASC {
 
-#define writeEthDir(file, stream, ethDir) writeDir(file, stream, ethDir)
+void writeEthDir(File & file, std::ostream & stream, EthDir ethDir);
+
 #define writeEthTime(file, stream, ethTime) writeTime(file, stream, ethTime)
 
-#define writeAfdxDir(file, stream, afdxDir) writeDir(file, stream, afdxDir)
+#define writeAfdxDir(file, stream, afdxDir) writeEthDir(file, stream, afdxDir)
+
 #define writeAfdxTime(file, stream, afdxTime) writeTime(file, stream, afdxTime)
 
 }

@@ -120,20 +120,10 @@ void CanExtendedMessage::write(File & file, std::ostream & stream)
     }
     stream << ' ';
     writeDir(file, stream, dir);
-    stream << "   d";
-    stream << ' ' << std::hex << (uint16_t) dlc;
-    for(Dx d: data) {
-        stream << ' ';
-        switch(file.base) {
-        case 10:
-            stream << std::right << std::setfill(' ') << std::setw(3) << std::dec;
-            break;
-        case 16:
-            stream << std::right << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
-            break;
-        }
-        stream << (uint16_t) d;
-    }
+    stream
+            << " d " << std::hex << (uint16_t) dlc
+            << std::uppercase;
+    writeData(file, stream, data);
 
     if (file.version >= File::Version::Ver_7_5) {
         /* format: " Length= " */

@@ -47,12 +47,12 @@ void writeDir(File & file, std::ostream & stream, Dir dir)
 {
     switch(dir) {
     case Dir::Rx:
-        /* format: "Rx" */
-        stream << "Rx";
+        /* format: "Rx  " */
+        stream << "Rx  ";
         break;
     case Dir::Tx:
-        /* format: "Tx" */
-        stream << "Tx";
+        /* format: "Tx  " */
+        stream << "Tx  ";
         break;
     case Dir::TxRq:
         /* format: "TxRq" */
