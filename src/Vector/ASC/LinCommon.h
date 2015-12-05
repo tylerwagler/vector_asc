@@ -38,7 +38,7 @@ void writeLinChecksum(File & file, std::ostream & stream, LinChecksum & linCheck
 
 void writeLinChecksumModel(File & file, std::ostream & stream, LinChecksumModel & linChecksumModel);
 
-void writeLinData(File & file, std::ostream & stream, std::vector<LinDx> & linData);
+#define writeLinData(file, stream, linData) writeData(file, stream, linData)
 
 #define writeLinDir(file, stream, linDir) writeDir(file, stream, linDir)
 

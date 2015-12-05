@@ -95,6 +95,7 @@ void KLineMessage::write(File & file, std::ostream & stream)
     stream << ' ' << std::setfill(' ') << std::setw(2) << std::dec << destination;
     stream << "   " << std::setfill(' ') << std::setw(4) << std::dec << length;
     stream << "  ";
+    stream << std::uppercase;
     writeData(file, stream, data);
 
     stream << endl;

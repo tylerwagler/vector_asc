@@ -76,24 +76,6 @@ void writeLinChecksumModel(File & file, std::ostream & stream, LinChecksumModel 
     }
 }
 
-void writeLinData(File & file, std::ostream & stream, std::vector<LinDx> & linData)
-{
-    for(LinDx d: linData) {
-        switch(file.base) {
-        case 10:
-            stream << ' ' << std::right
-                   << std::setfill(' ') << std::setw(3)
-                   << std::dec << (uint16_t) d;
-            break;
-        case 16:
-            stream << ' ' << std::right
-                   << std::setfill('0') << std::setw(2)
-                   << std::hex << (uint16_t) d;
-            break;
-        }
-    }
-}
-
 void writeLinEndOfByte(File & file, std::ostream & stream, std::vector<LinT> & linEndOfByte, LinDlc & linDlc)
 {
     /* format: "   EOB = " */

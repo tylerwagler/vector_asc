@@ -37,7 +37,7 @@ void writeData(File & file, std::ostream & stream, std::vector<uint8_t> & data)
         case 16:
             stream << ' ' << std::right
                    << std::setfill('0') << std::setw(2)
-                   << std::uppercase << std::hex << (uint16_t) d;
+                   << std::hex << (uint16_t) d;
             break;
         }
     }
