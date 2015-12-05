@@ -69,5 +69,6 @@ The following files are products of installation and building:
 # Wanted features
 
 * CANFD documentation is ambigious. This might be wrong yet.
+* Complete documentation of bit fields.
 * Add examples.
 * Increase test coverage especially regarding versions and hex/dec.
