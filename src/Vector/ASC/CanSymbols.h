@@ -32,7 +32,7 @@ namespace ASC {
 typedef double Time;
 
 /** Number of CAN channel. */
-typedef uint16_t Channel;
+typedef uint8_t Channel;
 
 /** Numeric identifier */
 typedef uint32_t IdNum;

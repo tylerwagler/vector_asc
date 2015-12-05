@@ -79,7 +79,7 @@ CanBusStatistics * CanBusStatistics::parse(File & file, std::string & line)
 void CanBusStatistics::write(File & file, std::ostream & stream)
 {
     writeTime(file, stream, time);
-    stream << ' ' << std::dec << channel << "  ";
+    stream << ' ' << std::dec << (uint16_t) channel << "  ";
 
     /* format: "Statistic: D %lu R %lu XD %lu XR %lu E %lu O %lu B %u.%d%%" */
     stream

@@ -106,8 +106,7 @@ CanExtendedMessage * CanExtendedMessage::parse(File & file, std::string & line)
 void CanExtendedMessage::write(File & file, std::ostream & stream)
 {
     writeTime(file, stream, time);
-    stream << ' ' << std::dec << (uint16_t) channel;
-    stream << "  ";
+    stream << ' ' << std::dec << (uint16_t) channel << "  ";
     std::stringstream ss;
     switch(file.base) {
     case 10:

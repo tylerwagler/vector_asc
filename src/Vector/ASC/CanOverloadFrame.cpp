@@ -56,7 +56,7 @@ CanOverloadFrame * CanOverloadFrame::parse(File & file, std::string & line)
 void CanOverloadFrame::write(File & file, std::ostream & stream)
 {
     writeTime(file, stream, time);
-    stream << ' ' << channel << "  ";
+    stream << ' ' << std::dec << (uint16_t) channel << "  ";
 
     /* format: "OverloadFrame" */
     stream << "OverloadFrame";

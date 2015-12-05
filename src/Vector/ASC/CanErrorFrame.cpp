@@ -91,9 +91,7 @@ CanErrorFrame * CanErrorFrame::parse(File & file, std::string & line)
 void CanErrorFrame::write(File & file, std::ostream & stream)
 {
     writeTime(file, stream, time);
-    stream << ' ';
-    stream << std::dec << (uint16_t) channel;
-    stream << "  ";
+    stream << ' ' << std::dec << (uint16_t) channel << "  ";
 
     /* format: "ErrorFrame" */
     stream << "ErrorFrame";

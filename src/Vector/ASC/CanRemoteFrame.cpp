@@ -65,9 +65,7 @@ CanRemoteFrame * CanRemoteFrame::parse(File & file, std::string & line)
 void CanRemoteFrame::write(File & file, std::ostream & stream)
 {
     writeTime(file, stream, time);
-    stream
-            << ' ' << std::dec << (uint16_t) channel;
-    stream << "  ";
+    stream << ' ' << std::dec << (uint16_t) channel << "  ";
     switch(file.base) {
     case 10:
         stream << std::left << std::setfill(' ') << std::setw(15) << std::dec << (uint32_t) id;
