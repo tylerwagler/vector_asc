@@ -72,7 +72,7 @@ void LinDlcInfo::write(File & file, std::ostream & stream)
             << ' '
             << std::left << std::setw(12) << id
             << " DlcInfo   "
-            << std::right << std::dec << dlc;
+            << std::right << std::dec << (uint16_t) dlc;
 
     stream << endl;
 }

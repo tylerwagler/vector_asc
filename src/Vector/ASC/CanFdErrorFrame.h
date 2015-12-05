@@ -83,7 +83,7 @@ public:
     Esi esi;
 
     /** @copydoc Dlc */
-    uint8_t dlc;
+    Dlc dlc;
 
     /** @copydoc DataLength */
     DataLength dataLength;

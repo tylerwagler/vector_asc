@@ -116,7 +116,7 @@ void TpSingleFrame::write(File & file, std::ostream & stream)
     /* format: "SF Length: "*/
     stream << "SF Length: ";
 
-    stream << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) length << " [" << std::hex;
+    stream << std::setfill('0') << std::setw(2) << std::hex << length << " [" << std::hex;
     for(TpDiagTransportedBytes transportedByte : transportedBytes)
         stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) transportedByte;
     stream << " ]";

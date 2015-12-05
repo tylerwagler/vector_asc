@@ -169,19 +169,19 @@ void writeMostPIndex(File & file, std::ostream & stream, MostPIndex & mostPIndex
 void writeMostPkt150Len(File & file, std::ostream & stream, MostPkt150Len & mostPkt150Len)
 {
     /* format: "%02X " */
-    stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostPkt150Len << ' ';
+    stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << mostPkt150Len << ' ';
 }
 
 void writeMostPktEthLen(File & file, std::ostream & stream, MostPktEthLen & mostPktEthLen)
 {
     /* format: "%02X " */
-    stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostPktEthLen << ' ';
+    stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << mostPktEthLen << ' ';
 }
 
 void writeMostPktLen(File & file, std::ostream & stream, MostPktLen & mostPktLen)
 {
     /* format: "%02X " */
-    stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostPktLen << ' ';
+    stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << mostPktLen << ' ';
 }
 
 void writeMostPriority(File & file, std::ostream & stream, MostPriority & mostPriority)
@@ -229,7 +229,7 @@ void writeMostState(File & file, std::ostream & stream, MostState & mostState)
 void writeMostState2(File & file, std::ostream & stream, MostState2 & mostState2)
 {
     /* format: "%04X " */
-    stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << (uint16_t) mostState2 << ' ';
+    stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << mostState2 << ' ';
 }
 
 void writeMostTime(File & file, std::ostream & stream, MostTime & mostTime)

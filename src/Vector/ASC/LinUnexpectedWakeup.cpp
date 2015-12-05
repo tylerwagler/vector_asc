@@ -84,7 +84,7 @@ void LinUnexpectedWakeup::write(File & file, std::ostream & stream)
 
     if (width > 0) {
         /* LIN 2.x */
-        stream << "approx. " << std::dec << (uint16_t) width << " us";
+        stream << "approx. " << std::dec << width << " us";
     } else {
         /* LIN 1.x */
         switch(file.base) {

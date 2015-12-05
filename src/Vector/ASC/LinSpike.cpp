@@ -82,7 +82,7 @@ void LinSpike::write(File & file, std::ostream & stream)
     writeLinDir(file, stream, dir);
     stream
             << "  "
-            << std::setw(6) << std::dec << (uint32_t) spikeLength
+            << std::setw(6) << std::dec << spikeLength
             << " microseconds";
 
     if (file.version >= File::Version::Ver_6_1) {

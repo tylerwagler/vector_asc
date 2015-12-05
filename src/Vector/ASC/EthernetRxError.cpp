@@ -57,7 +57,7 @@ EthernetRxError * EthernetRxError::parse(File & file, std::string & line)
         ethernetRxError->errorCode = std::stoul(match[3], nullptr, file.base);
         ethernetRxError->frameChecksum = std::stoul(match[4], nullptr, 16);
         ethernetRxError->dataLen = std::stoul(match[5], nullptr, file.base);
-        for(int i = 0; i < ethernetRxError->dataLen; ++i) {
+        for(int i = 0; i < match[6].length()/2; ++i) {
             std::string s;
             s.append(match[6], 2*i, 2);
             ethernetRxError->data.push_back(std::stoul(s, nullptr, 16));
@@ -81,7 +81,7 @@ void EthernetRxError::write(File & file, std::ostream & stream)
             << " RxEr "
             << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) errorCode
             << ' '
-            << std::setfill('0') << std::setw(8) << std::hex << (uint32_t) frameChecksum;
+            << std::setfill('0') << std::setw(8) << std::hex << frameChecksum;
 
     switch(file.base) {
     case 10:

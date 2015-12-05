@@ -110,11 +110,11 @@ void CanExtendedMessage::write(File & file, std::ostream & stream)
     std::stringstream ss;
     switch(file.base) {
     case 10:
-        ss << std::dec << (uint32_t) id << 'x';
+        ss << std::dec << id << 'x';
         stream << std::left << std::setfill(' ') << std::setw(15) << ss.str();
         break;
     case 16:
-        ss << std::uppercase << std::hex << (uint32_t) id << 'x';
+        ss << std::uppercase << std::hex << id << 'x';
         stream << std::left << std::setfill(' ') << std::setw(15) << ss.str();
         break;
     }
@@ -140,7 +140,7 @@ void CanExtendedMessage::write(File & file, std::ostream & stream)
 #if 0
     /* <MessageFlags> */
     if (!messageFlags.empty()) {
-        stream << ' ' << std::dec << (uint32_t) messageFlags;
+        stream << ' ' << std::dec << messageFlags;
     }
 #endif
 

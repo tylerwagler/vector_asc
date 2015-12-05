@@ -73,7 +73,7 @@ void Most25AllocTable::write(File & file, std::ostream & stream)
     /* format: "AllocTab: %04X  " */
     stream
             << "AllocTab: "
-            << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << (uint16_t) allocTableSize
+            << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << allocTableSize
             << "  ";
 
     writeMostData(file, stream, data);

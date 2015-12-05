@@ -99,7 +99,7 @@ void MostSpecialRegister::write(File & file, std::ostream & stream)
             << ' '
             << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) regId
             << ' '
-            << std::setfill('0') << std::setw(4 /* @todo 4 or 12 */) << std::uppercase << std::hex << (uint16_t) regValue;
+            << std::setfill('0') << std::setw(4 /* @todo 4 or 12 */) << std::uppercase << std::hex << regValue;
 
     stream << endl;
 }

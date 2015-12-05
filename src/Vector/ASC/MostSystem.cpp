@@ -81,9 +81,9 @@ void MostSystem::write(File & file, std::ostream & stream)
             << "System:    "
             << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) sysId
             << ' '
-            << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << (uint16_t) sysValue
+            << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << sysValue
             << ' '
-            << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << (uint16_t) sysValueOld;
+            << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << sysValueOld;
 
     stream << endl;
 }

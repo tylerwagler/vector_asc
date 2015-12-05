@@ -91,17 +91,17 @@ void FlexRayOldMessage::write(File & file, std::ostream & stream)
             << " Fr "
             << channel
             << " V9  "
-            << std::dec << (uint16_t) id
+            << std::dec << id
             << ' ' << (uint16_t) cycle
             << ' ' << (nm ? '1' : '0')
             << ' ' << (sync ? '1' : '0')
-            << ' ' << (uint16_t) headerCrc
+            << ' ' << headerCrc
             << ' ' << symbolicName
             << ' ' << std::setfill(' ') << std::setw(2) << std::dec << (uint16_t) dlc;
     for(FlexRayOldDx d: data)
         stream << ' ' << std::setfill(' ') << std::setw(3) << std::dec << (uint16_t) d;
     stream
-            << ' ' << std::setfill('0') << std::setw(4) << std::hex << (uint16_t) frameState
+            << ' ' << std::setfill('0') << std::setw(4) << std::hex << frameState
             << ' ' << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) headerBitMask;
 
     stream << endl;

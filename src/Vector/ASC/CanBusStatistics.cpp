@@ -84,12 +84,12 @@ void CanBusStatistics::write(File & file, std::ostream & stream)
     /* format: "Statistic: D %lu R %lu XD %lu XR %lu E %lu O %lu B %u.%d%%" */
     stream
             << "Statistic:"
-            << " D " << std::dec << (uint32_t) dataFrames
-            << " R " << std::dec << (uint32_t) remoteFrames
-            << " XD " << std::dec << (uint32_t) extendedDataFrames
-            << " XR " << std::dec << (uint32_t) extendedRemoteFrames
-            << " E " << std::dec << (uint32_t) errorFrames
-            << " O " << std::dec << (uint32_t) overloadFrames
+            << " D " << std::dec << dataFrames
+            << " R " << std::dec << remoteFrames
+            << " XD " << std::dec << extendedDataFrames
+            << " XR " << std::dec << extendedRemoteFrames
+            << " E " << std::dec << errorFrames
+            << " O " << std::dec << overloadFrames
             << " B " << std::fixed << std::setprecision(1) << busload << '%';
 
     stream << endl;

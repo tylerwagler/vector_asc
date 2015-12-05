@@ -74,13 +74,13 @@ void MostStatistic::write(File & file, std::ostream & stream)
     /* format: "MostStatistic:  Fr: %5u Lt: %5u Bl: %5u Pk: %5u" */
     stream
             << "MostStatistic:  Fr: "
-            << std::setw(5) << std::dec << (uint16_t) fr
+            << std::setw(5) << std::dec << fr
             << " Lt: "
-            << std::setw(5) << std::dec << (uint16_t) lt
+            << std::setw(5) << std::dec << lt
             << " Bl: "
-            << std::setw(5) << std::dec << (uint16_t) bl
+            << std::setw(5) << std::dec << bl
             << " Pk: "
-            << std::setw(5) << std::dec << (uint16_t) pk;
+            << std::setw(5) << std::dec << pk;
 
     stream << endl;
 }

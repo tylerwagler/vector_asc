@@ -110,7 +110,7 @@ void MostCommonRegister::write(File & file, std::ostream & stream)
             << ' '
             << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) regChip
             << ' '
-            << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << (uint16_t) regOffset
+            << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << regOffset
             << ' '
             << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) regDataLen;
 

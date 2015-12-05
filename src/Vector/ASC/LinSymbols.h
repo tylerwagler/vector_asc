@@ -60,7 +60,7 @@ enum class LinChecksumModelInfo : uint8_t {
 typedef Dir LinDir;
 
 /** data length code */
-typedef int LinDlc;
+typedef uint8_t LinDlc;
 
 /** Number of response bytes; can include the checksum. */
 typedef uint8_t LinNumberOfResponseBytes;
@@ -121,7 +121,7 @@ typedef uint32_t LinFullTime;
 typedef bool LinHasDatabytes;
 
 /** Duration of the frame header [in bit times] */
-typedef double LinHeaderTime;
+typedef uint32_t LinHeaderTime;
 
 /** Event’s baudrate measured in header [in bits/sec as float value] */
 typedef double LinHeaderBaudrate;

@@ -93,7 +93,7 @@ void LinDominantSignal::write(File & file, std::ostream & stream)
     }
     stream
             << "  "
-            << std::setw(8) << std::dec << (uint32_t) domSigLength
+            << std::setw(8) << std::dec << domSigLength
             << " microseconds";
 
     if (file.version >= File::Version::Ver_6_1) {

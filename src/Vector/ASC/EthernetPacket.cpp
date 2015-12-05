@@ -61,7 +61,7 @@ EthernetPacket * EthernetPacket::parse(File & file, std::string & line)
         if (match[3] == "TxRq")
                 ethernetPacket->dir = Dir::TxRq;
         ethernetPacket->dataLen = std::stoul(match[4], nullptr, file.base);
-        for(int i = 0; i < ethernetPacket->dataLen; ++i) {
+        for(int i = 0; i < match[5].length()/2; ++i) {
             std::string s;
             s.append(match[5], 2*i, 2);
             ethernetPacket->data.push_back(std::stoul(s, nullptr, 16));

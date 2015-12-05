@@ -109,10 +109,10 @@ void CanMessage::write(File & file, std::ostream & stream)
     stream << ' ' << std::dec << (uint16_t) channel << "  ";
     switch(file.base) {
     case 10:
-        stream << std::left << std::setfill(' ') << std::setw(15) << std::dec << (uint32_t) id;
+        stream << std::left << std::setfill(' ') << std::setw(15) << std::dec << id;
         break;
     case 16:
-        stream << std::left << std::setfill(' ') << std::setw(15) << std::hex << (uint32_t) id;
+        stream << std::left << std::setfill(' ') << std::setw(15) << std::hex << id;
         break;
     }
     stream << ' ';
