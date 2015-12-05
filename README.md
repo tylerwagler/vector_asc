@@ -68,11 +68,6 @@ The following files are products of installation and building:
 
 # Wanted features
 
-* improve space handling, e.g. "L:" is "L COLON". Make "L:" to L_COLON
-* test all data types, e.g. integer, hex, float, string incl. quotes
-* implement complete log file with all types based on documentation
-* add example
-
-# Missing test coverage
-
-* not tested at all...
+* CANFD documentation is ambigious. This might be wrong yet.
+* Add examples.
+* Increase test coverage especially regarding versions and hex/dec.
