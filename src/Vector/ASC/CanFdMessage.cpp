@@ -102,20 +102,47 @@ CanFdMessage * CanFdMessage::parse(File & file, std::string & line)
 
 void CanFdMessage::write(File & file, std::ostream & stream)
 {
+    if (file.version < File::Version::Ver_8_1)
+        return;
+
     writeTime(file, stream, time);
-    stream << " CANFD " << std::dec << (uint16_t) channel;
     stream << ' ';
-    stream << std::setfill(' ');
+
+    /* format: "CANFD  " */
+    stream << "CANFD  ";
+
+    stream << ' ' << std::dec << (uint16_t) channel << ' ';
+    writeDir(file, stream, dir);
+    stream << ' ';
     switch(file.base) {
     case 10:
-        stream << std::setw(4) << std::dec;
+        stream << std::dec << id;
         break;
     case 16:
-        stream << std::setw(3) << std::hex;
+        stream << std::hex << id;
     }
-    stream << (uint32_t) id;
-    stream << ' ';
-    writeDir(file, stream, dir);
+    stream
+            << ' ' << symbolicName
+            << ' ' << (brs ? '1' : '0')
+            << ' ' << (esi ? '1' : '0')
+            << ' ';
+    switch(file.base) {
+    case 10:
+        stream << std::dec << (uint16_t) dlc;
+        break;
+    case 16:
+        stream << std::hex << (uint16_t) dlc;
+        break;
+    }
+    stream << ' ' << std::dec << (uint16_t) dataLength;
+    writeData(file, stream, data);
+    stream
+            << ' ' << std::dec << messageDuration
+            << ' ' << std::dec << messageLength
+            << ' ' << std::dec << flags
+            << ' ' << std::hex << crc
+            << ' ' << std::hex << bitTimingConfArb
+            << ' ' << std::hex << bitTimingConfData;
 
     stream << endl;
 }

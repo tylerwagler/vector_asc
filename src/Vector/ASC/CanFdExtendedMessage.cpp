@@ -102,63 +102,51 @@ CanFdExtendedMessage * CanFdExtendedMessage::parse(File & file, std::string & li
 
 void CanFdExtendedMessage::write(File & file, std::ostream & stream)
 {
+    if (file.version < File::Version::Ver_8_1)
+        return;
+
     writeTime(file, stream, time);
-    stream << ' ' << std::dec << (uint16_t) channel;
-    stream << "  ";
+    stream << ' ';
+
+    /* format: "CANFD  " */
+    stream << "CANFD  ";
+
+    stream << ' ' << std::dec << (uint16_t) channel << "  ";
+    writeDir(file, stream, dir);
+    stream << ' ';
+    std::stringstream ss;
     switch(file.base) {
     case 10:
-        stream << std::left << std::setfill(' ') << std::setw(15) << std::dec << (uint32_t) id;
+        ss << std::dec << id << 'x';
+        stream << std::left << std::setfill(' ') << std::setw(15) << ss.str();
         break;
     case 16:
-        stream << std::left << std::setfill(' ') << std::setw(15) << std::hex << (uint32_t) id;
+        ss << std::hex << id << 'x';
+        stream << std::left << std::setfill(' ') << std::setw(15) << ss.str();
         break;
     }
-    stream << "x ";
-    writeDir(file, stream, dir);
-    stream << "   d";
-    stream << ' ' << std::hex << (uint16_t) dlc;
-    for(Dx d: data) {
-        stream << ' ';
-        switch(file.base) {
-        case 10:
-            stream << std::right << std::setfill(' ') << std::setw(3) << std::dec;
-            break;
-        case 16:
-            stream << std::right << std::setfill('0') << std::setw(2) << std::uppercase << std::hex;
-            break;
-        }
-        stream << (uint16_t) d;
+    stream
+            << ' ' << symbolicName
+            << ' ' << (brs ? '1' : '0')
+            << ' ' << (esi ? '1' : '0')
+            << ' ';
+    switch(file.base) {
+    case 10:
+        stream << std::dec << (uint16_t) dlc;
+        break;
+    case 16:
+        stream << std::hex << (uint16_t) dlc;
+        break;
     }
-
-    if (file.version >= File::Version::Ver_7_5) {
-        stream << ' ';
-
-        /* format: " Length= " */
-        stream << " Length = ";
-
-        stream << std::dec << (uint32_t) messageDuration;
-
-        /* format: " BitCount = " */
-        stream << " BitCount = ";
-
-        stream << std::dec << (uint32_t) messageLength;
-    }
-
-#if 0
-    /* <MessageFlags> */
-    if (!messageFlags.empty()) {
-        stream << ' ' << std::dec << (uint32_t) messageFlags;
-    }
-#endif
-
-#if 0
-    if (file.version >= File::Version::Ver_8_0) {
-        /* format: " ID = " */
-        stream << " ID = ";
-
-        stream << std::dec << (uint32_t) messageId;
-    }
-#endif
+    stream << ' ' << std::dec << (uint16_t) dataLength;
+    writeData(file, stream, data);
+    stream
+            << ' ' << std::setfill(' ') << std::setw(8) << std::dec << messageDuration
+            << ' ' << std::setfill(' ') << std::setw(4) << std::dec << messageLength
+            << ' ' << std::setfill(' ') << std::setw(8) << std::dec << flags
+            << ' ' << std::setfill(' ') << std::setw(8) << std::hex << crc
+            << ' ' << std::setfill('0') << std::setw(8) << std::hex << bitTimingConfArb
+            << ' ' << std::setfill('0') << std::setw(8) << std::hex << bitTimingConfData;
 
     stream << endl;
 }

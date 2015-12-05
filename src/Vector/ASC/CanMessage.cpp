@@ -128,18 +128,18 @@ void CanMessage::write(File & file, std::ostream & stream)
         /* format: " Length= " */
         stream << " Length = ";
 
-        stream << std::dec << (uint32_t) messageDuration;
+        stream << std::dec << messageDuration;
 
         /* format: " BitCount = " */
         stream << " BitCount = ";
 
-        stream << std::dec << (uint32_t) messageLength;
+        stream << std::dec << messageLength;
     }
 
 #if 0
     /* <MessageFlags> */
     if (!messageFlags.empty()) {
-        stream << ' ' << std::dec << (uint32_t) messageFlags;
+        stream << ' ' << std::dec << messageFlags;
     }
 #endif
 
@@ -147,7 +147,7 @@ void CanMessage::write(File & file, std::ostream & stream)
         /* format: " ID = " */
         stream << " ID = ";
 
-        stream << std::dec << (uint32_t) messageId;
+        stream << std::dec << messageId;
     }
 
     stream << endl;

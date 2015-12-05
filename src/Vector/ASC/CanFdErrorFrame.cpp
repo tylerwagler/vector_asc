@@ -19,6 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <iomanip>
 #include <regex>
 #include "CanCommon.h"
 #include "CanFdErrorFrame.h"
@@ -87,7 +88,7 @@ CanFdErrorFrame * CanFdErrorFrame::parse(File & file, std::string & line)
         canFdErrorFrame->id = std::stoul(match[10], nullptr, 16);
         canFdErrorFrame->brs = (match[11] == '1');
         canFdErrorFrame->esi = (match[12] == '1');
-        canFdErrorFrame->dlc = std::stoul(match[13], nullptr, 16);
+        canFdErrorFrame->dlc = std::stoul(match[13], nullptr, file.base);
         canFdErrorFrame->dataLength = std::stoul(match[14]);
         std::istringstream iss(match[15]);
         iss >> std::hex;
@@ -97,7 +98,7 @@ CanFdErrorFrame * CanFdErrorFrame::parse(File & file, std::string & line)
             canFdErrorFrame->data.push_back(s);
         }
         canFdErrorFrame->messageDuration = std::stoul(match[17]);
-        canFdErrorFrame->flags2 = std::stoul(match[18]);
+        canFdErrorFrame->flags2 = std::stoul(match[18], nullptr, 16);
         canFdErrorFrame->crc = std::stoul(match[19], nullptr, 16);
         canFdErrorFrame->bitTimingConfArb = std::stoul(match[20], nullptr, 16);
         canFdErrorFrame->bitTimingConfData = std::stoul(match[21], nullptr, 16);
@@ -109,7 +110,50 @@ CanFdErrorFrame * CanFdErrorFrame::parse(File & file, std::string & line)
 
 void CanFdErrorFrame::write(File & file, std::ostream & stream)
 {
+    if (file.version < File::Version::Ver_8_1)
+        return;
+
     writeTime(file, stream, time);
+    stream << ' ';
+
+    /* format: "CANFD  " */
+    stream << "CANFD  ";
+
+    stream << std::setw(2) << std::dec << (uint16_t) channel << ' ';
+    writeDir(file, stream, dir);
+    stream << ' ';
+
+    /* format: "ErrorFrame" */
+    stream << "ErrorFrame";
+
+    stream
+            << ' ' << errorText
+            << ' ' << std::hex << flags1
+            << ' ' << std::hex << (uint16_t) code
+            << ' ' << std::hex << codeExt
+            << " Data"
+            << ' ' << std::dec << position
+            << ' ' << std::hex << id
+            << ' ' << (brs ? '1' : '0')
+            << ' ' << (esi ? '1' : '0')
+            << ' ';
+    switch(file.base) {
+    case 10:
+        stream << std::dec << (uint16_t) dlc;
+        break;
+    case 16:
+        stream << std::hex << (uint16_t) dlc;
+        break;
+    }
+    stream
+            << ' ' << std::setw(3) << std::dec << (uint16_t) dataLength;
+    writeData(file, stream, data);
+    stream
+            << ' ' << std::dec << messageDuration
+            << ' ' << std::hex << flags2
+            << ' ' << std::hex << crc
+            << ' ' << std::setw(8) << std::hex << bitTimingConfArb
+            << ' ' << std::setw(8) << std::hex << bitTimingConfData;
 
     stream << endl;
 }

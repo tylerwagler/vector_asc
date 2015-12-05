@@ -517,6 +517,14 @@ BOOST_AUTO_TEST_CASE(CanFdMessage)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanFdMessage);
     canFdMessage = static_cast<Vector::ASC::CanFdMessage *>(event);
     BOOST_CHECK(isEqual(canFdMessage->time, 8.151536));
@@ -564,6 +572,14 @@ BOOST_AUTO_TEST_CASE(CanFdExtendedMessage)
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanFdExtendedMessage);
     canFdExtendedMessage = static_cast<Vector::ASC::CanFdExtendedMessage *>(event);
     BOOST_CHECK(isEqual(canFdExtendedMessage->time, 0.248166));
@@ -598,6 +614,14 @@ BOOST_AUTO_TEST_CASE(CanFdErrorFrame)
 
     Vector::ASC::Event * event;
     Vector::ASC::CanFdErrorFrame * canFdErrorFrame;
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
+
+    event = file.read();
+    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);

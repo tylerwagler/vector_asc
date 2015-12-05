@@ -129,12 +129,12 @@ void CanExtendedMessage::write(File & file, std::ostream & stream)
         /* format: " Length= " */
         stream << " Length = ";
 
-        stream << std::dec << (uint32_t) messageDuration;
+        stream << std::dec << messageDuration;
 
         /* format: " BitCount = " */
         stream << " BitCount = ";
 
-        stream << std::dec << (uint32_t) messageLength;
+        stream << std::dec << messageLength;
     }
 
 #if 0
@@ -148,7 +148,7 @@ void CanExtendedMessage::write(File & file, std::ostream & stream)
         /* format: " ID = " */
         stream << " ID = ";
 
-        stream << std::dec << (uint32_t) messageId;
+        stream << std::dec << messageId;
         stream << 'x';
     }
 
