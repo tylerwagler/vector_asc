@@ -64,7 +64,7 @@ AfdxPacket * AfdxPacket::parse(File & file, std::string & line)
         afdxPacket->flags = std::stoul(match[5], nullptr, file.base);
         afdxPacket->bag = std::stoul(match[6], nullptr, file.base);
         afdxPacket->dataLen = std::stoul(match[7], nullptr, file.base);
-        for(int i = 0; i < afdxPacket->dataLen; ++i) {
+        for(int i = 0; i < match[8].length()/2; ++i) {
             std::string s;
             s.append(match[8], 2*i, 2);
             afdxPacket->data.push_back(std::stoul(s, nullptr, 16));

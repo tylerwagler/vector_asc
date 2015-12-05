@@ -1380,7 +1380,7 @@ BOOST_AUTO_TEST_CASE(FlexRayOldStartCycle)
     BOOST_CHECK(isEqual(flexRayOldStartCycle->time, 0.041700));
     BOOST_CHECK(flexRayOldStartCycle->channel == '*');
     BOOST_CHECK(flexRayOldStartCycle->dlc == 2);
-    BOOST_REQUIRE(flexRayOldStartCycle->data.size() == 4);
+    BOOST_REQUIRE(flexRayOldStartCycle->data.size() == 2);
     BOOST_CHECK(flexRayOldStartCycle->data[0] == 0);
     BOOST_CHECK(flexRayOldStartCycle->data[1] == 0);
     delete event;
@@ -3427,7 +3427,7 @@ BOOST_AUTO_TEST_CASE(TpDiagFirstFrame)
     BOOST_CHECK(tpFirstFrame->source == "Any_ECU_example");
     BOOST_CHECK(tpFirstFrame->destination == "<tester>");
     BOOST_CHECK(tpFirstFrame->length == 0x000C);
-    BOOST_REQUIRE(tpFirstFrame->transportedBytes.size() == 0x000C);
+    BOOST_REQUIRE(tpFirstFrame->transportedBytes.size() == 6);
     BOOST_CHECK(tpFirstFrame->transportedBytes[0] == 0x5A);
     BOOST_CHECK(tpFirstFrame->transportedBytes[1] == 0x90);
     BOOST_CHECK(tpFirstFrame->transportedBytes[2] == 0x98);
