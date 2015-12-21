@@ -58,17 +58,13 @@ TpConsecutiveFrame * TpConsecutiveFrame::parse(File & file, std::string & line)
         tpConsecutiveFrame->connectionId = std::stoul(match[2], nullptr, 16);
         if (match[3] == "Info")
             tpConsecutiveFrame->type = TpDiagType::Info;
-        else
-        if (match[3] == "Warn")
+        else if (match[3] == "Warn")
             tpConsecutiveFrame->type = TpDiagType::Warn;
-        else
-        if (match[3] == "Error")
+        else if (match[3] == "Error")
             tpConsecutiveFrame->type = TpDiagType::Error;
-        else
-        if (match[3] == "Atom")
+        else if (match[3] == "Atom")
             tpConsecutiveFrame->type = TpDiagType::Atom;
-        else
-        if (match[3] == "Data")
+        else if (match[3] == "Data")
             tpConsecutiveFrame->type = TpDiagType::Data;
         tpConsecutiveFrame->source = match[4];
         tpConsecutiveFrame->destination = match[5];

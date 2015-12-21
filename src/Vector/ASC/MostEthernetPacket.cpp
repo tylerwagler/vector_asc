@@ -66,10 +66,9 @@ MostEthernetPacket * MostEthernetPacket::parse(File & file, std::string & line)
         mostEthernetPacket->time = std::stod(match[1]);
         mostEthernetPacket->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
-                mostEthernetPacket->dir = Dir::Rx;
-        else
-        if (match[3] == "Tx")
-                mostEthernetPacket->dir = Dir::Tx;
+            mostEthernetPacket->dir = Dir::Rx;
+        else if (match[3] == "Tx")
+            mostEthernetPacket->dir = Dir::Tx;
         mostEthernetPacket->sourceMacAdr = std::stoul(match[4], nullptr, 16);
         mostEthernetPacket->destMacAdr = std::stoul(match[5], nullptr, 16);
         mostEthernetPacket->state = std::stoul(match[6], nullptr, 16);

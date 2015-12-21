@@ -64,17 +64,13 @@ LinDisturbance * LinDisturbance::parse(File & file, std::string & line)
         linDisturbance->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         if (match[3] == "dominant")
             linDisturbance->disturbanceType = LinDisturbanceType::Dominant;
-        else
-        if (match[3] == "recessive")
+        else if (match[3] == "recessive")
             linDisturbance->disturbanceType = LinDisturbanceType::Recessive;
-        else
-        if (match[3] == "header")
+        else if (match[3] == "header")
             linDisturbance->disturbanceType = LinDisturbanceType::Header;
-        else
-        if (match[3] == "bitstream")
+        else if (match[3] == "bitstream")
             linDisturbance->disturbanceType = LinDisturbanceType::Bitstream;
-        else
-        if (match[3] == "variableBitstream")
+        else if (match[3] == "variableBitstream")
             linDisturbance->disturbanceType = LinDisturbanceType::VariableBitstream;
         linDisturbance->byteIndex = std::stoul(match[4]);
         linDisturbance->bitIndex = std::stoul(match[5]);

@@ -48,8 +48,7 @@ StartOfMeasurement * StartOfMeasurement::parse(File & file, std::string & line)
         startOfMeasurement->time = std::stod(match[1]);
         if (match[2] == "Start of measurement")
             startOfMeasurement->language = File::Language::En;
-        else
-        if (match[2] == "Start der Messung")
+        else if (match[2] == "Start der Messung")
             startOfMeasurement->language = File::Language::De;
         return startOfMeasurement;
     }

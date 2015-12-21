@@ -52,10 +52,9 @@ CanRemoteFrame * CanRemoteFrame::parse(File & file, std::string & line)
         canRemoteFrame->channel = std::stoul(match[2]);
         canRemoteFrame->id = std::stoul(match[3], nullptr, 16);
         if (match[4] == "Rx")
-                canRemoteFrame->dir = Dir::Rx;
-        else
-        if (match[4] == "Tx")
-                canRemoteFrame->dir = Dir::Tx;
+            canRemoteFrame->dir = Dir::Rx;
+        else if (match[4] == "Tx")
+            canRemoteFrame->dir = Dir::Tx;
         return canRemoteFrame;
     }
 

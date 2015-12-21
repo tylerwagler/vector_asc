@@ -100,14 +100,11 @@ LinTransmissionError * LinTransmissionError::parse(File & file, std::string & li
             if (match[22] != "") {
                 if (match[23] == "unknown")
                     linTransmissionError->checksumModel = LinChecksumModel::Unknown;
-                else
-                if (match[23] == "classic")
+                else if (match[23] == "classic")
                     linTransmissionError->checksumModel = LinChecksumModel::Classic;
-                else
-                if (match[23] == "enhanced")
+                else if (match[23] == "enhanced")
                     linTransmissionError->checksumModel = LinChecksumModel::Enhanced;
-                else
-                if (match[23] == "error")
+                else if (match[23] == "error")
                     linTransmissionError->checksumModel = LinChecksumModel::Error;
             }
         }

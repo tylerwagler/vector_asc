@@ -94,10 +94,9 @@ LinChecksumError * LinChecksumError::parse(File & file, std::string & line)
         linChecksumError->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linChecksumError->id = match[3];
         if (match[4] == "Rx")
-                linChecksumError->dir = Dir::Rx;
-        else
-        if (match[4] == "Tx")
-                linChecksumError->dir = Dir::Tx;
+            linChecksumError->dir = Dir::Rx;
+        else if (match[4] == "Tx")
+            linChecksumError->dir = Dir::Tx;
         linChecksumError->dlc = std::stoul(match[5], nullptr, file.base);
         std::istringstream iss1(match[6]);
         switch(file.base) {
@@ -149,14 +148,11 @@ LinChecksumError * LinChecksumError::parse(File & file, std::string & line)
                         if (match[35] != "") {
                             if (match[36] == "unknown")
                                 linChecksumError->checksumModel = LinChecksumModel::Unknown;
-                            else
-                            if (match[36] == "classic")
+                            else if (match[36] == "classic")
                                 linChecksumError->checksumModel = LinChecksumModel::Classic;
-                            else
-                            if (match[36] == "enhanced")
+                            else if (match[36] == "enhanced")
                                 linChecksumError->checksumModel = LinChecksumModel::Enhanced;
-                            else
-                            if (match[36] == "error")
+                            else if (match[36] == "error")
                                 linChecksumError->checksumModel = LinChecksumModel::Error;
                         }
                     }

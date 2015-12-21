@@ -77,8 +77,7 @@ BeginTriggerblock * BeginTriggerblock::parse(File &, std::string & line)
         beginTriggerblock->date.tm_sec = std::stoul(match[6]);
         if (match[7] == " am")
             beginTriggerblock->language = File::Language::En;
-        else
-        if (match[7] == " pm") {
+        else if (match[7] == " pm") {
             beginTriggerblock->language = File::Language::En;
             beginTriggerblock->date.tm_hour += ((match[7] == " pm") ? 12 : 0);
         } else

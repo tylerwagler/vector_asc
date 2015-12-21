@@ -36,7 +36,7 @@ namespace ASC {
 #define REGEX_Time "([[:digit:].]{3,})"
 #define REGEX_Channel "([[:digit:]]{1,5})"
 #define REGEX_IDnum "([[:xdigit:]]{1,14})"
-    // IDsym @todo
+// IDsym @todo
 #define REGEX_ID REGEX_IDnum
 #define REGEX_Dir "(Rx|Tx|TxRq)"
 #define REGEX_DLC "([[:xdigit:]]{1,2})"

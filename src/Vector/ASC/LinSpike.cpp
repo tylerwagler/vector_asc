@@ -57,8 +57,7 @@ LinSpike * LinSpike::parse(File & file, std::string & line)
         linSpike->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         if (match[3] == "Rx")
             linSpike->dir = Dir::Rx;
-        else
-        if (match[3] == "Tx")
+        else if (match[3] == "Tx")
             linSpike->dir = Dir::Tx;
         linSpike->spikeLength = std::stoul(match[4]);
         if (match[5] != "") {

@@ -84,13 +84,11 @@ FlexRayMessage * FlexRayMessage::parseRmsg(File & file, std::string & line)
         flexRayMessage->slotId = std::stoul(match[6]);
         flexRayMessage->cycleNo = std::stoul(match[7]);
         if (match[8] == "Rx")
-                flexRayMessage->direction = Dir::Rx;
-        else
-        if (match[8] == "Tx")
-                flexRayMessage->direction = Dir::Tx;
-        else
-        if (match[8] == "TxRq")
-                flexRayMessage->direction = Dir::TxRq;
+            flexRayMessage->direction = Dir::Rx;
+        else if (match[8] == "Tx")
+            flexRayMessage->direction = Dir::Tx;
+        else if (match[8] == "TxRq")
+            flexRayMessage->direction = Dir::TxRq;
         flexRayMessage->appParam = std::stoul(match[9]);
         flexRayMessage->flags = std::stoul(match[10]);
         flexRayMessage->ccType = std::stoul(match[11]);
@@ -138,13 +136,11 @@ FlexRayMessage * FlexRayMessage::parsePdu(File & file, std::string & line)
         flexRayMessage->slotId = std::stoul(match[6], nullptr, file.base);
         flexRayMessage->cycleNo = std::stoul(match[7], nullptr, file.base);
         if (match[8] == "Rx")
-                flexRayMessage->direction = Dir::Rx;
-        else
-        if (match[8] == "Tx")
-                flexRayMessage->direction = Dir::Tx;
-        else
-        if (match[8] == "TxRq")
-                flexRayMessage->direction = Dir::TxRq;
+            flexRayMessage->direction = Dir::Rx;
+        else if (match[8] == "Tx")
+            flexRayMessage->direction = Dir::Tx;
+        else if (match[8] == "TxRq")
+            flexRayMessage->direction = Dir::TxRq;
         flexRayMessage->appParam = std::stoul(match[9]);
         flexRayMessage->flags = std::stoul(match[10], nullptr, file.base);
         flexRayMessage->ccType = std::stoul(match[11], nullptr, file.base);

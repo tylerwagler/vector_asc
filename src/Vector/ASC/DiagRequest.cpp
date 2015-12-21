@@ -49,14 +49,11 @@ DiagRequest * DiagRequest::parse(File & file, std::string & line)
         diagRequest->ecuQualifier = match[2];
         if (match[3] == "Close")
             diagRequest->command = Command::Close;
-        else
-        if (match[3] == "Open")
+        else if (match[3] == "Open")
             diagRequest->command = Command::Open;
-        else
-        if (match[3] == "TPon")
+        else if (match[3] == "TPon")
             diagRequest->command = Command::TpOn;
-        else
-        if (match[3] == "TPoff")
+        else if (match[3] == "TPoff")
             diagRequest->command = Command::TpOff;
         else
         {
@@ -92,7 +89,7 @@ void DiagRequest::write(File & file, std::ostream & stream)
         stream << " Open";
         break;
     case Command::TpOn:
-            /** format: " TPon" */
+        /** format: " TPon" */
         stream << " TPon";
         break;
     case Command::TpOff:

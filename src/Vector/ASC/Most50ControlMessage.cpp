@@ -68,10 +68,9 @@ Most50ControlMessage * Most50ControlMessage::parse(File & file, std::string & li
         most50ControlMessage->time = std::stod(match[1]);
         most50ControlMessage->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
-                most50ControlMessage->dir = Dir::Rx;
-        else
-        if (match[3] == "Tx")
-                most50ControlMessage->dir = Dir::Tx;
+            most50ControlMessage->dir = Dir::Rx;
+        else if (match[3] == "Tx")
+            most50ControlMessage->dir = Dir::Tx;
         most50ControlMessage->sourceAdr = std::stoul(match[4], nullptr, 16);
         most50ControlMessage->destAdr = std::stoul(match[5], nullptr, 16);
         most50ControlMessage->state = std::stoul(match[6], nullptr, 16);

@@ -58,10 +58,9 @@ KLineMessage * KLineMessage::parse(File & file, std::string & line)
         kLineMessage->time = std::stod(match[1]);
         kLineMessage->port = match[2];
         if (match[4] == "Rx")
-                kLineMessage->direction = Dir::Rx;
-        else
-        if (match[4] == "Tx")
-                kLineMessage->direction = Dir::Tx;
+            kLineMessage->direction = Dir::Rx;
+        else if (match[4] == "Tx")
+            kLineMessage->direction = Dir::Tx;
         kLineMessage->baudrate = std::stoul(match[5]);
         kLineMessage->source = match[6];
         kLineMessage->destination = match[7];

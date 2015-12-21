@@ -59,27 +59,21 @@ TpFlowControlFrame * TpFlowControlFrame::parse(File & file, std::string & line)
         tpFlowControlFrame->connectionId = std::stoul(match[2], nullptr, 16);
         if (match[3] == "Info")
             tpFlowControlFrame->type = TpDiagType::Info;
-        else
-        if (match[3] == "Warn")
+        else if (match[3] == "Warn")
             tpFlowControlFrame->type = TpDiagType::Warn;
-        else
-        if (match[3] == "Error")
+        else if (match[3] == "Error")
             tpFlowControlFrame->type = TpDiagType::Error;
-        else
-        if (match[3] == "Atom")
+        else if (match[3] == "Atom")
             tpFlowControlFrame->type = TpDiagType::Atom;
-        else
-        if (match[3] == "Data")
+        else if (match[3] == "Data")
             tpFlowControlFrame->type = TpDiagType::Data;
         tpFlowControlFrame->source = match[4];
         tpFlowControlFrame->destination = match[5];
         if (match[6] == "CTS")
             tpFlowControlFrame->fcType = TpDiagFcType::Cts;
-        else
-        if (match[6] == "WT")
+        else if (match[6] == "WT")
             tpFlowControlFrame->fcType = TpDiagFcType::Wt;
-        else
-        if (match[6] == "OVFLW")
+        else if (match[6] == "OVFLW")
             tpFlowControlFrame->fcType = TpDiagFcType::Ovflw;
         tpFlowControlFrame->bs = std::stoul(match[7], nullptr, 16);
         tpFlowControlFrame->stMin = std::stoul(match[8], nullptr, 16);

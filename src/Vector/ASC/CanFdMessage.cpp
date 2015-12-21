@@ -70,10 +70,9 @@ CanFdMessage * CanFdMessage::parse(File & file, std::string & line)
         canFdMessage->time = std::stod(match[1]);
         canFdMessage->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
-                canFdMessage->dir = Dir::Rx;
-        else
-        if (match[3] == "Tx")
-                canFdMessage->dir = Dir::Tx;
+            canFdMessage->dir = Dir::Rx;
+        else if (match[3] == "Tx")
+            canFdMessage->dir = Dir::Tx;
         canFdMessage->id = std::stoul(match[4], nullptr, 16);
         if (match[5] != "")
             canFdMessage->symbolicName = match[6];

@@ -58,10 +58,9 @@ Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::parse(File & file, 
         most25ControlMessageNodeMode->time = std::stod(match[1]);
         most25ControlMessageNodeMode->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
-                most25ControlMessageNodeMode->dir = Dir::Rx;
-        else
-        if (match[3] == "Tx")
-                most25ControlMessageNodeMode->dir = Dir::Tx;
+            most25ControlMessageNodeMode->dir = Dir::Rx;
+        else if (match[3] == "Tx")
+            most25ControlMessageNodeMode->dir = Dir::Tx;
         most25ControlMessageNodeMode->sourceAdr = std::stoul(match[4], nullptr, file.base);
         most25ControlMessageNodeMode->destAdr = std::stoul(match[5], nullptr, file.base);
         most25ControlMessageNodeMode->rType = std::stoul(match[6], nullptr, file.base);

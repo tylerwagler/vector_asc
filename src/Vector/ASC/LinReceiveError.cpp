@@ -150,14 +150,11 @@ LinReceiveError * LinReceiveError::parse(File & file, std::string & line)
                     if (match[38] != "") {
                         if (match[39] == "unknown")
                             linReceiveError->checksumModel = LinChecksumModel::Unknown;
-                        else
-                        if (match[39] == "classic")
+                        else if (match[39] == "classic")
                             linReceiveError->checksumModel = LinChecksumModel::Classic;
-                        else
-                        if (match[39] == "enhanced")
+                        else if (match[39] == "enhanced")
                             linReceiveError->checksumModel = LinChecksumModel::Enhanced;
-                        else
-                        if (match[39] == "error")
+                        else if (match[39] == "error")
                             linReceiveError->checksumModel = LinChecksumModel::Error;
                     }
                 }

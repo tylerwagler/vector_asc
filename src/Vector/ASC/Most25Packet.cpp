@@ -63,10 +63,9 @@ Most25Packet * Most25Packet::parse(File & file, std::string & line)
         most25Packet->time = std::stod(match[1]);
         most25Packet->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
-                most25Packet->dir = Dir::Rx;
-        else
-        if (match[3] == "Tx")
-                most25Packet->dir = Dir::Tx;
+            most25Packet->dir = Dir::Rx;
+        else if (match[3] == "Tx")
+            most25Packet->dir = Dir::Tx;
         most25Packet->sourceAdr = std::stoul(match[4], nullptr, 16);
         most25Packet->destAdr = std::stoul(match[5], nullptr, 16);
         most25Packet->pktState = std::stoul(match[6], nullptr, 16);

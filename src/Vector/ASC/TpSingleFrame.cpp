@@ -58,17 +58,13 @@ TpSingleFrame * TpSingleFrame::parse(File & file, std::string & line)
         tpSingleFrame->connectionId = std::stoul(match[2], nullptr, 16);
         if (match[3] == "Info")
             tpSingleFrame->type = TpDiagType::Info;
-        else
-        if (match[3] == "Warn")
+        else if (match[3] == "Warn")
             tpSingleFrame->type = TpDiagType::Warn;
-        else
-        if (match[3] == "Error")
+        else if (match[3] == "Error")
             tpSingleFrame->type = TpDiagType::Error;
-        else
-        if (match[3] == "Atom")
+        else if (match[3] == "Atom")
             tpSingleFrame->type = TpDiagType::Atom;
-        else
-        if (match[3] == "Data")
+        else if (match[3] == "Data")
             tpSingleFrame->type = TpDiagType::Data;
         tpSingleFrame->source = match[4];
         tpSingleFrame->destination = match[5];

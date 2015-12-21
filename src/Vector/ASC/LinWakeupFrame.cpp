@@ -59,8 +59,7 @@ LinWakeupFrame * LinWakeupFrame::parse(File & file, std::string & line)
         linWakeupFrame->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         if (match[3] == "Rx")
             linWakeupFrame->dir = Dir::Rx;
-        else
-        if (match[3] == "Tx")
+        else if (match[3] == "Tx")
             linWakeupFrame->dir = Dir::Tx;
         linWakeupFrame->wakeupByte = std::stoul(match[4], nullptr, file.base);
         if (match[5] != "") {

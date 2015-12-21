@@ -53,13 +53,11 @@ EthernetPacket * EthernetPacket::parse(File & file, std::string & line)
         ethernetPacket->time = std::stod(match[1]);
         ethernetPacket->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
-                ethernetPacket->dir = Dir::Rx;
-        else
-        if (match[3] == "Tx")
-                ethernetPacket->dir = Dir::Tx;
-        else
-        if (match[3] == "TxRq")
-                ethernetPacket->dir = Dir::TxRq;
+            ethernetPacket->dir = Dir::Rx;
+        else if (match[3] == "Tx")
+            ethernetPacket->dir = Dir::Tx;
+        else if (match[3] == "TxRq")
+            ethernetPacket->dir = Dir::TxRq;
         ethernetPacket->dataLen = std::stoul(match[4], nullptr, file.base);
         for(int i = 0; i < match[5].length()/2; ++i) {
             std::string s;

@@ -30,7 +30,7 @@ namespace ASC {
 
 #define REGEX_FlexRayOld_Time "([[:digit:].]{3,})"
 #define REGEX_FlexRayOld_Channel "Fr ([12*])"
-    // REGEX_FlexRay_Typ (V9|StartCycleEvent|ErrorFrame)
+// REGEX_FlexRay_Typ (V9|StartCycleEvent|ErrorFrame)
 #define REGEX_FlexRayOld_ID "([[:xdigit:]]{1,4})"
 #define REGEX_FlexRayOld_Cycle "([[:digit:]]{1,2})"
 #define REGEX_FlexRayOld_NM "([01])"

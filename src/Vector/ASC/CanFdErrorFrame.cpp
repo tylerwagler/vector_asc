@@ -74,10 +74,9 @@ CanFdErrorFrame * CanFdErrorFrame::parse(File & file, std::string & line)
         canFdErrorFrame->time = std::stod(match[1]);
         canFdErrorFrame->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
-                canFdErrorFrame->dir = Dir::Rx;
-        else
-        if (match[3] == "Tx")
-                canFdErrorFrame->dir = Dir::Tx;
+            canFdErrorFrame->dir = Dir::Rx;
+        else if (match[3] == "Tx")
+            canFdErrorFrame->dir = Dir::Tx;
         canFdErrorFrame->errorText = match[4];
         canFdErrorFrame->flags1 = std::stoul(match[5], nullptr, 16);
         canFdErrorFrame->code = std::stoul(match[6], nullptr, 16);

@@ -68,10 +68,9 @@ Most150Packet * Most150Packet::parse(File & file, std::string & line)
         most150Packet->time = std::stod(match[1]);
         most150Packet->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
-                most150Packet->dir = Dir::Rx;
-        else
-        if (match[3] == "Tx")
-                most150Packet->dir = Dir::Tx;
+            most150Packet->dir = Dir::Rx;
+        else if (match[3] == "Tx")
+            most150Packet->dir = Dir::Tx;
         most150Packet->sourceAdr = std::stoul(match[4], nullptr, 16);
         most150Packet->destAdr = std::stoul(match[5], nullptr, 16);
         most150Packet->state = std::stoul(match[6], nullptr, 16);

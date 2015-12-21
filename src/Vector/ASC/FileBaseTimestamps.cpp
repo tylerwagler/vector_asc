@@ -47,13 +47,11 @@ FileBaseTimestamps * FileBaseTimestamps::parse(File & file, std::string & line)
         FileBaseTimestamps * fileBaseTimestamps = new FileBaseTimestamps;
         if (match[1] == "hex")
             fileBaseTimestamps->base = File::Base::Hex;
-        else
-        if (match[1] == "dec")
+        else if (match[1] == "dec")
             fileBaseTimestamps->base = File::Base::Dec;
         if (match[2] == "absolute")
             fileBaseTimestamps->timestamps = File::Timestamps::Absolute;
-        else
-        if (match[2] == "relative")
+        else if (match[2] == "relative")
             fileBaseTimestamps->timestamps = File::Timestamps::Relative;
         return fileBaseTimestamps;
     }

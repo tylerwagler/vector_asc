@@ -64,10 +64,9 @@ CanMessage * CanMessage::parse(File & file, std::string & line)
         canMessage->channel = std::stoul(match[2]);
         canMessage->id = std::stoul(match[3], nullptr, file.base);
         if (match[4] == "Rx")
-                canMessage->dir = Dir::Rx;
-        else
-        if (match[4] == "Tx")
-                canMessage->dir = Dir::Tx;
+            canMessage->dir = Dir::Rx;
+        else if (match[4] == "Tx")
+            canMessage->dir = Dir::Tx;
         canMessage->dlc = std::stoul(match[5], nullptr, file.base);
         std::istringstream iss(match[6]);
         if (file.base == 10)
@@ -86,11 +85,9 @@ CanMessage * CanMessage::parse(File & file, std::string & line)
         if (match[12] != "") {
             if (match[13] == "TE")
                 canMessage->messageFlags.te = true;
-            else
-            if (match[13] == "WU")
+            else if (match[13] == "WU")
                 canMessage->messageFlags.wu = true;
-            else
-            if (match[13] == "XX") {
+            else if (match[13] == "XX") {
                 canMessage->messageFlags.te = true;
                 canMessage->messageFlags.wu = true;
             }

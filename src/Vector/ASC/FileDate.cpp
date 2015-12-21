@@ -76,8 +76,7 @@ FileDate * FileDate::parse(File & file, std::string & line)
         fileDate->date.tm_sec = std::stoul(match[6]);
         if (match[7] == " am")
             fileDate->language = File::Language::En;
-        else
-        if (match[7] == " pm") {
+        else if (match[7] == " pm") {
             fileDate->language = File::Language::En;
             fileDate->date.tm_hour += ((match[7] == " pm") ? 12 : 0);
         } else

@@ -218,15 +218,15 @@ void writeLinSubId(File & file, std::ostream & stream, LinNad & linNad, LinMessa
     switch(file.base) {
     case 10:
         stream
-                << std::left << std::setw(3) << std::dec << (uint16_t) linNad << ' '
-                << std::left << std::setw(5) << std::dec << linMessageId << ' '
-                << std::left << std::setw(5) << std::dec << linSupplierId;
+                << std::left << std::setw(3) << std::dec << (uint16_t) linNad
+                << ' ' << std::left << std::setw(5) << std::dec << linMessageId
+                << ' ' << std::left << std::setw(5) << std::dec << linSupplierId;
         break;
     case 16:
         stream
-                << std::setw(2) << std::setprecision(2) << std::hex << (uint16_t) linNad << ' '
-                << std::setw(2) << std::setprecision(2) << std::hex << linMessageId << ' '
-                << std::setw(2) << std::setprecision(2) << std::hex << linSupplierId;
+                << std::setw(2) << std::setprecision(2) << std::hex << (uint16_t) linNad
+                << ' ' << std::setw(2) << std::setprecision(2) << std::hex << linMessageId
+                << ' ' << std::setw(2) << std::setprecision(2) << std::hex << linSupplierId;
         break;
     }
 }

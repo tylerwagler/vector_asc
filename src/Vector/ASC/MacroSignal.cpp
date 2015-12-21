@@ -54,11 +54,9 @@ MacroSignal * MacroSignal::parse(File & file, std::string & line)
         macroSignal->time = std::stod(match[1]);
         if (match[2] == "F")
             macroSignal->bussystem = Vector::ASC::MacroSignal::Bussystem::FlexRay;
-        else
-        if (match[2] == "L")
+        else if (match[2] == "L")
             macroSignal->bussystem = Vector::ASC::MacroSignal::Bussystem::Lin;
-        else
-        if (match[2] == "")
+        else if (match[2] == "")
             macroSignal->bussystem = Vector::ASC::MacroSignal::Bussystem::Can;
         macroSignal->channel = std::stoul(match[3]);
         macroSignal->node = match[4];

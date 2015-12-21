@@ -54,8 +54,7 @@ LinChecksumInfo * LinChecksumInfo::parse(File & file, std::string & line)
         linChecksumInfo->id = match[3];
         if (match[4] == "classic")
             linChecksumInfo->checksumModelInfo = LinChecksumModelInfo::Classic;
-        else
-        if (match[4] == "enhanced")
+        else if (match[4] == "enhanced")
             linChecksumInfo->checksumModelInfo = LinChecksumModelInfo::Enhanced;
         return linChecksumInfo;
     }

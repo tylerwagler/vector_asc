@@ -64,10 +64,9 @@ CanExtendedMessage * CanExtendedMessage::parse(File & file, std::string & line)
         canExtendedMessage->channel = std::stoul(match[2]);
         canExtendedMessage->id = std::stoul(match[3], nullptr, file.base);
         if (match[4] == "Rx")
-                canExtendedMessage->dir = Dir::Rx;
-        else
-        if (match[4] == "Tx")
-                canExtendedMessage->dir = Dir::Tx;
+            canExtendedMessage->dir = Dir::Rx;
+        else if (match[4] == "Tx")
+            canExtendedMessage->dir = Dir::Tx;
         canExtendedMessage->dlc = std::stoul(match[5], nullptr, file.base);
         std::istringstream iss(match[6]);
         if (file.base == 10)
@@ -86,11 +85,9 @@ CanExtendedMessage * CanExtendedMessage::parse(File & file, std::string & line)
         if (match[12] != "") {
             if (match[13] == " TE")
                 canExtendedMessage->messageFlags.te = true;
-            else
-            if (match[13] == " WU")
+            else if (match[13] == " WU")
                 canExtendedMessage->messageFlags.wu = true;
-            else
-            if (match[13] == " XX") {
+            else if (match[13] == " XX") {
                 canExtendedMessage->messageFlags.te = true;
                 canExtendedMessage->messageFlags.wu = true;
             }

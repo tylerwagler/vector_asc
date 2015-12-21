@@ -53,13 +53,11 @@ AfdxPacket * AfdxPacket::parse(File & file, std::string & line)
         afdxPacket->time = std::stod(match[1]);
         afdxPacket->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
-                afdxPacket->dir = Dir::Rx;
-        else
-        if (match[3] == "Tx")
-                afdxPacket->dir = Dir::Tx;
-        else
-        if (match[3] == "TxRq")
-                afdxPacket->dir = Dir::TxRq;
+            afdxPacket->dir = Dir::Rx;
+        else if (match[3] == "Tx")
+            afdxPacket->dir = Dir::Tx;
+        else if (match[3] == "TxRq")
+            afdxPacket->dir = Dir::TxRq;
         afdxPacket->ethChannel = std::stoul(match[4], nullptr, file.base);
         afdxPacket->flags = std::stoul(match[5], nullptr, file.base);
         afdxPacket->bag = std::stoul(match[6], nullptr, file.base);
@@ -85,14 +83,14 @@ void AfdxPacket::write(File & file, std::ostream & stream)
         /* format: " AFDX %d %s %d %d %d" */
         /* format: " AFDX * %s %d %d %d" */
         stream
-            << " AFDX "
-            << std::dec << (uint16_t) channel
-            << ' ';
+                << " AFDX "
+                << std::dec << (uint16_t) channel
+                << ' ';
         writeAfdxDir(file, stream, dir);
         stream
-            << ' ' << std::dec << (uint16_t) ethChannel
-            << ' ' << std::dec << flags
-            << ' ' << std::dec << bag;
+                << ' ' << std::dec << (uint16_t) ethChannel
+                << ' ' << std::dec << flags
+                << ' ' << std::dec << bag;
 
         /* format: " %d:" */
         stream
@@ -104,18 +102,18 @@ void AfdxPacket::write(File & file, std::ostream & stream)
         /* format: " AFDX %d %s %4x %4x %4x" */
         /* format: " AFDX * %s %4x %4x %4x" */
         stream
-            << " AFDX "
-            << std::dec << (uint16_t) channel
-            << ' ';
+                << " AFDX "
+                << std::dec << (uint16_t) channel
+                << ' ';
         writeAfdxDir(file, stream, dir);
         stream
-            << ' ' << std::setw(4) << std::hex << (uint16_t) ethChannel
-            << ' ' << std::setw(4) << std::hex << flags
-            << ' ' << std::setw(4) << std::hex << bag;
+                << ' ' << std::setw(4) << std::hex << (uint16_t) ethChannel
+                << ' ' << std::setw(4) << std::hex << flags
+                << ' ' << std::setw(4) << std::hex << bag;
 
         /* format: " %4x:" */
         stream
-            << ' ' << std::setw(4) << std::hex << dataLen << ':';
+                << ' ' << std::setw(4) << std::hex << dataLen << ':';
 
         break;
     }

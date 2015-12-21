@@ -55,10 +55,9 @@ KLineByte * KLineByte::parse(File & file, std::string & line)
         kLineByte->time = std::stod(match[1]);
         kLineByte->port = match[2];
         if (match[4] == "Rx")
-                kLineByte->direction = Dir::Rx;
-        else
-        if (match[4] == "Tx")
-                kLineByte->direction = Dir::Tx;
+            kLineByte->direction = Dir::Rx;
+        else if (match[4] == "Tx")
+            kLineByte->direction = Dir::Tx;
         kLineByte->baudrate = std::stoul(match[5]);
         kLineByte->length = std::stoul(match[6]);
         std::istringstream iss(match[7]);

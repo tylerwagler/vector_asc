@@ -110,14 +110,11 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & file, std::string 
         linShortOrSlowResponse->stopBitOffsetInHeader = std::stoul(match[22]);
         if (match[23] == "unknown")
             linShortOrSlowResponse->checksumModel = LinChecksumModel::Unknown;
-        else
-        if (match[23] == "classic")
+        else if (match[23] == "classic")
             linShortOrSlowResponse->checksumModel = LinChecksumModel::Classic;
-        else
-        if (match[23] == "enhanced")
+        else if (match[23] == "enhanced")
             linShortOrSlowResponse->checksumModel = LinChecksumModel::Enhanced;
-        else
-        if (match[23] == "error")
+        else if (match[23] == "error")
             linShortOrSlowResponse->checksumModel = LinChecksumModel::Error;
         return linShortOrSlowResponse;
     }

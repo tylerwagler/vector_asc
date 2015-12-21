@@ -80,14 +80,12 @@ void MostDataLost::write(File & file, std::ostream & stream)
     case 10:
         stream
                 << std::setfill(' ') << std::setw(5) << std::dec << dlCtrl
-                << ' '
-                << std::setfill(' ') << std::setw(5) << std::dec << dlAsync;
+                << ' '<< std::setfill(' ') << std::setw(5) << std::dec << dlAsync;
         break;
     case 16:
         stream
                 << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << dlCtrl
-                << ' '
-                << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << dlAsync;
+                << ' '<< std::setfill('0') << std::setw(4) << std::uppercase << std::hex << dlAsync;
         break;
     }
     stream

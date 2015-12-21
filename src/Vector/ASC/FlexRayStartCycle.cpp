@@ -68,13 +68,11 @@ FlexRayStartCycle * FlexRayStartCycle::parse(File & file, std::string & line)
         flexRayStartCycle->channelMask = std::stoul(match[5]);
         flexRayStartCycle->cycleNo = std::stoul(match[6], nullptr, file.base);
         if (match[7] == "Rx")
-                flexRayStartCycle->direction = Dir::Rx;
-        else
-        if (match[7] == "Tx")
-                flexRayStartCycle->direction = Dir::Tx;
-        else
-        if (match[7] == "TxRq")
-                flexRayStartCycle->direction = Dir::TxRq;
+            flexRayStartCycle->direction = Dir::Rx;
+        else if (match[7] == "Tx")
+            flexRayStartCycle->direction = Dir::Tx;
+        else if (match[7] == "TxRq")
+            flexRayStartCycle->direction = Dir::TxRq;
         flexRayStartCycle->ccType = std::stoul(match[8], nullptr, file.base);
         flexRayStartCycle->ccData[0] = std::stoul(match[9], nullptr, file.base);
         flexRayStartCycle->ccData[1] = std::stoul(match[10], nullptr, file.base);

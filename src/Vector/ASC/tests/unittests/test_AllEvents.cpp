@@ -58,20 +58,20 @@ BOOST_AUTO_TEST_CASE(AllEvents)
                     fileout.language = filein.language;
                     fileout.date = filein.date;
                 }
-                    break;
+                break;
                 case Vector::ASC::Event::EventType::FileBaseTimestamps:
                 {
                     Vector::ASC::FileBaseTimestamps * fileBaseTimestamps = static_cast<Vector::ASC::FileBaseTimestamps *>(event);
                     fileout.base = filein.base;
                     fileout.timestamps = filein.timestamps;
                 }
-                    break;
+                break;
                 case Vector::ASC::Event::EventType::FileVersion:
                 {
                     Vector::ASC::FileVersion * fileVersion = static_cast<Vector::ASC::FileVersion *>(event);
                     fileout.version = filein.version;
                 }
-                    break;
+                break;
                 default:
                     break;
                 }
