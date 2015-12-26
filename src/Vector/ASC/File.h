@@ -131,14 +131,14 @@ public:
      *
      * @param filename file name
      */
-    void open(const char * filename);
+    void open(const char * filename, OpenMode openMode = OpenMode::Read);
 
     /**
      * open file
      *
      * @param filename file name
      */
-    void open(const std::string & filename);
+    void open(const std::string & filename, OpenMode openMode = OpenMode::Read);
 
     /**
      * is file open?

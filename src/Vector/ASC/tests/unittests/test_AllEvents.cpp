@@ -33,15 +33,13 @@ BOOST_AUTO_TEST_CASE(AllEvents)
         /* open input file */
         Vector::ASC::File filein;
         boost::filesystem::path infile(CMAKE_CURRENT_SOURCE_DIR "/events/" + eventFile);
-        filein.openMode = Vector::ASC::File::OpenMode::Read;
-        filein.open(infile.string());
+        filein.open(infile.string(), Vector::ASC::File::OpenMode::Read);
         BOOST_REQUIRE(filein.is_open());
 
         /* open output file */
         Vector::ASC::File fileout;
         boost::filesystem::path outfile(CMAKE_CURRENT_BINARY_DIR "/events/" + eventFile);
-        fileout.openMode = Vector::ASC::File::OpenMode::Write;
-        fileout.open(outfile.string());
+        fileout.open(outfile.string(), Vector::ASC::File::OpenMode::Write);
         BOOST_REQUIRE(fileout.is_open());
 
         /* parse log file */

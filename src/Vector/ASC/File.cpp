@@ -47,9 +47,11 @@ File::~File()
     scanner = nullptr;
 }
 
-void File::open(const char * filename)
+void File::open(const char * filename, OpenMode openMode)
 {
-    switch(openMode) {
+    this->openMode = openMode;
+
+    switch(this->openMode) {
     case OpenMode::Read:
         /* open file for reading */
         file.open(filename, std::ios_base::in);
@@ -73,9 +75,9 @@ void File::open(const char * filename)
     }
 }
 
-void File::open(const std::string & filename)
+void File::open(const std::string & filename, OpenMode openMode)
 {
-    open(filename.c_str());
+    open(filename.c_str(), openMode);
 }
 
 bool File::is_open() const
