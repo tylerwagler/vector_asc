@@ -11,10 +11,6 @@
 
 #include "Vector/ASC.h"
 
-#define SUCCEEDED(code) ((int)(code) >= 0)
-#define WARNED(code) ((int)(code) & 0x40000000)
-#define FAILED(code) ((int)(code) < 0)
-
 static bool isEqual(double a, double b)
 {
     return ((a-b) < 0.000001) && ((b-a) < 0.000001);

@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE Logfile
+#define BOOST_TEST_MODULE AllLogfiles
 #if !defined(WIN32)
 #define BOOST_TEST_DYN_LINK
 #endif
@@ -10,10 +10,6 @@
 #include <string>
 
 #include "Vector/ASC.h"
-
-#define SUCCEEDED(code) ((int)(code) >= 0)
-#define WARNED(code) ((int)(code) & 0x40000000)
-#define FAILED(code) ((int)(code) < 0)
 
 static bool isEqual(double a, double b)
 {
