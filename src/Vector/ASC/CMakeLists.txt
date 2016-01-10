@@ -271,11 +271,10 @@ install(
   DESTINATION lib)
 
 install(
-  FILES ${CMAKE_CURRENT_BINARY_DIR}/vector_asc_export.h
-  DESTINATION include/Vector/ASC)
-
-install(
-  FILES ${CMAKE_CURRENT_BINARY_DIR}/config.h ${public_header_files}
+  FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/config.h
+    ${CMAKE_CURRENT_BINARY_DIR}/vector_asc_export.h
+    ${public_header_files}
   DESTINATION include/Vector/ASC)
 
 add_subdirectory(docs)
