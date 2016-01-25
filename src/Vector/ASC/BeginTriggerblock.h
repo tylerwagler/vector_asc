@@ -48,21 +48,6 @@ public:
     static BeginTriggerblock * parse(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
-
-private:
-    /**
-     * parse week day
-     *
-     * @param wday[in] week day string
-     */
-    void parseWday(std::string wday);
-
-    /**
-     * parse month
-     *
-     * @param mon[in] month string
-     */
-    void parseMon(std::string mon);
 };
 
 }

@@ -19,7 +19,6 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
-#include <iomanip>
 #include <regex>
 #include "CanCommon.h"
 #include "CanSymbolsRegEx.h"
@@ -27,28 +26,6 @@
 
 namespace Vector {
 namespace ASC {
-
-/** a string that represents a day of the week */
-static std::string wdayNameEn[7] = {
-    "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-};
-
-/** a string that represents a day of the week (in german version) */
-static std::string wdayNameDe[7] = {
-    "Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam"
-};
-
-/** a string that represents a month */
-static std::string monNameEn[12] = {
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-};
-
-/** a string that represents a month (in german version) */
-static std::string monNameDe[12] = {
-    "Jan", "Feb", "M\xE4r", "Apr", "Mai", "Jun",
-    "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"
-};
 
 FileDate::FileDate() :
     Event(),
@@ -68,20 +45,8 @@ FileDate * FileDate::parse(File & file, std::string & line)
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FileDate * fileDate = new FileDate;
-        fileDate->parseWday(match[1]);
-        fileDate->parseMon(match[2]);
-        fileDate->date.tm_mday = std::stoul(match[3]);
-        fileDate->date.tm_hour = std::stoul(match[4]);
-        fileDate->date.tm_min = std::stoul(match[5]);
-        fileDate->date.tm_sec = std::stoul(match[6]);
-        if (match[7] == " am")
-            fileDate->language = File::Language::En;
-        else if (match[7] == " pm") {
-            fileDate->language = File::Language::En;
-            fileDate->date.tm_hour += ((match[7] == " pm") ? 12 : 0);
-        } else
-            fileDate->language = File::Language::De;
-        fileDate->date.tm_year = std::stoul(match[8]) - 1900;
+        readDate(match[1], match[2], match[3], match[4], match[5], match[6], match[7], match[8],
+                fileDate->language, fileDate->date);
         return fileDate;
     }
 
@@ -91,56 +56,10 @@ FileDate * FileDate::parse(File & file, std::string & line)
 void FileDate::write(File & file, std::ostream & stream)
 {
     /* format: "date %s" */
-    stream
-            << "date "
-            << (file.language == File::Language::En ? wdayNameEn[date.tm_wday] : wdayNameDe[date.tm_wday])
-            << ' ' << (file.language == File::Language::En ? monNameEn[date.tm_mon] : monNameDe[date.tm_mon])
-            << ' ' << std::dec << date.tm_mday
-            << ' ' << std::setfill('0') << std::setw(2) << std::dec << (file.language == File::Language::En ? (date.tm_hour % 12) : date.tm_hour)
-            << ':' << std::setfill('0') << std::setw(2) << std::dec << date.tm_min
-            << ':' << std::setfill('0') << std::setw(2) << std::dec << date.tm_sec
-            << (file.language == File::Language::En ? (date.tm_hour < 12 ? " am" : " pm") : "")
-            << ' ' << std::dec << date.tm_year + 1900;
+    stream << "date ";
+    writeDate(file, stream, date);
 
     stream << endl;
-}
-
-void FileDate::parseWday(std::string wday)
-{
-    for(int i = 0; i < 7; ++i) {
-        if (wdayNameEn[i] == wday) {
-            date.tm_wday = i;
-            language = File::Language::En;
-            return;
-        }
-    }
-    for(int i = 0; i < 7; ++i) {
-        if (wdayNameDe[i] == wday) {
-            date.tm_wday = i;
-            language = File::Language::De;
-            return;
-        }
-    }
-    return;
-}
-
-void FileDate::parseMon(std::string mon)
-{
-    for(int i = 0; i < 12; ++i) {
-        if (monNameEn[i] == mon) {
-            date.tm_mon = i;
-            language = File::Language::En;
-            return;
-        }
-    }
-    for(int i = 0; i < 12; ++i) {
-        if (monNameDe[i] == mon) {
-            date.tm_mon = i;
-            language = File::Language::De;
-            return;
-        }
-    }
-    return;
 }
 
 }
