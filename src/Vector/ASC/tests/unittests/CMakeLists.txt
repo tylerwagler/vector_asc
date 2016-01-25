@@ -10,12 +10,14 @@ add_definitions(
 
 add_executable(test_AllEvents test_AllEvents.cpp)
 add_executable(test_AllLogfiles test_AllLogfiles.cpp)
+add_executable(test_Date test_Date.cpp ../../CanCommon.cpp)
 add_executable(test_Events test_Events.cpp)
 
 if(OPTION_USE_GCOV_LCOV)
   add_definitions(-g -O0 -fprofile-arcs -ftest-coverage)
   target_link_libraries(test_AllEvents gcov)
   target_link_libraries(test_AllLogfiles gcov)
+  target_link_libraries(test_Date gcov)
   target_link_libraries(test_Events gcov)
 endif()
 
@@ -31,6 +33,12 @@ target_link_libraries(test_AllLogfiles
   ${Boost_FILESYSTEM_LIBRARY}
   ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
+target_link_libraries(test_Date
+  ${PROJECT_NAME}
+  ${Boost_SYSTEM_LIBRARY}
+  ${Boost_FILESYSTEM_LIBRARY}
+  ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+
 target_link_libraries(test_Events
   ${PROJECT_NAME}
   ${Boost_SYSTEM_LIBRARY}
@@ -41,4 +49,5 @@ enable_testing()
 
 add_test(AllEvents test_AllEvents)
 add_test(AllLogfiles test_AllLogfiles)
+add_test(Date test_Date)
 add_test(Events test_Events)
