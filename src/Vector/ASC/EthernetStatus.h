@@ -36,7 +36,6 @@ class EthernetStatus : public Event
 {
 public:
     EthernetStatus();
-    virtual ~EthernetStatus();
 
     /** @copydoc EthTime */
     EthTime time;

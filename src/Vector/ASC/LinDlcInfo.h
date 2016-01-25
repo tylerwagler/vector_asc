@@ -41,7 +41,6 @@ class LinDlcInfo : public Event
 {
 public:
     LinDlcInfo();
-    virtual ~LinDlcInfo();
 
     /** @copydoc LinTime */
     LinTime time;

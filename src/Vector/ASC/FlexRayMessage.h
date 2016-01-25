@@ -37,7 +37,6 @@ class FlexRayMessage : public Event
 {
 public:
     FlexRayMessage();
-    virtual ~FlexRayMessage();
 
     /** Timestamp */
     double time;

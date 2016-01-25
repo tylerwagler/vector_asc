@@ -37,7 +37,6 @@ class FlexRayOldMessage : public Event
 {
 public:
     FlexRayOldMessage();
-    virtual ~FlexRayOldMessage();
 
     /** @copydoc FlexRayOldTime */
     FlexRayOldTime time;

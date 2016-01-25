@@ -36,10 +36,6 @@ FileVersion::FileVersion() :
     eventType = EventType::FileVersion;
 }
 
-FileVersion::~FileVersion()
-{
-}
-
 FileVersion * FileVersion::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" REGEX_ws "version" REGEX_WS "([[:digit:]]{1,3})\\.([[:digit:]]{1,3})\\.([[:digit:]]{1,3})" REGEX_ENDL);

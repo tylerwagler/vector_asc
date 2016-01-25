@@ -37,7 +37,6 @@ class CanFdMessage : public Event
 {
 public:
     CanFdMessage();
-    virtual ~CanFdMessage();
 
     /** @copydoc Time */
     Time time;

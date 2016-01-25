@@ -38,7 +38,6 @@ class Comment : public Event
 {
 public:
     Comment();
-    virtual ~Comment();
 
     /** @copydoc Time */
     Time time;

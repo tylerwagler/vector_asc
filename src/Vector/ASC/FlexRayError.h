@@ -36,7 +36,6 @@ class FlexRayError : public Event
 {
 public:
     FlexRayError();
-    virtual ~FlexRayError();
 
     /** Timestamp */
     double time;

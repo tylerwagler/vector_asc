@@ -32,7 +32,6 @@ class FileSplitInformation : public Event
 {
 public:
     FileSplitInformation();
-    virtual ~FileSplitInformation();
 
     /** last absolute time stamp of the previous log file */
     double time;

@@ -36,10 +36,6 @@ FileSplitInformation::FileSplitInformation() :
     eventType = EventType::FileSplitInformation;
 }
 
-FileSplitInformation::~FileSplitInformation()
-{
-}
-
 FileSplitInformation * FileSplitInformation::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_Time REGEX_WS "previous log file:" REGEX_ws "(.+?)" REGEX_ENDL);

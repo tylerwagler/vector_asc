@@ -37,7 +37,6 @@ class SystemVariables : public Event
 {
 public:
     SystemVariables();
-    virtual ~SystemVariables();
 
     /** @copydoc Time */
     Time time;

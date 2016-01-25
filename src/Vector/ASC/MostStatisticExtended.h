@@ -38,7 +38,6 @@ class MostStatisticExtended : public Event
 {
 public:
     MostStatisticExtended();
-    virtual ~MostStatisticExtended();
 
     /** @copydoc MostTime */
     MostTime time;

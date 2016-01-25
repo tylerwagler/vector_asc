@@ -37,7 +37,6 @@ class LogDirectStop : public Event
 {
 public:
     LogDirectStop();
-    virtual ~LogDirectStop();
 
     /** @copydoc Time */
     Time time;

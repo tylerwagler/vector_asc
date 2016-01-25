@@ -37,7 +37,6 @@ class EthernetPacket : public Event
 {
 public:
     EthernetPacket();
-    virtual ~EthernetPacket();
 
     /** @copydoc EthTime */
     EthTime time;

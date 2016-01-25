@@ -38,7 +38,6 @@ class MostCommonRegister : public Event
 {
 public:
     MostCommonRegister();
-    virtual ~MostCommonRegister();
 
     /** @copydoc MostTime */
     MostTime time;

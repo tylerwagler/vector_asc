@@ -34,7 +34,6 @@ class Unknown : public Event
 {
 public:
     Unknown();
-    virtual ~Unknown();
 
     /** line content */
     std::string line;

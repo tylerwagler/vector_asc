@@ -47,7 +47,6 @@ class LinSyncError : public Event
 {
 public:
     LinSyncError();
-    virtual ~LinSyncError();
 
     /** @copydoc LinTime */
     LinTime time;

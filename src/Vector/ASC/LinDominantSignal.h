@@ -37,7 +37,6 @@ class LinDominantSignal : public Event
 {
 public:
     LinDominantSignal();
-    virtual ~LinDominantSignal();
 
     /** @copydoc LinTime */
     LinTime time;

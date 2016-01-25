@@ -37,7 +37,6 @@ class FlexRayOldStartCycle : public Event
 {
 public:
     FlexRayOldStartCycle();
-    virtual ~FlexRayOldStartCycle();
 
     /** @copydoc FlexRayOldTime */
     FlexRayOldTime time;

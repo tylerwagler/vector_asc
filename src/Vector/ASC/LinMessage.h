@@ -37,7 +37,6 @@ class LinMessage : public Event
 {
 public:
     LinMessage();
-    virtual ~LinMessage();
 
     /** @copydoc LinTime */
     LinTime time;

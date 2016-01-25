@@ -36,7 +36,6 @@ class LinWakeupFrame : public Event
 {
 public:
     LinWakeupFrame();
-    virtual ~LinWakeupFrame();
 
     /** @copydoc LinTime */
     double time;

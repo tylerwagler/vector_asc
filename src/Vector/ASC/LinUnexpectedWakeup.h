@@ -39,7 +39,6 @@ class LinUnexpectedWakeup : public Event
 {
 public:
     LinUnexpectedWakeup();
-    virtual ~LinUnexpectedWakeup();
 
     /** @copydoc LinTime */
     LinTime time;

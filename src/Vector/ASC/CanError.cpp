@@ -36,10 +36,6 @@ CanError::CanError() :
     eventType = EventType::CanError;
 }
 
-CanError::~CanError()
-{
-}
-
 CanError * CanError::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "CAN" REGEX_WS  REGEX_Channel REGEX_WS "Status:" REGEX_ws REGEX_Error REGEX_ENDL);

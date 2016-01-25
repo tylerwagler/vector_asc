@@ -51,7 +51,6 @@ class LinReceiveError : public Event
 {
 public:
     LinReceiveError();
-    virtual ~LinReceiveError();
 
     /** @copydoc LinTime */
     LinTime time;

@@ -34,10 +34,6 @@ FileComment::FileComment() :
     eventType = EventType::FileComment;
 }
 
-FileComment::~FileComment()
-{
-}
-
 FileComment * FileComment::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" "(.+?)" REGEX_ENDL);

@@ -32,7 +32,6 @@ class FileVersion : public Event
 {
 public:
     FileVersion();
-    virtual ~FileVersion();
 
     /** major version number */
     uint8_t versionMajor;

@@ -33,10 +33,6 @@ EndTriggerblock::EndTriggerblock() :
     eventType = EventType::EndTriggerblock;
 }
 
-EndTriggerblock::~EndTriggerblock()
-{
-}
-
 EndTriggerblock * EndTriggerblock::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL "End TriggerBlock" REGEX_ENDL);

@@ -45,10 +45,6 @@ FlexRayStartCycle::FlexRayStartCycle() :
     eventType = EventType::FlexRayStartCycle;
 }
 
-FlexRayStartCycle::~FlexRayStartCycle()
-{
-}
-
 FlexRayStartCycle * FlexRayStartCycle::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "SCE"

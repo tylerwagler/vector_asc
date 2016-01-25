@@ -37,7 +37,6 @@ class LinSpike : public Event
 {
 public:
     LinSpike();
-    virtual ~LinSpike();
 
     /** @copydoc LinTime */
     LinTime time;

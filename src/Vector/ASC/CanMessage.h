@@ -37,7 +37,6 @@ class CanMessage : public Event
 {
 public:
     CanMessage();
-    virtual ~CanMessage();
 
     /** @copydoc Time */
     Time time;

@@ -40,10 +40,6 @@ LinUnexpectedWakeup::LinUnexpectedWakeup() :
     eventType = EventType::LinUnexpectedWakeup;
 }
 
-LinUnexpectedWakeup::~LinUnexpectedWakeup()
-{
-}
-
 LinUnexpectedWakeup * LinUnexpectedWakeup::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Unexpected wakeup:"

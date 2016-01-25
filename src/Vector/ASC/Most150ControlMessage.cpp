@@ -50,10 +50,6 @@ Most150ControlMessage::Most150ControlMessage() :
     eventType = EventType::Most150ControlMessage;
 }
 
-Most150ControlMessage::~Most150ControlMessage()
-{
-}
-
 Most150ControlMessage * Most150ControlMessage::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Msg150:"

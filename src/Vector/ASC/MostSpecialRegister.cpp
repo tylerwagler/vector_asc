@@ -39,10 +39,6 @@ MostSpecialRegister::MostSpecialRegister() :
     eventType = EventType::MostSpecialRegister;
 }
 
-MostSpecialRegister::~MostSpecialRegister()
-{
-}
-
 MostSpecialRegister * MostSpecialRegister::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Register:"

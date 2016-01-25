@@ -38,7 +38,6 @@ class MostTxLight : public Event
 {
 public:
     MostTxLight();
-    virtual ~MostTxLight();
 
     /** @copydoc MostTime */
     MostTime time;

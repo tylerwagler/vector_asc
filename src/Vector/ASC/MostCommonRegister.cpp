@@ -41,10 +41,6 @@ MostCommonRegister::MostCommonRegister() :
     eventType = EventType::MostCommonRegister;
 }
 
-MostCommonRegister::~MostCommonRegister()
-{
-}
-
 MostCommonRegister * MostCommonRegister::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "RegData:"

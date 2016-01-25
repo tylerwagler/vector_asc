@@ -36,7 +36,6 @@ class CanRemoteFrame : public Event
 {
 public:
     CanRemoteFrame();
-    virtual ~CanRemoteFrame();
 
     /** @copydoc Time */
     Time time;

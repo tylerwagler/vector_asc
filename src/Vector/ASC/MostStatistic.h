@@ -40,7 +40,6 @@ class MostStatistic : public Event
 {
 public:
     MostStatistic();
-    virtual ~MostStatistic();
 
     /** @copydoc MostTime */
     MostTime time;

@@ -40,10 +40,6 @@ EthernetRxError::EthernetRxError() :
     eventType = EventType::EthernetRxError;
 }
 
-EthernetRxError::~EthernetRxError()
-{
-}
-
 EthernetRxError * EthernetRxError::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Eth_Time REGEX_WS "ETH" REGEX_WS REGEX_Eth_Channel REGEX_WS "RxEr"

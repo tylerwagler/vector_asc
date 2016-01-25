@@ -36,7 +36,6 @@ class EnvironmentVariables : public Event
 {
 public:
     EnvironmentVariables();
-    virtual ~EnvironmentVariables();
 
     /** @copydoc Time */
     Time time;

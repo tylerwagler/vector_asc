@@ -39,10 +39,6 @@ MostTrigger::MostTrigger() :
     eventType = EventType::MostTrigger;
 }
 
-MostTrigger::~MostTrigger()
-{
-}
-
 MostTrigger * MostTrigger::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Trigger:"

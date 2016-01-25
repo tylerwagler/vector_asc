@@ -43,7 +43,6 @@ class Most25AllocTable : public Event
 {
 public:
     Most25AllocTable();
-    virtual ~Most25AllocTable();
 
     /** @copydoc MostTime */
     MostTime time;

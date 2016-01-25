@@ -46,10 +46,6 @@ FlexRayStatus::FlexRayStatus() :
     eventType = EventType::FlexRayStatus;
 }
 
-FlexRayStatus::~FlexRayStatus()
-{
-}
-
 FlexRayStatus * FlexRayStatus::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "SE"

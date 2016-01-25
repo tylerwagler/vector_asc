@@ -36,7 +36,6 @@ class CanBusStatistics : public Event
 {
 public:
     CanBusStatistics();
-    virtual ~CanBusStatistics();
 
     /** @copydoc Time */
     Time time;

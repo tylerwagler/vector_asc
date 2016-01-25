@@ -48,7 +48,6 @@ class MostLightLock : public Event
 {
 public:
     MostLightLock();
-    virtual ~MostLightLock();
 
     /** @copydoc MostTime */
     MostTime time;

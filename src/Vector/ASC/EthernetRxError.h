@@ -37,7 +37,6 @@ class EthernetRxError : public Event
 {
 public:
     EthernetRxError();
-    virtual ~EthernetRxError();
 
     /** @copydoc EthTime */
     EthTime time;

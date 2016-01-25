@@ -38,7 +38,6 @@ class GlobalMarker : public Event
 {
 public:
     GlobalMarker();
-    virtual ~GlobalMarker();
 
     /** @copydoc Time */
     Time time;

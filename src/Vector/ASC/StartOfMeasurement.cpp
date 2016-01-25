@@ -35,10 +35,6 @@ StartOfMeasurement::StartOfMeasurement() :
     eventType = EventType::StartOfMeasurement;
 }
 
-StartOfMeasurement::~StartOfMeasurement()
-{
-}
-
 StartOfMeasurement * StartOfMeasurement::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "((Start of measurement)|(Start der Messung))" REGEX_ENDL);

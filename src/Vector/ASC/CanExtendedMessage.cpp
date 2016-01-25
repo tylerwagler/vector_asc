@@ -44,10 +44,6 @@ CanExtendedMessage::CanExtendedMessage() :
     eventType = EventType::CanExtendedMessage;
 }
 
-CanExtendedMessage::~CanExtendedMessage()
-{
-}
-
 CanExtendedMessage * CanExtendedMessage::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS REGEX_ID "x" REGEX_WS REGEX_Dir REGEX_WS "d" REGEX_WS REGEX_DLC

@@ -37,7 +37,6 @@ class MostEthernetPacketFragment : public Event
 {
 public:
     MostEthernetPacketFragment();
-    virtual ~MostEthernetPacketFragment();
 
     /** @copydoc MostTime */
     MostTime time;

@@ -36,7 +36,6 @@ class Gps : public Event
 {
 public:
     Gps();
-    virtual ~Gps();
 
     /** absolute or relative time in seconds */
     Time time;

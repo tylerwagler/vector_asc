@@ -38,7 +38,6 @@ class LinChecksumInfo : public Event
 {
 public:
     LinChecksumInfo();
-    virtual ~LinChecksumInfo();
 
     /** @copydoc LinTime */
     LinTime time;

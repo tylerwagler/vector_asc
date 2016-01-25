@@ -38,7 +38,6 @@ class LinSleepMode : public Event
 {
 public:
     LinSleepMode();
-    virtual ~LinSleepMode();
 
     /** @copydoc LinTime */
     LinTime time;

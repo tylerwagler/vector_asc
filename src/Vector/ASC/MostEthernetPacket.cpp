@@ -48,10 +48,6 @@ MostEthernetPacket::MostEthernetPacket() :
     eventType = EventType::MostEthernetPacket;
 }
 
-MostEthernetPacket::~MostEthernetPacket()
-{
-}
-
 MostEthernetPacket * MostEthernetPacket::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "PktEth:"

@@ -50,10 +50,6 @@ CanFdExtendedMessage::CanFdExtendedMessage() :
     eventType = EventType::CanFdExtendedMessage;
 }
 
-CanFdExtendedMessage::~CanFdExtendedMessage()
-{
-}
-
 CanFdExtendedMessage * CanFdExtendedMessage::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "CANFD" REGEX_WS REGEX_Channel REGEX_WS REGEX_Dir REGEX_WS REGEX_ID "x"

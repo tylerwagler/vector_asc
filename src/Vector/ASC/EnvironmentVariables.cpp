@@ -37,10 +37,6 @@ EnvironmentVariables::EnvironmentVariables() :
     eventType = EventType::EnvironmentVariables;
 }
 
-EnvironmentVariables::~EnvironmentVariables()
-{
-}
-
 EnvironmentVariables * EnvironmentVariables::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "(.+?)" REGEX_ws ":=" REGEX_ws "(.+?)" REGEX_ENDL);

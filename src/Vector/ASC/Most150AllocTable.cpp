@@ -40,10 +40,6 @@ Most150AllocTable::Most150AllocTable() :
     eventType = EventType::Most150AllocTable;
 }
 
-Most150AllocTable::~Most150AllocTable()
-{
-}
-
 Most150AllocTable * Most150AllocTable::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "AT150:"

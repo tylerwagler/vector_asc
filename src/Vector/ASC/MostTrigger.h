@@ -37,7 +37,6 @@ class MostTrigger : public Event
 {
 public:
     MostTrigger();
-    virtual ~MostTrigger();
 
     /** @copydoc MostTime */
     MostTime time;

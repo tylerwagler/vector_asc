@@ -36,7 +36,6 @@ class FlexRayStatus : public Event
 {
 public:
     FlexRayStatus();
-    virtual ~FlexRayStatus();
 
     /** Timestamp */
     double time;

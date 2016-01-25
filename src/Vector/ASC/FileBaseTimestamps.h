@@ -32,7 +32,6 @@ class FileBaseTimestamps : public Event
 {
 public:
     FileBaseTimestamps();
-    virtual ~FileBaseTimestamps();
 
     /** Events can either be recorder in hexadecimal or decimal mode. */
     File::Base base;

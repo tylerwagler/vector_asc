@@ -39,7 +39,6 @@ class LinEventTriggeredFrameInfo : public Event
 {
 public:
     LinEventTriggeredFrameInfo();
-    virtual ~LinEventTriggeredFrameInfo();
 
     /** @copydoc LinTime */
     LinTime time;

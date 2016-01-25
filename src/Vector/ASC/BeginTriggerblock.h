@@ -36,7 +36,6 @@ class BeginTriggerblock : public Event
 {
 public:
     BeginTriggerblock();
-    virtual ~BeginTriggerblock();
 
     /** date/time */
     tm date;

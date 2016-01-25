@@ -37,7 +37,6 @@ class Most25Packet : public Event
 {
 public:
     Most25Packet();
-    virtual ~Most25Packet();
 
     /** @copydoc MostTime */
     MostTime time;

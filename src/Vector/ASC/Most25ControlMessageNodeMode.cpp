@@ -42,10 +42,6 @@ Most25ControlMessageNodeMode::Most25ControlMessageNodeMode() :
     eventType = EventType::Most25ControlMessageNodeMode;
 }
 
-Most25ControlMessageNodeMode::~Most25ControlMessageNodeMode()
-{
-}
-
 Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS REGEX_MOST_Dir

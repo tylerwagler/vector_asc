@@ -32,7 +32,6 @@ class FileDate : public Event
 {
 public:
     FileDate();
-    virtual ~FileDate();
 
     /** date/time */
     struct tm date;

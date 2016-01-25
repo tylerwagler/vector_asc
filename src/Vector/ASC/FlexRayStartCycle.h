@@ -38,7 +38,6 @@ class FlexRayStartCycle : public Event
 {
 public:
     FlexRayStartCycle();
-    virtual ~FlexRayStartCycle();
 
     /** Timestamp */
     double time;

@@ -32,7 +32,6 @@ class FileInternalEventsLogged : public Event
 {
 public:
     FileInternalEventsLogged();
-    virtual ~FileInternalEventsLogged();
 
     /** internal events logged */
     bool internalEventsLogged;

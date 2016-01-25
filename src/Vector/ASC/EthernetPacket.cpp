@@ -39,10 +39,6 @@ EthernetPacket::EthernetPacket() :
     eventType = EventType::EthernetPacket;
 }
 
-EthernetPacket::~EthernetPacket()
-{
-}
-
 EthernetPacket * EthernetPacket::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Eth_Time REGEX_WS "ETH" REGEX_WS REGEX_Eth_Channel REGEX_WS REGEX_Eth_Dir

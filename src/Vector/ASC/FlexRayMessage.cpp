@@ -56,10 +56,6 @@ FlexRayMessage::FlexRayMessage() :
     eventType = EventType::FlexRayMessage;
 }
 
-FlexRayMessage::~FlexRayMessage()
-{
-}
-
 FlexRayMessage * FlexRayMessage::parseRmsg(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "RMSG"

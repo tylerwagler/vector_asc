@@ -35,7 +35,6 @@ class EndTriggerblock : public Event
 {
 public:
     EndTriggerblock();
-    virtual ~EndTriggerblock();
 
     /** @copydoc Event::parse() */
     static EndTriggerblock * parse(File & file, std::string & line);

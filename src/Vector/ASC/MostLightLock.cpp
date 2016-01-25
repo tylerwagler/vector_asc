@@ -36,10 +36,6 @@ MostLightLock::MostLightLock() :
     eventType = EventType::MostLightLock;
 }
 
-MostLightLock::~MostLightLock()
-{
-}
-
 MostLightLock * MostLightLock::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "LL:" REGEX_ws REGEX_MOST_LLState REGEX_ENDL);

@@ -39,10 +39,6 @@ SystemVariables::SystemVariables() :
     eventType = EventType::SystemVariables;
 }
 
-SystemVariables::~SystemVariables()
-{
-}
-
 SystemVariables * SystemVariables::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "SV:" REGEX_ws REGEX_svtype REGEX_WS "0" REGEX_WS "0"

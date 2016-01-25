@@ -37,7 +37,6 @@ class Most25ControlMessageSpyMode : public Event
 {
 public:
     Most25ControlMessageSpyMode();
-    virtual ~Most25ControlMessageSpyMode();
 
     /** @copydoc MostTime */
     MostTime time;

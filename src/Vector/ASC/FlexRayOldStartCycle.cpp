@@ -38,10 +38,6 @@ FlexRayOldStartCycle::FlexRayOldStartCycle() :
     eventType = EventType::FlexRayOldStartCycle;
 }
 
-FlexRayOldStartCycle::~FlexRayOldStartCycle()
-{
-}
-
 FlexRayOldStartCycle * FlexRayOldStartCycle::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_FlexRayOld_Time REGEX_WS REGEX_FlexRayOld_Channel REGEX_WS "StartCycleEvent"

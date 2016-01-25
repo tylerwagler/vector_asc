@@ -40,7 +40,6 @@ class LinBaudrate : public Event
 {
 public:
     LinBaudrate();
-    virtual ~LinBaudrate();
 
     /** @copydoc LinTime */
     LinTime time;

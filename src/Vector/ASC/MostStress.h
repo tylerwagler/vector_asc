@@ -36,7 +36,6 @@ class MostStress : public Event
 {
 public:
     MostStress();
-    virtual ~MostStress();
 
     /** @copydoc MostTime */
     double time;

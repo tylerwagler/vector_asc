@@ -37,7 +37,6 @@ class MostDataLost : public Event
 {
 public:
     MostDataLost();
-    virtual ~MostDataLost();
 
     /** @copydoc MostTime */
     MostTime time;

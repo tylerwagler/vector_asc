@@ -33,7 +33,6 @@ class KLineByte : public Event
 {
 public:
     KLineByte();
-    virtual ~KLineByte();
 
     /** @copydoc KLineTime */
     KLineTime time;

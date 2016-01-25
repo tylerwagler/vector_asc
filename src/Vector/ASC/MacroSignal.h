@@ -36,7 +36,6 @@ class MacroSignal : public Event
 {
 public:
     MacroSignal();
-    virtual ~MacroSignal();
 
     /** @Time */
     Time time;

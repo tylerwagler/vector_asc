@@ -37,10 +37,6 @@ LinBaudrate::LinBaudrate() :
     eventType = EventType::LinBaudrate;
 }
 
-LinBaudrate::~LinBaudrate()
-{
-}
-
 LinBaudrate * LinBaudrate::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Baudrate"

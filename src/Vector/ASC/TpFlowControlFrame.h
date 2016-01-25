@@ -32,7 +32,6 @@ class TpFlowControlFrame : public Event
 {
 public:
     TpFlowControlFrame();
-    virtual ~TpFlowControlFrame();
 
     /** @copydoc TpDiagCanChannel */
     TpDiagCanChannel canChannel;

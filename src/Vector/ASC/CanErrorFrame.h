@@ -36,7 +36,6 @@ class CanErrorFrame : public Event
 {
 public:
     CanErrorFrame();
-    virtual ~CanErrorFrame();
 
     /** @copydoc Time */
     Time time;

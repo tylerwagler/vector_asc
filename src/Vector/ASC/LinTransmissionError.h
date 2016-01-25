@@ -36,7 +36,6 @@ class LinTransmissionError : public Event
 {
 public:
     LinTransmissionError();
-    virtual ~LinTransmissionError();
 
     /** @copydoc LinTime */
     LinTime time;

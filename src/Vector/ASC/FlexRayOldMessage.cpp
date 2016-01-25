@@ -46,10 +46,6 @@ FlexRayOldMessage::FlexRayOldMessage() :
     eventType = EventType::FlexRayOldMessage;
 }
 
-FlexRayOldMessage::~FlexRayOldMessage()
-{
-}
-
 FlexRayOldMessage * FlexRayOldMessage::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_FlexRayOld_Time REGEX_WS REGEX_FlexRayOld_Channel REGEX_WS "V9"

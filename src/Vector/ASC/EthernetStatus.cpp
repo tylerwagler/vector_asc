@@ -44,10 +44,6 @@ EthernetStatus::EthernetStatus() :
     eventType = EventType::EthernetStatus;
 }
 
-EthernetStatus::~EthernetStatus()
-{
-}
-
 EthernetStatus * EthernetStatus::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Eth_Time REGEX_WS "ETH" REGEX_WS REGEX_Eth_Channel REGEX_WS "STAT"

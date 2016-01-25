@@ -37,7 +37,6 @@ class Most25ControlMessageNodeMode : public Event
 {
 public:
     Most25ControlMessageNodeMode();
-    virtual ~Most25ControlMessageNodeMode();
 
     /** @copydoc MostTime */
     MostTime time;

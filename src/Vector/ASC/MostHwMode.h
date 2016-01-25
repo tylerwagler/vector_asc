@@ -39,7 +39,6 @@ class MostHwMode : public Event
 {
 public:
     MostHwMode();
-    virtual ~MostHwMode();
 
     /** @copydoc MostTime */
     MostTime time;

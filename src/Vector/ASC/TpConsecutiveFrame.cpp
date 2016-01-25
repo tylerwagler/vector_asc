@@ -41,10 +41,6 @@ TpConsecutiveFrame::TpConsecutiveFrame() :
     eventType = EventType::TpConsecutiveFrame;
 }
 
-TpConsecutiveFrame::~TpConsecutiveFrame()
-{
-}
-
 TpConsecutiveFrame * TpConsecutiveFrame::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_TPDiag_CANChannel REGEX_WS "OTP\\(" REGEX_TPDiag_connectionId "\\)"

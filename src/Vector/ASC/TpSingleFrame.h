@@ -33,7 +33,6 @@ class TpSingleFrame : public Event
 {
 public:
     TpSingleFrame();
-    virtual ~TpSingleFrame();
 
     /** @copydoc TpDiagCanChannel */
     TpDiagCanChannel canChannel;

@@ -54,10 +54,6 @@ CanFdErrorFrame::CanFdErrorFrame() :
     eventType = EventType::CanFdErrorFrame;
 }
 
-CanFdErrorFrame::~CanFdErrorFrame()
-{
-}
-
 CanFdErrorFrame * CanFdErrorFrame::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "CANFD" REGEX_WS REGEX_Channel REGEX_WS REGEX_Dir REGEX_WS "ErrorFrame"

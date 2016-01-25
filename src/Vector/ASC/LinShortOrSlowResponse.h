@@ -40,7 +40,6 @@ class LinShortOrSlowResponse : public Event
 {
 public:
     LinShortOrSlowResponse();
-    virtual ~LinShortOrSlowResponse();
 
     /** @copydoc LinTime */
     LinTime time;

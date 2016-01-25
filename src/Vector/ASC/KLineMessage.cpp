@@ -42,10 +42,6 @@ KLineMessage::KLineMessage() :
     eventType = EventType::KLineMessage;
 }
 
-KLineMessage::~KLineMessage()
-{
-}
-
 KLineMessage * KLineMessage::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" REGEX_ws "K-Line:" REGEX_ws REGEX_KLine_time REGEX_WS REGEX_KLine_port

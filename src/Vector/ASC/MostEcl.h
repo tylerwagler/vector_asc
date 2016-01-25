@@ -36,7 +36,6 @@ class MostEcl : public Event
 {
 public:
     MostEcl();
-    virtual ~MostEcl();
 
     /** @copydoc MostTime */
     MostTime time;

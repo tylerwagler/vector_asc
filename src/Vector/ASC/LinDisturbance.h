@@ -38,7 +38,6 @@ class LinDisturbance : public Event
 {
 public:
     LinDisturbance();
-    virtual ~LinDisturbance();
 
     /** @copydoc LinTime */
     LinTime time;

@@ -33,7 +33,6 @@ class TpConsecutiveFrame : public Event
 {
 public:
     TpConsecutiveFrame();
-    virtual ~TpConsecutiveFrame();
 
     /** @copydoc TpDiagCanChannel */
     TpDiagCanChannel canChannel;

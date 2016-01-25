@@ -33,7 +33,6 @@ class KLineMessage : public Event
 {
 public:
     KLineMessage();
-    virtual ~KLineMessage();
 
     /** @copydoc KLineTime */
     KLineTime time;

@@ -36,7 +36,6 @@ class CanError : public Event
 {
 public:
     CanError();
-    virtual ~CanError();
 
     /** @copydoc Time */
     Time time;

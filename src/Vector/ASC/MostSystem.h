@@ -36,7 +36,6 @@ class MostSystem : public Event
 {
 public:
     MostSystem();
-    virtual ~MostSystem();
 
     /** @copydoc MostTime */
     MostTime time;

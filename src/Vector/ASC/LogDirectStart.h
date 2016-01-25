@@ -37,7 +37,6 @@ class LogDirectStart : public Event
 {
 public:
     LogDirectStart();
-    virtual ~LogDirectStart();
 
     /** @copydoc Time */
     Time time;

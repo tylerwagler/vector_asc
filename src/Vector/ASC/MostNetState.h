@@ -36,7 +36,6 @@ class MostNetState : public Event
 {
 public:
     MostNetState();
-    virtual ~MostNetState();
 
     /** @copydoc MostTime */
     MostTime time;

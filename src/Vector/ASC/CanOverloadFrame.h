@@ -36,7 +36,6 @@ class CanOverloadFrame : public Event
 {
 public:
     CanOverloadFrame();
-    virtual ~CanOverloadFrame();
 
     /** absolute or relative time in seconds */
     Time time;

@@ -37,7 +37,6 @@ class Most50ControlMessage : public Event
 {
 public:
     Most50ControlMessage();
-    virtual ~Most50ControlMessage();
 
     /** @copydoc MostTime */
     MostTime time;

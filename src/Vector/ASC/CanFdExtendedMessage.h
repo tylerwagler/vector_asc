@@ -37,7 +37,6 @@ class CanFdExtendedMessage : public Event
 {
 public:
     CanFdExtendedMessage();
-    virtual ~CanFdExtendedMessage();
 
     /** @copydoc Time */
     Time time;

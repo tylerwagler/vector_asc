@@ -32,7 +32,6 @@ class FileComment : public Event
 {
 public:
     FileComment();
-    virtual ~FileComment();
 
     /** comment */
     std::string comment;

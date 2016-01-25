@@ -37,7 +37,6 @@ class LinSlaveTimeout : public Event
 {
 public:
     LinSlaveTimeout();
-    virtual ~LinSlaveTimeout();
 
     /** @copydoc LinTime */
     LinTime time;

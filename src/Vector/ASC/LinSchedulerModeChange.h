@@ -37,7 +37,6 @@ class LinSchedulerModeChange : public Event
 {
 public:
     LinSchedulerModeChange();
-    virtual ~LinSchedulerModeChange();
 
     /** @copydoc LinTime */
     LinTime time;

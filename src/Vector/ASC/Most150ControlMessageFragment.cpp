@@ -50,10 +50,6 @@ Most150ControlMessageFragment::Most150ControlMessageFragment() :
     eventType = EventType::Most150ControlMessageFragment;
 }
 
-Most150ControlMessageFragment::~Most150ControlMessageFragment()
-{
-}
-
 Most150ControlMessageFragment * Most150ControlMessageFragment::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Msg150Frg:"

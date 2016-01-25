@@ -37,7 +37,6 @@ class LogTrigger : public Event
 {
 public:
     LogTrigger();
-    virtual ~LogTrigger();
 
     /** @copydoc Time */
     Time time;

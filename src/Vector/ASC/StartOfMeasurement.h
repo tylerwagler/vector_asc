@@ -31,7 +31,6 @@ class StartOfMeasurement : public Event
 {
 public:
     StartOfMeasurement();
-    virtual ~StartOfMeasurement();
 
     /** @copydoc Time */
     Time time;

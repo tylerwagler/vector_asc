@@ -38,7 +38,6 @@ class LinChecksumError : public Event
 {
 public:
     LinChecksumError();
-    virtual ~LinChecksumError();
 
     /** @copydoc LinTime */
     LinTime time;

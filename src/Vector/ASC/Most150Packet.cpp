@@ -50,10 +50,6 @@ Most150Packet::Most150Packet() :
     eventType = EventType::Most150Packet;
 }
 
-Most150Packet::~Most150Packet()
-{
-}
-
 Most150Packet * Most150Packet::parse(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Pkt150:"
