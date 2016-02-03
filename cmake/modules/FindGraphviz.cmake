@@ -2,10 +2,6 @@ find_program(GRAPHVIZ_DOT_EXECUTABLE
   NAMES dot dot.exe
   PATHS
     "$ENV{ProgramFiles}/Graphviz/bin"
-    "C:/Program Files/Graphviz/bin"
-    "$ENV{ProgramFiles}/ATT/Graphviz/bin"
-    "C:/Program Files/ATT/Graphviz/bin"
-    "[HKEY_LOCAL_MACHINE\\SOFTWARE\\ATT\\Graphviz;InstallPath]/bin"
   DOC "Graphviz Dot tool for using Doxygen")
 
 include(FindPackageHandleStandardArgs)
