@@ -107,8 +107,8 @@ find_program(FLEX_EXECUTABLE
   DOC "path to the flex executable"
   HINTS
     "${PROJECT_SOURCE_DIR}/tools/win_flex_bison"
-    "C:\Program Files (x86)\GnuWin32\bin"
-    "C:\Program Files\GnuWin32\bin")
+    "$ENV{ProgramFiles}/GnuWin32/bin"
+    "C:/Program Files/GnuWin32/bin")
 mark_as_advanced(FLEX_EXECUTABLE)
 
 find_library(FL_LIBRARY NAMES fl
