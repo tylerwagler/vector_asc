@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
 
-find_package(BISON)
 find_package(FLEX)
 
 include(GenerateExportHeader)
@@ -240,7 +239,6 @@ set(info_files
 
 add_compiler_export_flags()
 
-#bison_target(Parser Parser.yy ${CMAKE_CURRENT_BINARY_DIR}/Parser.tab.cpp)
 if(WIN32)
   flex_target(Lexer Lexer.l ${CMAKE_CURRENT_BINARY_DIR}/Lexer.cpp
     COMPILE_FLAGS --wincompat)
@@ -248,7 +246,6 @@ endif(WIN32)
 if(UNIX)
   flex_target(Lexer Lexer.l ${CMAKE_CURRENT_BINARY_DIR}/Lexer.cpp)
 endif(UNIX)
-#add_flex_bison_dependency(Lexer Parser)
 
 add_library(${PROJECT_NAME} SHARED
   ${source_files} ${public_header_files} ${private_header_files} ${info_files}
