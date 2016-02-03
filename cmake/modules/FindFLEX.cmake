@@ -104,10 +104,11 @@
 
 find_program(FLEX_EXECUTABLE
   NAMES flex win_flex
-  DOC "path to the flex executable"
   HINTS
     "$ENV{ProgramFiles}/GnuWin32/bin"
-    "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Flex;InstallPath]/bin")
+    "$ENV{ProgramFiles(x86)}/GnuWin32/bin"
+    "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Flex;InstallPath]/bin"
+  DOC "path to the flex executable")
 mark_as_advanced(FLEX_EXECUTABLE)
 
 find_library(FL_LIBRARY NAMES fl
