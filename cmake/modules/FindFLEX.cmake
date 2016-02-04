@@ -105,9 +105,10 @@
 include(CMakeGenericSystem)
 
 find_program(FLEX_EXECUTABLE
-  NAMES flex win_flex
+  NAMES flex win_flex.exe
   HINTS
     "${CMAKE_GENERIC_PROGRAM_FILES}/GnuWin32/bin"
+    "${CMAKE_GENERIC_PROGRAM_FILES}/win_flex_bison"
     "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Flex;InstallPath]/bin"
   DOC "path to the flex executable")
 mark_as_advanced(FLEX_EXECUTABLE)
@@ -116,6 +117,7 @@ find_library(FL_LIBRARY
   NAMES fl
   HINTS
     "${CMAKE_GENERIC_PROGRAM_FILES}/GnuWin32/lib"
+    "${CMAKE_GENERIC_PROGRAM_FILES}/win_flex_bison"
     "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Flex;InstallPath]/lib"
   DOC "Path to the fl library")
 
@@ -123,6 +125,7 @@ find_path(FLEX_INCLUDE_DIR
   NAMES FlexLexer.h
   HINTS
     "${CMAKE_GENERIC_PROGRAM_FILES}/GnuWin32/include"
+    "${CMAKE_GENERIC_PROGRAM_FILES}/win_flex_bison"
     "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Flex;InstallPath]/include"
   DOC "Path to the flex headers")
 
