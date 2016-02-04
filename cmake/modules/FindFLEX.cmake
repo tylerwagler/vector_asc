@@ -102,11 +102,12 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
+include(CMakeGenericSystem)
+
 find_program(FLEX_EXECUTABLE
   NAMES flex win_flex
   HINTS
-    "$ENV{ProgramFiles}/GnuWin32/bin"
-    "$ENV{ProgramFiles(x86)}/GnuWin32/bin"
+    "${CMAKE_GENERIC_PROGRAM_FILES}/GnuWin32/bin"
     "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Flex;InstallPath]/bin"
   DOC "path to the flex executable")
 mark_as_advanced(FLEX_EXECUTABLE)
@@ -114,16 +115,14 @@ mark_as_advanced(FLEX_EXECUTABLE)
 find_library(FL_LIBRARY
   NAMES fl
   HINTS
-    "$ENV{ProgramFiles}/GnuWin32/lib"
-    "$ENV{ProgramFiles(x86)}/GnuWin32/lib"
+    "${CMAKE_GENERIC_PROGRAM_FILES}/GnuWin32/lib"
     "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Flex;InstallPath]/lib"
   DOC "Path to the fl library")
 
 find_path(FLEX_INCLUDE_DIR
   NAMES FlexLexer.h
   HINTS
-    "$ENV{ProgramFiles}/GnuWin32/include"
-    "$ENV{ProgramFiles(x86)}/GnuWin32/include"
+    "${CMAKE_GENERIC_PROGRAM_FILES}/GnuWin32/include"
     "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Flex;InstallPath]/include"
   DOC "Path to the flex headers")
 
