@@ -235,7 +235,6 @@ set(private_header_files
 
 set(info_files
   Lexer.l)
-#  Parser.yy)
 
 add_compiler_export_flags()
 
@@ -249,7 +248,6 @@ endif(UNIX)
 
 add_library(${PROJECT_NAME} SHARED
   ${source_files} ${public_header_files} ${private_header_files} ${info_files}
-  #${BISON_Parser_OUTPUTS}
   ${FLEX_Lexer_OUTPUTS})
 
 if(OPTION_USE_GCOV_LCOV)
