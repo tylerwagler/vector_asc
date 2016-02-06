@@ -102,31 +102,23 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
-include(CMakeGenericSystem)
-
 find_program(FLEX_EXECUTABLE
-  NAMES flex win_flex.exe
+  NAMES flex win_flex
   HINTS
-    "${CMAKE_GENERIC_PROGRAM_FILES}/GnuWin32/bin"
-    "${CMAKE_GENERIC_PROGRAM_FILES}/win_flex_bison"
-    "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Flex;InstallPath]/bin"
+    "$ENV{ProgramFiles}/win_flex_bison"
   DOC "path to the flex executable")
 mark_as_advanced(FLEX_EXECUTABLE)
 
 find_library(FL_LIBRARY
   NAMES fl
   HINTS
-    "${CMAKE_GENERIC_PROGRAM_FILES}/GnuWin32/lib"
-    "${CMAKE_GENERIC_PROGRAM_FILES}/win_flex_bison"
-    "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Flex;InstallPath]/lib"
+    "$ENV{ProgramFiles}/win_flex_bison"
   DOC "Path to the fl library")
 
 find_path(FLEX_INCLUDE_DIR
   NAMES FlexLexer.h
   HINTS
-    "${CMAKE_GENERIC_PROGRAM_FILES}/GnuWin32/include"
-    "${CMAKE_GENERIC_PROGRAM_FILES}/win_flex_bison"
-    "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Flex;InstallPath]/include"
+    "$ENV{ProgramFiles}/win_flex_bison"
   DOC "Path to the flex headers")
 
 mark_as_advanced(FL_LIBRARY FLEX_INCLUDE_DIR)
