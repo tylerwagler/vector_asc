@@ -208,6 +208,7 @@ set(public_header_files
   MostSystem.h
   MostTrigger.h
   MostTxLight.h
+  platform.h
   StartOfMeasurement.h
   SystemVariables.h
   TpConsecutiveFrame.h
