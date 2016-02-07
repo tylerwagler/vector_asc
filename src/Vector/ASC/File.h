@@ -21,9 +21,11 @@
 
 #pragma once
 
+#include "platform.h"
+
 #include <cstdint>
+#include <ctime>
 #include <fstream>
-#include <time.h>
 
 #undef yyFlexLexer
 #define yyFlexLexer ascFlexLexer

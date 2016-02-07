@@ -23,7 +23,10 @@
 
 #pragma once
 
+#include "platform.h"
+
 #include <string>
+
 #include "CanSymbols.h"
 
 namespace Vector {

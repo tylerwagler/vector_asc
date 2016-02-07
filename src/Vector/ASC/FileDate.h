@@ -21,7 +21,10 @@
 
 #pragma once
 
-#include <time.h>
+#include "platform.h"
+
+#include <ctime>
+
 #include "Event.h"
 
 namespace Vector {

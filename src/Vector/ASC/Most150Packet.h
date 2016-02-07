@@ -21,7 +21,10 @@
 
 #pragma once
 
+#include "platform.h"
+
 #include <vector>
+
 #include "Event.h"
 #include "MostSymbols.h"
 

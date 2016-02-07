@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include "platform.h"
+
 #include "Event.h"
 
 namespace Vector {

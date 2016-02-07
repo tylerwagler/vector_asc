@@ -23,6 +23,8 @@
 
 #pragma once
 
+#include "platform.h"
+
 #include <string>
 
 namespace Vector {

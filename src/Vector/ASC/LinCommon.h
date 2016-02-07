@@ -21,8 +21,11 @@
 
 #pragma once
 
+#include "platform.h"
+
 #include <string>
 #include <vector>
+
 #include "CanCommon.h"
 #include "File.h"
 #include "LinSymbols.h"

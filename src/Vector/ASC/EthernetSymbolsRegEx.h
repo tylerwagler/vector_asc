@@ -23,6 +23,8 @@
 
 #pragma once
 
+#include "platform.h"
+
 #include "CanSymbolsRegEx.h"
 
 namespace Vector {

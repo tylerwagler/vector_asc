@@ -21,7 +21,10 @@
 
 #pragma once
 
+#include "platform.h"
+
 #include <string>
+
 #include "Event.h"
 #include "CanSymbols.h"
 

@@ -21,7 +21,10 @@
 
 #pragma once
 
+#include "platform.h"
+
 #include <string>
+
 #include "CanCommon.h"
 #include "File.h"
 #include "FlexRaySymbols.h"

@@ -21,7 +21,10 @@
 
 #pragma once
 
+#include "platform.h"
+
 #include <array>
+
 #include "Event.h"
 #include "LinSymbols.h"
 

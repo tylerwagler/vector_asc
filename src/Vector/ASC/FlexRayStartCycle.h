@@ -21,8 +21,11 @@
 
 #pragma once
 
+#include "platform.h"
+
 #include <array>
 #include <vector>
+
 #include "Event.h"
 #include "FlexRaySymbols.h"
 

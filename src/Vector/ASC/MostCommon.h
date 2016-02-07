@@ -21,7 +21,10 @@
 
 #pragma once
 
+#include "platform.h"
+
 #include <vector>
+
 #include "CanCommon.h"
 #include "File.h"
 #include "MostSymbols.h"

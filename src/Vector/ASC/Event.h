@@ -21,8 +21,11 @@
 
 #pragma once
 
+#include "platform.h"
+
 #include <iostream>
 #include <string>
+
 #include "File.h"
 
 namespace Vector {
