@@ -21,6 +21,7 @@
 
 #include <iomanip>
 #include <regex>
+#include <sstream>
 #include "KLineByte.h"
 #include "KLineCommon.h"
 #include "KLineSymbolsRegEx.h"

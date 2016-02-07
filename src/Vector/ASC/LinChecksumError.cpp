@@ -21,6 +21,7 @@
 
 #include <iomanip>
 #include <regex>
+#include <sstream>
 #include "LinChecksumError.h"
 #include "LinCommon.h"
 #include "LinSymbolsRegEx.h"

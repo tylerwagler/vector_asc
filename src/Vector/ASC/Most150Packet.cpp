@@ -21,6 +21,7 @@
 
 #include <iomanip>
 #include <regex>
+#include <sstream>
 #include "Most150Packet.h"
 #include "MostCommon.h"
 #include "MostSymbolsRegEx.h"

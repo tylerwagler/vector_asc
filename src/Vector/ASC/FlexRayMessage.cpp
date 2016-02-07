@@ -21,6 +21,7 @@
 
 #include <iomanip>
 #include <regex>
+#include <sstream>
 #include "FlexRayCommon.h"
 #include "FlexRayMessage.h"
 #include "FlexRaySymbolsRegEx.h"

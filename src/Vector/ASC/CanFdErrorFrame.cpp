@@ -21,6 +21,7 @@
 
 #include <iomanip>
 #include <regex>
+#include <sstream>
 #include "CanCommon.h"
 #include "CanFdErrorFrame.h"
 #include "CanSymbolsRegEx.h"

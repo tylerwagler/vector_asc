@@ -21,6 +21,7 @@
 
 #include <iomanip>
 #include <regex>
+#include <sstream>
 #include "DiagRequest.h"
 #include "TpDiagCommon.h"
 #include "TpDiagSymbolsRegEx.h"

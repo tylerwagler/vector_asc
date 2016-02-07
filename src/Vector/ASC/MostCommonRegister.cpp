@@ -21,6 +21,7 @@
 
 #include <iomanip>
 #include <regex>
+#include <sstream>
 #include "MostCommon.h"
 #include "MostCommonRegister.h"
 #include "MostSymbolsRegEx.h"

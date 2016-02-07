@@ -21,6 +21,7 @@
 
 #include <iomanip>
 #include <regex>
+#include <sstream>
 #include "TpConsecutiveFrame.h"
 #include "TpDiagCommon.h"
 #include "TpDiagSymbolsRegEx.h"

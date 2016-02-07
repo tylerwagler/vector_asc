@@ -21,6 +21,7 @@
 
 #include <iomanip>
 #include <regex>
+#include <sstream>
 #include "Most25AllocTable.h"
 #include "MostCommon.h"
 #include "MostSymbolsRegEx.h"
