@@ -28,11 +28,13 @@
 #include "Event.h"
 #include "KLineSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /** K-Line Message event */
-class KLineMessage : public Event
+class VECTOR_ASC_EXPORT KLineMessage : public Event
 {
 public:
     KLineMessage();

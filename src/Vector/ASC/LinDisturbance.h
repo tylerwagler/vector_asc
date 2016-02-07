@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
-class LinDisturbance : public Event
+class VECTOR_ASC_EXPORT LinDisturbance : public Event
 {
 public:
     LinDisturbance();

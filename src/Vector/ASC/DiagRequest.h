@@ -28,11 +28,13 @@
 #include "Event.h"
 #include "TpDiagSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /** Diagnostic request */
-class DiagRequest : public Event
+class VECTOR_ASC_EXPORT DiagRequest : public Event
 {
 public:
     DiagRequest();

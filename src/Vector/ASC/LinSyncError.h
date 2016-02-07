@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -46,7 +48,7 @@ namespace ASC {
  * nal edges is 2 bit times. After the first failure interval has been seen the rest of array elements are
  * initialized to 0.
  */
-class LinSyncError : public Event
+class VECTOR_ASC_EXPORT LinSyncError : public Event
 {
 public:
     LinSyncError();

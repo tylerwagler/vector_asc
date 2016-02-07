@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  *
  * The event transports the current state and changes of the MOST50/MOST150 Allocation Table.
  */
-class Most150AllocTable : public Event
+class VECTOR_ASC_EXPORT Most150AllocTable : public Event
 {
 public:
     Most150AllocTable();

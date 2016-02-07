@@ -29,6 +29,8 @@
 #include "File.h"
 #include "FlexRaySymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 

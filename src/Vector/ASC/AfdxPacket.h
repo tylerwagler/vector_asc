@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "EthernetSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  *
  * Receive or transmitted AFDX packet.
  */
-class AfdxPacket : public Event
+class VECTOR_ASC_EXPORT AfdxPacket : public Event
 {
 public:
     AfdxPacket();

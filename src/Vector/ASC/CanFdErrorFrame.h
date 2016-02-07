@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -38,7 +40,7 @@ namespace ASC {
  * (NACK Error, CRC Error) the hardware/driver may provide further information (ID, DLC, Data
  * ...) about the partial frame preceding the actual Error Frame, otherwise these values are 0.
  */
-class CanFdErrorFrame : public Event
+class VECTOR_ASC_EXPORT CanFdErrorFrame : public Event
 {
 public:
     CanFdErrorFrame();

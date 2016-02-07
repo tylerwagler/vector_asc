@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -50,7 +52,7 @@ namespace ASC {
  *   - if the LIN hardware only receives part of a frame, at the start of a measurement (in a cor-
  *     rectly functioning system).
  */
-class LinReceiveError : public Event
+class VECTOR_ASC_EXPORT LinReceiveError : public Event
 {
 public:
     LinReceiveError();

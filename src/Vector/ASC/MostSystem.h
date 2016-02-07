@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -34,7 +36,7 @@ namespace ASC {
  *
  * Event for various system states.
  */
-class MostSystem : public Event
+class VECTOR_ASC_EXPORT MostSystem : public Event
 {
 public:
     MostSystem();

@@ -27,11 +27,13 @@
 
 #include "Event.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /** File Comment */
-class FileComment : public Event
+class VECTOR_ASC_EXPORT FileComment : public Event
 {
 public:
     FileComment();

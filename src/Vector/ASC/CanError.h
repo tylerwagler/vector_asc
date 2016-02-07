@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -34,7 +36,7 @@ namespace ASC {
  *
  * An event that provides CAN error information.
  */
-class CanError : public Event
+class VECTOR_ASC_EXPORT CanError : public Event
 {
 public:
     CanError();

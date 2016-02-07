@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  *
  * Event transports changes of HW IO pins. The event is used for debugging purposes only.
  */
-class MostTrigger : public Event
+class VECTOR_ASC_EXPORT MostTrigger : public Event
 {
 public:
     MostTrigger();

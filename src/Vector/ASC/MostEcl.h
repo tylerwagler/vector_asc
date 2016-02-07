@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -34,7 +36,7 @@ namespace ASC {
  *
  * State change of the MOST Electrical Control Line.
  */
-class MostEcl : public Event
+class VECTOR_ASC_EXPORT MostEcl : public Event
 {
 public:
     MostEcl();

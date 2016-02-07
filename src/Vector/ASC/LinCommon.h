@@ -30,6 +30,8 @@
 #include "File.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 

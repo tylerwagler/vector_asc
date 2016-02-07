@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -35,7 +37,7 @@ namespace ASC {
  * A spike event occurs when a short (normally less than 1 bit time) dominant signal has been de-
  * tected on a LIN channel.
  */
-class LinSpike : public Event
+class VECTOR_ASC_EXPORT LinSpike : public Event
 {
 public:
     LinSpike();

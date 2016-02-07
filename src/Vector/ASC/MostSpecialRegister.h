@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -37,7 +39,7 @@ namespace ASC {
  * Directly after measurement start the current values of the special registers are reported even if they
  * have not changed.
  */
-class MostSpecialRegister : public Event
+class VECTOR_ASC_EXPORT MostSpecialRegister : public Event
 {
 public:
     MostSpecialRegister();

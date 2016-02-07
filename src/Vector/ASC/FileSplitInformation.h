@@ -27,11 +27,13 @@
 
 #include "Event.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /** File Split Information */
-class FileSplitInformation : public Event
+class VECTOR_ASC_EXPORT FileSplitInformation : public Event
 {
 public:
     FileSplitInformation();

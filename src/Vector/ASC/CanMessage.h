@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  *
  * Simple CAN Message received or transmitted on a CAN channel.
  */
-class CanMessage : public Event
+class VECTOR_ASC_EXPORT CanMessage : public Event
 {
 public:
     CanMessage();

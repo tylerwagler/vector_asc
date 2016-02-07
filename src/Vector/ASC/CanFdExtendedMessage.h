@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  *
  * An Overload Frame received on a CAN channel.
  */
-class CanFdExtendedMessage : public Event
+class VECTOR_ASC_EXPORT CanFdExtendedMessage : public Event
 {
 public:
     CanFdExtendedMessage();

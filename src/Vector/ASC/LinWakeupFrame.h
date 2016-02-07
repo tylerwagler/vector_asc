@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -34,7 +36,7 @@ namespace ASC {
  *
  * A Wakeup-Frame event is displayed when a wakeup request has been detected on a LIN channel.
  */
-class LinWakeupFrame : public Event
+class VECTOR_ASC_EXPORT LinWakeupFrame : public Event
 {
 public:
     LinWakeupFrame();

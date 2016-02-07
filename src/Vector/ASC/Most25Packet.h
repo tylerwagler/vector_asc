@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  *
  * Message on MOST25 Packet Data Channel.
  */
-class Most25Packet : public Event
+class VECTOR_ASC_EXPORT Most25Packet : public Event
 {
 public:
     Most25Packet();

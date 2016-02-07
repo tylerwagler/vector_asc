@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -34,7 +36,7 @@ namespace ASC {
  *
  * CAN Statistic event, which contains statistic information about the CAN channels.
  */
-class CanBusStatistics : public Event
+class VECTOR_ASC_EXPORT CanBusStatistics : public Event
 {
 public:
     CanBusStatistics();

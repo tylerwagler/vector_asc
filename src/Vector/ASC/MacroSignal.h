@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -34,7 +36,7 @@ namespace ASC {
  *
  * An event that is written if the user change a signal value with a panel control, and the macro recording is on.
  */
-class MacroSignal : public Event
+class VECTOR_ASC_EXPORT MacroSignal : public Event
 {
 public:
     MacroSignal();

@@ -26,11 +26,13 @@
 #include "Event.h"
 #include "TpDiagSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /** TP Flow Control Frame */
-class TpFlowControlFrame : public Event
+class VECTOR_ASC_EXPORT TpFlowControlFrame : public Event
 {
 public:
     TpFlowControlFrame();

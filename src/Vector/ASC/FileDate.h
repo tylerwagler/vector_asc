@@ -27,11 +27,13 @@
 
 #include "Event.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /** File Date */
-class FileDate : public Event
+class VECTOR_ASC_EXPORT FileDate : public Event
 {
 public:
     FileDate();

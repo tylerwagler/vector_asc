@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  *
  * Partial transmitted message on MOST150 Ethernet Packet Channel.
  */
-class MostEthernetPacketFragment : public Event
+class VECTOR_ASC_EXPORT MostEthernetPacketFragment : public Event
 {
 public:
     MostEthernetPacketFragment();

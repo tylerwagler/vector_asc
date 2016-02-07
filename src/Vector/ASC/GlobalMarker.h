@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  * global marker event is assigned to another event (set in Trace Window) it has to be written before that
  * event. Global marker events can be written only during the export from Trace window.
  */
-class GlobalMarker : public Event
+class VECTOR_ASC_EXPORT GlobalMarker : public Event
 {
 public:
     GlobalMarker();

@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -42,7 +44,7 @@ namespace ASC {
  * use or not, otherwise the MSB should be ignored. The label number thus can be determined by byte
  * value & 0x7F. If the resulting label number is 0x70, the byte is not used for any label.
  */
-class Most25AllocTable : public Event
+class VECTOR_ASC_EXPORT Most25AllocTable : public Event
 {
 public:
     Most25AllocTable();

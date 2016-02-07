@@ -28,11 +28,13 @@
 #include "Event.h"
 #include "TpDiagSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /** TPg Consecutive Frame */
-class TpConsecutiveFrame : public Event
+class VECTOR_ASC_EXPORT TpConsecutiveFrame : public Event
 {
 public:
     TpConsecutiveFrame();

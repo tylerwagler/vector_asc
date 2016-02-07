@@ -26,10 +26,12 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
-class StartOfMeasurement : public Event
+class VECTOR_ASC_EXPORT StartOfMeasurement : public Event
 {
 public:
     StartOfMeasurement();

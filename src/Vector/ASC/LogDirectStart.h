@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -35,7 +37,7 @@ namespace ASC {
  * An event that is written if the logging was started directly by the button in the measurement
  * setup or by the CAPL function StartLogging().
  */
-class LogDirectStart : public Event
+class VECTOR_ASC_EXPORT LogDirectStart : public Event
 {
 public:
     LogDirectStart();

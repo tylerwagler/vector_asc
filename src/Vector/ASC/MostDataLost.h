@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  *
  * Indicates loss of data. (Number of lost messages and start and end time stamp of data loss.)
  */
-class MostDataLost : public Event
+class VECTOR_ASC_EXPORT MostDataLost : public Event
 {
 public:
     MostDataLost();

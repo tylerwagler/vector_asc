@@ -29,6 +29,8 @@
 #include "Event.h"
 #include "FlexRaySymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -37,7 +39,7 @@ namespace ASC {
  *
  * FlexRay Message received or transmitted on a FlexRay channel.
  */
-class FlexRayStartCycle : public Event
+class VECTOR_ASC_EXPORT FlexRayStartCycle : public Event
 {
 public:
     FlexRayStartCycle();

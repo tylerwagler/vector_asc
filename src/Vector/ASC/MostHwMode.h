@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -37,7 +39,7 @@ namespace ASC {
  * spy. The event transports all states even if only a single state has changed. <HWModeMask> de-
  * notes which state differs regarding to the previous HW mode event.
  */
-class MostHwMode : public Event
+class VECTOR_ASC_EXPORT MostHwMode : public Event
 {
 public:
     MostHwMode();

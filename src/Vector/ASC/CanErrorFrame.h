@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -34,7 +36,7 @@ namespace ASC {
  *
  * A CAN Error Frame received on a CAN channel.
  */
-class CanErrorFrame : public Event
+class VECTOR_ASC_EXPORT CanErrorFrame : public Event
 {
 public:
     CanErrorFrame();

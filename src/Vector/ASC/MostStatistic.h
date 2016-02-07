@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -38,7 +40,7 @@ namespace ASC {
  *
  * Usually the event is not visible in a trace window.
  */
-class MostStatistic : public Event
+class VECTOR_ASC_EXPORT MostStatistic : public Event
 {
 public:
     MostStatistic();

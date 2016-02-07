@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -34,7 +36,7 @@ namespace ASC {
  *
  * A CAN Remote Frame received or transmitted on a CAN channel.
  */
-class CanRemoteFrame : public Event
+class VECTOR_ASC_EXPORT CanRemoteFrame : public Event
 {
 public:
     CanRemoteFrame();

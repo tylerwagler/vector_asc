@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -37,7 +39,7 @@ namespace ASC {
  * A checksum error event occurs when a Slave sends an incorrect checksum value for a frame re-
  * sponse that is otherwise correct.
  */
-class LinChecksumError : public Event
+class VECTOR_ASC_EXPORT LinChecksumError : public Event
 {
 public:
     LinChecksumError();

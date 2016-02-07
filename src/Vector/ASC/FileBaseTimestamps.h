@@ -27,11 +27,13 @@
 
 #include "Event.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /** File Base Timestamps */
-class FileBaseTimestamps : public Event
+class VECTOR_ASC_EXPORT FileBaseTimestamps : public Event
 {
 public:
     FileBaseTimestamps();

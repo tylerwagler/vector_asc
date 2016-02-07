@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  * an unknown frame. This checksum model is set as the expected checksum model for this frame.
  * An error is displayed if the same frame is received with a different checksum model.
  */
-class LinChecksumInfo : public Event
+class VECTOR_ASC_EXPORT LinChecksumInfo : public Event
 {
 public:
     LinChecksumInfo();

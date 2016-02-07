@@ -28,11 +28,13 @@
 #include "Event.h"
 #include "TpDiagSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /** TP First Frame */
-class TpFirstFrame : public Event
+class VECTOR_ASC_EXPORT TpFirstFrame : public Event
 {
 public:
     TpFirstFrame();

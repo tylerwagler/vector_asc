@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  *
  * LIN frame received or transmitted on a LIN channel.
  */
-class LinMessage : public Event
+class VECTOR_ASC_EXPORT LinMessage : public Event
 {
 public:
     LinMessage();

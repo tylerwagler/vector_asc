@@ -25,6 +25,8 @@
 
 #include "Event.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -33,7 +35,7 @@ namespace ASC {
  *
  * An event that is written when a trigger block ends.
  */
-class EndTriggerblock : public Event
+class VECTOR_ASC_EXPORT EndTriggerblock : public Event
 {
 public:
     EndTriggerblock();

@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  *
  * An event that is written if the value of a system variable changed.
  */
-class SystemVariables : public Event
+class VECTOR_ASC_EXPORT SystemVariables : public Event
 {
 public:
     SystemVariables();

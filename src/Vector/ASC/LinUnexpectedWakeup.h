@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -37,7 +39,7 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
-class LinUnexpectedWakeup : public Event
+class VECTOR_ASC_EXPORT LinUnexpectedWakeup : public Event
 {
 public:
     LinUnexpectedWakeup();

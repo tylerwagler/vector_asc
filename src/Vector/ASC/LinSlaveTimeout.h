@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -35,7 +37,7 @@ namespace ASC {
  * The enhanced LIN hardware capabilities can be used to define a timeout for a FSM state to a pre-
  * defined error state on exceeding this timeout and a Slave timeout message is displayed.
  */
-class LinSlaveTimeout : public Event
+class VECTOR_ASC_EXPORT LinSlaveTimeout : public Event
 {
 public:
     LinSlaveTimeout();

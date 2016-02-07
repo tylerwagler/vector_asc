@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -35,7 +37,7 @@ namespace ASC {
  * A Log Trigger event. There can be additional information appended at the end of the line, e.g. "
  * (this trigger was in post trigger time of last block)" or "(ignored)".
  */
-class LogTrigger : public Event
+class VECTOR_ASC_EXPORT LogTrigger : public Event
 {
 public:
     LogTrigger();

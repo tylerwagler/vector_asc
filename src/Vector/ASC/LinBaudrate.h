@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -38,7 +40,7 @@ namespace ASC {
  *
  * LIN hardware is synchronized with the baud rate of the external Master.
  */
-class LinBaudrate : public Event
+class VECTOR_ASC_EXPORT LinBaudrate : public Event
 {
 public:
     LinBaudrate();

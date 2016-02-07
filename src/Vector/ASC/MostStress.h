@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -34,7 +36,7 @@ namespace ASC {
  *
  * Information about Stress activity of VN2600/2610 Hardware
  */
-class MostStress : public Event
+class VECTOR_ASC_EXPORT MostStress : public Event
 {
 public:
     MostStress();

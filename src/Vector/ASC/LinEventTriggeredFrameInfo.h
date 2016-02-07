@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -37,7 +39,7 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated up to CANoe/CANalyzer 5.2 only.
  */
-class LinEventTriggeredFrameInfo : public Event
+class VECTOR_ASC_EXPORT LinEventTriggeredFrameInfo : public Event
 {
 public:
     LinEventTriggeredFrameInfo();

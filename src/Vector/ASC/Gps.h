@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -34,7 +36,7 @@ namespace ASC {
  *
  * An event that is written if an event is received on the GPS channel.
  */
-class Gps : public Event
+class VECTOR_ASC_EXPORT Gps : public Event
 {
 public:
     Gps();

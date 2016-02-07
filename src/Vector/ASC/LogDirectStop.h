@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "CanSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -35,7 +37,7 @@ namespace ASC {
  * An event that is written if the logging was stopped directly by the buttons in the measurement
  * setup or by the CAPL function StopLogging().
  */
-class LogDirectStop : public Event
+class VECTOR_ASC_EXPORT LogDirectStop : public Event
 {
 public:
     LogDirectStop();

@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -34,7 +36,7 @@ namespace ASC {
  *
  * FlexRay Error event transmitted by the FlexRay hardware.
  */
-class LinTransmissionError : public Event
+class VECTOR_ASC_EXPORT LinTransmissionError : public Event
 {
 public:
     LinTransmissionError();

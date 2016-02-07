@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -35,7 +37,7 @@ namespace ASC {
  * This info event is only displayed when a Master is simulated and a frame header of a new schedule
  * table is transmitted for the first time. This info event may appear on starting a measurement.
  */
-class LinSchedulerModeChange : public Event
+class VECTOR_ASC_EXPORT LinSchedulerModeChange : public Event
 {
 public:
     LinSchedulerModeChange();

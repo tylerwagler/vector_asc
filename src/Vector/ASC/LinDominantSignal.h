@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -35,7 +37,7 @@ namespace ASC {
  * A dominant signal event occurs when a LIN channel remains in the dominant state for a time,
  * which is longer than a valid wakeup frame and not a valid sync break.
  */
-class LinDominantSignal : public Event
+class VECTOR_ASC_EXPORT LinDominantSignal : public Event
 {
 public:
     LinDominantSignal();

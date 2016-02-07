@@ -27,13 +27,15 @@
 
 #include "Event.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /**
  * Unknown Event
  */
-class Unknown : public Event
+class VECTOR_ASC_EXPORT Unknown : public Event
 {
 public:
     Unknown();

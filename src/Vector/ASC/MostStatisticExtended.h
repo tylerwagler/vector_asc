@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  * Noe/CANalyzerVersion 6.1) carried by the main bus statistic event but was not logged. Usually the
  * event is not visible in a Trace window.
  */
-class MostStatisticExtended : public Event
+class VECTOR_ASC_EXPORT MostStatisticExtended : public Event
 {
 public:
     MostStatisticExtended();

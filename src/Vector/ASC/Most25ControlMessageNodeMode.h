@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  *
  * Message on MOST25 Control Channel received or transmitted in node mode.
  */
-class Most25ControlMessageNodeMode : public Event
+class VECTOR_ASC_EXPORT Most25ControlMessageNodeMode : public Event
 {
 public:
     Most25ControlMessageNodeMode();

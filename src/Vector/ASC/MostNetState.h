@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -34,7 +36,7 @@ namespace ASC {
  *
  * Network state derived by MOST Supervisor Layer I+II.
  */
-class MostNetState : public Event
+class VECTOR_ASC_EXPORT MostNetState : public Event
 {
 public:
     MostNetState();

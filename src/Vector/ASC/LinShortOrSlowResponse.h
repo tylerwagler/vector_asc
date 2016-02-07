@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -39,7 +41,7 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
-class LinShortOrSlowResponse : public Event
+class VECTOR_ASC_EXPORT LinShortOrSlowResponse : public Event
 {
 public:
     LinShortOrSlowResponse();

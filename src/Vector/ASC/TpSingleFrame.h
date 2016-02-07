@@ -28,11 +28,13 @@
 #include "Event.h"
 #include "TpDiagSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /** TP Single Frame */
-class TpSingleFrame : public Event
+class VECTOR_ASC_EXPORT TpSingleFrame : public Event
 {
 public:
     TpSingleFrame();

@@ -28,13 +28,15 @@
 
 #include "File.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /**
  * Base class for all events
  */
-class Event
+class VECTOR_ASC_EXPORT Event
 {
 public:
     Event();

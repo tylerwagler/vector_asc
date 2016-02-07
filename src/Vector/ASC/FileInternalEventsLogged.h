@@ -27,11 +27,13 @@
 
 #include "Event.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /** File Internal Events Logged */
-class FileInternalEventsLogged : public Event
+class VECTOR_ASC_EXPORT FileInternalEventsLogged : public Event
 {
 public:
     FileInternalEventsLogged();

@@ -27,11 +27,13 @@
 
 #include "Event.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
 /** File Version */
-class FileVersion : public Event
+class VECTOR_ASC_EXPORT FileVersion : public Event
 {
 public:
     FileVersion();

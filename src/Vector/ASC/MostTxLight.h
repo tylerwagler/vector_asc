@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -36,7 +38,7 @@ namespace ASC {
  *
  * Electrical physical layer: Signal output state
  */
-class MostTxLight : public Event
+class VECTOR_ASC_EXPORT MostTxLight : public Event
 {
 public:
     MostTxLight();

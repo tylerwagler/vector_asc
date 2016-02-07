@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "LinSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -39,7 +41,7 @@ namespace ASC {
  * If the master mode of LIN hardware is activated and a frame’s DLC is not specified, then the DLC
  * is determined using the frame’s identifier.
  */
-class LinDlcInfo : public Event
+class VECTOR_ASC_EXPORT LinDlcInfo : public Event
 {
 public:
     LinDlcInfo();

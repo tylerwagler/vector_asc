@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -46,7 +48,7 @@ namespace ASC {
  * time is greater than a certain threshold, it is called "Critical Unlock" (details see MOST specifica-
  * tion).
  */
-class MostLightLock : public Event
+class VECTOR_ASC_EXPORT MostLightLock : public Event
 {
 public:
     MostLightLock();

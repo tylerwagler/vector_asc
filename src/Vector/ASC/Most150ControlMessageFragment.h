@@ -28,6 +28,8 @@
 #include "Event.h"
 #include "MostSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -37,7 +39,7 @@ namespace ASC {
  * Partial transmitted MOST50 or MOST150 Control Channel message. Fragments are reported from
  * a network spy if the message transmission is corrupted or terminated.
  */
-class Most150ControlMessageFragment : public Event
+class VECTOR_ASC_EXPORT Most150ControlMessageFragment : public Event
 {
 public:
     Most150ControlMessageFragment();

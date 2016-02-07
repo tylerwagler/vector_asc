@@ -26,6 +26,8 @@
 #include "Event.h"
 #include "EthernetSymbols.h"
 
+#include "vector_asc_export.h"
+
 namespace Vector {
 namespace ASC {
 
@@ -34,7 +36,7 @@ namespace ASC {
  *
  * Ethernet link status.
  */
-class EthernetStatus : public Event
+class VECTOR_ASC_EXPORT EthernetStatus : public Event
 {
 public:
     EthernetStatus();
