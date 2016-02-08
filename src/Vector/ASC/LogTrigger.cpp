@@ -34,7 +34,7 @@ LogTrigger::LogTrigger() :
     eventType = EventType::LogTrigger;
 }
 
-LogTrigger * LogTrigger::parse(File & file, std::string & line)
+LogTrigger * LogTrigger::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log trigger event" REGEX_ws "(.+)?" REGEX_ENDL);
     std::smatch match;

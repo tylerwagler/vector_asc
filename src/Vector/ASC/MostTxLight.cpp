@@ -37,7 +37,7 @@ MostTxLight::MostTxLight() :
     eventType = EventType::MostTxLight;
 }
 
-MostTxLight * MostTxLight::parse(File & file, std::string & line)
+MostTxLight * MostTxLight::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "TxLight:"
                      REGEX_ws REGEX_MOST_TxLightState REGEX_ENDL);

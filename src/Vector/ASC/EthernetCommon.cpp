@@ -24,7 +24,7 @@
 namespace Vector {
 namespace ASC {
 
-void writeEthDir(File & file, std::ostream & stream, EthDir ethDir)
+void writeEthDir(File & /*file*/, std::ostream & stream, EthDir ethDir)
 {
     switch(ethDir) {
     case EthDir::Rx:

@@ -48,21 +48,21 @@ BOOST_AUTO_TEST_CASE(AllEvents)
                 switch(event->eventType) {
                 case Vector::ASC::Event::EventType::FileDate:
                 {
-                    Vector::ASC::FileDate * fileDate = static_cast<Vector::ASC::FileDate *>(event);
+                    /*Vector::ASC::FileDate * fileDate = static_cast<Vector::ASC::FileDate *>(event);*/
                     fileout.language = filein.language;
                     fileout.date = filein.date;
                 }
                 break;
                 case Vector::ASC::Event::EventType::FileBaseTimestamps:
                 {
-                    Vector::ASC::FileBaseTimestamps * fileBaseTimestamps = static_cast<Vector::ASC::FileBaseTimestamps *>(event);
+                    /*Vector::ASC::FileBaseTimestamps * fileBaseTimestamps = static_cast<Vector::ASC::FileBaseTimestamps *>(event);*/
                     fileout.base = filein.base;
                     fileout.timestamps = filein.timestamps;
                 }
                 break;
                 case Vector::ASC::Event::EventType::FileVersion:
                 {
-                    Vector::ASC::FileVersion * fileVersion = static_cast<Vector::ASC::FileVersion *>(event);
+                    /*Vector::ASC::FileVersion * fileVersion = static_cast<Vector::ASC::FileVersion *>(event);*/
                     fileout.version = filein.version;
                 }
                 break;

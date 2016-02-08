@@ -33,7 +33,7 @@ EndTriggerblock::EndTriggerblock() :
     eventType = EventType::EndTriggerblock;
 }
 
-EndTriggerblock * EndTriggerblock::parse(File & file, std::string & line)
+EndTriggerblock * EndTriggerblock::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL "End TriggerBlock" REGEX_ENDL);
     if (std::regex_match(line, regex)) {
@@ -44,7 +44,7 @@ EndTriggerblock * EndTriggerblock::parse(File & file, std::string & line)
     return nullptr;
 }
 
-void EndTriggerblock::write(File & file, std::ostream & stream)
+void EndTriggerblock::write(File & /*file*/, std::ostream & stream)
 {
     /* format: "End TriggerBlock" */
     stream << "End TriggerBlock";

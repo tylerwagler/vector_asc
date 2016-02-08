@@ -40,7 +40,7 @@ Gps::Gps() :
     eventType = EventType::Gps;
 }
 
-Gps * Gps::parse(File & file, std::string & line)
+Gps * Gps::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "GPS-Device:" REGEX_ws "([[:digit:]]+)"
                      REGEX_WS "La:" REGEX_ws "([[:digit:].]+)"

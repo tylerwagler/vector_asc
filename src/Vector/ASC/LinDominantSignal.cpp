@@ -40,7 +40,7 @@ LinDominantSignal::LinDominantSignal() :
     eventType = EventType::LinDominantSignal;
 }
 
-LinDominantSignal * LinDominantSignal::parse(File & file, std::string & line)
+LinDominantSignal * LinDominantSignal::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Dominant signal"
                      REGEX_WS REGEX_LIN_DomSigState REGEX_WS REGEX_LIN_DomSigLength REGEX_WS "microseconds"

@@ -11,11 +11,6 @@
 
 #include "Vector/ASC.h"
 
-static bool isEqual(double a, double b)
-{
-    return ((a-b) < 0.000001) && ((b-a) < 0.000001);
-}
-
 BOOST_AUTO_TEST_CASE(AllLogfiles)
 {
     /* input directory */

@@ -38,7 +38,7 @@ MostNetState::MostNetState() :
     eventType = EventType::MostNetState;
 }
 
-MostNetState * MostNetState::parse(File & file, std::string & line)
+MostNetState * MostNetState::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "NetState:"
                      REGEX_ws REGEX_MOST_NetStateOld REGEX_WS REGEX_MOST_NetStateNew REGEX_ENDL);

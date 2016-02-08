@@ -38,7 +38,7 @@ MostStress::MostStress() :
     eventType = EventType::MostStress;
 }
 
-MostStress * MostStress::parse(File & file, std::string & line)
+MostStress * MostStress::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Stress:"
                      REGEX_ws REGEX_MOST_StressMode REGEX_WS REGEX_MOST_StressState REGEX_ENDL);

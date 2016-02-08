@@ -35,7 +35,7 @@ LogDirectStop::LogDirectStop() :
     eventType = EventType::LogDirectStop;
 }
 
-LogDirectStop * LogDirectStop::parse(File & file, std::string & line)
+LogDirectStop * LogDirectStop::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log direct stop" REGEX_ws "\\(" REGEX_PostTrigger "ms\\)" REGEX_ENDL);
     std::smatch match;

@@ -33,12 +33,12 @@ Event::~Event()
 {
 }
 
-Event * parse(File & file, std::string & line)
+Event * parse(File & /*file*/, std::string & /*line*/)
 {
     return nullptr;
 }
 
-void Event::write(File & file, std::ostream & stream)
+void Event::write(File & /*file*/, std::ostream & /*stream*/)
 {
 }
 

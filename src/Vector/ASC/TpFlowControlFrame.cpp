@@ -42,7 +42,7 @@ TpFlowControlFrame::TpFlowControlFrame() :
     eventType = EventType::TpFlowControlFrame;
 }
 
-TpFlowControlFrame * TpFlowControlFrame::parse(File & file, std::string & line)
+TpFlowControlFrame * TpFlowControlFrame::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_TPDiag_CANChannel REGEX_WS "OTP\\(" REGEX_TPDiag_connectionId "\\)"
                      REGEX_WS REGEX_TPDiag_type REGEX_WS REGEX_TPDiag_source "->" REGEX_TPDiag_destination ":"
@@ -79,7 +79,7 @@ TpFlowControlFrame * TpFlowControlFrame::parse(File & file, std::string & line)
     return nullptr;
 }
 
-void TpFlowControlFrame::write(File & file, std::ostream & stream)
+void TpFlowControlFrame::write(File & /*file*/, std::ostream & stream)
 {
     stream << "// " << std::dec << (uint16_t) canChannel;
 

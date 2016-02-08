@@ -51,7 +51,7 @@ Most50Packet::Most50Packet() :
     eventType = EventType::Most50Packet;
 }
 
-Most50Packet * Most50Packet::parse(File & file, std::string & line)
+Most50Packet * Most50Packet::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Pkt50:"
                      REGEX_ws REGEX_MOST_Dir REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr

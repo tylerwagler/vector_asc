@@ -32,7 +32,7 @@ Unknown::Unknown() :
     eventType = EventType::Unknown;
 }
 
-void Unknown::write(File & file, std::ostream & stream)
+void Unknown::write(File & /*file*/, std::ostream & stream)
 {
     stream << line << endl;
 }

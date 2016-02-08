@@ -37,7 +37,7 @@ LinSleepMode::LinSleepMode() :
     eventType = EventType::LinSleepMode;
 }
 
-LinSleepMode * LinSleepMode::parse(File & file, std::string & line)
+LinSleepMode * LinSleepMode::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SleepModeEvent"
                      REGEX_WS REGEX_LIN_simulated REGEX_WS REGEX_LIN_description REGEX_ENDL);

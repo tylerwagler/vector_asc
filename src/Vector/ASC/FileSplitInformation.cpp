@@ -36,7 +36,7 @@ FileSplitInformation::FileSplitInformation() :
     eventType = EventType::FileSplitInformation;
 }
 
-FileSplitInformation * FileSplitInformation::parse(File & file, std::string & line)
+FileSplitInformation * FileSplitInformation::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_Time REGEX_WS "previous log file:" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;
@@ -50,7 +50,7 @@ FileSplitInformation * FileSplitInformation::parse(File & file, std::string & li
     return nullptr;
 }
 
-void FileSplitInformation::write(File & file, std::ostream & stream)
+void FileSplitInformation::write(File & /*file*/, std::ostream & stream)
 {
     stream << "// " << std::setw(8) << std::setprecision(4) << std::fixed << time;
 

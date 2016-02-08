@@ -39,7 +39,7 @@ Most25AllocTable::Most25AllocTable() :
     eventType = EventType::Most25AllocTable;
 }
 
-Most25AllocTable * Most25AllocTable::parse(File & file, std::string & line)
+Most25AllocTable * Most25AllocTable::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "AllocTab:"
                      REGEX_ws REGEX_MOST_AllocTableSize "((" REGEX_WS REGEX_MOST_DxAT ")*)" REGEX_ENDL);

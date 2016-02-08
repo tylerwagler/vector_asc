@@ -759,12 +759,12 @@ BOOST_AUTO_TEST_CASE(EndTriggerblock)
     BOOST_REQUIRE(file.is_open());
 
     Vector::ASC::Event * event;
-    Vector::ASC::EndTriggerblock * endTriggerblock;
+    /*Vector::ASC::EndTriggerblock * endTriggerblock;*/
 
     event = file.read();
     BOOST_REQUIRE(event != nullptr);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EndTriggerblock);
-    endTriggerblock = static_cast<Vector::ASC::EndTriggerblock *>(event);
+    /*endTriggerblock = static_cast<Vector::ASC::EndTriggerblock *>(event);*/
     delete event;
 
     BOOST_CHECK(file.eof());

@@ -42,7 +42,7 @@ TpSingleFrame::TpSingleFrame() :
     eventType = EventType::TpSingleFrame;
 }
 
-TpSingleFrame * TpSingleFrame::parse(File & file, std::string & line)
+TpSingleFrame * TpSingleFrame::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_TPDiag_CANChannel REGEX_WS "OTP\\(" REGEX_TPDiag_connectionId "\\)"
                      REGEX_WS REGEX_TPDiag_type REGEX_WS REGEX_TPDiag_source "->" REGEX_TPDiag_destination ":"
@@ -79,7 +79,7 @@ TpSingleFrame * TpSingleFrame::parse(File & file, std::string & line)
     return nullptr;
 }
 
-void TpSingleFrame::write(File & file, std::ostream & stream)
+void TpSingleFrame::write(File & /*file*/, std::ostream & stream)
 {
     stream << "// " << std::dec << (uint16_t) canChannel;
 

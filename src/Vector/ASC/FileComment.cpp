@@ -34,7 +34,7 @@ FileComment::FileComment() :
     eventType = EventType::FileComment;
 }
 
-FileComment * FileComment::parse(File & file, std::string & line)
+FileComment * FileComment::parse(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" "(.+?)" REGEX_ENDL);
     std::smatch match;
@@ -47,7 +47,7 @@ FileComment * FileComment::parse(File & file, std::string & line)
     return nullptr;
 }
 
-void FileComment::write(File & file, std::ostream & stream)
+void FileComment::write(File & /*file*/, std::ostream & stream)
 {
     stream << "//" << comment;
 
