@@ -34,6 +34,9 @@
 /* Visual Studio */
 #ifdef _MSC_VER
 
+/* '...': conversion from '...' to '...', possible loss of data */
+#pragma warning (disable: 4244)
+
 /* '...' : class '...' needs to have dll-interface to be used by clients of class '..' */
 #pragma warning (disable: 4251)
 
