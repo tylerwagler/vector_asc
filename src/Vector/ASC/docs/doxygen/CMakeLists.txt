@@ -33,7 +33,7 @@ if(DOXYGEN_FOUND)
 
     if(UNIX)
         install(
-            DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/man
+            DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/man/man3
             DESTINATION ${CMAKE_INSTALL_MANDIR})
     endif()
 endif()
