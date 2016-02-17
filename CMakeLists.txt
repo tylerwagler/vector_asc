@@ -35,7 +35,6 @@ set(CPACK_NSIS_CONTACT "Tobias Lorenz <tobias.lorenz@gmx.net>")
 set(CPACK_NSIS_MUI_ICON ${CMAKE_CURRENT_SOURCE_DIR}/icon.ico)
 set(CPACK_NSIS_MUI_UNICON ${CMAKE_CURRENT_SOURCE_DIR}/icon.ico)
 
-include(CTest)
 include(CPack)
 
 add_subdirectory(src)

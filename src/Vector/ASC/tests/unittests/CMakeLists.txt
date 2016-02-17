@@ -42,6 +42,8 @@ target_link_libraries(test_Events
     ${Boost_FILESYSTEM_LIBRARY}
     ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
+include(CTest)
+
 enable_testing()
 
 add_test(AllEvents test_AllEvents)
