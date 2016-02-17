@@ -31,7 +31,7 @@ if(DOXYGEN_FOUND)
             ${CMAKE_CURRENT_BINARY_DIR}/doxygen.tag
         DESTINATION ${CMAKE_INSTALL_DOCDIR}/doxygen)
 
-    if(NOT WIN32)
+    if(UNIX)
         install(
             DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/man
             DESTINATION ${CMAKE_INSTALL_MANDIR})

@@ -242,10 +242,9 @@ add_compiler_export_flags()
 if(WIN32)
     flex_target(Lexer Lexer.l ${CMAKE_CURRENT_BINARY_DIR}/Lexer.cpp
         COMPILE_FLAGS --wincompat)
-endif(WIN32)
-if(UNIX)
+else()
     flex_target(Lexer Lexer.l ${CMAKE_CURRENT_BINARY_DIR}/Lexer.cpp)
-endif(UNIX)
+endif()
 
 add_library(${PROJECT_NAME} SHARED
     ${source_files} ${public_header_files} ${private_header_files} ${info_files}
