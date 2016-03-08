@@ -20,7 +20,6 @@
  */
 
 #include <cstring>
-#include <iostream>
 
 #include "../ASC.h"
 
@@ -63,8 +62,7 @@ void File::open(const char * filename, OpenMode openMode)
         }
         catch(std::bad_alloc & ba)
         {
-            std::cerr << "Failed to allocate scanner: " << ba.what() << std::endl;
-            exit(EXIT_FAILURE);
+            close(); // delete scanner and close file
         }
 
         break;
@@ -102,6 +100,10 @@ bool File::eof()
 
 Event * File::read()
 {
+    /* safety check */
+    if (scanner == nullptr)
+        return nullptr;
+
     /* scan line */
     int eventType = scanner->yylex();
     std::string line = scanner->YYText();
@@ -114,12 +116,9 @@ Event * File::read()
     /* unknown */
     case Event::EventType::Unknown:
     {
-        std::cout << "Unknown: " << line << std::endl;
-#if 0
         Unknown * unknown = new Unknown();
         unknown->line = line;
         return unknown;
-#endif
     }
 
     /* File */
@@ -387,8 +386,7 @@ Event * File::read()
 
     case Event::EventType::Default:
     default:
-        std::cout << "Default: " << line << std::endl;
-
+        break;
     }
 
     return nullptr;
