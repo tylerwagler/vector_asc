@@ -78,8 +78,8 @@ public:
     /** Spy flag */
     bool spyFlag;
 
-    /** @copydoc Event::parse() */
-    static FlexRayStatus * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static FlexRayStatus * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

@@ -53,8 +53,8 @@ public:
     /** @copydoc MostStressState */
     MostStressState stressState;
 
-    /** @copydoc Event::parse() */
-    static MostStress * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static MostStress * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

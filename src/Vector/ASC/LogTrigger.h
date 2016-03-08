@@ -48,8 +48,8 @@ public:
     /** additional information */
     std::string information;
 
-    /** @copydoc Event::parse() */
-    static LogTrigger * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LogTrigger * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

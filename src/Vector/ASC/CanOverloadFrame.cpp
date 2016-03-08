@@ -35,7 +35,7 @@ CanOverloadFrame::CanOverloadFrame() :
     eventType = EventType::CanOverloadFrame;
 }
 
-CanOverloadFrame * CanOverloadFrame::parse(File & /*file*/, std::string & line)
+CanOverloadFrame * CanOverloadFrame::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS "OverloadFrame" REGEX_ENDL);
     std::smatch match;

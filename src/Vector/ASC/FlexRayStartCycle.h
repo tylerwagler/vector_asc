@@ -77,8 +77,8 @@ public:
     /** NM_Vect[n] */
     std::vector<uint8_t> nmVect;
 
-    /** @copydoc Event::parse() */
-    static FlexRayStartCycle * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static FlexRayStartCycle * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

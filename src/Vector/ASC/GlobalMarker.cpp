@@ -41,7 +41,7 @@ GlobalMarker::GlobalMarker() :
     eventType = EventType::GlobalMarker;
 }
 
-GlobalMarker * GlobalMarker::parse(File & /*file*/, std::string & line)
+GlobalMarker * GlobalMarker::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "([[:digit:]]+)"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"

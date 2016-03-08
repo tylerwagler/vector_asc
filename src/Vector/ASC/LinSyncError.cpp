@@ -42,7 +42,7 @@ LinSyncError::LinSyncError() :
     eventType = EventType::LinSyncError;
 }
 
-LinSyncError * LinSyncError::parse(File & /*file*/, std::string & line)
+LinSyncError * LinSyncError::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SyncError"
                      "((" REGEX_WS REGEX_LIN_TimeInterval "){4})"

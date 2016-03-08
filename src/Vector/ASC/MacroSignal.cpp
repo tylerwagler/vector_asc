@@ -40,7 +40,7 @@ MacroSignal::MacroSignal() :
     eventType = EventType::MacroSignal;
 }
 
-MacroSignal * MacroSignal::parse(File & /*file*/, std::string & line)
+MacroSignal * MacroSignal::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "([LF]?)([[:digit:]]+)" REGEX_WS "(.+?)::(.+?)::(.+?)"
                      REGEX_ws "=" REGEX_ws "(.+?)" REGEX_ENDL);

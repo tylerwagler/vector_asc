@@ -48,8 +48,8 @@ public:
     /** @copydoc PreTrigger */
     PreTrigger preTrigger;
 
-    /** @copydoc Event::parse() */
-    static LogDirectStart * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LogDirectStart * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

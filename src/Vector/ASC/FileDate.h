@@ -44,8 +44,8 @@ public:
     /** language (only parsed, write works via File::language) */
     File::Language language;
 
-    /** @copydoc Event::parse() */
-    static FileDate * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static FileDate * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

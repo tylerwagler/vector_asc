@@ -58,8 +58,8 @@ public:
     /** the value as number or string (depend on variable data type). */
     std::string value;
 
-    /** @copydoc Event::parse() */
-    static SystemVariables * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static SystemVariables * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

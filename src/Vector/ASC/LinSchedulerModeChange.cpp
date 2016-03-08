@@ -37,7 +37,7 @@ LinSchedulerModeChange::LinSchedulerModeChange() :
     eventType = EventType::LinSchedulerModeChange;
 }
 
-LinSchedulerModeChange * LinSchedulerModeChange::parse(File & /*file*/, std::string & line)
+LinSchedulerModeChange * LinSchedulerModeChange::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SchedModChng"
                      REGEX_WS "prior scheduler mode" REGEX_ws "=" REGEX_ws REGEX_LIN_scheduleTableIndex ","

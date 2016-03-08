@@ -55,8 +55,8 @@ public:
     /** @copydoc FlexRayOldDx */
     std::vector<FlexRayOldDx> data;
 
-    /** @copydoc Event::parse() */
-    static FlexRayOldStartCycle * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static FlexRayOldStartCycle * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

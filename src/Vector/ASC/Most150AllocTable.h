@@ -61,8 +61,8 @@ public:
     /** @copydoc MostWx */
     std::vector<MostWx> wordData;
 
-    /** @copydoc Event::parse() */
-    static Most150AllocTable * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static Most150AllocTable * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

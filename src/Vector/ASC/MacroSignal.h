@@ -74,8 +74,8 @@ public:
     /** the signal value as number OR a string from the value description table (if exists) */
     std::string value;
 
-    /** @copydoc Event::parse() */
-    static MacroSignal * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static MacroSignal * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

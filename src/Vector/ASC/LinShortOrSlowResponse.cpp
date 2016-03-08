@@ -55,7 +55,7 @@ LinShortOrSlowResponse::LinShortOrSlowResponse() :
     eventType = EventType::LinShortOrSlowResponse;
 }
 
-LinShortOrSlowResponse * LinShortOrSlowResponse::parse(File & /*file*/, std::string & line)
+LinShortOrSlowResponse * LinShortOrSlowResponse::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS REGEX_LIN_DLC
                      REGEX_WS "ShortOrSlowResponse:" REGEX_ws "NumRespBytes" REGEX_ws "=" REGEX_ws REGEX_LIN_NumberOfResponseBytes "((" REGEX_WS "[[:xdigit:]]+){0,9})"

@@ -51,7 +51,7 @@ Most50ControlMessage::Most50ControlMessage() :
     eventType = EventType::Most50ControlMessage;
 }
 
-Most50ControlMessage * Most50ControlMessage::parse(File & /*file*/, std::string & line)
+Most50ControlMessage * Most50ControlMessage::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Msg50:"
                      REGEX_ws REGEX_MOST_Dir REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr

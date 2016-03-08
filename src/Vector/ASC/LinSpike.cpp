@@ -40,7 +40,7 @@ LinSpike::LinSpike() :
     eventType = EventType::LinSpike;
 }
 
-LinSpike * LinSpike::parse(File & /*file*/, std::string & line)
+LinSpike * LinSpike::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Spike"
                      REGEX_WS REGEX_LIN_Dir REGEX_WS REGEX_LIN_SpikeLength REGEX_WS "microseconds"

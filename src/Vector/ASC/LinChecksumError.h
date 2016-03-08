@@ -125,8 +125,8 @@ public:
     /** @copydoc LinChecksumModel */
     LinChecksumModel checksumModel;
 
-    /** @copydoc Event::parse() */
-    static LinChecksumError * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LinChecksumError * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

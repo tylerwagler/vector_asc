@@ -44,8 +44,8 @@ public:
     /** Timestamps are written absolute or relative to the preceding event. */
     File::Timestamps timestamps;
 
-    /** @copydoc Event::parse() */
-    static FileBaseTimestamps * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static FileBaseTimestamps * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

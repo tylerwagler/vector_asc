@@ -38,7 +38,7 @@ LinSlaveTimeout::LinSlaveTimeout() :
     eventType = EventType::LinSlaveTimeout;
 }
 
-LinSlaveTimeout * LinSlaveTimeout::parse(File & /*file*/, std::string & line)
+LinSlaveTimeout * LinSlaveTimeout::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SlaveTimeout"
                      REGEX_WS "slave-id" REGEX_ws "=" REGEX_ws REGEX_LIN_slaveId ","

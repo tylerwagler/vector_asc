@@ -44,8 +44,8 @@ public:
     /** filename of the previous log file without path information */
     std::string fileName;
 
-    /** @copydoc Event::parse() */
-    static FileSplitInformation * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static FileSplitInformation * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

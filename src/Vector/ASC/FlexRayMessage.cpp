@@ -57,7 +57,7 @@ FlexRayMessage::FlexRayMessage() :
     eventType = EventType::FlexRayMessage;
 }
 
-FlexRayMessage * FlexRayMessage::parseRmsg(File & /*file*/, std::string & line)
+FlexRayMessage * FlexRayMessage::readRmsg(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "RMSG"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
@@ -109,7 +109,7 @@ FlexRayMessage * FlexRayMessage::parseRmsg(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-FlexRayMessage * FlexRayMessage::parsePdu(File & file, std::string & line)
+FlexRayMessage * FlexRayMessage::readPdu(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "PDU"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
@@ -170,15 +170,15 @@ FlexRayMessage * FlexRayMessage::parsePdu(File & file, std::string & line)
     return nullptr;
 }
 
-FlexRayMessage * FlexRayMessage::parse(File & file, std::string & line)
+FlexRayMessage * FlexRayMessage::read(File & file, std::string & line)
 {
     FlexRayMessage * flexRayMessage;
 
-    flexRayMessage = parseRmsg(file, line);
+    flexRayMessage = readRmsg(file, line);
     if (flexRayMessage != nullptr)
         return flexRayMessage;
 
-    flexRayMessage = parsePdu(file, line);
+    flexRayMessage = readPdu(file, line);
     if (flexRayMessage != nullptr)
         return flexRayMessage;
 

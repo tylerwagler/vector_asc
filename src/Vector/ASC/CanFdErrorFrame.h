@@ -110,8 +110,8 @@ public:
     /** @copydoc BitTimingConfData */
     BitTimingConfData bitTimingConfData;
 
-    /** @copydoc Event::parse() */
-    static CanFdErrorFrame * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static CanFdErrorFrame * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

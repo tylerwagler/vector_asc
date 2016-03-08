@@ -47,7 +47,7 @@ Most25Packet::Most25Packet() :
     eventType = EventType::Most25Packet;
 }
 
-Most25Packet * Most25Packet::parse(File & file, std::string & line)
+Most25Packet * Most25Packet::read(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Pkt:" REGEX_ws REGEX_MOST_Dir
                      REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr REGEX_WS REGEX_MOST_PktState

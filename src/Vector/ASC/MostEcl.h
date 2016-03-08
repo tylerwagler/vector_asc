@@ -53,8 +53,8 @@ public:
     /** @copydoc MostEclState */
     MostEclState eclState;
 
-    /** @copydoc Event::parse() */
-    static MostEcl * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static MostEcl * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

@@ -61,8 +61,8 @@ public:
     /** @copydoc TpDiagStMin */
     TpDiagStMin stMin;
 
-    /** @copydoc Event::parse() */
-    static TpFlowControlFrame * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static TpFlowControlFrame * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

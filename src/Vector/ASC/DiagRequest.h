@@ -69,8 +69,8 @@ public:
     /** @copydoc TpDiagByteSequence */
     std::vector<TpDiagByteSequence> byteSequence;
 
-    /** @copydoc Event::parse() */
-    static DiagRequest * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static DiagRequest * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

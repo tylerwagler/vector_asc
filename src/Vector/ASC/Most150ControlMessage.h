@@ -91,8 +91,8 @@ public:
     /** @copydoc MostDx */
     std::vector<MostDx> data;
 
-    /** @copydoc Event::parse() */
-    static Most150ControlMessage * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static Most150ControlMessage * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

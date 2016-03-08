@@ -61,8 +61,8 @@ public:
     /** @copydoc MostDlTime */
     std::array<MostDlTime, 2> dlTime;
 
-    /** @copydoc Event::parse() */
-    static MostDataLost * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static MostDataLost * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

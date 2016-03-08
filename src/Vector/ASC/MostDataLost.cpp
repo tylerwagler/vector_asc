@@ -40,7 +40,7 @@ MostDataLost::MostDataLost() :
     eventType = EventType::MostDataLost;
 }
 
-MostDataLost * MostDataLost::parse(File & file, std::string & line)
+MostDataLost * MostDataLost::read(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "DataLost:"
                      REGEX_ws REGEX_MOST_DLInfo REGEX_WS REGEX_MOST_DLCtrl REGEX_WS REGEX_MOST_DLAsync

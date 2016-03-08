@@ -195,7 +195,7 @@ public:
      * @param line Line as input
      * @return NULL if not parsed, otherwise valid object
      */
-    static Event * parse(File & file, std::string & line);
+    static Event * read(File & file, std::string & line);
 
     /**
      * Writes event to output stream.

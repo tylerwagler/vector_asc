@@ -53,8 +53,8 @@ public:
      */
     std::string value;
 
-    /** @copydoc Event::parse() */
-    static EnvironmentVariables * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static EnvironmentVariables * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

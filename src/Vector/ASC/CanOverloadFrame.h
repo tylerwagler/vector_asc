@@ -47,8 +47,8 @@ public:
     /** Number of CAN channel. */
     Channel channel;
 
-    /** @copydoc Event::parse() */
-    static CanOverloadFrame * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static CanOverloadFrame * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

@@ -41,7 +41,7 @@ KLineByte::KLineByte() :
     eventType = EventType::KLineByte;
 }
 
-KLineByte * KLineByte::parse(File & file, std::string & line)
+KLineByte * KLineByte::read(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_KLine_time REGEX_WS REGEX_KLine_port REGEX_WS REGEX_KLine_direction
                      REGEX_WS REGEX_KLine_baudrate REGEX_WS REGEX_KLine_length

@@ -73,8 +73,8 @@ public:
     /** @copydoc IdNum */
     IdNum messageId;
 
-    /** @copydoc Event::parse() */
-    static CanMessage * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static CanMessage * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

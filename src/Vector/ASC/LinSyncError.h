@@ -74,8 +74,8 @@ public:
     /** @copydoc LinSyncDel */
     LinSyncDel syncDel;
 
-    /** @copydoc Event::parse() */
-    static LinSyncError * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LinSyncError * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

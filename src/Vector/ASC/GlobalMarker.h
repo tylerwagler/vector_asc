@@ -67,8 +67,8 @@ public:
     /** marker description */
     std::string description;
 
-    /** @copydoc Event::parse() */
-    static GlobalMarker * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static GlobalMarker * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

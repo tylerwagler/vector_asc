@@ -41,7 +41,7 @@ LinWakeupFrame::LinWakeupFrame() :
     eventType = EventType::LinWakeupFrame;
 }
 
-LinWakeupFrame * LinWakeupFrame::parse(File & file, std::string & line)
+LinWakeupFrame * LinWakeupFrame::read(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "WakeupFrame"
                      REGEX_WS REGEX_LIN_Dir REGEX_WS REGEX_LIN_WakeupByte

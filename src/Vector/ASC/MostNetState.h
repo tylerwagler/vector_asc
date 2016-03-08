@@ -53,8 +53,8 @@ public:
     /** @copydoc MostNetStateNew */
     MostNetStateNew netStateNew;
 
-    /** @copydoc Event::parse() */
-    static MostNetState * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static MostNetState * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

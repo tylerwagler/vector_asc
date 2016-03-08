@@ -38,7 +38,7 @@ MostHwMode::MostHwMode() :
     eventType = EventType::MostHwMode;
 }
 
-MostHwMode * MostHwMode::parse(File & /*file*/, std::string & line)
+MostHwMode * MostHwMode::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "HWMode:"
                      REGEX_ws REGEX_MOST_HWMode REGEX_WS REGEX_MOST_HWModeMask REGEX_ENDL);

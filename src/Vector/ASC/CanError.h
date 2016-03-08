@@ -50,8 +50,8 @@ public:
     /** @copydoc Error */
     Error error;
 
-    /** @copydoc Event::parse() */
-    static CanError * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static CanError * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

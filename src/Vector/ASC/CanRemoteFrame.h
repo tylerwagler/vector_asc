@@ -53,8 +53,8 @@ public:
     /** @copydoc Dir */
     Dir dir;
 
-    /** @copydoc Event::parse() */
-    static CanRemoteFrame * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static CanRemoteFrame * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

@@ -42,7 +42,7 @@ AfdxPacket::AfdxPacket() :
     eventType = EventType::AfdxPacket;
 }
 
-AfdxPacket * AfdxPacket::parse(File & file, std::string & line)
+AfdxPacket * AfdxPacket::read(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Afdx_Time REGEX_WS "AFDX" REGEX_WS REGEX_Afdx_Channel REGEX_WS REGEX_Afdx_Dir
                      REGEX_WS REGEX_Afdx_EthChannel REGEX_WS REGEX_Afdx_Flags REGEX_WS REGEX_Afdx_BAG REGEX_WS

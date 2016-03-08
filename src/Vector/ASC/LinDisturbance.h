@@ -70,8 +70,8 @@ public:
     /** @copydoc LinIdOrFf */
     LinIdOrFf disturbingHeader;
 
-    /** @copydoc Event::parse() */
-    static LinDisturbance * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LinDisturbance * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

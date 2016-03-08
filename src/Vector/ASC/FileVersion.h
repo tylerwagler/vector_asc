@@ -47,8 +47,8 @@ public:
     /** patch version number */
     uint8_t versionPatch;
 
-    /** @copydoc Event::parse() */
-    static FileVersion * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static FileVersion * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

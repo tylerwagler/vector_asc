@@ -63,8 +63,8 @@ public:
     /** CC-Data[4] */
     std::array<uint32_t, 4> ccData;
 
-    /** @copydoc Event::parse() */
-    static FlexRayError * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static FlexRayError * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

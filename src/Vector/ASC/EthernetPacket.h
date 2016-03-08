@@ -58,8 +58,8 @@ public:
     /** @copydoc EthData */
     std::vector<EthData> data;
 
-    /** @copydoc Event::parse() */
-    static EthernetPacket * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static EthernetPacket * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

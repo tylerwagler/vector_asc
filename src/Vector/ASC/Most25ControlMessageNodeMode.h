@@ -67,8 +67,8 @@ public:
     /** @copydoc MostState2 */
     MostState2 state2;
 
-    /** @copydoc Event::parse() */
-    static Most25ControlMessageNodeMode * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static Most25ControlMessageNodeMode * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

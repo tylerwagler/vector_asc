@@ -56,8 +56,8 @@ public:
     /** @copydoc MostSysValueOld */
     MostSysValueOld sysValueOld;
 
-    /** @copydoc Event::parse() */
-    static MostSystem * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static MostSystem * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

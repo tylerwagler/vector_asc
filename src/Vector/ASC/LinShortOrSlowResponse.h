@@ -106,8 +106,8 @@ public:
     /** @copydoc LinChecksumModel */
     LinChecksumModel checksumModel;
 
-    /** @copydoc Event::parse() */
-    static LinShortOrSlowResponse * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LinShortOrSlowResponse * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

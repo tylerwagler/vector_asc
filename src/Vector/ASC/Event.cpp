@@ -33,7 +33,7 @@ Event::~Event()
 {
 }
 
-Event * parse(File & /*file*/, std::string & /*line*/)
+Event * read(File & /*file*/, std::string & /*line*/)
 {
     return nullptr;
 }

@@ -55,8 +55,8 @@ public:
     /** @copydoc LinChecksumModelInfo */
     LinChecksumModelInfo checksumModelInfo;
 
-    /** @copydoc Event::parse() */
-    static LinChecksumInfo * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LinChecksumInfo * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

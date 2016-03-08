@@ -67,8 +67,8 @@ public:
     /** @copydoc AfdxData */
     std::vector<AfdxData> data;
 
-    /** @copydoc Event::parse() */
-    static AfdxPacket * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static AfdxPacket * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

@@ -43,7 +43,7 @@ CanBusStatistics::CanBusStatistics() :
     eventType = EventType::CanBusStatistics;
 }
 
-CanBusStatistics * CanBusStatistics::parse(File & /*file*/, std::string & line)
+CanBusStatistics * CanBusStatistics::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS "Statistic:"
                      REGEX_WS "D" REGEX_WS REGEX_StatNumber

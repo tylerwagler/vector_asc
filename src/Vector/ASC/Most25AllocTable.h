@@ -61,8 +61,8 @@ public:
     /** @copydoc MostDxAt */
     std::vector<MostDxAt> data;
 
-    /** @copydoc Event::parse() */
-    static Most25AllocTable * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static Most25AllocTable * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

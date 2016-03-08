@@ -39,7 +39,7 @@ EthernetPacket::EthernetPacket() :
     eventType = EventType::EthernetPacket;
 }
 
-EthernetPacket * EthernetPacket::parse(File & file, std::string & line)
+EthernetPacket * EthernetPacket::read(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Eth_Time REGEX_WS "ETH" REGEX_WS REGEX_Eth_Channel REGEX_WS REGEX_Eth_Dir
                      REGEX_WS REGEX_Eth_DataLen ":" REGEX_Eth_Data REGEX_ENDL);

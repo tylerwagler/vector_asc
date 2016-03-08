@@ -40,8 +40,8 @@ class VECTOR_ASC_EXPORT EndTriggerblock : public Event
 public:
     EndTriggerblock();
 
-    /** @copydoc Event::parse() */
-    static EndTriggerblock * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static EndTriggerblock * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

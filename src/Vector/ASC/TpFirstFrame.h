@@ -60,8 +60,8 @@ public:
     /** @copydoc TpDiagTransportedBytes */
     std::vector<TpDiagTransportedBytes> transportedBytes;
 
-    /** @copydoc Event::parse() */
-    static TpFirstFrame * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static TpFirstFrame * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

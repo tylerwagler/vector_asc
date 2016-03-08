@@ -63,8 +63,8 @@ public:
     /** number of packets */
     MostStatVal pk;
 
-    /** @copydoc Event::parse() */
-    static MostStatistic * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static MostStatistic * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

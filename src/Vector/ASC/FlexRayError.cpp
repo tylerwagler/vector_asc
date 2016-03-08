@@ -41,7 +41,7 @@ FlexRayError::FlexRayError() :
     eventType = EventType::FlexRayError;
 }
 
-FlexRayError * FlexRayError::parse(File & file, std::string & line)
+FlexRayError * FlexRayError::read(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "EE"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"

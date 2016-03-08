@@ -59,8 +59,8 @@ public:
     /** @copydoc LinDescription */
     LinDescription description;
 
-    /** @copydoc Event::parse() */
-    static LinEventTriggeredFrameInfo * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LinEventTriggeredFrameInfo * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

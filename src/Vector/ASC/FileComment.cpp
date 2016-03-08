@@ -34,7 +34,7 @@ FileComment::FileComment() :
     eventType = EventType::FileComment;
 }
 
-FileComment * FileComment::parse(File & /*file*/, std::string & line)
+FileComment * FileComment::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" "(.+?)" REGEX_ENDL);
     std::smatch match;

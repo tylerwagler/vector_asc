@@ -58,8 +58,8 @@ public:
     /** @copydoc LinDlc */
     LinDlc dlc;
 
-    /** @copydoc Event::parse() */
-    static LinDlcInfo * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LinDlcInfo * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

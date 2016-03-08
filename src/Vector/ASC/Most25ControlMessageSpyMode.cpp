@@ -44,7 +44,7 @@ Most25ControlMessageSpyMode::Most25ControlMessageSpyMode() :
     eventType = EventType::Most25ControlMessageSpyMode;
 }
 
-Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::parse(File & file, std::string & line)
+Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::read(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Rx"
                      REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr REGEX_WS REGEX_MOST_RType

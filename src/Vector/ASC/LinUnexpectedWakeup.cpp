@@ -40,7 +40,7 @@ LinUnexpectedWakeup::LinUnexpectedWakeup() :
     eventType = EventType::LinUnexpectedWakeup;
 }
 
-LinUnexpectedWakeup * LinUnexpectedWakeup::parse(File & /*file*/, std::string & line)
+LinUnexpectedWakeup * LinUnexpectedWakeup::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Unexpected wakeup:"
                      "((" REGEX_ws "approx\\." REGEX_ws REGEX_LIN_Width REGEX_ws "us" ")|("

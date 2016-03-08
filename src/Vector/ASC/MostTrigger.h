@@ -58,8 +58,8 @@ public:
     /** @copydoc MostTrigValue */
     std::array<MostTrigValue, 2> trigValue;
 
-    /** @copydoc Event::parse() */
-    static MostTrigger * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static MostTrigger * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

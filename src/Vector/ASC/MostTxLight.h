@@ -52,8 +52,8 @@ public:
     /** @copydoc MostTxLightState */
     MostTxLightState txLightState;
 
-    /** @copydoc Event::parse() */
-    static MostTxLight * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static MostTxLight * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

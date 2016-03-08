@@ -79,8 +79,8 @@ public:
     /** @copydoc MostDx */
     std::vector<MostDx> data;
 
-    /** @copydoc Event::parse() */
-    static Most25Packet * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static Most25Packet * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

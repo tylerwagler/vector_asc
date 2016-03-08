@@ -70,8 +70,8 @@ public:
     /** @copydoc MostCrc */
     MostCrc crc;
 
-    /** @copydoc Event::parse() */
-    static Most25ControlMessageSpyMode * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static Most25ControlMessageSpyMode * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

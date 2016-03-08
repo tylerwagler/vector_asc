@@ -79,8 +79,8 @@ public:
     std::string brPairs;
     /* "1-pair", "2-pair", "4-pair" */
 
-    /** @copydoc Event::parse() */
-    static EthernetStatus * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static EthernetStatus * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

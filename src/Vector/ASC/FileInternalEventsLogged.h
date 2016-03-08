@@ -41,8 +41,8 @@ public:
     /** internal events logged */
     bool internalEventsLogged;
 
-    /** @copydoc Event::parse() */
-    static FileInternalEventsLogged * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static FileInternalEventsLogged * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

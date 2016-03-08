@@ -34,7 +34,7 @@ FileInternalEventsLogged::FileInternalEventsLogged() :
     eventType = EventType::FileInternalEventsLogged;
 }
 
-FileInternalEventsLogged * FileInternalEventsLogged::parse(File & /*file*/, std::string & line)
+FileInternalEventsLogged * FileInternalEventsLogged::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL "(no )?internal events logged" REGEX_ENDL);
     std::smatch match;

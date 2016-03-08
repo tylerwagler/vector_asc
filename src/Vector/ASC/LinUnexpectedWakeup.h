@@ -62,8 +62,8 @@ public:
     /** @copydoc LinBaudrateType */
     LinBaudrateType baudrate;
 
-    /** @copydoc Event::parse() */
-    static LinUnexpectedWakeup * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LinUnexpectedWakeup * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

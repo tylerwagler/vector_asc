@@ -55,8 +55,8 @@ public:
     /** @copydoc LinDescription */
     LinDescription description;
 
-    /** @copydoc Event::parse() */
-    static LinSleepMode * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LinSleepMode * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

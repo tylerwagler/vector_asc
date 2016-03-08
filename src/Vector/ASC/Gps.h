@@ -62,8 +62,8 @@ public:
     /** the course value of the GPS event */
     double course;
 
-    /** @copydoc Event::parse() */
-    static Gps * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static Gps * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

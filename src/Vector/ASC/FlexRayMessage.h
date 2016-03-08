@@ -115,14 +115,14 @@ public:
     /** PDU Offset */
     int32_t pduOffset;
 
-    /** @copydoc Event::parse() */
-    static FlexRayMessage * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static FlexRayMessage * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 
 private:
-    static FlexRayMessage * parseRmsg(File & file, std::string & line);
-    static FlexRayMessage * parsePdu(File & file, std::string & line);
+    static FlexRayMessage * readRmsg(File & file, std::string & line);
+    static FlexRayMessage * readPdu(File & file, std::string & line);
 };
 
 }

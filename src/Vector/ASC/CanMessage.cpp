@@ -45,7 +45,7 @@ CanMessage::CanMessage() :
     eventType = EventType::CanMessage;
 }
 
-CanMessage * CanMessage::parse(File & file, std::string & line)
+CanMessage * CanMessage::read(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS REGEX_ID REGEX_WS REGEX_Dir REGEX_WS "d" REGEX_WS REGEX_DLC
                      "((" REGEX_WS REGEX_Dx "){0,8})"

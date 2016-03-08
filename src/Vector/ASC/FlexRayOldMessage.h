@@ -79,8 +79,8 @@ public:
     /** @copydoc FlexRayOldHeaderBitMask */
     FlexRayOldHeaderBitMask headerBitMask;
 
-    /** @copydoc Event::parse() */
-    static FlexRayOldMessage * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static FlexRayOldMessage * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

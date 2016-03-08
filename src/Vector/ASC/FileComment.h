@@ -41,8 +41,8 @@ public:
     /** comment */
     std::string comment;
 
-    /** @copydoc Event::parse() */
-    static FileComment * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static FileComment * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

@@ -39,7 +39,7 @@ MostSystem::MostSystem() :
     eventType = EventType::MostSystem;
 }
 
-MostSystem * MostSystem::parse(File & /*file*/, std::string & line)
+MostSystem * MostSystem::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "System:"
                      REGEX_ws REGEX_MOST_SysID REGEX_WS REGEX_MOST_SysValue REGEX_WS REGEX_MOST_SysValueOld REGEX_ENDL);

@@ -125,7 +125,7 @@ Event * File::read()
     /* File */
     case Event::EventType::FileDate:
     {
-        FileDate * fileDate = FileDate::parse(*this, line);
+        FileDate * fileDate = FileDate::read(*this, line);
         if (fileDate) {
             date = fileDate->date;
             language = fileDate->language;
@@ -134,7 +134,7 @@ Event * File::read()
     }
     case Event::EventType::FileBaseTimestamps:
     {
-        FileBaseTimestamps * fileBaseTimestamps = FileBaseTimestamps::parse(*this, line);
+        FileBaseTimestamps * fileBaseTimestamps = FileBaseTimestamps::read(*this, line);
         if (fileBaseTimestamps) {
             base = fileBaseTimestamps->base;
             timestamps = fileBaseTimestamps->timestamps;
@@ -143,14 +143,14 @@ Event * File::read()
     }
     case Event::EventType::FileInternalEventsLogged:
     {
-        FileInternalEventsLogged * fileInternalEventsLogged = FileInternalEventsLogged::parse(*this, line);
+        FileInternalEventsLogged * fileInternalEventsLogged = FileInternalEventsLogged::read(*this, line);
         if (fileInternalEventsLogged)
             internalEventsLogged = fileInternalEventsLogged->internalEventsLogged;
         return fileInternalEventsLogged;
     }
     case Event::EventType::FileVersion:
     {
-        FileVersion * fileVersion = FileVersion::parse(*this, line);
+        FileVersion * fileVersion = FileVersion::read(*this, line);
         if (fileVersion)
             version =
                 (fileVersion->versionMajor << 24) |
@@ -159,227 +159,227 @@ Event * File::read()
         return fileVersion;
     }
     case Event::EventType::FileSplitInformation:
-        return FileSplitInformation::parse(*this, line);
+        return FileSplitInformation::read(*this, line);
     case Event::EventType::FileComment:
-        return FileComment::parse(*this, line);
+        return FileComment::read(*this, line);
 
     /* CAN Events */
     case Event::EventType::CanMessage:
-        return CanMessage::parse(*this, line);
+        return CanMessage::read(*this, line);
     case Event::EventType::CanExtendedMessage:
-        return CanExtendedMessage::parse(*this, line);
+        return CanExtendedMessage::read(*this, line);
     case Event::EventType::CanRemoteFrame:
-        return CanRemoteFrame::parse(*this, line);
+        return CanRemoteFrame::read(*this, line);
     case Event::EventType::CanErrorFrame:
-        return CanErrorFrame::parse(*this, line);
+        return CanErrorFrame::read(*this, line);
     case Event::EventType::CanBusStatistics:
-        return CanBusStatistics::parse(*this, line);
+        return CanBusStatistics::read(*this, line);
     case Event::EventType::CanError:
-        return CanError::parse(*this, line);
+        return CanError::read(*this, line);
     case Event::EventType::CanOverloadFrame:
-        return CanOverloadFrame::parse(*this, line);
+        return CanOverloadFrame::read(*this, line);
 
     /* CAN FD Events */
     case Event::EventType::CanFdMessage:
-        return CanFdMessage::parse(*this, line);
+        return CanFdMessage::read(*this, line);
     case Event::EventType::CanFdExtendedMessage:
-        return CanFdExtendedMessage::parse(*this, line);
+        return CanFdExtendedMessage::read(*this, line);
     case Event::EventType::CanFdErrorFrame:
-        return CanFdErrorFrame::parse(*this, line);
+        return CanFdErrorFrame::read(*this, line);
     // CAN FD Bus Statistics Event
     // CAN FD Overload Frame
 
     /* Log and Trigger Events */
     case Event::EventType::LogTrigger:
-        return LogTrigger::parse(*this, line);
+        return LogTrigger::read(*this, line);
     case Event::EventType::LogDirectStart:
-        return LogDirectStart::parse(*this, line);
+        return LogDirectStart::read(*this, line);
     case Event::EventType::LogDirectStop:
-        return LogDirectStop::parse(*this, line);
+        return LogDirectStop::read(*this, line);
     case Event::EventType::BeginTriggerblock:
     {
-        BeginTriggerblock * beginTriggerblock = BeginTriggerblock::parse(*this, line);
+        BeginTriggerblock * beginTriggerblock = BeginTriggerblock::read(*this, line);
         if (beginTriggerblock)
             language = beginTriggerblock->language;
         return beginTriggerblock;
     }
     case Event::EventType::EndTriggerblock:
-        return EndTriggerblock::parse(*this, line);
+        return EndTriggerblock::read(*this, line);
 
     /* Environment Variables */
     case Event::EventType::EnvironmentVariables:
-        return EnvironmentVariables::parse(*this, line);
+        return EnvironmentVariables::read(*this, line);
 
     /* System Variables */
     case Event::EventType::SystemVariables:
-        return SystemVariables::parse(*this, line);
+        return SystemVariables::read(*this, line);
 
     /* Macros Signal Events */
     case Event::EventType::MacroSignal:
-        return MacroSignal::parse(*this, line);
+        return MacroSignal::read(*this, line);
 
     /* GPS events */
     case Event::EventType::Gps:
-        return Gps::parse(*this, line);
+        return Gps::read(*this, line);
 
     /* Comment events */
     case Event::EventType::Comment:
-        return Comment::parse(*this, line);
+        return Comment::read(*this, line);
 
     /* Global market events */
     case Event::EventType::GlobalMarker:
-        return GlobalMarker::parse(*this, line);
+        return GlobalMarker::read(*this, line);
 
     /* Ethernet Events */
     case Event::EventType::EthernetPacket:
-        return EthernetPacket::parse(*this, line);
+        return EthernetPacket::read(*this, line);
     case Event::EventType::EthernetStatus:
-        return EthernetStatus::parse(*this, line);
+        return EthernetStatus::read(*this, line);
     case Event::EventType::EthernetRxError:
-        return EthernetRxError::parse(*this, line);
+        return EthernetRxError::read(*this, line);
 
     /* AFDX Events */
     case Event::EventType::AfdxPacket:
-        return AfdxPacket::parse(*this, line);
+        return AfdxPacket::read(*this, line);
 
     /* FlexRay Events (Old Format) */
     case Event::EventType::FlexRayOldMessage:
-        return FlexRayOldMessage::parse(*this, line);
+        return FlexRayOldMessage::read(*this, line);
     case Event::EventType::FlexRayOldStartCycle:
-        return FlexRayOldStartCycle::parse(*this, line);
+        return FlexRayOldStartCycle::read(*this, line);
 
     /* FlexRay Events (New Format) */
     case Event::EventType::FlexRayMessage:
-        return FlexRayMessage::parse(*this, line);
+        return FlexRayMessage::read(*this, line);
     case Event::EventType::FlexRayStartCycle:
-        return FlexRayStartCycle::parse(*this, line);
+        return FlexRayStartCycle::read(*this, line);
     case Event::EventType::FlexRayStatus:
-        return FlexRayStatus::parse(*this, line);
+        return FlexRayStatus::read(*this, line);
     case Event::EventType::FlexRayError:
-        return FlexRayError::parse(*this, line);
+        return FlexRayError::read(*this, line);
 
     /* K-Line Events */
     case Event::EventType::KLineByte:
-        return KLineByte::parse(*this, line);
+        return KLineByte::read(*this, line);
     case Event::EventType::KLineMessage:
-        return KLineMessage::parse(*this, line);
+        return KLineMessage::read(*this, line);
 
     /* LIN Events */
     case Event::EventType::LinMessage:
-        return LinMessage::parse(*this, line);
+        return LinMessage::read(*this, line);
 
     /* LIN Error Events */
     case Event::EventType::LinTransmissionError:
-        return LinTransmissionError::parse(*this, line);
+        return LinTransmissionError::read(*this, line);
     case Event::EventType::LinReceiveError:
-        return LinReceiveError::parse(*this, line);
+        return LinReceiveError::read(*this, line);
     case Event::EventType::LinSyncError:
-        return LinSyncError::parse(*this, line);
+        return LinSyncError::read(*this, line);
     case Event::EventType::LinChecksumError:
-        return LinChecksumError::parse(*this, line);
+        return LinChecksumError::read(*this, line);
     case Event::EventType::LinSpike:
-        return LinSpike::parse(*this, line);
+        return LinSpike::read(*this, line);
     case Event::EventType::LinDominantSignal:
-        return LinDominantSignal::parse(*this, line);
+        return LinDominantSignal::read(*this, line);
 
     /* LIN Info Events */
     case Event::EventType::LinBaudrate:
-        return LinBaudrate::parse(*this, line);
+        return LinBaudrate::read(*this, line);
     case Event::EventType::LinDlcInfo:
-        return LinDlcInfo::parse(*this, line);
+        return LinDlcInfo::read(*this, line);
     case Event::EventType::LinChecksumInfo:
-        return LinChecksumInfo::parse(*this, line);
+        return LinChecksumInfo::read(*this, line);
     case Event::EventType::LinSchedulerModeChange:
-        return LinSchedulerModeChange::parse(*this, line);
+        return LinSchedulerModeChange::read(*this, line);
     case Event::EventType::LinSlaveTimeout:
-        return LinSlaveTimeout::parse(*this, line);
+        return LinSlaveTimeout::read(*this, line);
     case Event::EventType::LinEventTriggeredFrameInfo:
-        return LinEventTriggeredFrameInfo::parse(*this, line);
+        return LinEventTriggeredFrameInfo::read(*this, line);
     case Event::EventType::LinStatisticInfo:
-        return LinStatisticInfo::parse(*this, line);
+        return LinStatisticInfo::read(*this, line);
     case Event::EventType::LinShortOrSlowResponse:
-        return LinShortOrSlowResponse::parse(*this, line);
+        return LinShortOrSlowResponse::read(*this, line);
     case Event::EventType::LinDisturbance:
-        return LinDisturbance::parse(*this, line);
+        return LinDisturbance::read(*this, line);
 
     /* LIN Sleep/Wakeup Events */
     case Event::EventType::LinSleepMode:
-        return LinSleepMode::parse(*this, line);
+        return LinSleepMode::read(*this, line);
     case Event::EventType::LinWakeupFrame:
-        return LinWakeupFrame::parse(*this, line);
+        return LinWakeupFrame::read(*this, line);
     case Event::EventType::LinUnexpectedWakeup:
-        return LinUnexpectedWakeup::parse(*this, line);
+        return LinUnexpectedWakeup::read(*this, line);
 
     /* MOST Events */
     case Event::EventType::Most25ControlMessageNodeMode:
-        return Most25ControlMessageNodeMode::parse(*this, line);
+        return Most25ControlMessageNodeMode::read(*this, line);
     case Event::EventType::Most25ControlMessageSpyMode:
-        return Most25ControlMessageSpyMode::parse(*this, line);
+        return Most25ControlMessageSpyMode::read(*this, line);
     case Event::EventType::Most25Packet:
-        return Most25Packet::parse(*this, line);
+        return Most25Packet::read(*this, line);
     case Event::EventType::MostLightLock:
-        return MostLightLock::parse(*this, line);
+        return MostLightLock::read(*this, line);
     case Event::EventType::MostSpecialRegister:
-        return MostSpecialRegister::parse(*this, line);
+        return MostSpecialRegister::read(*this, line);
     case Event::EventType::MostCommonRegister:
-        return MostCommonRegister::parse(*this, line);
+        return MostCommonRegister::read(*this, line);
     case Event::EventType::MostHwMode:
-        return MostHwMode::parse(*this, line);
+        return MostHwMode::read(*this, line);
     case Event::EventType::MostNetState:
-        return MostNetState::parse(*this, line);
+        return MostNetState::read(*this, line);
     case Event::EventType::MostDataLost:
-        return MostDataLost::parse(*this, line);
+        return MostDataLost::read(*this, line);
     case Event::EventType::MostTrigger:
-        return MostTrigger::parse(*this, line);
+        return MostTrigger::read(*this, line);
     case Event::EventType::MostStatistic:
-        return MostStatistic::parse(*this, line);
+        return MostStatistic::read(*this, line);
     case Event::EventType::MostStatisticExtended:
-        return MostStatisticExtended::parse(*this, line);
+        return MostStatisticExtended::read(*this, line);
     case Event::EventType::MostTxLight:
-        return MostTxLight::parse(*this, line);
+        return MostTxLight::read(*this, line);
     case Event::EventType::MostStress:
-        return MostStress::parse(*this, line);
+        return MostStress::read(*this, line);
     case Event::EventType::Most25AllocTable:
-        return Most25AllocTable::parse(*this, line);
+        return Most25AllocTable::read(*this, line);
     case Event::EventType::Most150ControlMessage:
-        return Most150ControlMessage::parse(*this, line);
+        return Most150ControlMessage::read(*this, line);
     case Event::EventType::Most150ControlMessageFragment:
-        return Most150ControlMessageFragment::parse(*this, line);
+        return Most150ControlMessageFragment::read(*this, line);
     case Event::EventType::Most150Packet:
-        return Most150Packet::parse(*this, line);
+        return Most150Packet::read(*this, line);
     case Event::EventType::Most150PacketFragment:
-        return Most150PacketFragment::parse(*this, line);
+        return Most150PacketFragment::read(*this, line);
     case Event::EventType::MostEthernetPacket:
-        return MostEthernetPacket::parse(*this, line);
+        return MostEthernetPacket::read(*this, line);
     case Event::EventType::MostEthernetPacketFragment:
-        return MostEthernetPacketFragment::parse(*this, line);
+        return MostEthernetPacketFragment::read(*this, line);
     case Event::EventType::MostSystem:
-        return MostSystem::parse(*this, line);
+        return MostSystem::read(*this, line);
     case Event::EventType::Most150AllocTable:
-        return Most150AllocTable::parse(*this, line);
+        return Most150AllocTable::read(*this, line);
     case Event::EventType::Most50ControlMessage:
-        return Most50ControlMessage::parse(*this, line);
+        return Most50ControlMessage::read(*this, line);
     case Event::EventType::Most50Packet:
-        return Most50Packet::parse(*this, line);
+        return Most50Packet::read(*this, line);
     case Event::EventType::MostEcl:
-        return MostEcl::parse(*this, line);
+        return MostEcl::read(*this, line);
 
     /* TP/Diagnostics Events */
     case Event::EventType::TpSingleFrame:
-        return TpSingleFrame::parse(*this, line);
+        return TpSingleFrame::read(*this, line);
     case Event::EventType::TpFirstFrame:
-        return TpFirstFrame::parse(*this, line);
+        return TpFirstFrame::read(*this, line);
     case Event::EventType::TpConsecutiveFrame:
-        return TpConsecutiveFrame::parse(*this, line);
+        return TpConsecutiveFrame::read(*this, line);
     case Event::EventType::TpFlowControlFrame:
-        return TpFlowControlFrame::parse(*this, line);
+        return TpFlowControlFrame::read(*this, line);
     case Event::EventType::DiagRequest:
-        return DiagRequest::parse(*this, line);
+        return DiagRequest::read(*this, line);
 
     /* undocumented events */
     case Event::EventType::StartOfMeasurement:
     {
-        StartOfMeasurement * startOfMeasurement = StartOfMeasurement::parse(*this, line);
+        StartOfMeasurement * startOfMeasurement = StartOfMeasurement::read(*this, line);
         if (startOfMeasurement)
             language = startOfMeasurement->language;
         return startOfMeasurement;

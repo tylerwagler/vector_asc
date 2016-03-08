@@ -42,7 +42,7 @@ MostCommonRegister::MostCommonRegister() :
     eventType = EventType::MostCommonRegister;
 }
 
-MostCommonRegister * MostCommonRegister::parse(File & /*file*/, std::string & line)
+MostCommonRegister * MostCommonRegister::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "RegData:"
                      REGEX_ws REGEX_MOST_RegSubType REGEX_WS REGEX_MOST_RegChip REGEX_WS REGEX_MOST_RegOffset

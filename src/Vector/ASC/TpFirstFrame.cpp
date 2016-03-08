@@ -42,7 +42,7 @@ TpFirstFrame::TpFirstFrame() :
     eventType = EventType::TpFirstFrame;
 }
 
-TpFirstFrame * TpFirstFrame::parse(File & /*file*/, std::string & line)
+TpFirstFrame * TpFirstFrame::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_TPDiag_CANChannel REGEX_WS "OTP\\(" REGEX_TPDiag_connectionId "\\)"
                      REGEX_WS REGEX_TPDiag_type REGEX_WS REGEX_TPDiag_source "->" REGEX_TPDiag_destination ":"

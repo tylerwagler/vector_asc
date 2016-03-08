@@ -35,7 +35,7 @@ BeginTriggerblock::BeginTriggerblock() :
     eventType = EventType::BeginTriggerblock;
 }
 
-BeginTriggerblock * BeginTriggerblock::parse(File &, std::string & line)
+BeginTriggerblock * BeginTriggerblock::read(File &, std::string & line)
 {
     std::regex regex(REGEX_STOL "Begin Triggerblock" REGEX_WS REGEX_WeekDay REGEX_WS REGEX_Month REGEX_WS REGEX_Date
                      REGEX_WS REGEX_FullTime REGEX_WS REGEX_Year REGEX_ENDL);

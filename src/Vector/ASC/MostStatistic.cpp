@@ -40,7 +40,7 @@ MostStatistic::MostStatistic() :
     eventType = EventType::MostStatistic;
 }
 
-MostStatistic * MostStatistic::parse(File & /*file*/, std::string & line)
+MostStatistic * MostStatistic::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "MostStatistic:"
                      REGEX_ws "Fr:" REGEX_ws REGEX_MOST_StatVal

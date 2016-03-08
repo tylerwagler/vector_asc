@@ -43,7 +43,7 @@ LinDisturbance::LinDisturbance() :
     eventType = EventType::LinDisturbance;
 }
 
-LinDisturbance * LinDisturbance::parse(File & file, std::string & line)
+LinDisturbance * LinDisturbance::read(File & file, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "DisturbanceEvent"
                      REGEX_WS "Type" REGEX_ws "=" REGEX_ws REGEX_LIN_DisturbanceType

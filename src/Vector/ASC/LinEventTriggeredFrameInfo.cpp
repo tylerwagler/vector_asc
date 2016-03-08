@@ -38,7 +38,7 @@ LinEventTriggeredFrameInfo::LinEventTriggeredFrameInfo() :
     eventType = EventType::LinEventTriggeredFrameInfo;
 }
 
-LinEventTriggeredFrameInfo * LinEventTriggeredFrameInfo::parse(File & /*file*/, std::string & line)
+LinEventTriggeredFrameInfo * LinEventTriggeredFrameInfo::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID
                      REGEX_WS "EvTrigFrmInfo" REGEX_WS REGEX_LIN_ETFName REGEX_WS REGEX_LIN_description REGEX_ENDL);

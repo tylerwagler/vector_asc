@@ -42,8 +42,8 @@ public:
     /** language (only parsed, write works via File::language) */
     File::Language language;
 
-    /** @copydoc Event::parse() */
-    static StartOfMeasurement * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static StartOfMeasurement * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

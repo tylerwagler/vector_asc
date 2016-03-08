@@ -71,8 +71,8 @@ public:
     /** Frames unanswered */
     uint32_t framesUnanswered;
 
-    /** @copydoc Event::parse() */
-    static LinStatisticInfo * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LinStatisticInfo * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

@@ -60,8 +60,8 @@ public:
     /** @copydoc LinBaudrateType */
     LinBaudrateType baudrate;
 
-    /** @copydoc Event::parse() */
-    static LinSpike * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LinSpike * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

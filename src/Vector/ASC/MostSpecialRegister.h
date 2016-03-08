@@ -59,8 +59,8 @@ public:
     /** @copydoc MostRegValue */
     MostRegValue regValue;
 
-    /** @copydoc Event::parse() */
-    static MostSpecialRegister * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static MostSpecialRegister * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };

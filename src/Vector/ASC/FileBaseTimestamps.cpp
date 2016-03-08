@@ -35,7 +35,7 @@ FileBaseTimestamps::FileBaseTimestamps() :
     eventType = EventType::FileBaseTimestamps;
 }
 
-FileBaseTimestamps * FileBaseTimestamps::parse(File & /*file*/, std::string & line)
+FileBaseTimestamps * FileBaseTimestamps::read(File & /*file*/, std::string & line)
 {
     std::regex regex(REGEX_STOL "base" REGEX_WS "(hex|dec)" REGEX_WS "timestamps" REGEX_WS "(absolute|relative)" REGEX_ENDL);
     std::smatch match;

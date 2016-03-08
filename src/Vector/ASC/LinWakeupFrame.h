@@ -62,8 +62,8 @@ public:
     /** @copydoc LinWakeupLengthInfo */
     LinWakeupLengthInfo wakeupLengthInfo;
 
-    /** @copydoc Event::parse() */
-    static LinWakeupFrame * parse(File & file, std::string & line);
+    /** @copydoc Event::read() */
+    static LinWakeupFrame * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream);
 };
