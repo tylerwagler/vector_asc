@@ -258,6 +258,10 @@ generate_export_header(${PROJECT_NAME})
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     add_definitions(-std=c++11)
+    add_definitions(-D_FORTIFY_SOURCE=2)
+    add_definitions(-fstack-protector-strong)
+    #add_definitions(-fPIE -pie)
+    add_definitions(-Wl,-z,relro,-z,now)
 endif()
 
 install(
