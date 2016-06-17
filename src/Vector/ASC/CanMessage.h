@@ -61,7 +61,7 @@ public:
     /** @copydoc Dx */
     std::vector<Dx> data;
 
-    /** @copydoc MessageLength */
+    /** @copydoc MessageDuration */
     MessageDuration messageDuration;
 
     /** @copydoc MessageLength */
