@@ -48,7 +48,7 @@ namespace ASC {
  * nal edges is 2 bit times. After the first failure interval has been seen the rest of array elements are
  * initialized to 0.
  */
-class VECTOR_ASC_EXPORT LinSyncError : public Event
+class VECTOR_ASC_EXPORT LinSyncError final : public Event
 {
 public:
     LinSyncError();
@@ -77,7 +77,7 @@ public:
     /** @copydoc Event::read() */
     static LinSyncError * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

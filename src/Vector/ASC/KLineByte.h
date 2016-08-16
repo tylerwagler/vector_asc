@@ -34,7 +34,7 @@ namespace Vector {
 namespace ASC {
 
 /** K-Line Byte event */
-class VECTOR_ASC_EXPORT KLineByte : public Event
+class VECTOR_ASC_EXPORT KLineByte final : public Event
 {
 public:
     KLineByte();
@@ -60,7 +60,7 @@ public:
     /** @copydoc Event::read() */
     static KLineByte * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

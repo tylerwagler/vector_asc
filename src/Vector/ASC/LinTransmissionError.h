@@ -36,7 +36,7 @@ namespace ASC {
  *
  * FlexRay Error event transmitted by the FlexRay hardware.
  */
-class VECTOR_ASC_EXPORT LinTransmissionError : public Event
+class VECTOR_ASC_EXPORT LinTransmissionError final : public Event
 {
 public:
     LinTransmissionError();
@@ -98,7 +98,7 @@ public:
     /** @copydoc Event::read() */
     static LinTransmissionError * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

@@ -38,7 +38,7 @@ namespace ASC {
  *
  * Electrical physical layer: Signal output state
  */
-class VECTOR_ASC_EXPORT MostTxLight : public Event
+class VECTOR_ASC_EXPORT MostTxLight final : public Event
 {
 public:
     MostTxLight();
@@ -55,7 +55,7 @@ public:
     /** @copydoc Event::read() */
     static MostTxLight * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

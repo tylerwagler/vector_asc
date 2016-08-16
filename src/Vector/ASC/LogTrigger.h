@@ -37,7 +37,7 @@ namespace ASC {
  * A Log Trigger event. There can be additional information appended at the end of the line, e.g. "
  * (this trigger was in post trigger time of last block)" or "(ignored)".
  */
-class VECTOR_ASC_EXPORT LogTrigger : public Event
+class VECTOR_ASC_EXPORT LogTrigger final : public Event
 {
 public:
     LogTrigger();
@@ -51,7 +51,7 @@ public:
     /** @copydoc Event::read() */
     static LogTrigger * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

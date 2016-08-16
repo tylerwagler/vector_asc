@@ -33,7 +33,7 @@ namespace Vector {
 namespace ASC {
 
 /** File Base Timestamps */
-class VECTOR_ASC_EXPORT FileBaseTimestamps : public Event
+class VECTOR_ASC_EXPORT FileBaseTimestamps final : public Event
 {
 public:
     FileBaseTimestamps();
@@ -47,7 +47,7 @@ public:
     /** @copydoc Event::read() */
     static FileBaseTimestamps * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

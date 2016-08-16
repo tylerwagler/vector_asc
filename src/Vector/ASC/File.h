@@ -43,7 +43,7 @@ namespace ASC {
  *
  * This is similar to std::fstream for ASCs
  */
-class VECTOR_ASC_EXPORT File
+class VECTOR_ASC_EXPORT File final
 {
 public:
     File();

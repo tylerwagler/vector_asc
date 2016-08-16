@@ -37,7 +37,7 @@ namespace ASC {
  * A spike event occurs when a short (normally less than 1 bit time) dominant signal has been de-
  * tected on a LIN channel.
  */
-class VECTOR_ASC_EXPORT LinSpike : public Event
+class VECTOR_ASC_EXPORT LinSpike final : public Event
 {
 public:
     LinSpike();
@@ -63,7 +63,7 @@ public:
     /** @copydoc Event::read() */
     static LinSpike * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

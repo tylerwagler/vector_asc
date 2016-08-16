@@ -34,7 +34,7 @@ namespace Vector {
 namespace ASC {
 
 /** K-Line Message event */
-class VECTOR_ASC_EXPORT KLineMessage : public Event
+class VECTOR_ASC_EXPORT KLineMessage final : public Event
 {
 public:
     KLineMessage();
@@ -66,7 +66,7 @@ public:
     /** @copydoc Event::read() */
     static KLineMessage * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

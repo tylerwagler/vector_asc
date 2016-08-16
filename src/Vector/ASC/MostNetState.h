@@ -36,7 +36,7 @@ namespace ASC {
  *
  * Network state derived by MOST Supervisor Layer I+II.
  */
-class VECTOR_ASC_EXPORT MostNetState : public Event
+class VECTOR_ASC_EXPORT MostNetState final : public Event
 {
 public:
     MostNetState();
@@ -56,7 +56,7 @@ public:
     /** @copydoc Event::read() */
     static MostNetState * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

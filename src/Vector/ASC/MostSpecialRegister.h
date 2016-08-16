@@ -39,7 +39,7 @@ namespace ASC {
  * Directly after measurement start the current values of the special registers are reported even if they
  * have not changed.
  */
-class VECTOR_ASC_EXPORT MostSpecialRegister : public Event
+class VECTOR_ASC_EXPORT MostSpecialRegister final : public Event
 {
 public:
     MostSpecialRegister();
@@ -62,7 +62,7 @@ public:
     /** @copydoc Event::read() */
     static MostSpecialRegister * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

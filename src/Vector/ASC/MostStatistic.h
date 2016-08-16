@@ -40,7 +40,7 @@ namespace ASC {
  *
  * Usually the event is not visible in a trace window.
  */
-class VECTOR_ASC_EXPORT MostStatistic : public Event
+class VECTOR_ASC_EXPORT MostStatistic final : public Event
 {
 public:
     MostStatistic();
@@ -66,7 +66,7 @@ public:
     /** @copydoc Event::read() */
     static MostStatistic * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

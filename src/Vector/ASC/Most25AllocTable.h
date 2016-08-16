@@ -44,7 +44,7 @@ namespace ASC {
  * use or not, otherwise the MSB should be ignored. The label number thus can be determined by byte
  * value & 0x7F. If the resulting label number is 0x70, the byte is not used for any label.
  */
-class VECTOR_ASC_EXPORT Most25AllocTable : public Event
+class VECTOR_ASC_EXPORT Most25AllocTable final : public Event
 {
 public:
     Most25AllocTable();
@@ -64,7 +64,7 @@ public:
     /** @copydoc Event::read() */
     static Most25AllocTable * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

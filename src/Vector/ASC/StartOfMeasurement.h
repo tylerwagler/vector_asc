@@ -31,7 +31,7 @@
 namespace Vector {
 namespace ASC {
 
-class VECTOR_ASC_EXPORT StartOfMeasurement : public Event
+class VECTOR_ASC_EXPORT StartOfMeasurement final : public Event
 {
 public:
     StartOfMeasurement();
@@ -45,7 +45,7 @@ public:
     /** @copydoc Event::read() */
     static StartOfMeasurement * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

@@ -38,7 +38,7 @@ namespace ASC {
  *
  * Receive or transmitted Ethernet packet.
  */
-class VECTOR_ASC_EXPORT EthernetPacket : public Event
+class VECTOR_ASC_EXPORT EthernetPacket final : public Event
 {
 public:
     EthernetPacket();
@@ -61,7 +61,7 @@ public:
     /** @copydoc Event::read() */
     static EthernetPacket * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

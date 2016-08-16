@@ -36,7 +36,7 @@ namespace ASC {
  *
  * A Wakeup-Frame event is displayed when a wakeup request has been detected on a LIN channel.
  */
-class VECTOR_ASC_EXPORT LinWakeupFrame : public Event
+class VECTOR_ASC_EXPORT LinWakeupFrame final : public Event
 {
 public:
     LinWakeupFrame();
@@ -65,7 +65,7 @@ public:
     /** @copydoc Event::read() */
     static LinWakeupFrame * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

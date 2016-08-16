@@ -36,7 +36,7 @@ namespace ASC {
  *
  * Information about Stress activity of VN2600/2610 Hardware
  */
-class VECTOR_ASC_EXPORT MostStress : public Event
+class VECTOR_ASC_EXPORT MostStress final : public Event
 {
 public:
     MostStress();
@@ -56,7 +56,7 @@ public:
     /** @copydoc Event::read() */
     static MostStress * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

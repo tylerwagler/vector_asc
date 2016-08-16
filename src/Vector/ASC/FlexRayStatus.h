@@ -37,7 +37,7 @@ namespace ASC {
  *
  * FlexRay Message received or transmitted on a FlexRay channel.
  */
-class VECTOR_ASC_EXPORT FlexRayStatus : public Event
+class VECTOR_ASC_EXPORT FlexRayStatus final : public Event
 {
 public:
     FlexRayStatus();
@@ -81,7 +81,7 @@ public:
     /** @copydoc Event::read() */
     static FlexRayStatus * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

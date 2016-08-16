@@ -33,7 +33,7 @@ namespace Vector {
 namespace ASC {
 
 /** File Internal Events Logged */
-class VECTOR_ASC_EXPORT FileInternalEventsLogged : public Event
+class VECTOR_ASC_EXPORT FileInternalEventsLogged final : public Event
 {
 public:
     FileInternalEventsLogged();
@@ -44,7 +44,7 @@ public:
     /** @copydoc Event::read() */
     static FileInternalEventsLogged * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

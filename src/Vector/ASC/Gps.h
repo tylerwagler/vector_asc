@@ -36,7 +36,7 @@ namespace ASC {
  *
  * An event that is written if an event is received on the GPS channel.
  */
-class VECTOR_ASC_EXPORT Gps : public Event
+class VECTOR_ASC_EXPORT Gps final : public Event
 {
 public:
     Gps();
@@ -65,7 +65,7 @@ public:
     /** @copydoc Event::read() */
     static Gps * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

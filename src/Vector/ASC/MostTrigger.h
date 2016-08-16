@@ -38,7 +38,7 @@ namespace ASC {
  *
  * Event transports changes of HW IO pins. The event is used for debugging purposes only.
  */
-class VECTOR_ASC_EXPORT MostTrigger : public Event
+class VECTOR_ASC_EXPORT MostTrigger final : public Event
 {
 public:
     MostTrigger();
@@ -61,7 +61,7 @@ public:
     /** @copydoc Event::read() */
     static MostTrigger * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

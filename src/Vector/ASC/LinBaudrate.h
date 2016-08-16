@@ -40,7 +40,7 @@ namespace ASC {
  *
  * LIN hardware is synchronized with the baud rate of the external Master.
  */
-class VECTOR_ASC_EXPORT LinBaudrate : public Event
+class VECTOR_ASC_EXPORT LinBaudrate final : public Event
 {
 public:
     LinBaudrate();
@@ -57,7 +57,7 @@ public:
     /** @copydoc Event::read() */
     static LinBaudrate * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

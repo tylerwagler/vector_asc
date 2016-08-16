@@ -39,7 +39,7 @@ namespace ASC {
  * This event transports a register read or write result (e.g. reading the routing engine of the OS8104).
  * Unlike the special register event this event does not occur spontaneous.
  */
-class VECTOR_ASC_EXPORT MostCommonRegister : public Event
+class VECTOR_ASC_EXPORT MostCommonRegister final : public Event
 {
 public:
     MostCommonRegister();
@@ -68,7 +68,7 @@ public:
     /** @copydoc Event::read() */
     static MostCommonRegister * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

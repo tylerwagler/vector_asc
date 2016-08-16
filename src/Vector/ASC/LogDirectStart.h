@@ -37,7 +37,7 @@ namespace ASC {
  * An event that is written if the logging was started directly by the button in the measurement
  * setup or by the CAPL function StartLogging().
  */
-class VECTOR_ASC_EXPORT LogDirectStart : public Event
+class VECTOR_ASC_EXPORT LogDirectStart final : public Event
 {
 public:
     LogDirectStart();
@@ -51,7 +51,7 @@ public:
     /** @copydoc Event::read() */
     static LogDirectStart * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

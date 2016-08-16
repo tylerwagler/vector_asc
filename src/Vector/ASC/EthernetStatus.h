@@ -36,7 +36,7 @@ namespace ASC {
  *
  * Ethernet link status.
  */
-class VECTOR_ASC_EXPORT EthernetStatus : public Event
+class VECTOR_ASC_EXPORT EthernetStatus final : public Event
 {
 public:
     EthernetStatus();
@@ -82,7 +82,7 @@ public:
     /** @copydoc Event::read() */
     static EthernetStatus * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

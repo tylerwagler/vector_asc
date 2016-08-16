@@ -38,7 +38,7 @@ namespace ASC {
  *
  * Indicates loss of data. (Number of lost messages and start and end time stamp of data loss.)
  */
-class VECTOR_ASC_EXPORT MostDataLost : public Event
+class VECTOR_ASC_EXPORT MostDataLost final : public Event
 {
 public:
     MostDataLost();
@@ -64,7 +64,7 @@ public:
     /** @copydoc Event::read() */
     static MostDataLost * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

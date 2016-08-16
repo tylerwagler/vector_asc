@@ -35,7 +35,7 @@ namespace ASC {
 /**
  * Unknown Event
  */
-class VECTOR_ASC_EXPORT Unknown : public Event
+class VECTOR_ASC_EXPORT Unknown final : public Event
 {
 public:
     Unknown();
@@ -43,7 +43,7 @@ public:
     /** line content */
     std::string line;
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

@@ -38,7 +38,7 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
-class VECTOR_ASC_EXPORT LinDisturbance : public Event
+class VECTOR_ASC_EXPORT LinDisturbance final : public Event
 {
 public:
     LinDisturbance();
@@ -73,7 +73,7 @@ public:
     /** @copydoc Event::read() */
     static LinDisturbance * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

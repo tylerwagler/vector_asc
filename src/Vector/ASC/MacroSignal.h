@@ -36,7 +36,7 @@ namespace ASC {
  *
  * An event that is written if the user change a signal value with a panel control, and the macro recording is on.
  */
-class VECTOR_ASC_EXPORT MacroSignal : public Event
+class VECTOR_ASC_EXPORT MacroSignal final : public Event
 {
 public:
     MacroSignal();
@@ -77,7 +77,7 @@ public:
     /** @copydoc Event::read() */
     static MacroSignal * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

@@ -39,7 +39,7 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated up to CANoe/CANalyzer 5.2 only.
  */
-class VECTOR_ASC_EXPORT LinStatisticInfo : public Event
+class VECTOR_ASC_EXPORT LinStatisticInfo final : public Event
 {
 public:
     LinStatisticInfo();
@@ -74,7 +74,7 @@ public:
     /** @copydoc Event::read() */
     static LinStatisticInfo * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

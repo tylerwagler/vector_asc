@@ -38,7 +38,7 @@ namespace ASC {
  * global marker event is assigned to another event (set in Trace Window) it has to be written before that
  * event. Global marker events can be written only during the export from Trace window.
  */
-class VECTOR_ASC_EXPORT GlobalMarker : public Event
+class VECTOR_ASC_EXPORT GlobalMarker final : public Event
 {
 public:
     GlobalMarker();
@@ -70,7 +70,7 @@ public:
     /** @copydoc Event::read() */
     static GlobalMarker * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

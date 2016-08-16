@@ -38,7 +38,7 @@ namespace ASC {
  *
  * The event transports the current state and changes of the MOST50/MOST150 Allocation Table.
  */
-class VECTOR_ASC_EXPORT Most150AllocTable : public Event
+class VECTOR_ASC_EXPORT Most150AllocTable final : public Event
 {
 public:
     Most150AllocTable();
@@ -64,7 +64,7 @@ public:
     /** @copydoc Event::read() */
     static Most150AllocTable * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

@@ -40,7 +40,7 @@ namespace ASC {
  * (NACK Error, CRC Error) the hardware/driver may provide further information (ID, DLC, Data
  * ...) about the partial frame preceding the actual Error Frame, otherwise these values are 0.
  */
-class VECTOR_ASC_EXPORT CanFdErrorFrame : public Event
+class VECTOR_ASC_EXPORT CanFdErrorFrame final : public Event
 {
 public:
     CanFdErrorFrame();
@@ -113,7 +113,7 @@ public:
     /** @copydoc Event::read() */
     static CanFdErrorFrame * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

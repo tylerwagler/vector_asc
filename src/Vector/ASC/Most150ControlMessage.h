@@ -38,7 +38,7 @@ namespace ASC {
  *
  * Message on MOST150 Control Channel.
  */
-class VECTOR_ASC_EXPORT Most150ControlMessage : public Event
+class VECTOR_ASC_EXPORT Most150ControlMessage final : public Event
 {
 public:
     Most150ControlMessage();
@@ -94,7 +94,7 @@ public:
     /** @copydoc Event::read() */
     static Most150ControlMessage * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

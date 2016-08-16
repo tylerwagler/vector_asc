@@ -38,7 +38,7 @@ namespace ASC {
  *
  * An Overload Frame received on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanFdExtendedMessage : public Event
+class VECTOR_ASC_EXPORT CanFdExtendedMessage final : public Event
 {
 public:
     CanFdExtendedMessage();
@@ -94,7 +94,7 @@ public:
     /** @copydoc Event::read() */
     static CanFdExtendedMessage * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

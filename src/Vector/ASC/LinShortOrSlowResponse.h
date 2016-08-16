@@ -41,7 +41,7 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
-class VECTOR_ASC_EXPORT LinShortOrSlowResponse : public Event
+class VECTOR_ASC_EXPORT LinShortOrSlowResponse final : public Event
 {
 public:
     LinShortOrSlowResponse();
@@ -109,7 +109,7 @@ public:
     /** @copydoc Event::read() */
     static LinShortOrSlowResponse * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

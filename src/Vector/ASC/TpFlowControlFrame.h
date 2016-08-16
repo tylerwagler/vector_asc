@@ -32,7 +32,7 @@ namespace Vector {
 namespace ASC {
 
 /** TP Flow Control Frame */
-class VECTOR_ASC_EXPORT TpFlowControlFrame : public Event
+class VECTOR_ASC_EXPORT TpFlowControlFrame final : public Event
 {
 public:
     TpFlowControlFrame();
@@ -64,7 +64,7 @@ public:
     /** @copydoc Event::read() */
     static TpFlowControlFrame * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

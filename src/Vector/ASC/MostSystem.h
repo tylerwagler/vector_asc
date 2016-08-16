@@ -36,7 +36,7 @@ namespace ASC {
  *
  * Event for various system states.
  */
-class VECTOR_ASC_EXPORT MostSystem : public Event
+class VECTOR_ASC_EXPORT MostSystem final : public Event
 {
 public:
     MostSystem();
@@ -59,7 +59,7 @@ public:
     /** @copydoc Event::read() */
     static MostSystem * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

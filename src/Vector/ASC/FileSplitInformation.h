@@ -33,7 +33,7 @@ namespace Vector {
 namespace ASC {
 
 /** File Split Information */
-class VECTOR_ASC_EXPORT FileSplitInformation : public Event
+class VECTOR_ASC_EXPORT FileSplitInformation final : public Event
 {
 public:
     FileSplitInformation();
@@ -47,7 +47,7 @@ public:
     /** @copydoc Event::read() */
     static FileSplitInformation * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

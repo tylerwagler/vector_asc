@@ -37,7 +37,7 @@ namespace ASC {
  * An event that is written if the logging was stopped directly by the buttons in the measurement
  * setup or by the CAPL function StopLogging().
  */
-class VECTOR_ASC_EXPORT LogDirectStop : public Event
+class VECTOR_ASC_EXPORT LogDirectStop final : public Event
 {
 public:
     LogDirectStop();
@@ -51,7 +51,7 @@ public:
     /** @copydoc Event::read() */
     static LogDirectStop * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

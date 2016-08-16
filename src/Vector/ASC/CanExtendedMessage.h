@@ -38,7 +38,7 @@ namespace ASC {
  *
  * CAN Message with extended identifier received or transmitted on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanExtendedMessage : public Event
+class VECTOR_ASC_EXPORT CanExtendedMessage final : public Event
 {
 public:
     CanExtendedMessage();
@@ -76,7 +76,7 @@ public:
     /** @copydoc Event::read() */
     static CanExtendedMessage * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

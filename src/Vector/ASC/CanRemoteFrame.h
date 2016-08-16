@@ -36,7 +36,7 @@ namespace ASC {
  *
  * A CAN Remote Frame received or transmitted on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanRemoteFrame : public Event
+class VECTOR_ASC_EXPORT CanRemoteFrame final : public Event
 {
 public:
     CanRemoteFrame();
@@ -56,7 +56,7 @@ public:
     /** @copydoc Event::read() */
     static CanRemoteFrame * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

@@ -39,7 +39,7 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated up to CANoe/CANalyzer 5.2 only.
  */
-class VECTOR_ASC_EXPORT LinEventTriggeredFrameInfo : public Event
+class VECTOR_ASC_EXPORT LinEventTriggeredFrameInfo final : public Event
 {
 public:
     LinEventTriggeredFrameInfo();
@@ -62,7 +62,7 @@ public:
     /** @copydoc Event::read() */
     static LinEventTriggeredFrameInfo * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

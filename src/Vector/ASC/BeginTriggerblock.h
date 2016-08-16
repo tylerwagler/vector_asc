@@ -37,7 +37,7 @@ namespace ASC {
  *
  * An event that is written when a trigger block begins.
  */
-class VECTOR_ASC_EXPORT BeginTriggerblock : public Event
+class VECTOR_ASC_EXPORT BeginTriggerblock final : public Event
 {
 public:
     BeginTriggerblock();
@@ -51,7 +51,7 @@ public:
     /** @copydoc Event::read() */
     static BeginTriggerblock * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

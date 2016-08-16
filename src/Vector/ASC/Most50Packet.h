@@ -38,7 +38,7 @@ namespace ASC {
  *
  * Message on MOST50 Packet Data Channel.
  */
-class VECTOR_ASC_EXPORT Most50Packet : public Event
+class VECTOR_ASC_EXPORT Most50Packet final : public Event
 {
 public:
     Most50Packet();
@@ -94,7 +94,7 @@ public:
     /** @copydoc Event::read() */
     static Most50Packet * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

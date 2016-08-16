@@ -38,7 +38,7 @@ namespace ASC {
  *   - At the start of a measurement in order to report the initial state of the LIN hardware,
  *   - Every time the mode (Wakeup or Sleep) of LIN hardware changes.
  */
-class VECTOR_ASC_EXPORT LinSleepMode : public Event
+class VECTOR_ASC_EXPORT LinSleepMode final : public Event
 {
 public:
     LinSleepMode();
@@ -58,7 +58,7 @@ public:
     /** @copydoc Event::read() */
     static LinSleepMode * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

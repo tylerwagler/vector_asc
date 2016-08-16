@@ -36,7 +36,7 @@ namespace ASC {
  *
  * An event that is written if the value of a environment variable changed.
  */
-class VECTOR_ASC_EXPORT EnvironmentVariables : public Event
+class VECTOR_ASC_EXPORT EnvironmentVariables final : public Event
 {
 public:
     EnvironmentVariables();
@@ -56,7 +56,7 @@ public:
     /** @copydoc Event::read() */
     static EnvironmentVariables * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

@@ -36,7 +36,7 @@ namespace ASC {
  *
  * State change of the MOST Electrical Control Line.
  */
-class VECTOR_ASC_EXPORT MostEcl : public Event
+class VECTOR_ASC_EXPORT MostEcl final : public Event
 {
 public:
     MostEcl();
@@ -56,7 +56,7 @@ public:
     /** @copydoc Event::read() */
     static MostEcl * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

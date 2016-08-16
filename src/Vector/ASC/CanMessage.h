@@ -38,7 +38,7 @@ namespace ASC {
  *
  * Simple CAN Message received or transmitted on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanMessage : public Event
+class VECTOR_ASC_EXPORT CanMessage final : public Event
 {
 public:
     CanMessage();
@@ -76,7 +76,7 @@ public:
     /** @copydoc Event::read() */
     static CanMessage * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

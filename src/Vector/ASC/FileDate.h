@@ -33,7 +33,7 @@ namespace Vector {
 namespace ASC {
 
 /** File Date */
-class VECTOR_ASC_EXPORT FileDate : public Event
+class VECTOR_ASC_EXPORT FileDate final : public Event
 {
 public:
     FileDate();
@@ -47,7 +47,7 @@ public:
     /** @copydoc Event::read() */
     static FileDate * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

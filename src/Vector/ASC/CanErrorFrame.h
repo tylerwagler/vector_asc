@@ -36,7 +36,7 @@ namespace ASC {
  *
  * A CAN Error Frame received on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanErrorFrame : public Event
+class VECTOR_ASC_EXPORT CanErrorFrame final : public Event
 {
 public:
     CanErrorFrame();
@@ -87,7 +87,7 @@ public:
     /** @copydoc Event::read() */
     static CanErrorFrame * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

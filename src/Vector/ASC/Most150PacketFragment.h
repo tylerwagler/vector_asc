@@ -38,7 +38,7 @@ namespace ASC {
  *
  * Partial transmitted message on MOST50 or MOST150 Packet Data Channel.
  */
-class VECTOR_ASC_EXPORT Most150PacketFragment : public Event
+class VECTOR_ASC_EXPORT Most150PacketFragment final : public Event
 {
 public:
     Most150PacketFragment();
@@ -94,7 +94,7 @@ public:
     /** @copydoc Event::read() */
     static Most150PacketFragment * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

@@ -39,7 +39,7 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
-class VECTOR_ASC_EXPORT LinUnexpectedWakeup : public Event
+class VECTOR_ASC_EXPORT LinUnexpectedWakeup final : public Event
 {
 public:
     LinUnexpectedWakeup();
@@ -65,7 +65,7 @@ public:
     /** @copydoc Event::read() */
     static LinUnexpectedWakeup * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

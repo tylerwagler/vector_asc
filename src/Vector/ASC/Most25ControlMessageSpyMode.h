@@ -38,7 +38,7 @@ namespace ASC {
  *
  * Message on MOST25 Control Channel received in spy mode (listen only).
  */
-class VECTOR_ASC_EXPORT Most25ControlMessageSpyMode : public Event
+class VECTOR_ASC_EXPORT Most25ControlMessageSpyMode final : public Event
 {
 public:
     Most25ControlMessageSpyMode();
@@ -73,7 +73,7 @@ public:
     /** @copydoc Event::read() */
     static Most25ControlMessageSpyMode * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

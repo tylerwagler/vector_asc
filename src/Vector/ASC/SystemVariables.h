@@ -38,7 +38,7 @@ namespace ASC {
  *
  * An event that is written if the value of a system variable changed.
  */
-class VECTOR_ASC_EXPORT SystemVariables : public Event
+class VECTOR_ASC_EXPORT SystemVariables final : public Event
 {
 public:
     SystemVariables();
@@ -61,7 +61,7 @@ public:
     /** @copydoc Event::read() */
     static SystemVariables * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

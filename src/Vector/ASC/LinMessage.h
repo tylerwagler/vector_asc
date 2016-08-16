@@ -38,7 +38,7 @@ namespace ASC {
  *
  * LIN frame received or transmitted on a LIN channel.
  */
-class VECTOR_ASC_EXPORT LinMessage : public Event
+class VECTOR_ASC_EXPORT LinMessage final : public Event
 {
 public:
     LinMessage();
@@ -133,7 +133,7 @@ public:
     /** @copydoc Event::read() */
     static LinMessage * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

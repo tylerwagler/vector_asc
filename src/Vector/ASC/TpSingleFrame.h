@@ -34,7 +34,7 @@ namespace Vector {
 namespace ASC {
 
 /** TP Single Frame */
-class VECTOR_ASC_EXPORT TpSingleFrame : public Event
+class VECTOR_ASC_EXPORT TpSingleFrame final : public Event
 {
 public:
     TpSingleFrame();
@@ -63,7 +63,7 @@ public:
     /** @copydoc Event::read() */
     static TpSingleFrame * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

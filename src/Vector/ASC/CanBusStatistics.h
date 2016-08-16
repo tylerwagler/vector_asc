@@ -36,7 +36,7 @@ namespace ASC {
  *
  * CAN Statistic event, which contains statistic information about the CAN channels.
  */
-class VECTOR_ASC_EXPORT CanBusStatistics : public Event
+class VECTOR_ASC_EXPORT CanBusStatistics final : public Event
 {
 public:
     CanBusStatistics();
@@ -71,7 +71,7 @@ public:
     /** @copydoc Event::read() */
     static CanBusStatistics * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

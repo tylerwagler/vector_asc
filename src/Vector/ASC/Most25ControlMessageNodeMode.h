@@ -38,7 +38,7 @@ namespace ASC {
  *
  * Message on MOST25 Control Channel received or transmitted in node mode.
  */
-class VECTOR_ASC_EXPORT Most25ControlMessageNodeMode : public Event
+class VECTOR_ASC_EXPORT Most25ControlMessageNodeMode final : public Event
 {
 public:
     Most25ControlMessageNodeMode();
@@ -70,7 +70,7 @@ public:
     /** @copydoc Event::read() */
     static Most25ControlMessageNodeMode * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

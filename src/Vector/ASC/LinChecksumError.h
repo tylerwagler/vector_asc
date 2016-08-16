@@ -39,7 +39,7 @@ namespace ASC {
  * A checksum error event occurs when a Slave sends an incorrect checksum value for a frame re-
  * sponse that is otherwise correct.
  */
-class VECTOR_ASC_EXPORT LinChecksumError : public Event
+class VECTOR_ASC_EXPORT LinChecksumError final : public Event
 {
 public:
     LinChecksumError();
@@ -128,7 +128,7 @@ public:
     /** @copydoc Event::read() */
     static LinChecksumError * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

@@ -34,7 +34,7 @@ namespace Vector {
 namespace ASC {
 
 /** TPg Consecutive Frame */
-class VECTOR_ASC_EXPORT TpConsecutiveFrame : public Event
+class VECTOR_ASC_EXPORT TpConsecutiveFrame final : public Event
 {
 public:
     TpConsecutiveFrame();
@@ -63,7 +63,7 @@ public:
     /** @copydoc Event::read() */
     static TpConsecutiveFrame * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

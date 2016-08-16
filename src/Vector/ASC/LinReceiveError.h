@@ -52,7 +52,7 @@ namespace ASC {
  *   - if the LIN hardware only receives part of a frame, at the start of a measurement (in a cor-
  *     rectly functioning system).
  */
-class VECTOR_ASC_EXPORT LinReceiveError : public Event
+class VECTOR_ASC_EXPORT LinReceiveError final : public Event
 {
 public:
     LinReceiveError();
@@ -141,7 +141,7 @@ public:
     /** @copydoc Event::read() */
     static LinReceiveError * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

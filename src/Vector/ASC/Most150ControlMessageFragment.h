@@ -39,7 +39,7 @@ namespace ASC {
  * Partial transmitted MOST50 or MOST150 Control Channel message. Fragments are reported from
  * a network spy if the message transmission is corrupted or terminated.
  */
-class VECTOR_ASC_EXPORT Most150ControlMessageFragment : public Event
+class VECTOR_ASC_EXPORT Most150ControlMessageFragment final : public Event
 {
 public:
     Most150ControlMessageFragment();
@@ -95,7 +95,7 @@ public:
     /** @copydoc Event::read() */
     static Most150ControlMessageFragment * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

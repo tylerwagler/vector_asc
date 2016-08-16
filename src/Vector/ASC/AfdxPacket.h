@@ -38,7 +38,7 @@ namespace ASC {
  *
  * Receive or transmitted AFDX packet.
  */
-class VECTOR_ASC_EXPORT AfdxPacket : public Event
+class VECTOR_ASC_EXPORT AfdxPacket final : public Event
 {
 public:
     AfdxPacket();
@@ -70,7 +70,7 @@ public:
     /** @copydoc Event::read() */
     static AfdxPacket * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

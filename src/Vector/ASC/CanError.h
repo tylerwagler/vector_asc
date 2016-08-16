@@ -36,7 +36,7 @@ namespace ASC {
  *
  * An event that provides CAN error information.
  */
-class VECTOR_ASC_EXPORT CanError : public Event
+class VECTOR_ASC_EXPORT CanError final : public Event
 {
 public:
     CanError();
@@ -53,7 +53,7 @@ public:
     /** @copydoc Event::read() */
     static CanError * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

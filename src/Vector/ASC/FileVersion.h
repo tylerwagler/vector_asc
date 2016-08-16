@@ -33,7 +33,7 @@ namespace Vector {
 namespace ASC {
 
 /** File Version */
-class VECTOR_ASC_EXPORT FileVersion : public Event
+class VECTOR_ASC_EXPORT FileVersion final : public Event
 {
 public:
     FileVersion();
@@ -50,7 +50,7 @@ public:
     /** @copydoc Event::read() */
     static FileVersion * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

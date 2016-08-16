@@ -33,7 +33,7 @@ namespace Vector {
 namespace ASC {
 
 /** File Comment */
-class VECTOR_ASC_EXPORT FileComment : public Event
+class VECTOR_ASC_EXPORT FileComment final : public Event
 {
 public:
     FileComment();
@@ -44,7 +44,7 @@ public:
     /** @copydoc Event::read() */
     static FileComment * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

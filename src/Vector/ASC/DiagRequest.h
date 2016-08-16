@@ -34,7 +34,7 @@ namespace Vector {
 namespace ASC {
 
 /** Diagnostic request */
-class VECTOR_ASC_EXPORT DiagRequest : public Event
+class VECTOR_ASC_EXPORT DiagRequest final : public Event
 {
 public:
     DiagRequest();
@@ -72,7 +72,7 @@ public:
     /** @copydoc Event::read() */
     static DiagRequest * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }

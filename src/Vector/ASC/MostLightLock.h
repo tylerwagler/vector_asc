@@ -48,7 +48,7 @@ namespace ASC {
  * time is greater than a certain threshold, it is called "Critical Unlock" (details see MOST specifica-
  * tion).
  */
-class VECTOR_ASC_EXPORT MostLightLock : public Event
+class VECTOR_ASC_EXPORT MostLightLock final : public Event
 {
 public:
     MostLightLock();
@@ -65,7 +65,7 @@ public:
     /** @copydoc Event::read() */
     static MostLightLock * read(File & file, std::string & line);
 
-    virtual void write(File & file, std::ostream & stream);
+    virtual void write(File & file, std::ostream & stream) override;
 };
 
 }
