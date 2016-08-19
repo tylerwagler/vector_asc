@@ -1185,12 +1185,12 @@ BOOST_AUTO_TEST_CASE(EthernetStatus)
     ethernetStatus = static_cast<Vector::ASC::EthernetStatus *>(event);
     BOOST_CHECK(isEqual(ethernetStatus->time, 0.002404));
     BOOST_CHECK(ethernetStatus->channel == 1);
-    BOOST_CHECK(ethernetStatus->link == "Link_up");
-    BOOST_CHECK(ethernetStatus->linkSpeed == "100Mbit/s");
-    BOOST_CHECK(ethernetStatus->physical == "IEEE802.3");
-    BOOST_CHECK(ethernetStatus->duplex == "Full");
-    BOOST_CHECK(ethernetStatus->mdi == "Crossover");
-    BOOST_CHECK(ethernetStatus->connector == "RJ45");
+    BOOST_CHECK(ethernetStatus->link == Vector::ASC::EthernetStatus::Link::Up);
+    BOOST_CHECK(ethernetStatus->linkSpeed == 100);
+    BOOST_CHECK(ethernetStatus->physical == Vector::ASC::EthernetStatus::Physical::Ieee802_3);
+    BOOST_CHECK(ethernetStatus->duplex == Vector::ASC::EthernetStatus::Duplex::Full);
+    BOOST_CHECK(ethernetStatus->mdi == Vector::ASC::EthernetStatus::Mdi::Crossover);
+    BOOST_CHECK(ethernetStatus->connector == Vector::ASC::EthernetStatus::Connector::Rj45);
     delete event;
 
     event = file.read();

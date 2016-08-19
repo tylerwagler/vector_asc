@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - CanError::error gets interpreted now including txErr and rxErr
+- EthernetStatus variables get interpretd now
 ### Changed
 - C++11 override and final clauses
 ### Fixed

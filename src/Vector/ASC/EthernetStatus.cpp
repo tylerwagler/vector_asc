@@ -59,12 +59,53 @@ EthernetStatus * EthernetStatus::read(File & /*file*/, std::string & line)
         EthernetStatus * ethernetStatus = new EthernetStatus;
         ethernetStatus->time = std::stod(match[1]);
         ethernetStatus->channel = std::stoul(match[2]);
-        ethernetStatus->link = match[3];
-        ethernetStatus->linkSpeed = match[4];
-        ethernetStatus->physical = match[5];
-        ethernetStatus->duplex = match[6];
-        ethernetStatus->mdi = match[7];
-        ethernetStatus->connector = match[8];
+        if (match[3] == "Link_up") {
+            ethernetStatus->link = EthernetStatus::Link::Up;
+        } else
+        if (match[3] == "Link_error") {
+            ethernetStatus->link = EthernetStatus::Link::Error;
+        } else
+        if (match[3] == "Negotiate_link") {
+            ethernetStatus->link = EthernetStatus::Link::Negotiate;
+        } else
+        if (match[3] == "Link_down") {
+            ethernetStatus->link = EthernetStatus::Link::Down;
+        } else {
+            ethernetStatus->link = EthernetStatus::Link::Unknown;
+        }
+        ethernetStatus->linkSpeed = std::stoul(match[4]);
+        if (match[5] == "IEEE802.3") {
+            ethernetStatus->physical = EthernetStatus::Physical::Ieee802_3;
+        } else
+        if (match[5] == "BroadR_Reach") {
+            ethernetStatus->physical = EthernetStatus::Physical::BroadR_Reach;
+        } else {
+            ethernetStatus->physical = EthernetStatus::Physical::Unknown;
+        }
+        if (match[6] == "Full") {
+            ethernetStatus->duplex = EthernetStatus::Duplex::Full;
+        } else
+        if (match[6] == "Half") {
+            ethernetStatus->duplex = EthernetStatus::Duplex::Half;
+        } else {
+            ethernetStatus->duplex = EthernetStatus::Duplex::Unknown;
+        }
+        if (match[7] == "Crossover") {
+            ethernetStatus->mdi = EthernetStatus::Mdi::Crossover;
+        } else
+        if (match[7] == "Direct") {
+            ethernetStatus->mdi = EthernetStatus::Mdi::Direct;
+        } else {
+            ethernetStatus->mdi = EthernetStatus::Mdi::Unknown;
+        }
+        if (match[8] == "RJ45") {
+            ethernetStatus->connector = EthernetStatus::Connector::Rj45;
+        } else
+        if (match[8] == "D-Sub") {
+            ethernetStatus->connector = EthernetStatus::Connector::DSub;
+        } else {
+            ethernetStatus->connector = EthernetStatus::Connector::Unknown;
+        }
         return ethernetStatus;
     }
 
@@ -78,7 +119,7 @@ void EthernetStatus::write(File & file, std::ostream & stream)
 
     /* format: "ETH ", "ETH *" */
     stream << "ETH ";
-    stream << std::dec << (uint16_t) channel;
+    stream << std::dec << static_cast<uint16_t>(channel);
 
     /* format: " STAT" */
     stream << " STAT";
@@ -86,43 +127,115 @@ void EthernetStatus::write(File & file, std::ostream & stream)
     /* format: " Link:" */
     stream << " Link:";
     /* format: "Link_up", "Link_error", "Negotiate_link", "Link_down" */
-    stream << link;
+    switch(link) {
+    case Link::Unknown:
+        break;
+    case Link::Up:
+        stream << "Link_up";
+        break;
+    case Link::Error:
+        stream << "Link_error";
+        break;
+    case Link::Negotiate:
+        stream << "Negotiate_link";
+        break;
+    case Link::Down:
+        stream << "Link_down";
+        break;
+    }
 
     /* format: " LinkSpeed:" */
     stream << " LinkSpeed:";
     /* format: "Mbit/s" */
-    stream << linkSpeed;
+    stream << linkSpeed << "Mbit/s";
 
     /* format: " Physical:" */
     stream << " Physical:";
     /* format: "IEEE802.3", "BroadR-Reach" */
-    stream << physical;
+    switch(physical) {
+    case Physical::Unknown:
+        break;
+    case Physical::Ieee802_3:
+        stream << "IEEE802.3";
+        break;
+    case Physical::BroadR_Reach:
+        stream << "BroadR_Reach";
+        break;
+    }
 
     /* format: " Duplex:" */
     stream << " Duplex:";
     /* format: "Full", "Half" */
-    stream << duplex;
+    switch(duplex) {
+    case Duplex::Unknown:
+        break;
+    case Duplex::Full:
+        stream << "Full";
+        break;
+    case Duplex::Half:
+        stream << "Half";
+        break;
+    }
 
     /* format: " MDI:" */
     stream << " MDI:";
     /* format: "Crossover", "Direct" */
-    stream << mdi;
+    switch(mdi) {
+    case Mdi::Unknown:
+        break;
+    case Mdi::Crossover:
+        stream << "Crossover";
+        break;
+    case Mdi::Direct:
+        stream << "Direct";
+        break;
+    }
 
     /* format: " Connector:" */
     stream << " Connector:";
     /* format: "RJ45", "D-Sub" */
-    stream << connector;
+    switch(connector) {
+    case Connector::Unknown:
+        break;
+    case Connector::Rj45:
+        stream << "RJ45";
+        break;
+    case Connector::DSub:
+        stream << "D-Sub";
+        break;
+    }
 
-    if (physical == "BroadR-Reach") {
+    if (physical == Physical::BroadR_Reach) {
         /* format: " BRClockMode:" */
         stream << " BRClockMode:";
         /* format: "Master", "Slave" */
-        stream << brClockMode;
+        switch(brClockMode) {
+        case BRClockMode::Unknown:
+            break;
+        case BRClockMode::Master:
+            stream << "Master";
+            break;
+        case BRClockMode::Slave:
+            stream << "Slave";
+            break;
+        }
 
         /* format: " BrPairs:" */
         stream << " BrPairs:";
         /* format: "1-pair", "2-pair", "4-pair" */
-        stream << brPairs;
+        switch(brPairs) {
+        case BRPairs::Unknown:
+            break;
+        case BRPairs::BR1Pair:
+            stream << "1-pair";
+            break;
+        case BRPairs::BR2Pair:
+            stream << "2-pair";
+            break;
+        case BRPairs::BR4Pair:
+            stream << "4-pair";
+            break;
+        }
     }
 
     stream << endl;

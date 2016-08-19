@@ -48,36 +48,121 @@ public:
     EthChannel channel;
 
     /** Link */
-    std::string link;
-    /* "Link_up", "Link_error", "Negotiate_link", "Link_down" */
+    enum class Link {
+        /** Unknown */
+        Unknown = 0,
 
-    /** LinkSpeed */
-    std::string linkSpeed;
-    /* "Mbit/s" */
+        /** Link_up */
+        Up,
+
+        /** Link_error */
+        Error,
+
+        /** Negotiate_link */
+        Negotiate,
+
+        /** Link_down */
+        Down
+    };
+
+    /** Link */
+    Link link;
+
+    /** LinkSpeed in Mbit/s */
+    uint32_t linkSpeed;
 
     /** Physical */
-    std::string physical;
-    /* "IEEE802.3", "BroadR-Reach" */
+    enum class Physical {
+        /** Unknown */
+        Unknown = 0,
+
+        /** IEEE802.3 */
+        Ieee802_3,
+
+        /** BroadR-Reach */
+        BroadR_Reach
+    };
+
+    /** Physical */
+    Physical physical;
 
     /** Duplex */
-    std::string duplex;
-    /* "Full", "Half" */
+    enum class Duplex {
+        /** Unknown */
+        Unknown = 0,
+
+        /** Full */
+        Full,
+
+        /** Half */
+        Half
+    };
+
+    /** Duplex */
+    Duplex duplex;
 
     /** MDI */
-    std::string mdi;
-    /* "Crossover", "Direct" */
+    enum class Mdi {
+        /** Unknown */
+        Unknown = 0,
+
+        /** Crossover */
+        Crossover,
+
+        /** Direct */
+        Direct
+    };
+
+    /** MDI */
+    Mdi mdi;
 
     /** Connector */
-    std::string connector;
-    /* "RJ45", "D-Sub" */
+    enum class Connector {
+        /** Unknown */
+        Unknown = 0,
+
+        /** RJ45 */
+        Rj45,
+
+        /** D-Sub */
+        DSub
+    };
+
+    /** Connector */
+    Connector connector;
 
     /** BRClockMode */
-    std::string brClockMode;
-    /* "Master", "Slave" */
+    enum class BRClockMode {
+        /** Unknown */
+        Unknown = 0,
+
+        /** Master */
+        Master,
+
+        /** Slave */
+        Slave
+    };
+
+    /** BRClockMode */
+    BRClockMode brClockMode;
+
+    /** BRPairs */
+    enum class BRPairs {
+        /** Unknown */
+        Unknown = 0,
+
+        /** 1-pair */
+        BR1Pair,
+
+        /** 2-pair */
+        BR2Pair,
+
+        /** 4-pair */
+        BR4Pair
+    };
 
     /** BrPairs */
-    std::string brPairs;
-    /* "1-pair", "2-pair", "4-pair" */
+    BRPairs brPairs;
 
     /** @copydoc Event::read() */
     static EthernetStatus * read(File & file, std::string & line);
