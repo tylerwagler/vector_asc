@@ -615,7 +615,7 @@ BOOST_AUTO_TEST_CASE(CanFdExtendedMessage)
     BOOST_CHECK(canFdExtendedMessage->esi == false);
     BOOST_CHECK(canFdExtendedMessage->dlc == 0xf);
     BOOST_CHECK(canFdExtendedMessage->dataLength == 64);
-    BOOST_REQUIRE(canFdExtendedMessage->data.size() == 12);
+    BOOST_REQUIRE(canFdExtendedMessage->data.size() == 64);
     for(int i = 0; i < 64; ++i)
         BOOST_CHECK(canFdExtendedMessage->data[i] == i+1);
     BOOST_CHECK(canFdExtendedMessage->messageDuration == 1238000);
