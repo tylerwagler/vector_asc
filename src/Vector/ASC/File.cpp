@@ -36,7 +36,8 @@ File::File() :
     version(Version::Ver_8_1), // version will be set as soon as FileVersion is read
     timestampPrecision(6),
     file(),
-    scanner(nullptr)
+    scanner(nullptr),
+    endOfFile(false)
 {
 }
 
@@ -49,6 +50,7 @@ File::~File()
 void File::open(const char * filename, OpenMode openMode)
 {
     this->openMode = openMode;
+    this->endOfFile = false;
 
     switch(this->openMode) {
     case OpenMode::Read:
@@ -95,7 +97,7 @@ void File::close()
 
 bool File::eof()
 {
-    return file.eof();
+    return endOfFile;
 }
 
 Event * File::read()
@@ -113,6 +115,10 @@ Event * File::read()
         line.pop_back();
 
     switch(eventType) {
+    case Event::EventType::Default:
+        endOfFile = true;
+        break;
+
     /* unknown */
     case Event::EventType::Unknown:
     {
@@ -384,7 +390,6 @@ Event * File::read()
         return startOfMeasurement;
     }
 
-    case Event::EventType::Default:
     default:
         break;
     }

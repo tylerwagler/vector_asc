@@ -54,6 +54,8 @@ BOOST_AUTO_TEST_CASE(FileDate)
     BOOST_CHECK(fileDate->language == Vector::ASC::File::Language::De);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -75,6 +77,8 @@ BOOST_AUTO_TEST_CASE(FileBaseTimestamps)
     BOOST_CHECK(fileBaseTimestamps->timestamps == Vector::ASC::File::Timestamps::Relative);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -102,6 +106,8 @@ BOOST_AUTO_TEST_CASE(FileInternalEventsLogged)
     BOOST_CHECK(fileInternalEventsLogged->internalEventsLogged == false);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -124,6 +130,8 @@ BOOST_AUTO_TEST_CASE(FileVersion)
     BOOST_CHECK(fileVersion->versionPatch == 0);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -145,6 +153,8 @@ BOOST_AUTO_TEST_CASE(FileSplitInformation)
     BOOST_CHECK(fileSplitInformation->fileName == "Inc_L1.asc");
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -165,6 +175,8 @@ BOOST_AUTO_TEST_CASE(FileComment)
     BOOST_CHECK(fileComment->comment == " comment");
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -268,6 +280,8 @@ BOOST_AUTO_TEST_CASE(CanMessage)
     BOOST_CHECK(canMessage->messageFlags.wu == false);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -343,6 +357,8 @@ BOOST_AUTO_TEST_CASE(CanExtendedMessage)
     BOOST_CHECK(canExtendedMessage->messageFlags.wu == false);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -370,6 +386,8 @@ BOOST_AUTO_TEST_CASE(CanRemoteFrame)
     BOOST_CHECK(canRemoteFrame->dir == Vector::ASC::Dir::Tx);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -417,6 +435,8 @@ BOOST_AUTO_TEST_CASE(CanErrorFrame)
     BOOST_CHECK(canErrorFrame->flags == 0x0);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -445,6 +465,8 @@ BOOST_AUTO_TEST_CASE(CanBusStatistics)
     BOOST_CHECK(isEqual(canBusStatistics->busload, 0.0));
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -476,6 +498,8 @@ BOOST_AUTO_TEST_CASE(CanError)
     BOOST_CHECK(canError->error == "chip status error active - TxErr: 0 RxErr: 1");
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -497,6 +521,8 @@ BOOST_AUTO_TEST_CASE(CanOverloadFrame)
     BOOST_CHECK(canOverloadFrame->channel == 1);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -553,6 +579,8 @@ BOOST_AUTO_TEST_CASE(CanFdMessage)
     BOOST_CHECK(canFdMessage->bitTimingConfData == 0x460a4841);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -598,6 +626,8 @@ BOOST_AUTO_TEST_CASE(CanFdExtendedMessage)
     BOOST_CHECK(canFdExtendedMessage->bitTimingConfData == 0x46280250);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -647,6 +677,8 @@ BOOST_AUTO_TEST_CASE(CanFdErrorFrame)
     BOOST_CHECK(canFdErrorFrame->bitTimingConfData == 0x460a0250);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -680,6 +712,8 @@ BOOST_AUTO_TEST_CASE(LogTrigger)
     BOOST_CHECK(logTrigger->information == "(this trigger was in post trigger time of last block)");
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -701,6 +735,8 @@ BOOST_AUTO_TEST_CASE(LogDirectStart)
     BOOST_CHECK(logDirectStart->preTrigger == 2000);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -722,6 +758,8 @@ BOOST_AUTO_TEST_CASE(LogDirectStop)
     BOOST_CHECK(logDirectStop->postTrigger == 1000);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -748,6 +786,8 @@ BOOST_AUTO_TEST_CASE(BeginTriggerblock)
     BOOST_CHECK(beginTriggerblock->date.tm_year == (2005 - 1900));
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -767,6 +807,8 @@ BOOST_AUTO_TEST_CASE(EndTriggerblock)
     /*endTriggerblock = static_cast<Vector::ASC::EndTriggerblock *>(event);*/
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -809,6 +851,8 @@ BOOST_AUTO_TEST_CASE(EnvironmentVariables)
     BOOST_CHECK(isEqual(environmentVariables->time, 2.250000));
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -873,6 +917,8 @@ BOOST_AUTO_TEST_CASE(SystemVariables)
     BOOST_CHECK(systemVariables->value == "D3 4.1 2.9 6");
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -939,6 +985,8 @@ BOOST_AUTO_TEST_CASE(MacroSignal)
     BOOST_CHECK(macroSignal->value == "3");
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -966,6 +1014,8 @@ BOOST_AUTO_TEST_CASE(Gps)
     BOOST_CHECK(isEqual(gps->course, 87.099998));
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -989,6 +1039,8 @@ BOOST_AUTO_TEST_CASE(Comment)
     BOOST_CHECK(comment->commentText == "testComment");
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1017,6 +1069,8 @@ BOOST_AUTO_TEST_CASE(GlobalMarker)
     BOOST_CHECK(globalMarker->description == "description");
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1106,6 +1160,8 @@ BOOST_AUTO_TEST_CASE(EthernetPacket)
     BOOST_CHECK(ethernetPacket->data[0x3b] == 0x00);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1133,6 +1189,8 @@ BOOST_AUTO_TEST_CASE(EthernetStatus)
     BOOST_CHECK(ethernetStatus->connector == "RJ45");
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1222,6 +1280,8 @@ BOOST_AUTO_TEST_CASE(EthernetRxError)
     BOOST_CHECK(ethernetRxError->data[0x3b] == 0x00);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1314,6 +1374,8 @@ BOOST_AUTO_TEST_CASE(AfdxPacket)
     BOOST_CHECK(afdxPacket->data[0x3b] == 0x00);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1376,6 +1438,8 @@ BOOST_AUTO_TEST_CASE(FlexRayOldMessage)
     BOOST_CHECK(flexRayOldMessage->headerBitMask == 0x88);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1405,6 +1469,8 @@ BOOST_AUTO_TEST_CASE(FlexRayOldStartCycle)
     BOOST_CHECK(flexRayOldStartCycle->data[1] == 0);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1552,6 +1618,8 @@ BOOST_AUTO_TEST_CASE(FlexRayMessage)
     BOOST_CHECK(flexRayMessage->frameLengthNs == 0);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1590,6 +1658,8 @@ BOOST_AUTO_TEST_CASE(FlexRayStartCycle)
     BOOST_REQUIRE(flexRayStartCycle->nmVect.size() == 0);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1626,6 +1696,8 @@ BOOST_AUTO_TEST_CASE(FlexRayStatus)
     BOOST_CHECK(flexRayStatus->spyFlag == 0);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1659,6 +1731,8 @@ BOOST_AUTO_TEST_CASE(FlexRayError)
     BOOST_CHECK(flexRayError->ccData[3] == 0);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1696,6 +1770,8 @@ BOOST_AUTO_TEST_CASE(KLineByte)
     BOOST_CHECK(kLineByte->data[6] == 0x06);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1734,6 +1810,8 @@ BOOST_AUTO_TEST_CASE(KLineMessage)
     BOOST_CHECK(kLineMessage->data[6] == 0x06);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1800,6 +1878,8 @@ BOOST_AUTO_TEST_CASE(LinMessage)
     BOOST_CHECK(linMessage->checksumModel == Vector::ASC::LinChecksumModel::Enhanced);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1837,6 +1917,8 @@ BOOST_AUTO_TEST_CASE(LinTransmissionError)
     BOOST_CHECK(linTransmissionError->checksumModel == Vector::ASC::LinChecksumModel::Enhanced);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1901,6 +1983,8 @@ BOOST_AUTO_TEST_CASE(LinReceiveError)
     BOOST_CHECK(linReceiveError->checksumModel == Vector::ASC::LinChecksumModel::Enhanced);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1934,6 +2018,8 @@ BOOST_AUTO_TEST_CASE(LinSyncError)
     BOOST_CHECK(linSyncError->syncDel == 113312);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -1999,6 +2085,8 @@ BOOST_AUTO_TEST_CASE(LinChecksumError)
     BOOST_CHECK(linChecksumError->checksumModel == Vector::ASC::LinChecksumModel::Enhanced);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2028,6 +2116,8 @@ BOOST_AUTO_TEST_CASE(LinSpike)
     BOOST_CHECK(linSpike->baudrate == 9615);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2069,6 +2159,8 @@ BOOST_AUTO_TEST_CASE(LinDominantSignal)
     BOOST_CHECK(linDominantSignal->baudrate == 9615);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2092,6 +2184,8 @@ BOOST_AUTO_TEST_CASE(LinBaudrate)
     BOOST_CHECK(linBaudrate->baudrate == 9615);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2115,6 +2209,8 @@ BOOST_AUTO_TEST_CASE(LinDlcInfo)
     BOOST_CHECK(linDlcInfo->dlc == 4);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2138,6 +2234,8 @@ BOOST_AUTO_TEST_CASE(LinChecksumInfo)
     BOOST_CHECK(linChecksumInfo->checksumModelInfo == Vector::ASC::LinChecksumModelInfo::Classic);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2161,6 +2259,8 @@ BOOST_AUTO_TEST_CASE(LinSchedulerModeChange)
     BOOST_CHECK(linSchedulerModeChange->nextSchedulerMode == 0);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2186,6 +2286,8 @@ BOOST_AUTO_TEST_CASE(LinSlaveTimeout)
     BOOST_CHECK(linSlaveTimeout->followingState == 1);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2214,6 +2316,8 @@ BOOST_AUTO_TEST_CASE(LinEventTriggeredFrameInfo)
     BOOST_CHECK(linEventTriggeredFrameInfo->description == "No response");
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2246,6 +2350,8 @@ BOOST_AUTO_TEST_CASE(LinStatisticInfo)
     BOOST_CHECK(linStatisticInfo->framesUnanswered == 0);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2307,6 +2413,8 @@ BOOST_AUTO_TEST_CASE(LinShortOrSlowResponse)
     BOOST_CHECK(linShortOrSlowResponse->checksumModel == Vector::ASC::LinChecksumModel::Unknown);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2343,6 +2451,8 @@ BOOST_AUTO_TEST_CASE(LinDisturbance)
     BOOST_CHECK(linDisturbance->disturbingHeader == 0xFF);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2367,6 +2477,8 @@ BOOST_AUTO_TEST_CASE(LinSleepMode)
     BOOST_CHECK(linSleepMode->description == "entering sleep mode due to sleep mode frame");
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2401,6 +2513,8 @@ BOOST_AUTO_TEST_CASE(LinWakeupFrame)
     BOOST_CHECK(linWakeupFrame->wakeupLengthInfo == 0);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2429,6 +2543,8 @@ BOOST_AUTO_TEST_CASE(LinUnexpectedWakeup)
     BOOST_CHECK(linUnexpectedWakeup->baudrate == 19230);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2478,6 +2594,8 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageNodeMode)
     BOOST_CHECK(most25ControlMessageNodeMode->state2 == 0x1250);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2527,6 +2645,8 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageSpyMode)
     BOOST_CHECK(most25ControlMessageSpyMode->crc == 0xAA33);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2572,6 +2692,8 @@ BOOST_AUTO_TEST_CASE(Most25Packet)
     BOOST_CHECK(most25Packet->data[9] == 0x00);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2594,6 +2716,8 @@ BOOST_AUTO_TEST_CASE(MostLightLock)
     BOOST_CHECK(mostLightLock->llState == 1);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2618,6 +2742,8 @@ BOOST_AUTO_TEST_CASE(MostSpecialRegister)
     BOOST_CHECK(mostSpecialRegister->regValue == 0x0172);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2660,6 +2786,8 @@ BOOST_AUTO_TEST_CASE(MostCommonRegister)
     BOOST_CHECK(mostCommonRegister->data[15] == 0x0F);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2683,6 +2811,8 @@ BOOST_AUTO_TEST_CASE(MostHwMode)
     BOOST_CHECK(mostHwMode->hwModeMask == 0x01);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2706,6 +2836,8 @@ BOOST_AUTO_TEST_CASE(MostNetState)
     BOOST_CHECK(mostNetState->netStateNew == 3);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2736,6 +2868,8 @@ BOOST_AUTO_TEST_CASE(MostDataLost)
     BOOST_CHECK(isEqual(mostDataLost->dlTime[1], 2223.52592));
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2761,6 +2895,8 @@ BOOST_AUTO_TEST_CASE(MostTrigger)
     BOOST_CHECK(mostTrigger->trigValue[1] == 0x00000000);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2786,6 +2922,8 @@ BOOST_AUTO_TEST_CASE(MostStatistic)
     BOOST_CHECK(mostStatistic->pk == 0);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2809,6 +2947,8 @@ BOOST_AUTO_TEST_CASE(MostStatisticExtended)
     BOOST_CHECK(mostStatisticExtended->frameCounter == 0x00A395);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2831,6 +2971,8 @@ BOOST_AUTO_TEST_CASE(MostTxLight)
     BOOST_CHECK(mostTxLight->txLightState == Vector::ASC::MostTxLightState::Enabled);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2854,6 +2996,8 @@ BOOST_AUTO_TEST_CASE(MostStress)
     BOOST_CHECK(mostStress->stressState == Vector::ASC::MostStressState::Started);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2937,6 +3081,8 @@ BOOST_AUTO_TEST_CASE(Most25AllocTable)
     BOOST_CHECK(most25AllocTable->data[0x3b] == 0x70);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -2984,6 +3130,8 @@ BOOST_AUTO_TEST_CASE(Most150ControlMessage)
     BOOST_CHECK(most150ControlMessage->data[7] == 0x22);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3029,6 +3177,8 @@ BOOST_AUTO_TEST_CASE(Most150ControlMessageFragment)
     BOOST_CHECK(most150ControlMessageFragment->data[5] == 0x06);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3076,6 +3226,8 @@ BOOST_AUTO_TEST_CASE(Most150Packet)
     BOOST_CHECK(most150Packet->data[7] == 0x22);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3121,6 +3273,8 @@ BOOST_AUTO_TEST_CASE(Most150PacketFragment)
     BOOST_CHECK(most150PacketFragment->data[5] == 0x06);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3166,6 +3320,8 @@ BOOST_AUTO_TEST_CASE(MostEthernetPacket)
     BOOST_CHECK(mostEthernetPacket->data[7] == 0x22);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3209,6 +3365,8 @@ BOOST_AUTO_TEST_CASE(MostEthernetPacketFragment)
     BOOST_CHECK(mostEthernetPacketFragment->data[5] == 0x06);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3233,6 +3391,8 @@ BOOST_AUTO_TEST_CASE(MostSystem)
     BOOST_CHECK(mostSystem->sysValueOld == 0x0000);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3278,6 +3438,8 @@ BOOST_AUTO_TEST_CASE(Most150AllocTable)
     BOOST_CHECK(most150AllocTable->wordData[3] == 0x0046);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3326,6 +3488,8 @@ BOOST_AUTO_TEST_CASE(Most50ControlMessage)
     BOOST_CHECK(most50ControlMessage->data[8] == 0x44);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3373,6 +3537,8 @@ BOOST_AUTO_TEST_CASE(Most50Packet)
     BOOST_CHECK(most50Packet->data[7] == 0x22);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3395,6 +3561,8 @@ BOOST_AUTO_TEST_CASE(MostEcl)
     BOOST_CHECK(mostEcl->eclState == Vector::ASC::MostEclState::LineHigh);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3424,6 +3592,8 @@ BOOST_AUTO_TEST_CASE(TpSingleFrame)
     BOOST_CHECK(tpDiagSingleFrame->transportedBytes[1] == 0x90);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3456,6 +3626,8 @@ BOOST_AUTO_TEST_CASE(TpDiagFirstFrame)
     BOOST_CHECK(tpFirstFrame->transportedBytes[5] == 0x32);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3489,6 +3661,8 @@ BOOST_AUTO_TEST_CASE(TpConsecutiveFrame)
     BOOST_CHECK(tpConsecutiveFrame->transportedBytes[6] == 0x00);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3516,6 +3690,8 @@ BOOST_AUTO_TEST_CASE(TpFlowControlFrame)
     BOOST_CHECK(tpFlowControlFrame->stMin == 0x14);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3592,6 +3768,8 @@ BOOST_AUTO_TEST_CASE(DiagRequest)
     BOOST_CHECK(diagRequest->byteSequence.size() == 0);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }
@@ -3629,6 +3807,8 @@ BOOST_AUTO_TEST_CASE(StartOfMeasurement)
     BOOST_CHECK(startOfMeasurement->language == Vector::ASC::File::Language::En);
     delete event;
 
+    event = file.read();
+    BOOST_CHECK(event == nullptr);
     BOOST_CHECK(file.eof());
     file.close();
 }

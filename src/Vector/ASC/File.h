@@ -180,6 +180,9 @@ private:
 
     /** scanner */
     ascFlexLexer * scanner;
+
+    /** end of file */
+    bool endOfFile;
 };
 
 }

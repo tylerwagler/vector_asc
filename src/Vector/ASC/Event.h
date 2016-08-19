@@ -46,7 +46,10 @@ public:
      * Event Type
      */
     enum EventType : int {
+        /** Default and End-Of-File */
         Default = 0,
+
+        /** Unknown Event */
         Unknown = 1,
 
         /* File */
