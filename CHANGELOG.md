@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- CanError::error gets interpreted now including txErr and rxErr
 ### Changed
 - C++11 override and final clauses
 ### Fixed

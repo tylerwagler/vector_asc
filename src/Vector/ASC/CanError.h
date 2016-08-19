@@ -50,6 +50,12 @@ public:
     /** @copydoc Error */
     Error error;
 
+    /** txErr */
+    uint8_t txErr;
+
+    /** rxErr */
+    uint8_t rxErr;
+
     /** @copydoc Event::read() */
     static CanError * read(File & file, std::string & line);
 

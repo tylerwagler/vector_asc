@@ -486,7 +486,9 @@ BOOST_AUTO_TEST_CASE(CanError)
     canError = static_cast<Vector::ASC::CanError *>(event);
     BOOST_CHECK(isEqual(canError->time, 0.000600));
     BOOST_CHECK(canError->channel == 2);
-    BOOST_CHECK(canError->error == "chip status error active");
+    BOOST_CHECK(canError->error == Vector::ASC::Error::ChipStatusErrorActive);
+    BOOST_CHECK(canError->txErr == 0);
+    BOOST_CHECK(canError->rxErr == 0);
     delete event;
 
     event = file.read();
@@ -495,7 +497,9 @@ BOOST_AUTO_TEST_CASE(CanError)
     canError = static_cast<Vector::ASC::CanError *>(event);
     BOOST_CHECK(isEqual(canError->time, 2.501000));
     BOOST_CHECK(canError->channel == 1);
-    BOOST_CHECK(canError->error == "chip status error active - TxErr: 0 RxErr: 1");
+    BOOST_CHECK(canError->error == Vector::ASC::Error::ChipStatusErrorActive);
+    BOOST_CHECK(canError->txErr == 0);
+    BOOST_CHECK(canError->rxErr == 1);
     delete event;
 
     event = file.read();

@@ -93,7 +93,28 @@ typedef uint32_t PreTrigger;
 typedef uint32_t PostTrigger;
 
 /** the error message of the CAN error event */
-typedef std::string Error;
+enum class Error {
+    /** unknown */
+    Unknown = 0,
+
+    /** chip status busoff */
+    ChipStatusBusoff,
+
+    /** chip status error passive */
+    ChipStatusErrorPassive,
+
+    /** chip status error active */
+    ChipStatusErrorActive,
+
+    /** rx queue overrun */
+    RxQueueOverrun,
+
+    /** chip status warning level */
+    ChipStatusWarningLevel,
+
+    /** hardware interface disconnected */
+    HardwareInterfaceDisconnected
+};
 
 /** data byte */
 typedef uint8_t Dx;
@@ -101,7 +122,7 @@ typedef uint8_t Dx;
 /* WeekDay, Month, Date, FullTime, and Year are in struct tm */
 
 /** a number which represents the variable data type */
-enum Svtype : uint8_t {
+enum class Svtype : uint8_t {
     /** Float */
     Float = 1,
 
