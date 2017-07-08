@@ -1,17 +1,13 @@
-cmake_minimum_required(VERSION 2.8)
-
-find_package(FLEX)
-
+# dependencies
 include(GenerateExportHeader)
 
-configure_file(config.h.in config.h)
-configure_file(${PROJECT_NAME}.pc.in ${PROJECT_NAME}.pc @ONLY)
-
+# search paths
 include_directories(
     ${FLEX_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_BINARY_DIR})
 
+# sources/headers
 set(source_files
     AfdxPacket.cpp
     BeginTriggerblock.cpp
@@ -113,7 +109,6 @@ set(source_files
     TpFlowControlFrame.cpp
     TpSingleFrame.cpp
     Unknown.cpp)
-
 set(public_header_files
     AfdxPacket.h
     BeginTriggerblock.h
@@ -216,7 +211,6 @@ set(public_header_files
     TpFlowControlFrame.h
     TpSingleFrame.h
     Unknown.h)
-
 set(private_header_files
     CanCommon.h
     CanSymbolsRegEx.h
@@ -232,30 +226,14 @@ set(private_header_files
     MostSymbolsRegEx.h
     TpDiagCommon.h
     TpDiagSymbolsRegEx.h)
-
 set(info_files
     Lexer.l)
 
-add_compiler_export_flags()
+# generated files
+configure_file(config.h.in config.h)
+configure_file(${PROJECT_NAME}.pc.in ${PROJECT_NAME}.pc @ONLY)
 
-if(WIN32)
-    flex_target(Lexer Lexer.l ${CMAKE_CURRENT_BINARY_DIR}/Lexer.cpp
-        COMPILE_FLAGS --wincompat)
-else()
-    flex_target(Lexer Lexer.l ${CMAKE_CURRENT_BINARY_DIR}/Lexer.cpp)
-endif()
-
-add_library(${PROJECT_NAME} SHARED
-    ${source_files} ${public_header_files} ${private_header_files} ${info_files}
-    ${FLEX_Lexer_OUTPUTS})
-
-if(OPTION_USE_GCOV_LCOV)
-    target_link_libraries(${PROJECT_NAME} gcov)
-    add_definitions(-g -O0 -fprofile-arcs -ftest-coverage)
-endif()
-
-generate_export_header(${PROJECT_NAME})
-
+# compiler/linker settings
 if(CMAKE_COMPILER_IS_GNUCXX)
     add_definitions(-std=c++11)
     add_definitions(-D_FORTIFY_SOURCE=2)
@@ -264,16 +242,38 @@ if(CMAKE_COMPILER_IS_GNUCXX)
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9)
         add_definitions(-fstack-protector-strong)
     endif()
+    if(OPTION_USE_GCOV_LCOV)
+        add_definitions(-g -O0 -fprofile-arcs -ftest-coverage)
+    endif()
 endif()
 
+# targets
+if(WIN32)
+    flex_target(Lexer Lexer.l ${CMAKE_CURRENT_BINARY_DIR}/Lexer.cpp
+        COMPILE_FLAGS --wincompat)
+else()
+    flex_target(Lexer Lexer.l ${CMAKE_CURRENT_BINARY_DIR}/Lexer.cpp)
+endif()
+add_library(${PROJECT_NAME} SHARED
+    ${source_files} ${public_header_files} ${private_header_files} ${info_files}
+    ${FLEX_Lexer_OUTPUTS})
+generate_export_header(${PROJECT_NAME})
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}
+    SOVERSION ${PROJECT_VERSION_MAJOR}
+    CXX_VISIBILITY_PRESET "hidden"
+    VISIBILITY_INLINES_HIDDEN 1)
+if(OPTION_USE_GCOV_LCOV)
+    target_link_libraries(${PROJECT_NAME} gcov)
+endif()
+
+# install
 install(
     TARGETS ${PROJECT_NAME}
     DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
 install(
     FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
-
 install(
     FILES
         ${CMAKE_CURRENT_BINARY_DIR}/config.h
@@ -281,5 +281,6 @@ install(
         ${public_header_files}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Vector/ASC)
 
+# sub directories
 add_subdirectory(docs)
 add_subdirectory(tests)

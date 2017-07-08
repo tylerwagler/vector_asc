@@ -16,11 +16,15 @@ if(OPTION_RUN_EXAMPLES)
             COMMENT "Copy ${PROJECT_BINARY_DIR}/src/Vector/ASC/${PROJECT_NAME}.dll to ${CMAKE_CURRENT_BINARY_DIR}")
     endif()
 
-    add_executable(example_Parser Parser.cpp)
+    add_executable(vector-asc-parser Parser.cpp)
 
-    target_link_libraries(example_Parser ${PROJECT_NAME})
+    target_link_libraries(vector-asc-parser ${PROJECT_NAME})
+
+    install(
+        TARGETS vector-asc-parser
+        DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 
 install(
-    FILES ${CMAKE_CURRENT_SOURCE_DIR}/Parser.cpp
+    FILES Parser.cpp
     DESTINATION ${CMAKE_INSTALL_DOCDIR}/examples)
