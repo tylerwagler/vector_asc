@@ -33,16 +33,16 @@ namespace Vector {
 namespace ASC {
 
 /** absolute or relative time in seconds */
-typedef double Time;
+using Time = double;
 
 /** Number of CAN channel. */
-typedef uint8_t Channel;
+using Channel = uint8_t;
 
 /** Numeric identifier */
-typedef uint32_t IdNum;
+using IdNum = uint32_t;
 
 /** Symbolic identifier */
-typedef std::string IdSym;
+using IdSym = std::string;
 
 /** Direction of transmission */
 enum class Dir {
@@ -61,10 +61,10 @@ enum class Dir {
  *
  * @note In case DLC is greater 8, there are max. 8 data bytes written/read in.
  */
-typedef uint8_t Dlc;
+using Dlc = uint8_t;
 
 /** Some special message flags that are written at the end of a logging line. */
-typedef struct {
+struct MessageFlags {
     /**
      * Transmission Error (NERR signal).
      * Indicates whether a line has failed during a two-wire operation.
@@ -78,19 +78,19 @@ typedef struct {
      * with the purpose of waking up the CAN controller.
      */
     bool wu;
-} MessageFlags;
+};
 
 /** the number of received statistic events */
-typedef uint32_t StatNumber;
+using StatNumber = uint32_t;
 
 /** the busload in percent */
-typedef double StatPercent;
+using StatPercent = double;
 
 /** the pre trigger time in ms */
-typedef uint32_t PreTrigger;
+using PreTrigger = uint32_t;
 
 /** the post trigger time in ms */
-typedef uint32_t PostTrigger;
+using PostTrigger = uint32_t;
 
 /** the error message of the CAN error event */
 enum class Error {
@@ -117,7 +117,7 @@ enum class Error {
 };
 
 /** data byte */
-typedef uint8_t Dx;
+using Dx = uint8_t;
 
 /* WeekDay, Month, Date, FullTime, and Year are in struct tm */
 
@@ -143,25 +143,25 @@ enum class Svtype : uint8_t {
  * Message Duration [in nanoseconds]. Not including 3 Interframe
  * Space bit times and by Rx-message also not including 1 End-Of-Frame bit time
  */
-typedef uint32_t MessageDuration;
+using MessageDuration = uint32_t;
 
 /** Total number of bits of the message including EOF and Interframe Space [in bits] */
-typedef uint32_t MessageLength;
+using MessageLength = uint32_t;
 
 /** Bit rate switch flag for CAN FD. Indicate bit rate switch is enabled or disabled. */
-typedef bool Brs;
+using Brs = bool;
 
 /** Error state indicator flag for CAN FD. Indicate a transceiver is in error active or error passive mode. */
-typedef bool Esi;
+using Esi = bool;
 
 /** Valid length of the message in bytes. */
-typedef uint8_t DataLength;
+using DataLength = uint8_t;
 
 /** Bit timing information for CAN-FD frames. */
-typedef uint32_t BitTimingConfArb;
+using BitTimingConfArb = uint32_t;
 
 /** Bit timing information for CAN-FD frames. */
-typedef uint32_t BitTimingConfData;
+using BitTimingConfData = uint32_t;
 
 }
 }

@@ -35,13 +35,13 @@ namespace Vector {
 namespace ASC {
 
 /** Event’s baudrate [in bits/sec] */
-typedef uint32_t LinBaudrateType;
+using LinBaudrateType = uint32_t;
 
 /** The number of the LIN channel */
-typedef uint16_t LinChannel;
+using LinChannel = uint16_t;
 
 /** Checksum byte value */
-typedef uint8_t LinChecksum;
+using LinChecksum = uint8_t;
 
 /** Expected checksum model for checksum value */
 enum class LinChecksumModel : uint8_t {
@@ -62,22 +62,22 @@ enum class LinChecksumModelInfo : uint8_t {
 };
 
 /** @copydoc Dir */
-typedef Dir LinDir;
+using LinDir = Dir;
 
 /** data length code */
-typedef uint8_t LinDlc;
+using LinDlc = uint8_t;
 
 /** Number of response bytes; can include the checksum. */
-typedef uint8_t LinNumberOfResponseBytes;
+using LinNumberOfResponseBytes = uint8_t;
 
 /**
  * Data byte values or
  * Response byte values; can include the checksum byte.
  */
-typedef uint8_t LinDx;
+using LinDx = uint8_t;
 
 /** Textual description */
-typedef std::string LinDescription;
+using LinDescription = std::string;
 
 /**
  * LIN Dominant Signal only:
@@ -97,96 +97,96 @@ enum class LinDomSigState : uint8_t {
  * LIN Dominant Signal only:
  * Length of the signal [in us]
  */
-typedef uint32_t LinDomSigLength;
+using LinDomSigLength = uint32_t;
 
 /** Absolute timestamp indicating end of LIN frame [in seconds] */
-typedef double LinEndOfFrame;
+using LinEndOfFrame = double;
 
 /**
  * ETF Info event only:
  * Name of event-
  * triggered frame
  */
-typedef std::string LinEtfName;
+using LinEtfName = std::string;
 
 /**
  * ETF Info event only:
  * Name of event-
  * triggered frame
  */
-typedef double LinEndOfHeader;
+using LinEndOfHeader = double;
 
 /** Duration of the entire frame [in bit times] */
-typedef uint32_t LinFullTime;
+using LinFullTime = uint32_t;
 
 /**
  * LIN Receive Error only:
  * Flag indicating if there data byte values
  */
-typedef bool LinHasDatabytes;
+using LinHasDatabytes = bool;
 
 /** Duration of the frame header [in bit times] */
-typedef uint32_t LinHeaderTime;
+using LinHeaderTime = uint32_t;
 
 /** Event’s baudrate measured in header [in bits/sec as float value] */
-typedef double LinHeaderBaudrate;
+using LinHeaderBaudrate = double;
 
 /** Frame identifier or frame symbolic name */
-typedef std::string LinId;
+using LinId = std::string;
 
 /**
  * LIN Receive Error only:
  * Flag indicating if the error is a result of an attempt to resolve DLC
  */
-typedef bool LinIsDlcTimeout;
+using LinIsDlcTimeout = bool;
 
 /**
  * LIN Receive Error only:
  * Specifies the detail level of the event
  */
-typedef bool LinIsShortError;
+using LinIsShortError = bool;
 
 /** 16 bit message identifier */
-typedef uint16_t LinMessageId;
+using LinMessageId = uint16_t;
 
 /** Node address */
-typedef uint8_t LinNad;
+using LinNad = uint8_t;
 
 /**
  * LIN Receive Error only:
  * byte which caused the protocol violation
  */
-typedef uint8_t LinOffendingByte;
+using LinOffendingByte = uint8_t;
 
 /** Event’s baudrate measured in response [in bits/sec] */
-typedef uint32_t LinResponseBaudrate;
+using LinResponseBaudrate = uint32_t;
 
 /**
  * Flag indicating whether event has been simu-
  * lated by CANoe/CANalyzer
  */
-typedef bool LinSimulated;
+using LinSimulated = bool;
 
 /**
  * Schedule Mode Change event only:
  * Index of schedule table
  */
-typedef uint8_t LinScheduleTableIndex;
+using LinScheduleTableIndex = uint8_t;
 
 /** FSM Identifier */
-typedef uint8_t LinSlaveId;
+using LinSlaveId = uint8_t;
 
 /**
  * LIN Spike Signal only:
  * Length of the signal [in us]
  */
-typedef uint32_t LinSpikeLength;
+using LinSpikeLength = uint32_t;
 
 /** Absolute timestamp indicating start of event [in seconds] */
-typedef double LinStartOfFrame;
+using LinStartOfFrame = double;
 
 /** Current state of the FSM */
-typedef uint8_t LinState;
+using LinState = uint8_t;
 
 /**
  * LIN Receive Error only:
@@ -214,22 +214,22 @@ typedef uint8_t LinState;
  *   - 3: Unexpected Break field
  *   - 4: Unidentified error
  */
-typedef uint8_t LinStateReason;
+using LinStateReason = uint8_t;
 
 /** Early stop bit offset in frame header for UART timestamps [in ns] */
-typedef uint32_t LinStopBitOffsetInHeader;
+using LinStopBitOffsetInHeader = uint32_t;
 
 /** Early stop bit offset in frame response for UART timestamps [in ns] */
-typedef uint32_t LinStopBitOffsetInResponse;
+using LinStopBitOffsetInResponse = uint32_t;
 
 /** Supplier Identifier */
-typedef uint16_t LinSupplierId;
+using LinSupplierId = uint16_t;
 
 /** Break length [in ns] */
-typedef uint32_t LinSyncBreak;
+using LinSyncBreak = uint32_t;
 
 /** Break delimiter length [in ns] */
-typedef uint32_t LinSyncDel;
+using LinSyncDel = uint32_t;
 
 /** Break length [in us and bit times] */
 struct LinSyncBreakTime {
@@ -244,22 +244,22 @@ struct LinSyncDelimiterTime {
 };
 
 /** Absolute timestamp indicating end of data byte [in seconds] */
-typedef double LinT;
+using LinT = double;
 
 /** Absolute or relative event’s time [in seconds] */
-typedef double LinTime;
+using LinTime = double;
 
 /**
  * LIN Sync Error only:
  * Time intervals [in us] detected between the falling signal edges of the Sync field
  */
-typedef uint32_t LinTimeInterval;
+using LinTimeInterval = uint32_t;
 
 /**
  * Wakeup event only:
  * Byte value used by wakeup frame
  */
-typedef uint8_t LinWakeupByte;
+using LinWakeupByte = uint8_t;
 
 /**
  * Wakeup event only:
@@ -268,27 +268,27 @@ typedef uint8_t LinWakeupByte;
  *   - 1 - too short
  *   - 2 - too long
  */
-typedef uint8_t LinWakeupLengthInfo;
+using LinWakeupLengthInfo = uint8_t;
 
 /**
  * Short or slow response only:
  * Non-zero, if the response was too slow;
  * otherwise zero.
  */
-typedef bool LinIsSlowResponse;
+using LinIsSlowResponse = bool;
 
 /**
  * Short or slow response only:
  * Non-zero, if the response was interrupted
  * by a sync break; otherwise zero.
  */
-typedef bool LinResponseWasInterruptedByBreak;
+using LinResponseWasInterruptedByBreak = bool;
 
 /**
  * The width of a wakeup signal in microseconds.
  * Valid for LIN 2.x only.
  */
-typedef uint16_t LinWidth;
+using LinWidth = uint16_t;
 
 /**
  * Disturbance event only:
@@ -317,29 +317,29 @@ enum class LinDisturbanceType : uint8_t {
  *
  * If referring to a header, 0 is the sync field and 1 is the PID.
  */
-typedef uint8_t LinByteIndex;
+using LinByteIndex = uint8_t;
 
 /**
  * A 0-indexed bit index (i.e. 0 is the first data
  * bit, 8 is the stop bit, 9 is the first bit in interbyte space).
  */
-typedef uint8_t LinBitIndex;
+using LinBitIndex = uint8_t;
 
 /**
  * An offset in 1/16th bits into a bit specified with
  * <ByteIndex> and <BitIndex>
  */
-typedef uint8_t LinBitOffsetInSixteenthBits;
+using LinBitOffsetInSixteenthBits = uint8_t;
 
 /**
  * Disturbance event only:
  * The length of a dominant or recessive disturbance in units of
  * 1/16th bits.
  */
-typedef uint8_t LinDisturbanceLengthInSixteenthBits;
+using LinDisturbanceLengthInSixteenthBits = uint8_t;
 
 /** A valid lin identifier or FF/255, if not applicable. */
-typedef uint8_t LinIdOrFf;
+using LinIdOrFf = uint8_t;
 
 }
 }

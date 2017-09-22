@@ -33,10 +33,10 @@ namespace Vector {
 namespace ASC {
 
 /** CAN channel */
-typedef uint8_t TpDiagCanChannel;
+using TpDiagCanChannel = uint8_t;
 
 /** Identify data transfer */
-typedef uint8_t TpDiagConnectionId;
+using TpDiagConnectionId = uint8_t;
 
 /** Event type */
 enum class TpDiagType : uint8_t {
@@ -48,19 +48,19 @@ enum class TpDiagType : uint8_t {
 };
 
 /** Source node */
-typedef std::string TpDiagSource;
+using TpDiagSource = std::string;
 
 /** Destination node */
-typedef std::string TpDiagDestination;
+using TpDiagDestination = std::string;
 
 /** Number of bytes transferred */
-typedef uint16_t TpDiagLength;
+using TpDiagLength = uint16_t;
 
 /** Bytes transported within this CAN message */
-typedef uint8_t TpDiagTransportedBytes;
+using TpDiagTransportedBytes = uint8_t;
 
 /** Sequence number */
-typedef uint8_t TpDiagSn;
+using TpDiagSn = uint8_t;
 
 /** Flow Control frame type */
 enum class TpDiagFcType : uint8_t {
@@ -78,19 +78,19 @@ enum class TpDiagFcType : uint8_t {
 };
 
 /** Block size */
-typedef uint8_t TpDiagBs;
+using TpDiagBs = uint8_t;
 
 /** Minimum separation time */
-typedef uint8_t TpDiagStMin;
+using TpDiagStMin = uint8_t;
 
 /** Standard trace time stamp */
-typedef double TpDiagTimestamp;
+using TpDiagTimestamp = double;
 
 /** Unique identifier of the diagnostics description */
-typedef std::string TpDiagEcuQualifier;
+using TpDiagEcuQualifier = std::string;
 
 /** Representation of the bytes sent to the ECU by the tester */
-typedef uint8_t TpDiagByteSequence;
+using TpDiagByteSequence = uint8_t;
 
 }
 }

@@ -35,28 +35,28 @@ namespace Vector {
 namespace ASC {
 
 /** Time of reception of the bytes, i.e. the end of a byte sequence */
-typedef Time KLineTime;
+using KLineTime = Time;
 
 /** COMn for serial port n, or KLn for LINcab n */
-typedef std::string KLinePort;
+using KLinePort = std::string;
 
 /** Were the bytes sent or received? */
-typedef Dir KLineDirection;
+using KLineDirection = Dir;
 
 /** Rate the data was transferred on */
-typedef uint32_t KLineBaudrate;
+using KLineBaudrate = uint32_t;
 
 /** Source address */
-typedef std::string KLineSource;
+using KLineSource = std::string;
 
 /** Destination address */
-typedef std::string KLineDestination;
+using KLineDestination = std::string;
 
 /** Number of bytes transferred */
-typedef uint16_t KLineLength;
+using KLineLength = uint16_t;
 
 /** Bytes transported within this CAN message */
-typedef uint8_t KLineData;
+using KLineData = uint8_t;
 
 }
 }

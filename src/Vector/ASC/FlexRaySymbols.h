@@ -35,42 +35,42 @@ namespace Vector {
 namespace ASC {
 
 /** @copydoc Time */
-typedef Time FlexRayOldTime;
+using FlexRayOldTime = Time;
 
 /** The number of the FlexRay channel. */
-typedef char FlexRayOldChannel;
+using FlexRayOldChannel = char;
 
 // Typ is used to select Event Class
 
 /** Numeric identifier */
-typedef uint16_t FlexRayOldId;
+using FlexRayOldId = uint16_t;
 
 /** Current number of communication cycle */
-typedef uint8_t FlexRayOldCycle;
+using FlexRayOldCycle = uint8_t;
 
 /** Obsolete element not used in the V9 */
-typedef bool FlexRayOldNm;
+using FlexRayOldNm = bool;
 
 /** Sync frame Indicator */
-typedef bool FlexRayOldSync;
+using FlexRayOldSync = bool;
 
 /** HeaderCRC */
-typedef uint16_t FlexRayOldHeaderCrc;
+using FlexRayOldHeaderCrc = uint16_t;
 
 /** Database name of the frame */
-typedef std::string FlexRayOldSymbolicName;
+using FlexRayOldSymbolicName = std::string;
 
 /** Payload length */
-typedef uint8_t FlexRayOldDlc;
+using FlexRayOldDlc = uint8_t;
 
 /** @copydoc Dx */
-typedef Dx FlexRayOldDx;
+using FlexRayOldDx = Dx;
 
 /** See table below */
-typedef uint16_t FlexRayOldFrameState;
+using FlexRayOldFrameState = uint16_t;
 
 /** FlexRay frame header */
-typedef uint8_t FlexRayOldHeaderBitMask;
+using FlexRayOldHeaderBitMask = uint8_t;
 
 }
 }

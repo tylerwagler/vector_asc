@@ -47,6 +47,8 @@ public:
     /** Number of CAN channel. */
     Channel channel;
 
+    /* "State/Error:", "chip status bus off", "Tx Error Count:", "Rx Error Count:" */
+
     /** @copydoc Event::read() */
     static CanOverloadFrame * read(File & file, std::string & line);
 

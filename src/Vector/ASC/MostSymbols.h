@@ -35,16 +35,16 @@ namespace Vector {
 namespace ASC {
 
 /** acknowledge state */
-typedef uint8_t MostAckNack;
+using MostAckNack = uint8_t;
 
 /** Size of allocation table. On MOST25 channels this value is always 60. */
-typedef uint16_t MostAllocTableSize;
+using MostAllocTableSize = uint16_t;
 
 /** If Bit0 is set the event transports a channel list for each label. */
-typedef uint8_t MostAt150EventModeFlags;
+using MostAt150EventModeFlags = uint8_t;
 
 /** Size of MOST50/150 alloction data (number of word values) */
-typedef uint16_t MostAt150Size;
+using MostAt150Size = uint16_t;
 
 /**
  * CRC acknowledge code
@@ -52,49 +52,49 @@ typedef uint16_t MostAt150Size;
  *   - 0x01: CRC error
  *   - 0x04: OK
  */
-typedef uint8_t MostCAck;
+using MostCAck = uint8_t;
 
 /** application channel */
-typedef uint8_t MostChannel;
+using MostChannel = uint8_t;
 
 /** Number of coding errors */
-typedef uint32_t MostCodingErrors;
+using MostCodingErrors = uint32_t;
 
 /** CRC */
-typedef uint16_t MostCrc;
+using MostCrc = uint16_t;
 
 /** 2 byte CRC */
-typedef uint16_t MostCrc2;
+using MostCrc2 = uint16_t;
 
 /** 4 byte CRC */
-typedef uint32_t MostCrc4;
+using MostCrc4 = uint32_t;
 
 /** Allocation Table byte values */
-typedef uint8_t MostDxAt;
+using MostDxAt = uint8_t;
 
 /** target address */
-typedef uint16_t MostDestAdr;
+using MostDestAdr = uint16_t;
 
 /** 48 bit target address */
-typedef uint64_t MostDestMacAdr;
+using MostDestMacAdr = uint64_t;
 
 /** @copydoc Dir */
-typedef Dir MostDir;
+using MostDir = Dir;
 
 /** number of lost messages on Packet Data channel */
-typedef uint16_t MostDlAsync;
+using MostDlAsync = uint16_t;
 
 /** number of lost message on Control channel */
-typedef uint16_t MostDlCtrl;
+using MostDlCtrl = uint16_t;
 
 /** data loss information */
-typedef uint32_t MostDlInfo;
+using MostDlInfo = uint32_t;
 
 /** absolute time in seconds */
-typedef double MostDlTime;
+using MostDlTime = double;
 
 /** data byte */
-typedef uint8_t MostDx;
+using MostDx = uint8_t;
 
 enum class MostEclMode : uint8_t {
     /** discrete */
@@ -126,23 +126,23 @@ enum class MostEclState : uint8_t {
  * counted bytes (s. FrgDataLen) on bus will be
  * stored in the payload of the logging event.
  */
-typedef uint8_t MostFirstDataLen;
+using MostFirstDataLen = uint8_t;
 
 /** Frame Counter */
-typedef uint32_t MostFrameCounter;
+using MostFrameCounter = uint32_t;
 
 /**
  * Number of unreserved bytes for synchronous data
  * Max. 116 with SBC=29 for MOST50
  * Max. 372 with SBC=93 for MOST150
  */
-typedef uint16_t MostFreeBytes;
+using MostFreeBytes = uint16_t;
 
 /**
  * Number of transmitted user data bytes in fragments. These bytes were counted on bus.
  * @note The number of bytes saved in this event is stored in FirstDataLen.
  */
-typedef uint32_t MostFrgDataLen;
+using MostFrgDataLen = uint32_t;
 
 /**
  * Announced user data length at start of transmission. In some cases (e.g.
@@ -153,16 +153,16 @@ typedef uint32_t MostFrgDataLen;
  * Due to rare and very specific bit errors (degrade of end termination byte)
  * FrgDataLen can also be greater than FrgDataLenAnnonced.
  */
-typedef uint32_t MostFrgDataLenAnnounced;
+using MostFrgDataLenAnnounced = uint32_t;
 
 /** bit field which denotes the valid data fields in fragment events */
-typedef uint32_t MostFrgMask;
+using MostFrgMask = uint32_t;
 
 /** HW mode */
-typedef uint8_t MostHwModeType;
+using MostHwModeType = uint8_t;
 
 /** bitmask of changed bits */
-typedef uint8_t MostHwModeMask;
+using MostHwModeMask = uint8_t;
 
 /**
  * Signal state:
@@ -172,19 +172,19 @@ typedef uint8_t MostHwModeMask;
  *   - 0x10 - Stable Lock
  *   - 0x20 - Critical Unlock
  */
-typedef uint8_t MostLlState;
+using MostLlState = uint8_t;
 
 /** number of data bytes */
-typedef uint8_t MostMsg150Len;
+using MostMsg150Len = uint8_t;
 
 /** number of data bytes */
-typedef uint8_t MostMsg50Len;
+using MostMsg50Len = uint8_t;
 
 /** new network state */
-typedef uint8_t MostNetStateNew;
+using MostNetStateNew = uint8_t;
 
 /** old network state */
-typedef uint8_t MostNetStateOld;
+using MostNetStateOld = uint8_t;
 
 /**
  * pre-emptive acknowledge
@@ -192,50 +192,50 @@ typedef uint8_t MostNetStateOld;
  *   - 0x01: Buffer full
  *   - 0x04: OK
  */
-typedef uint8_t MostPAck;
+using MostPAck = uint8_t;
 
 /** message/packet index */
-typedef uint8_t MostPIndex;
+using MostPIndex = uint8_t;
 
 /** number of data bytes */
-typedef uint16_t MostPkt150Len;
+using MostPkt150Len = uint16_t;
 
 /** arbitration byte */
-typedef uint8_t MostPktArbitr;
+using MostPktArbitr = uint8_t;
 
 /** number of Ethernet data bytes */
-typedef uint16_t MostPktEthLen;
+using MostPktEthLen = uint16_t;
 
 /** number of data bytes */
-typedef uint16_t MostPktLen;
+using MostPktLen = uint16_t;
 
 /** priority */
-typedef uint8_t MostPktPrio;
+using MostPktPrio = uint8_t;
 
 /**
  * packet state
  *   - 0 for Rx
  *   - 0x40 - TxOk
  */
-typedef uint8_t MostPktState;
+using MostPktState = uint8_t;
 
 /** transmission priority */
-typedef uint8_t MostPriority;
+using MostPriority = uint8_t;
 
 /**
  * ID of chip
  *   - 1 - OS8104
  */
-typedef uint8_t MostRegChip;
+using MostRegChip = uint8_t;
 
 /** number of registers */
-typedef uint8_t MostRegDataLen;
+using MostRegDataLen = uint8_t;
 
 /** ID of register */
-typedef uint8_t MostRegId;
+using MostRegId = uint8_t;
 
 /** address of register */
-typedef uint16_t MostRegOffset;
+using MostRegOffset = uint16_t;
 
 /** type of register event */
 enum class MostRegSubType : uint8_t {
@@ -265,13 +265,13 @@ enum class MostRegSubType : uint8_t {
 };
 
 /** register value */
-typedef uint16_t MostRegValue;
+using MostRegValue = uint16_t;
 
 /** reserved unsigned char */
-typedef uint8_t MostRsvdUc;
+using MostRsvdUc = uint8_t;
 
 /** reserved unsigned long */
-typedef uint32_t MostRsvdUl;
+using MostRsvdUl = uint32_t;
 
 /**
  * message sub type
@@ -283,22 +283,22 @@ typedef uint32_t MostRsvdUl;
  *   - 5 - GetSource
  *   - >5 - not used so far
  */
-typedef uint8_t MostRType;
+using MostRType = uint8_t;
 
 /** source address */
-typedef uint16_t MostSourceAdr;
+using MostSourceAdr = uint16_t;
 
 /** 48 bit source address */
-typedef uint64_t MostSourceMacAdr;
+using MostSourceMacAdr = uint64_t;
 
 /** message state */
-typedef uint8_t MostState;
+using MostState = uint8_t;
 
 /** message state */
-typedef uint16_t MostState2;
+using MostState2 = uint16_t;
 
 /** statistic value */
-typedef uint32_t MostStatVal;
+using MostStatVal = uint32_t;
 
 /**
  * Stress mode of HW interface:
@@ -313,7 +313,7 @@ typedef uint32_t MostStatVal;
  *   - 9 - Shutdown flag usage
  *   - 10 - Rx Buffer Async
  */
-typedef uint8_t MostStressMode;
+using MostStressMode = uint8_t;
 
 /** State of Stress mode */
 enum class MostStressState : uint8_t {
@@ -337,13 +337,13 @@ enum class MostSysId : uint8_t {
 };
 
 /** System value/state */
-typedef uint16_t MostSysValue;
+using MostSysValue = uint16_t;
 
 /** Previous value/state */
-typedef uint16_t MostSysValueOld;
+using MostSysValueOld = uint16_t;
 
 /** @copydoc Time */
-typedef Time MostTime;
+using MostTime = Time;
 
 enum class MostTransferType : uint8_t {
     /**
@@ -375,7 +375,7 @@ enum class MostTransferType : uint8_t {
  *   - 8 - SMSC PCI 50
  *   - 9 - MOCCAcompact50e
  */
-typedef uint8_t MostTrigHw;
+using MostTrigHw = uint8_t;
 
 /** trigger mode */
 enum class MostTrigMode : uint8_t {
@@ -390,7 +390,7 @@ enum class MostTrigMode : uint8_t {
 };
 
 /** value of IO register */
-typedef uint32_t MostTrigValue;
+using MostTrigValue = uint32_t;
 
 /** Light/signal state at output */
 enum class MostTxLightState : uint8_t {
@@ -405,7 +405,7 @@ enum class MostTxLightState : uint8_t {
 };
 
 /** data word */
-typedef uint16_t MostWx;
+using MostWx = uint16_t;
 
 }
 }

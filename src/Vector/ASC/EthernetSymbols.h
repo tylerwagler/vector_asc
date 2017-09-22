@@ -35,22 +35,22 @@ namespace Vector {
 namespace ASC {
 
 /** Application Channel */
-typedef uint8_t EthChannel;
+using EthChannel = uint8_t;
 
 /**
  * Data of Ethernet packet. Starting with the target Ethernet MAC ID and ending with data or
  * padding bytes (without Ethernet packet CRC). Each data byte has two hex characters.
  */
-typedef uint8_t EthData;
+using EthData = uint8_t;
 
 /** Length of data in bytes (packet length). */
-typedef uint16_t EthDataLen;
+using EthDataLen = uint16_t;
 
 /** @copydoc Dir */
-typedef Dir EthDir;
+using EthDir = Dir;
 
 /** @copydoc Time */
-typedef Time EthTime;
+using EthTime = Time;
 
 /**
  * Error code for Rx errors
@@ -59,31 +59,31 @@ typedef Time EthTime;
  *   - 4: Invalid Data received
  *   - 8: Colission detected
  */
-typedef uint8_t EthErrorCode;
+using EthErrorCode = uint8_t;
 
 /** Frame checksum */
-typedef uint32_t EthFrameChecksum;
+using EthFrameChecksum = uint32_t;
 
 /** Measured time [µsec] since last frame on this VL */
-typedef uint32_t AfdxBag;
+using AfdxBag = uint32_t;
 
 /** @copydoc EthChannel */
-typedef EthChannel AfdxChannel;
+using AfdxChannel = EthChannel;
 
 /**
  * Data of AFDX packet. Starting with the target Ethernet MAC ID and ending with data or
  * padding bytes (without Ethernet packet CRC) and AFDX-SeqNo.
  */
-typedef uint8_t AfdxData;
+using AfdxData = uint8_t;
 
 /** @copydoc EthDataLen */
-typedef EthDataLen AfdxDataLen;
+using AfdxDataLen = EthDataLen;
 
 /** @copydoc EthDir */
-typedef EthDir AfdxDir;
+using AfdxDir = EthDir;
 
 /** Underlying ETH-channel */
-typedef EthChannel AfdxEthChannel;
+using AfdxEthChannel = EthChannel;
 
 /**
  * Flags signaling specific status and errors
@@ -100,10 +100,10 @@ typedef EthChannel AfdxEthChannel;
  *   - Bit 8: A / B interface mismatch
  *   - Bit 11: Fragmentation error
  */
-typedef uint16_t AfdxFlags;
+using AfdxFlags = uint16_t;
 
 /** @copydoc EthTime */
-typedef EthTime AfdxTime;
+using AfdxTime = EthTime;
 
 }
 }
