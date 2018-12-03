@@ -19,7 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
-#include "TpDiagCommon.h"
+#include <Vector/ASC/TpDiagCommon.h>
 
 namespace Vector {
 namespace ASC {

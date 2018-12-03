@@ -19,7 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
-#include "KLineCommon.h"
+#include <Vector/ASC/KLineCommon.h>
 
 namespace Vector {
 namespace ASC {

@@ -21,9 +21,10 @@
 
 #include <iomanip>
 #include <regex>
-#include "TpDiagCommon.h"
-#include "TpDiagSymbolsRegEx.h"
-#include "TpFlowControlFrame.h"
+
+#include <Vector/ASC/TpDiagCommon.h>
+#include <Vector/ASC/TpDiagSymbolsRegEx.h>
+#include <Vector/ASC/TpFlowControlFrame.h>
 
 namespace Vector {
 namespace ASC {

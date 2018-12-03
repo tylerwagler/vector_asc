@@ -22,9 +22,10 @@
 #include <iomanip>
 #include <regex>
 #include <sstream>
-#include "Most25ControlMessageNodeMode.h"
-#include "MostCommon.h"
-#include "MostSymbolsRegEx.h"
+
+#include <Vector/ASC/Most25ControlMessageNodeMode.h>
+#include <Vector/ASC/MostCommon.h>
+#include <Vector/ASC/MostSymbolsRegEx.h>
 
 namespace Vector {
 namespace ASC {

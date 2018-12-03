@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include "platform.h"
+#include <Vector/ASC/platform.h>
 
 #include <cstdint>
 #include <ctime>
@@ -33,10 +33,15 @@
 #include <FlexLexer.h>
 #endif
 
-#include "vector_asc_export.h"
+#include <Vector/ASC/Event.h>
+
+#include <Vector/ASC/vector_asc_export.h>
 
 namespace Vector {
 namespace ASC {
+
+/* forward declaration */
+class Event;
 
 /**
  * File
@@ -165,14 +170,14 @@ public:
      *
      * @return read object or nullptr
      */
-    class Event * read();
+    Event * read();
 
     /**
      * write object to file
      *
      * @param event object
      */
-    void write(class Event * event);
+    void write(Event * event);
 
 private:
     /** file */

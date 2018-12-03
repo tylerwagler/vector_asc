@@ -19,8 +19,8 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
-#include "Unknown.h"
-#include "CanCommon.h"
+#include <Vector/ASC/Unknown.h>
+#include <Vector/ASC/CanCommon.h>
 
 namespace Vector {
 namespace ASC {

@@ -20,9 +20,10 @@
  */
 
 #include <regex>
-#include "LinCommon.h"
-#include "LinSleepMode.h"
-#include "LinSymbolsRegEx.h"
+
+#include <Vector/ASC/LinCommon.h>
+#include <Vector/ASC/LinSleepMode.h>
+#include <Vector/ASC/LinSymbolsRegEx.h>
 
 namespace Vector {
 namespace ASC {

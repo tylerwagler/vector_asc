@@ -19,7 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
-#include "FlexRayCommon.h"
+#include <Vector/ASC/FlexRayCommon.h>
 
 namespace Vector {
 namespace ASC {

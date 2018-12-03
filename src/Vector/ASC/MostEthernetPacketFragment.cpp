@@ -22,9 +22,10 @@
 #include <iomanip>
 #include <regex>
 #include <sstream>
-#include "MostCommon.h"
-#include "MostEthernetPacketFragment.h"
-#include "MostSymbolsRegEx.h"
+
+#include <Vector/ASC/MostCommon.h>
+#include <Vector/ASC/MostEthernetPacketFragment.h>
+#include <Vector/ASC/MostSymbolsRegEx.h>
 
 namespace Vector {
 namespace ASC {

@@ -21,9 +21,10 @@
 
 #include <iomanip>
 #include <regex>
-#include "FlexRayCommon.h"
-#include "FlexRayError.h"
-#include "FlexRaySymbolsRegEx.h"
+
+#include <Vector/ASC/FlexRayCommon.h>
+#include <Vector/ASC/FlexRayError.h>
+#include <Vector/ASC/FlexRaySymbolsRegEx.h>
 
 namespace Vector {
 namespace ASC {

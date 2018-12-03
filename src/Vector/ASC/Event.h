@@ -21,17 +21,20 @@
 
 #pragma once
 
-#include "platform.h"
+#include <Vector/ASC/platform.h>
 
 #include <iostream>
 #include <string>
 
-#include "File.h"
+#include <Vector/ASC/File.h>
 
-#include "vector_asc_export.h"
+#include <Vector/ASC/vector_asc_export.h>
 
 namespace Vector {
 namespace ASC {
+
+/* forward declaration */
+class File;
 
 /**
  * Base class for all events

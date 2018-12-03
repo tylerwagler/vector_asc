@@ -1,5 +1,5 @@
 %{
-#include "Event.h"
+#include <Vector/ASC/Event.h>
 %}
 
     // Options Affecting Scanner Behavior

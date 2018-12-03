@@ -20,9 +20,10 @@
  */
 
 #include <regex>
-#include "CanCommon.h"
-#include "CanSymbolsRegEx.h"
-#include "FileInternalEventsLogged.h"
+
+#include <Vector/ASC/CanCommon.h>
+#include <Vector/ASC/CanSymbolsRegEx.h>
+#include <Vector/ASC/FileInternalEventsLogged.h>
 
 namespace Vector {
 namespace ASC {

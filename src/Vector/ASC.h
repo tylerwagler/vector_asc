@@ -33,113 +33,113 @@
 #pragma once
 
 /* File */
-#include "ASC/File.h"
-#include "ASC/FileDate.h"
-#include "ASC/FileBaseTimestamps.h"
-#include "ASC/FileInternalEventsLogged.h"
-#include "ASC/FileVersion.h"
-#include "ASC/FileSplitInformation.h"
-#include "ASC/FileComment.h"
+#include <Vector/ASC/File.h>
+#include <Vector/ASC/FileDate.h>
+#include <Vector/ASC/FileBaseTimestamps.h>
+#include <Vector/ASC/FileInternalEventsLogged.h>
+#include <Vector/ASC/FileVersion.h>
+#include <Vector/ASC/FileSplitInformation.h>
+#include <Vector/ASC/FileComment.h>
 
 /* CAN, Log & Trigger Events */
-#include "ASC/CanMessage.h"
-#include "ASC/CanExtendedMessage.h"
-#include "ASC/CanRemoteFrame.h"
-#include "ASC/CanErrorFrame.h"
-#include "ASC/CanBusStatistics.h"
-#include "ASC/CanError.h"
-#include "ASC/CanOverloadFrame.h"
-#include "ASC/CanFdMessage.h"
-#include "ASC/CanFdExtendedMessage.h"
-#include "ASC/CanFdErrorFrame.h"
+#include <Vector/ASC/CanMessage.h>
+#include <Vector/ASC/CanExtendedMessage.h>
+#include <Vector/ASC/CanRemoteFrame.h>
+#include <Vector/ASC/CanErrorFrame.h>
+#include <Vector/ASC/CanBusStatistics.h>
+#include <Vector/ASC/CanError.h>
+#include <Vector/ASC/CanOverloadFrame.h>
+#include <Vector/ASC/CanFdMessage.h>
+#include <Vector/ASC/CanFdExtendedMessage.h>
+#include <Vector/ASC/CanFdErrorFrame.h>
 // CAN FD Bus Statistics
 // CAN FD Overload Frame
-#include "ASC/LogTrigger.h"
-#include "ASC/LogDirectStart.h"
-#include "ASC/LogDirectStop.h"
-#include "ASC/BeginTriggerblock.h"
-#include "ASC/EndTriggerblock.h"
-#include "ASC/EnvironmentVariables.h"
-#include "ASC/SystemVariables.h"
-#include "ASC/MacroSignal.h"
-#include "ASC/Gps.h"
-#include "ASC/Comment.h"
-#include "ASC/GlobalMarker.h"
+#include <Vector/ASC/LogTrigger.h>
+#include <Vector/ASC/LogDirectStart.h>
+#include <Vector/ASC/LogDirectStop.h>
+#include <Vector/ASC/BeginTriggerblock.h>
+#include <Vector/ASC/EndTriggerblock.h>
+#include <Vector/ASC/EnvironmentVariables.h>
+#include <Vector/ASC/SystemVariables.h>
+#include <Vector/ASC/MacroSignal.h>
+#include <Vector/ASC/Gps.h>
+#include <Vector/ASC/Comment.h>
+#include <Vector/ASC/GlobalMarker.h>
 
 /* Ethernet Events */
-#include "ASC/EthernetPacket.h"
-#include "ASC/EthernetStatus.h"
-#include "ASC/EthernetRxError.h"
-#include "ASC/AfdxPacket.h"
+#include <Vector/ASC/EthernetPacket.h>
+#include <Vector/ASC/EthernetStatus.h>
+#include <Vector/ASC/EthernetRxError.h>
+#include <Vector/ASC/AfdxPacket.h>
 
 /* FlexRay Events */
-#include "ASC/FlexRayOldMessage.h"
-#include "ASC/FlexRayOldStartCycle.h"
-#include "ASC/FlexRayMessage.h"
-#include "ASC/FlexRayStartCycle.h"
-#include "ASC/FlexRayStatus.h"
-#include "ASC/FlexRayError.h"
+#include <Vector/ASC/FlexRayOldMessage.h>
+#include <Vector/ASC/FlexRayOldStartCycle.h>
+#include <Vector/ASC/FlexRayMessage.h>
+#include <Vector/ASC/FlexRayStartCycle.h>
+#include <Vector/ASC/FlexRayStatus.h>
+#include <Vector/ASC/FlexRayError.h>
 
 /* K-Line Events */
-#include "ASC/KLineByte.h"
-#include "ASC/KLineMessage.h"
+#include <Vector/ASC/KLineByte.h>
+#include <Vector/ASC/KLineMessage.h>
 
 /* LIN Events */
-#include "ASC/LinMessage.h"
-#include "ASC/LinTransmissionError.h"
-#include "ASC/LinReceiveError.h"
-#include "ASC/LinSyncError.h"
-#include "ASC/LinChecksumError.h"
-#include "ASC/LinSpike.h"
-#include "ASC/LinDominantSignal.h"
-#include "ASC/LinBaudrate.h"
-#include "ASC/LinDlcInfo.h"
-#include "ASC/LinChecksumInfo.h"
-#include "ASC/LinSchedulerModeChange.h"
-#include "ASC/LinSlaveTimeout.h"
-#include "ASC/LinEventTriggeredFrameInfo.h"
-#include "ASC/LinStatisticInfo.h"
-#include "ASC/LinShortOrSlowResponse.h"
-#include "ASC/LinDisturbance.h"
-#include "ASC/LinSleepMode.h"
-#include "ASC/LinWakeupFrame.h"
-#include "ASC/LinUnexpectedWakeup.h"
+#include <Vector/ASC/LinMessage.h>
+#include <Vector/ASC/LinTransmissionError.h>
+#include <Vector/ASC/LinReceiveError.h>
+#include <Vector/ASC/LinSyncError.h>
+#include <Vector/ASC/LinChecksumError.h>
+#include <Vector/ASC/LinSpike.h>
+#include <Vector/ASC/LinDominantSignal.h>
+#include <Vector/ASC/LinBaudrate.h>
+#include <Vector/ASC/LinDlcInfo.h>
+#include <Vector/ASC/LinChecksumInfo.h>
+#include <Vector/ASC/LinSchedulerModeChange.h>
+#include <Vector/ASC/LinSlaveTimeout.h>
+#include <Vector/ASC/LinEventTriggeredFrameInfo.h>
+#include <Vector/ASC/LinStatisticInfo.h>
+#include <Vector/ASC/LinShortOrSlowResponse.h>
+#include <Vector/ASC/LinDisturbance.h>
+#include <Vector/ASC/LinSleepMode.h>
+#include <Vector/ASC/LinWakeupFrame.h>
+#include <Vector/ASC/LinUnexpectedWakeup.h>
 
 /* MOST Events */
-#include "ASC/Most25ControlMessageNodeMode.h"
-#include "ASC/Most25ControlMessageSpyMode.h"
-#include "ASC/Most25Packet.h"
-#include "ASC/MostLightLock.h"
-#include "ASC/MostSpecialRegister.h"
-#include "ASC/MostCommonRegister.h"
-#include "ASC/MostHwMode.h"
-#include "ASC/MostNetState.h"
-#include "ASC/MostDataLost.h"
-#include "ASC/MostTrigger.h"
-#include "ASC/MostStatistic.h"
-#include "ASC/MostStatisticExtended.h"
-#include "ASC/MostTxLight.h"
-#include "ASC/MostStress.h"
-#include "ASC/Most25AllocTable.h"
-#include "ASC/Most150ControlMessage.h"
-#include "ASC/Most150ControlMessageFragment.h"
-#include "ASC/Most150Packet.h"
-#include "ASC/Most150PacketFragment.h"
-#include "ASC/MostEthernetPacket.h"
-#include "ASC/MostEthernetPacketFragment.h"
-#include "ASC/MostSystem.h"
-#include "ASC/Most150AllocTable.h"
-#include "ASC/Most50ControlMessage.h"
-#include "ASC/Most50Packet.h"
-#include "ASC/MostEcl.h"
+#include <Vector/ASC/Most25ControlMessageNodeMode.h>
+#include <Vector/ASC/Most25ControlMessageSpyMode.h>
+#include <Vector/ASC/Most25Packet.h>
+#include <Vector/ASC/MostLightLock.h>
+#include <Vector/ASC/MostSpecialRegister.h>
+#include <Vector/ASC/MostCommonRegister.h>
+#include <Vector/ASC/MostHwMode.h>
+#include <Vector/ASC/MostNetState.h>
+#include <Vector/ASC/MostDataLost.h>
+#include <Vector/ASC/MostTrigger.h>
+#include <Vector/ASC/MostStatistic.h>
+#include <Vector/ASC/MostStatisticExtended.h>
+#include <Vector/ASC/MostTxLight.h>
+#include <Vector/ASC/MostStress.h>
+#include <Vector/ASC/Most25AllocTable.h>
+#include <Vector/ASC/Most150ControlMessage.h>
+#include <Vector/ASC/Most150ControlMessageFragment.h>
+#include <Vector/ASC/Most150Packet.h>
+#include <Vector/ASC/Most150PacketFragment.h>
+#include <Vector/ASC/MostEthernetPacket.h>
+#include <Vector/ASC/MostEthernetPacketFragment.h>
+#include <Vector/ASC/MostSystem.h>
+#include <Vector/ASC/Most150AllocTable.h>
+#include <Vector/ASC/Most50ControlMessage.h>
+#include <Vector/ASC/Most50Packet.h>
+#include <Vector/ASC/MostEcl.h>
 
 /* TP/Diagnostics Events */
-#include "ASC/TpSingleFrame.h"
-#include "ASC/TpFirstFrame.h"
-#include "ASC/TpConsecutiveFrame.h"
-#include "ASC/TpFlowControlFrame.h"
-#include "ASC/DiagRequest.h"
+#include <Vector/ASC/TpSingleFrame.h>
+#include <Vector/ASC/TpFirstFrame.h>
+#include <Vector/ASC/TpConsecutiveFrame.h>
+#include <Vector/ASC/TpFlowControlFrame.h>
+#include <Vector/ASC/DiagRequest.h>
 
 /* undocumented events */
-#include "ASC/StartOfMeasurement.h"
-#include "ASC/Unknown.h"
+#include <Vector/ASC/StartOfMeasurement.h>
+#include <Vector/ASC/Unknown.h>

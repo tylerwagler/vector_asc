@@ -23,11 +23,11 @@
 
 #pragma once
 
-#include "platform.h"
+#include <Vector/ASC/platform.h>
 
-#include "CanSymbolsRegEx.h"
+#include <Vector/ASC/CanSymbolsRegEx.h>
 
-#include "vector_asc_export.h"
+#include <Vector/ASC/vector_asc_export.h>
 
 namespace Vector {
 namespace ASC {

@@ -21,14 +21,14 @@
 
 #pragma once
 
-#include "platform.h"
+#include <Vector/ASC/platform.h>
 
 #include <vector>
 
-#include "Event.h"
-#include "TpDiagSymbols.h"
+#include <Vector/ASC/Event.h>
+#include <Vector/ASC/TpDiagSymbols.h>
 
-#include "vector_asc_export.h"
+#include <Vector/ASC/vector_asc_export.h>
 
 namespace Vector {
 namespace ASC {

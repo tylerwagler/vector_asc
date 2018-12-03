@@ -19,7 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
-#include "Event.h"
+#include <Vector/ASC/Event.h>
 
 namespace Vector {
 namespace ASC {

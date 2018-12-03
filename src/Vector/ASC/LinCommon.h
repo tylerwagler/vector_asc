@@ -21,16 +21,16 @@
 
 #pragma once
 
-#include "platform.h"
+#include <Vector/ASC/platform.h>
 
 #include <string>
 #include <vector>
 
-#include "CanCommon.h"
-#include "File.h"
-#include "LinSymbols.h"
+#include <Vector/ASC/CanCommon.h>
+#include <Vector/ASC/File.h>
+#include <Vector/ASC/LinSymbols.h>
 
-#include "vector_asc_export.h"
+#include <Vector/ASC/vector_asc_export.h>
 
 namespace Vector {
 namespace ASC {

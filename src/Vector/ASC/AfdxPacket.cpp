@@ -21,9 +21,10 @@
 
 #include <iomanip>
 #include <regex>
-#include "AfdxPacket.h"
-#include "EthernetCommon.h"
-#include "EthernetSymbolsRegEx.h"
+
+#include <Vector/ASC/AfdxPacket.h>
+#include <Vector/ASC/EthernetCommon.h>
+#include <Vector/ASC/EthernetSymbolsRegEx.h>
 
 namespace Vector {
 namespace ASC {

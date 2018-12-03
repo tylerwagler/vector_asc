@@ -21,9 +21,10 @@
 
 #include <iomanip>
 #include <regex>
-#include "LinCommon.h"
-#include "LinTransmissionError.h"
-#include "LinSymbolsRegEx.h"
+
+#include <Vector/ASC/LinCommon.h>
+#include <Vector/ASC/LinTransmissionError.h>
+#include <Vector/ASC/LinSymbolsRegEx.h>
 
 namespace Vector {
 namespace ASC {

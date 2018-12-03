@@ -21,15 +21,15 @@
 
 #pragma once
 
-#include "platform.h"
+#include <Vector/ASC/platform.h>
 
 #include <array>
 #include <vector>
 
-#include "Event.h"
-#include "FlexRaySymbols.h"
+#include <Vector/ASC/Event.h>
+#include <Vector/ASC/FlexRaySymbols.h>
 
-#include "vector_asc_export.h"
+#include <Vector/ASC/vector_asc_export.h>
 
 namespace Vector {
 namespace ASC {

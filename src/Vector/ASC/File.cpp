@@ -21,7 +21,7 @@
 
 #include <cstring>
 
-#include "../ASC.h"
+#include <Vector/ASC.h>
 
 namespace Vector {
 namespace ASC {

@@ -20,7 +20,8 @@
  */
 
 #include <iomanip>
-#include "LinCommon.h"
+
+#include <Vector/ASC/LinCommon.h>
 
 namespace Vector {
 namespace ASC {

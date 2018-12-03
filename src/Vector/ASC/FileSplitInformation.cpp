@@ -21,9 +21,10 @@
 
 #include <iomanip>
 #include <regex>
-#include "CanCommon.h"
-#include "CanSymbolsRegEx.h"
-#include "FileSplitInformation.h"
+
+#include <Vector/ASC/CanCommon.h>
+#include <Vector/ASC/CanSymbolsRegEx.h>
+#include <Vector/ASC/FileSplitInformation.h>
 
 namespace Vector {
 namespace ASC {

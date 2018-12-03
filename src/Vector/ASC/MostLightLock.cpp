@@ -20,9 +20,10 @@
  */
 
 #include <regex>
-#include "MostCommon.h"
-#include "MostLightLock.h"
-#include "MostSymbolsRegEx.h"
+
+#include <Vector/ASC/MostCommon.h>
+#include <Vector/ASC/MostLightLock.h>
+#include <Vector/ASC/MostSymbolsRegEx.h>
 
 namespace Vector {
 namespace ASC {

@@ -22,9 +22,10 @@
 #include <iomanip>
 #include <regex>
 #include <sstream>
-#include "KLineByte.h"
-#include "KLineCommon.h"
-#include "KLineSymbolsRegEx.h"
+
+#include <Vector/ASC/KLineByte.h>
+#include <Vector/ASC/KLineCommon.h>
+#include <Vector/ASC/KLineSymbolsRegEx.h>
 
 namespace Vector {
 namespace ASC {

@@ -22,9 +22,10 @@
 #include <iomanip>
 #include <regex>
 #include <sstream>
-#include "TpDiagCommon.h"
-#include "TpDiagSymbolsRegEx.h"
-#include "TpFirstFrame.h"
+
+#include <Vector/ASC/TpDiagCommon.h>
+#include <Vector/ASC/TpDiagSymbolsRegEx.h>
+#include <Vector/ASC/TpFirstFrame.h>
 
 namespace Vector {
 namespace ASC {

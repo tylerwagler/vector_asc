@@ -23,13 +23,13 @@
 
 #pragma once
 
-#include "platform.h"
+#include <Vector/ASC/platform.h>
 
 #include <string>
 
-#include "CanSymbols.h"
+#include <Vector/ASC/CanSymbols.h>
 
-#include "vector_asc_export.h"
+#include <Vector/ASC/vector_asc_export.h>
 
 namespace Vector {
 namespace ASC {

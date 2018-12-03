@@ -19,7 +19,7 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
-#include "EthernetCommon.h"
+#include <Vector/ASC/EthernetCommon.h>
 
 namespace Vector {
 namespace ASC {
