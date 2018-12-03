@@ -234,7 +234,6 @@ target_sources(${PROJECT_NAME}
         ${CMAKE_CURRENT_BINARY_DIR}/Lexer.cpp)
 
 # generated files
-configure_file(config.h.in config.h)
 configure_file(${PROJECT_NAME}.pc.in ${PROJECT_NAME}.pc @ONLY)
 generate_export_header(${PROJECT_NAME})
 if(WIN32)
@@ -278,7 +277,6 @@ install(
 install(
     FILES
         ${CMAKE_CURRENT_BINARY_DIR}/vector_asc_export.h
-        ${CMAKE_CURRENT_BINARY_DIR}/config.h
         $<TARGET_PROPERTY:${PROJECT_NAME},INTERFACE_SOURCES>
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Vector/ASC)
 

@@ -25,8 +25,6 @@
 
 #pragma once
 
-#include "config.h"
-
 /* GCC */
 #ifdef __GNUC__
 
