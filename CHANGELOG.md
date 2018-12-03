@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.1] - 2018-12-03
+### Changed
+- Includes changed from "" to <>
+- Removed config.h
+- Improve test comparisons
+
 ## [1.1.0] - 2017-09-22
 ### Added
 - CanError::error gets interpreted now including txErr and rxErr
