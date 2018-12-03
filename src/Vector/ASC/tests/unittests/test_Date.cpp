@@ -20,37 +20,37 @@ BOOST_AUTO_TEST_CASE(ReadDates)
     hour = "12";
     amFm = " am";
     Vector::ASC::readDate("Sun", "Jan", "0", hour, "0", "0", amFm, "1980", language, date);
-    BOOST_CHECK(date.tm_hour == 0);
+    BOOST_CHECK_EQUAL(date.tm_hour, 0);
 
     /* am */
     hour = "1";
     amFm = " am";
     Vector::ASC::readDate("Sun", "Jan", "0", hour, "0", "0", amFm, "1980", language, date);
-    BOOST_CHECK(date.tm_hour == 1);
+    BOOST_CHECK_EQUAL(date.tm_hour, 1);
 
     /* am */
     hour = "11";
     amFm = " am";
     Vector::ASC::readDate("Sun", "Jan", "0", hour, "0", "0", amFm, "1980", language, date);
-    BOOST_CHECK(date.tm_hour == 11);
+    BOOST_CHECK_EQUAL(date.tm_hour, 11);
 
     /* noon */
     hour = "12";
     amFm = " pm";
     Vector::ASC::readDate("Sun", "Jan", "0", hour, "0", "0", amFm, "1980", language, date);
-    BOOST_CHECK(date.tm_hour == 12);
+    BOOST_CHECK_EQUAL(date.tm_hour, 12);
 
     /* pm */
     hour = "01";
     amFm = " pm";
     Vector::ASC::readDate("Sun", "Jan", "0", hour, "0", "0", amFm, "1980", language, date);
-    BOOST_CHECK(date.tm_hour == 13);
+    BOOST_CHECK_EQUAL(date.tm_hour, 13);
 
     /* pm */
     hour = "11";
     amFm = " pm";
     Vector::ASC::readDate("Sun", "Jan", "0", hour, "0", "0", amFm, "1980", language, date);
-    BOOST_CHECK(date.tm_hour == 23);
+    BOOST_CHECK_EQUAL(date.tm_hour, 23);
 }
 
 BOOST_AUTO_TEST_CASE(WriteDates)
@@ -67,35 +67,35 @@ BOOST_AUTO_TEST_CASE(WriteDates)
     ss.str("");
     date.tm_hour = 0;
     Vector::ASC::writeDate(file, ss, date);
-    BOOST_CHECK(ss.str() == "Sun Jan 0 12:00:00 am 1900");
+    BOOST_CHECK_EQUAL(ss.str(), "Sun Jan 0 12:00:00 am 1900");
 
     /* am */
     ss.str("");
     date.tm_hour = 1;
     Vector::ASC::writeDate(file, ss, date);
-    BOOST_CHECK(ss.str() == "Sun Jan 0 01:00:00 am 1900");
+    BOOST_CHECK_EQUAL(ss.str(), "Sun Jan 0 01:00:00 am 1900");
 
     /* am */
     ss.str("");
     date.tm_hour = 11;
     Vector::ASC::writeDate(file, ss, date);
-    BOOST_CHECK(ss.str() == "Sun Jan 0 11:00:00 am 1900");
+    BOOST_CHECK_EQUAL(ss.str(), "Sun Jan 0 11:00:00 am 1900");
 
     /* noon */
     ss.str("");
     date.tm_hour = 12;
     Vector::ASC::writeDate(file, ss, date);
-    BOOST_CHECK(ss.str() == "Sun Jan 0 12:00:00 pm 1900");
+    BOOST_CHECK_EQUAL(ss.str(), "Sun Jan 0 12:00:00 pm 1900");
 
     /* pm */
     ss.str("");
     date.tm_hour = 13;
     Vector::ASC::writeDate(file, ss, date);
-    BOOST_CHECK(ss.str() == "Sun Jan 0 01:00:00 pm 1900");
+    BOOST_CHECK_EQUAL(ss.str(), "Sun Jan 0 01:00:00 pm 1900");
 
     /* pm */
     ss.str("");
     date.tm_hour = 23;
     Vector::ASC::writeDate(file, ss, date);
-    BOOST_CHECK(ss.str() == "Sun Jan 0 11:00:00 pm 1900");
+    BOOST_CHECK_EQUAL(ss.str(), "Sun Jan 0 11:00:00 pm 1900");
 }
