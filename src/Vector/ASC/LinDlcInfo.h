@@ -42,10 +42,7 @@ namespace ASC {
  * is determined using the frame’s identifier.
  */
 struct VECTOR_ASC_EXPORT LinDlcInfo final : Event {
-    LinDlcInfo() :
-        Event() {
-        eventType = EventType::LinDlcInfo;
-    };
+    LinDlcInfo() : Event(EventType::LinDlcInfo) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

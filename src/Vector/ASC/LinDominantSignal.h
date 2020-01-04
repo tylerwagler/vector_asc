@@ -38,10 +38,7 @@ namespace ASC {
  * which is longer than a valid wakeup frame and not a valid sync break.
  */
 struct VECTOR_ASC_EXPORT LinDominantSignal final : Event {
-    LinDominantSignal() :
-        Event() {
-        eventType = EventType::LinDominantSignal;
-    };
+    LinDominantSignal() : Event(EventType::LinDominantSignal) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

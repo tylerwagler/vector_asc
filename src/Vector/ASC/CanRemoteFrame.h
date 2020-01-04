@@ -37,10 +37,7 @@ namespace ASC {
  * A CAN Remote Frame received or transmitted on a CAN channel.
  */
 struct VECTOR_ASC_EXPORT CanRemoteFrame final : Event {
-    CanRemoteFrame() :
-        Event() {
-        eventType = EventType::CanRemoteFrame;
-    };
+    CanRemoteFrame() : Event(EventType::CanRemoteFrame) {}
 
     /** @copydoc Time */
     Time time {0.0};

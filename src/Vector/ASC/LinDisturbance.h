@@ -39,10 +39,7 @@ namespace ASC {
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
 struct VECTOR_ASC_EXPORT LinDisturbance final : Event {
-    LinDisturbance() :
-        Event() {
-        eventType = EventType::LinDisturbance;
-    };
+    LinDisturbance() : Event(EventType::LinDisturbance) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

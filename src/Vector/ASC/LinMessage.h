@@ -39,10 +39,7 @@ namespace ASC {
  * LIN frame received or transmitted on a LIN channel.
  */
 struct VECTOR_ASC_EXPORT LinMessage final : Event {
-    LinMessage() :
-        Event() {
-        eventType = EventType::LinMessage;
-    };
+    LinMessage() : Event(EventType::LinMessage) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

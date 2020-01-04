@@ -49,10 +49,7 @@ namespace ASC {
  * tion).
  */
 struct VECTOR_ASC_EXPORT MostLightLock final : Event {
-    MostLightLock() :
-        Event() {
-        eventType = EventType::MostLightLock;
-    };
+    MostLightLock() : Event(EventType::MostLightLock) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

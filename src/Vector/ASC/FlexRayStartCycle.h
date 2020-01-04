@@ -40,10 +40,7 @@ namespace ASC {
  * FlexRay Message received or transmitted on a FlexRay channel.
  */
 struct VECTOR_ASC_EXPORT FlexRayStartCycle final : Event {
-    FlexRayStartCycle() :
-        Event() {
-        eventType = EventType::FlexRayStartCycle;
-    };
+    FlexRayStartCycle() : Event(EventType::FlexRayStartCycle) {}
 
     /** Timestamp */
     double time {0.0};

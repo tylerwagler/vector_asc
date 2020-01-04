@@ -34,10 +34,7 @@ namespace ASC {
 
 /** File Base Timestamps */
 struct VECTOR_ASC_EXPORT FileBaseTimestamps final : Event {
-    FileBaseTimestamps() :
-        Event() {
-        eventType = EventType::FileBaseTimestamps;
-    };
+    FileBaseTimestamps() : Event(EventType::FileBaseTimestamps) {}
 
     /** Events can either be recorder in hexadecimal or decimal mode. */
     File::Base base {File::Base::Hex};

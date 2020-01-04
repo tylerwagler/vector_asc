@@ -37,10 +37,7 @@ namespace ASC {
  * An event that is written if an event is received on the GPS channel.
  */
 struct VECTOR_ASC_EXPORT Gps final : Event {
-    Gps() :
-        Event() {
-        eventType = EventType::Gps;
-    };
+    Gps() : Event(EventType::Gps) {}
 
     /** absolute or relative time in seconds */
     Time time {0.0};

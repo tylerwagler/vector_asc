@@ -39,10 +39,7 @@ namespace ASC {
  * Partial transmitted message on MOST150 Ethernet Packet Channel.
  */
 struct VECTOR_ASC_EXPORT MostEthernetPacketFragment final : Event {
-    MostEthernetPacketFragment() :
-        Event() {
-        eventType = EventType::MostEthernetPacketFragment;
-    };
+    MostEthernetPacketFragment() : Event(EventType::MostEthernetPacketFragment) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

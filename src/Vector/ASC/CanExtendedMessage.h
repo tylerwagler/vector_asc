@@ -39,10 +39,7 @@ namespace ASC {
  * CAN Message with extended identifier received or transmitted on a CAN channel.
  */
 struct VECTOR_ASC_EXPORT CanExtendedMessage final : Event {
-    CanExtendedMessage() :
-        Event() {
-        eventType = EventType::CanExtendedMessage;
-    }
+    CanExtendedMessage() : Event(EventType::CanExtendedMessage) {}
 
     /** @copydoc Time */
     Time time {0.0};

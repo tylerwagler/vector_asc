@@ -40,10 +40,7 @@ namespace ASC {
  * supported only in Trace Window, so this event can be written only during the export from Trace window.
  */
 struct VECTOR_ASC_EXPORT Comment final : Event {
-    Comment() :
-        Event() {
-        eventType = EventType::Comment;
-    };
+    Comment() : Event(EventType::Comment) {}
 
     /** @copydoc Time */
     Time time {0.0};

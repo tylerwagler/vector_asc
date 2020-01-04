@@ -41,10 +41,7 @@ namespace ASC {
  * Usually the event is not visible in a trace window.
  */
 struct VECTOR_ASC_EXPORT MostStatistic final : Event {
-    MostStatistic() :
-        Event() {
-        eventType = EventType::MostStatistic;
-    };
+    MostStatistic() : Event(EventType::MostStatistic) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

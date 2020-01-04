@@ -34,10 +34,7 @@ namespace ASC {
 
 /** File Comment */
 struct VECTOR_ASC_EXPORT FileComment final : Event {
-    FileComment() :
-        Event() {
-        eventType = EventType::FileComment;
-    };
+    FileComment() : Event(EventType::FileComment) {}
 
     /** comment */
     std::string comment {};

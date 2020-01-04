@@ -37,10 +37,7 @@ namespace ASC {
  * Ethernet link status.
  */
 struct VECTOR_ASC_EXPORT EthernetStatus final : Event {
-    EthernetStatus() :
-        Event() {
-        eventType = EventType::EthernetStatus;
-    };
+    EthernetStatus() : Event(EventType::EthernetStatus) {}
 
     /** @copydoc EthTime */
     EthTime time {0.0};

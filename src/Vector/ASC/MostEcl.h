@@ -37,10 +37,7 @@ namespace ASC {
  * State change of the MOST Electrical Control Line.
  */
 struct VECTOR_ASC_EXPORT MostEcl final : Event {
-    MostEcl() :
-        Event() {
-        eventType = EventType::MostEcl;
-    };
+    MostEcl() : Event(EventType::MostEcl) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

@@ -39,10 +39,7 @@ namespace ASC {
  * Message on MOST25 Control Channel received in spy mode (listen only).
  */
 struct VECTOR_ASC_EXPORT Most25ControlMessageSpyMode final : Event {
-    Most25ControlMessageSpyMode() :
-        Event() {
-        eventType = EventType::Most25ControlMessageSpyMode;
-    };
+    Most25ControlMessageSpyMode() : Event(EventType::Most25ControlMessageSpyMode) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

@@ -45,10 +45,7 @@ namespace ASC {
  * value & 0x7F. If the resulting label number is 0x70, the byte is not used for any label.
  */
 struct VECTOR_ASC_EXPORT Most25AllocTable final : Event {
-    Most25AllocTable() :
-        Event() {
-        eventType = EventType::Most25AllocTable;
-    };
+    Most25AllocTable() : Event(EventType::Most25AllocTable) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

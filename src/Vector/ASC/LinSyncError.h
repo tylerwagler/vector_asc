@@ -49,10 +49,7 @@ namespace ASC {
  * initialized to 0.
  */
 struct VECTOR_ASC_EXPORT LinSyncError final : Event {
-    LinSyncError() :
-        Event() {
-        eventType = EventType::LinSyncError;
-    };
+    LinSyncError() : Event(EventType::LinSyncError) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

@@ -35,10 +35,7 @@ namespace ASC {
 
 /** K-Line Byte event */
 struct VECTOR_ASC_EXPORT KLineByte final : Event {
-    KLineByte() :
-        Event() {
-        eventType = EventType::KLineByte;
-    };
+    KLineByte() : Event(EventType::KLineByte) {}
 
     /** @copydoc KLineTime */
     KLineTime time {0.0};

@@ -39,9 +39,7 @@ namespace ASC {
  * Receive or transmitted AFDX packet.
  */
 struct VECTOR_ASC_EXPORT AfdxPacket final : Event {
-    AfdxPacket() : Event() {
-        eventType = EventType::AfdxPacket;
-    }
+    AfdxPacket() : Event(EventType::AfdxPacket) {}
 
     /** @copydoc AfdxTime */
     AfdxTime time {0.0};

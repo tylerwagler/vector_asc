@@ -34,10 +34,7 @@ namespace ASC {
 
 /** File Internal Events Logged */
 struct VECTOR_ASC_EXPORT FileInternalEventsLogged final : Event {
-    FileInternalEventsLogged() :
-        Event() {
-        eventType = EventType::FileInternalEventsLogged;
-    };
+    FileInternalEventsLogged() : Event(EventType::FileInternalEventsLogged) {}
 
     /** internal events logged */
     bool internalEventsLogged {true};

@@ -34,10 +34,7 @@ namespace ASC {
 
 /** File Version */
 struct VECTOR_ASC_EXPORT FileVersion final : Event {
-    FileVersion() :
-        Event() {
-        eventType = EventType::FileVersion;
-    };
+    FileVersion() : Event(EventType::FileVersion) {}
 
     /** major version number */
     uint8_t versionMajor {7};

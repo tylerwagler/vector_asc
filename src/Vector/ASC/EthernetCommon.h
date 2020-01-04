@@ -23,7 +23,7 @@
 
 #include <Vector/ASC/platform.h>
 
-#include <string>
+#include <ostream>
 
 #include <Vector/ASC/CanCommon.h>
 #include <Vector/ASC/EthernetSymbols.h>

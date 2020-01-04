@@ -38,10 +38,7 @@ namespace ASC {
  * setup or by the CAPL function StopLogging().
  */
 struct VECTOR_ASC_EXPORT LogDirectStop final : Event {
-    LogDirectStop() :
-        Event() {
-        eventType = EventType::LogDirectStop;
-    };
+    LogDirectStop() : Event(EventType::LogDirectStop) {}
 
     /** @copydoc Time */
     Time time {0.0};

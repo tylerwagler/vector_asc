@@ -40,10 +40,7 @@ namespace ASC {
  * sponse that is otherwise correct.
  */
 struct VECTOR_ASC_EXPORT LinChecksumError final : Event {
-    LinChecksumError() :
-        Event() {
-        eventType = EventType::LinChecksumError;
-    };
+    LinChecksumError() : Event(EventType::LinChecksumError) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

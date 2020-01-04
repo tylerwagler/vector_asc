@@ -40,10 +40,7 @@ namespace ASC {
  * a network spy if the message transmission is corrupted or terminated.
  */
 struct VECTOR_ASC_EXPORT Most150ControlMessageFragment final : Event {
-    Most150ControlMessageFragment() :
-        Event() {
-        eventType = EventType::Most150ControlMessageFragment;
-    };
+    Most150ControlMessageFragment() : Event(EventType::Most150ControlMessageFragment) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

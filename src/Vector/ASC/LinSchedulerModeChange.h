@@ -38,10 +38,7 @@ namespace ASC {
  * table is transmitted for the first time. This info event may appear on starting a measurement.
  */
 struct VECTOR_ASC_EXPORT LinSchedulerModeChange final : Event {
-    LinSchedulerModeChange() :
-        Event() {
-        eventType = EventType::LinSchedulerModeChange;
-    };
+    LinSchedulerModeChange() : Event(EventType::LinSchedulerModeChange) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

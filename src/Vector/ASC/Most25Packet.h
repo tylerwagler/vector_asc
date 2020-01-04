@@ -39,10 +39,7 @@ namespace ASC {
  * Message on MOST25 Packet Data Channel.
  */
 struct VECTOR_ASC_EXPORT Most25Packet final : Event {
-    Most25Packet() :
-        Event() {
-        eventType = EventType::Most25Packet;
-    };
+    Most25Packet() : Event(EventType::Most25Packet) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

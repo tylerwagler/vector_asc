@@ -39,10 +39,7 @@ namespace ASC {
  * An event that is written if the value of a system variable changed.
  */
 struct VECTOR_ASC_EXPORT SystemVariables final : Event {
-    SystemVariables() :
-        Event() {
-        eventType = EventType::SystemVariables;
-    };
+    SystemVariables() : Event(EventType::SystemVariables) {}
 
     /** @copydoc Time */
     Time time {0.0};

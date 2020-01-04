@@ -37,10 +37,7 @@ namespace ASC {
  * FlexRay Error event transmitted by the FlexRay hardware.
  */
 struct VECTOR_ASC_EXPORT LinTransmissionError final : Event {
-    LinTransmissionError() :
-        Event() {
-        eventType = EventType::LinTransmissionError;
-    };
+    LinTransmissionError() : Event(EventType::LinTransmissionError) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

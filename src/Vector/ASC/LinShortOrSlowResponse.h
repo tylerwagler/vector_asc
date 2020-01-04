@@ -42,10 +42,7 @@ namespace ASC {
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
 struct VECTOR_ASC_EXPORT LinShortOrSlowResponse final : Event {
-    LinShortOrSlowResponse() :
-        Event() {
-        eventType = EventType::LinShortOrSlowResponse;
-    };
+    LinShortOrSlowResponse() : Event(EventType::LinShortOrSlowResponse) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

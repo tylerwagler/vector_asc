@@ -39,10 +39,7 @@ namespace ASC {
  * An Overload Frame received on a CAN channel.
  */
 struct VECTOR_ASC_EXPORT CanFdExtendedMessage final : Event {
-    CanFdExtendedMessage() :
-        Event() {
-        eventType = EventType::CanFdExtendedMessage;
-    };
+    CanFdExtendedMessage() : Event(EventType::CanFdExtendedMessage) {}
 
     /** @copydoc Time */
     Time time {0.0};

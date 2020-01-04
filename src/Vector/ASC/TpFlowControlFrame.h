@@ -33,10 +33,7 @@ namespace ASC {
 
 /** TP Flow Control Frame */
 struct VECTOR_ASC_EXPORT TpFlowControlFrame final : Event {
-    TpFlowControlFrame() :
-        Event() {
-        eventType = EventType::TpFlowControlFrame;
-    };
+    TpFlowControlFrame() : Event(EventType::TpFlowControlFrame) {}
 
     /** @copydoc TpDiagCanChannel */
     TpDiagCanChannel canChannel {0};

@@ -38,10 +38,7 @@ namespace ASC {
  * FlexRay Message received or transmitted on a FlexRay channel.
  */
 struct VECTOR_ASC_EXPORT FlexRayError final : Event {
-    FlexRayError() :
-        Event() {
-        eventType = EventType::FlexRayError;
-    };
+    FlexRayError() : Event(EventType::FlexRayError) {}
 
     /** Timestamp */
     double time {0.0};

@@ -35,10 +35,7 @@ namespace ASC {
 
 /** TPg Consecutive Frame */
 struct VECTOR_ASC_EXPORT TpConsecutiveFrame final : Event {
-    TpConsecutiveFrame() :
-        Event() {
-        eventType = EventType::TpConsecutiveFrame;
-    };
+    TpConsecutiveFrame() : Event(EventType::TpConsecutiveFrame) {}
 
     /** @copydoc TpDiagCanChannel */
     TpDiagCanChannel canChannel {0};

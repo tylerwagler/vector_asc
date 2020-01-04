@@ -38,10 +38,7 @@ namespace ASC {
  * setup or by the CAPL function StartLogging().
  */
 struct VECTOR_ASC_EXPORT LogDirectStart final : Event {
-    LogDirectStart() :
-        Event() {
-        eventType = EventType::LogDirectStart;
-    };
+    LogDirectStart() : Event(EventType::LogDirectStart) {}
 
     /** @copydoc Time */
     Time time {0.0};

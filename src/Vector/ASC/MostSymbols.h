@@ -25,11 +25,7 @@
 
 #include <Vector/ASC/platform.h>
 
-#include <string>
-
 #include <Vector/ASC/CanSymbols.h>
-
-#include <Vector/ASC/vector_asc_export.h>
 
 namespace Vector {
 namespace ASC {

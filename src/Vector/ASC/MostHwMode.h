@@ -40,10 +40,7 @@ namespace ASC {
  * notes which state differs regarding to the previous HW mode event.
  */
 struct VECTOR_ASC_EXPORT MostHwMode final : Event {
-    MostHwMode() :
-        Event() {
-        eventType = EventType::MostHwMode;
-    };
+    MostHwMode() : Event(EventType::MostHwMode) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

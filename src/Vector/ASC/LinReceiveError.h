@@ -53,10 +53,7 @@ namespace ASC {
  *     rectly functioning system).
  */
 struct VECTOR_ASC_EXPORT LinReceiveError final : Event {
-    LinReceiveError() :
-        Event() {
-        eventType = EventType::LinReceiveError;
-    }
+    LinReceiveError() : Event(EventType::LinReceiveError) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

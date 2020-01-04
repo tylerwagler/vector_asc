@@ -35,10 +35,7 @@ namespace ASC {
 
 /** TP First Frame */
 struct VECTOR_ASC_EXPORT TpFirstFrame final : Event {
-    TpFirstFrame() :
-        Event() {
-        eventType = EventType::TpFirstFrame;
-    };
+    TpFirstFrame() : Event(EventType::TpFirstFrame) {}
 
     /** @copydoc TpDiagCanChannel */
     TpDiagCanChannel canChannel {0};

@@ -38,10 +38,7 @@ namespace ASC {
  * (this trigger was in post trigger time of last block)" or "(ignored)".
  */
 struct VECTOR_ASC_EXPORT LogTrigger final : Event {
-    LogTrigger() :
-        Event() {
-        eventType = EventType::LogTrigger;
-    };
+    LogTrigger() : Event(EventType::LogTrigger) {}
 
     /** @copydoc Time */
     Time time {0.0};

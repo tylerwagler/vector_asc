@@ -39,10 +39,7 @@ namespace ASC {
  * Simple CAN Message received or transmitted on a CAN channel.
  */
 struct VECTOR_ASC_EXPORT CanMessage final : Event {
-    CanMessage() :
-        Event() {
-        eventType = EventType::CanMessage;
-    };
+    CanMessage() : Event(EventType::CanMessage) {}
 
     /** @copydoc Time */
     Time time {0.0};

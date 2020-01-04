@@ -34,10 +34,7 @@ namespace ASC {
 
 /** File Split Information */
 struct VECTOR_ASC_EXPORT FileSplitInformation final : Event {
-    FileSplitInformation() :
-        Event() {
-        eventType = EventType::FileSplitInformation;
-    };
+    FileSplitInformation() : Event(EventType::FileSplitInformation) {}
 
     /** last absolute time stamp of the previous log file */
     double time {0.0};

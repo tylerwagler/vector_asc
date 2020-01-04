@@ -38,10 +38,7 @@ namespace ASC {
  * defined error state on exceeding this timeout and a Slave timeout message is displayed.
  */
 struct VECTOR_ASC_EXPORT LinSlaveTimeout final : Event {
-    LinSlaveTimeout() :
-        Event() {
-        eventType = EventType::LinSlaveTimeout;
-    };
+    LinSlaveTimeout() : Event(EventType::LinSlaveTimeout) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

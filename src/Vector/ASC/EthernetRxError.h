@@ -39,10 +39,7 @@ namespace ASC {
  * Receive or transmitted Ethernet packet.
  */
 struct VECTOR_ASC_EXPORT EthernetRxError final : Event {
-    EthernetRxError() :
-        Event() {
-        eventType = EventType::EthernetRxError;
-    };
+    EthernetRxError() : Event(EventType::EthernetRxError) {}
 
     /** @copydoc EthTime */
     EthTime time {0.0};

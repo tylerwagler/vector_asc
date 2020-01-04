@@ -35,10 +35,7 @@ namespace ASC {
 
 /** K-Line Message event */
 struct VECTOR_ASC_EXPORT KLineMessage final : Event {
-    KLineMessage() :
-        Event() {
-        eventType = EventType::KLineMessage;
-    };
+    KLineMessage() : Event(EventType::KLineMessage) {}
 
     /** @copydoc KLineTime */
     KLineTime time {0.0};

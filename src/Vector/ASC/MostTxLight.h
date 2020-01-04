@@ -39,10 +39,7 @@ namespace ASC {
  * Electrical physical layer: Signal output state
  */
 struct VECTOR_ASC_EXPORT MostTxLight final : Event {
-    MostTxLight() :
-        Event() {
-        eventType = EventType::MostTxLight;
-    };
+    MostTxLight() : Event(EventType::MostTxLight) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

@@ -32,10 +32,7 @@ namespace Vector {
 namespace ASC {
 
 struct VECTOR_ASC_EXPORT StartOfMeasurement final : Event {
-    StartOfMeasurement() :
-        Event() {
-        eventType = EventType::StartOfMeasurement;
-    };
+    StartOfMeasurement() : Event(EventType::StartOfMeasurement) {}
 
     /** @copydoc Time */
     Time time {0.0};

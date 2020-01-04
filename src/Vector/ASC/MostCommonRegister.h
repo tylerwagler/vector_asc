@@ -40,10 +40,7 @@ namespace ASC {
  * Unlike the special register event this event does not occur spontaneous.
  */
 struct VECTOR_ASC_EXPORT MostCommonRegister final : Event {
-    MostCommonRegister() :
-        Event() {
-        eventType = EventType::MostCommonRegister;
-    };
+    MostCommonRegister() : Event(EventType::MostCommonRegister) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

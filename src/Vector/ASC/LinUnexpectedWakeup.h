@@ -40,10 +40,7 @@ namespace ASC {
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
 struct VECTOR_ASC_EXPORT LinUnexpectedWakeup final : Event {
-    LinUnexpectedWakeup() :
-        Event() {
-        eventType = EventType::LinUnexpectedWakeup;
-    };
+    LinUnexpectedWakeup() : Event(EventType::LinUnexpectedWakeup) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

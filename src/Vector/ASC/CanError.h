@@ -37,10 +37,7 @@ namespace ASC {
  * An event that provides CAN error information.
  */
 struct VECTOR_ASC_EXPORT CanError final : Event {
-    CanError() :
-        Event() {
-        eventType = EventType::CanError;
-    }
+    CanError() : Event(EventType::CanError) {}
 
     /** @copydoc Time */
     Time time {0.0};

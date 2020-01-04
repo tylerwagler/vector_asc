@@ -37,10 +37,7 @@ namespace ASC {
  * An Overload Frame received on a CAN channel.
  */
 struct VECTOR_ASC_EXPORT CanOverloadFrame final : Event {
-    CanOverloadFrame() :
-        Event() {
-        eventType = EventType::CanOverloadFrame;
-    };
+    CanOverloadFrame() : Event(EventType::CanOverloadFrame) {}
 
     /** absolute or relative time in seconds */
     Time time {0.0};

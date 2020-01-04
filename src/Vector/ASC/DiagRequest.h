@@ -35,10 +35,7 @@ namespace ASC {
 
 /** Diagnostic request */
 struct VECTOR_ASC_EXPORT DiagRequest final : Event {
-    DiagRequest() :
-        Event() {
-        eventType = EventType::DiagRequest;
-    };
+    DiagRequest() : Event(EventType::DiagRequest) {}
 
     /** @copydoc TpDiagTimestamp */
     TpDiagTimestamp time {0.0};

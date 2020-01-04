@@ -37,10 +37,7 @@ namespace ASC {
  * CAN Statistic event, which contains statistic information about the CAN channels.
  */
 struct VECTOR_ASC_EXPORT CanBusStatistics final : Event {
-    CanBusStatistics() :
-        Event() {
-        eventType = EventType::CanBusStatistics;
-    };
+    CanBusStatistics() : Event(EventType::CanBusStatistics) {}
 
     /** @copydoc Time */
     Time time {0.0};

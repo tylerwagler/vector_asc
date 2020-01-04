@@ -37,10 +37,7 @@ namespace ASC {
  * Event for various system states.
  */
 struct VECTOR_ASC_EXPORT MostSystem final : Event {
-    MostSystem() :
-        Event() {
-        eventType = EventType::MostSystem;
-    };
+    MostSystem() : Event(EventType::MostSystem) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

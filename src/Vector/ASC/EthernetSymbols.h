@@ -25,8 +25,6 @@
 
 #include <Vector/ASC/platform.h>
 
-#include <string>
-
 #include <Vector/ASC/CanSymbols.h>
 
 namespace Vector {

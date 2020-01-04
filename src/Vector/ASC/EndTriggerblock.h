@@ -36,10 +36,7 @@ namespace ASC {
  * An event that is written when a trigger block ends.
  */
 struct VECTOR_ASC_EXPORT EndTriggerblock final : Event {
-    EndTriggerblock() :
-        Event() {
-        eventType = EventType::EndTriggerblock;
-    };
+    EndTriggerblock() : Event(EventType::EndTriggerblock) {}
 
     /** @copydoc Event::read() */
     static EndTriggerblock * read(File & file, std::string & line);

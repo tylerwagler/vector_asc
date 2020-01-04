@@ -38,10 +38,7 @@ namespace ASC {
  */
 struct VECTOR_ASC_EXPORT MostNetState final : Event {
 public:
-    MostNetState() :
-        Event() {
-        eventType = EventType::MostNetState;
-    };
+    MostNetState() : Event(EventType::MostNetState) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

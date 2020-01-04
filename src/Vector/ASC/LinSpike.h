@@ -38,10 +38,7 @@ namespace ASC {
  * tected on a LIN channel.
  */
 struct VECTOR_ASC_EXPORT LinSpike final : Event {
-    LinSpike() :
-        Event() {
-        eventType = EventType::LinSpike;
-    };
+    LinSpike() : Event(EventType::LinSpike) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

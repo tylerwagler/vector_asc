@@ -23,19 +23,18 @@
 
 #include <Vector/ASC/platform.h>
 
+#include <ostream>
 #include <string>
 #include <vector>
 
 #include <Vector/ASC/File.h>
 #include <Vector/ASC/CanSymbols.h>
 
-#include <Vector/ASC/vector_asc_export.h>
-
 namespace Vector {
 namespace ASC {
 
-/* force Linux to use Windows line ending */
-static const char endl[] = "\r\n";
+/** Windows endline (also on Linux) */
+extern const std::string endl;
 
 /**
  * Write data in output stream, either in hex or dec depending on file.base

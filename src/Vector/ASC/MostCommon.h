@@ -23,6 +23,7 @@
 
 #include <Vector/ASC/platform.h>
 
+#include <ostream>
 #include <vector>
 
 #include <Vector/ASC/CanCommon.h>

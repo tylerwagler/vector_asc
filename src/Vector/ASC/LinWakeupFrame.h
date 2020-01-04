@@ -37,10 +37,7 @@ namespace ASC {
  * A Wakeup-Frame event is displayed when a wakeup request has been detected on a LIN channel.
  */
 struct VECTOR_ASC_EXPORT LinWakeupFrame final : Event {
-    LinWakeupFrame() :
-        Event() {
-        eventType = EventType::LinWakeupFrame;
-    };
+    LinWakeupFrame() : Event(EventType::LinWakeupFrame) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

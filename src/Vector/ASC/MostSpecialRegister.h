@@ -40,10 +40,7 @@ namespace ASC {
  * have not changed.
  */
 struct VECTOR_ASC_EXPORT MostSpecialRegister final : Event {
-    MostSpecialRegister() :
-        Event() {
-        eventType = EventType::MostSpecialRegister;
-    };
+    MostSpecialRegister() : Event(EventType::MostSpecialRegister) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

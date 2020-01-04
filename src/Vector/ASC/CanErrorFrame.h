@@ -37,10 +37,7 @@ namespace ASC {
  * A CAN Error Frame received on a CAN channel.
  */
 struct VECTOR_ASC_EXPORT CanErrorFrame final : Event {
-    CanErrorFrame() :
-        Event() {
-        eventType = EventType::CanErrorFrame;
-    };
+    CanErrorFrame() : Event(EventType::CanErrorFrame) {}
 
     /** @copydoc Time */
     Time time {0.0};

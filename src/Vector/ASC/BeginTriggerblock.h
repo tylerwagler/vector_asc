@@ -38,10 +38,7 @@ namespace ASC {
  * An event that is written when a trigger block begins.
  */
 struct VECTOR_ASC_EXPORT BeginTriggerblock final : Event {
-    BeginTriggerblock() :
-        Event() {
-        eventType = EventType::BeginTriggerblock;
-    }
+    BeginTriggerblock() : Event(EventType::BeginTriggerblock) {}
 
     /** date/time */
     tm date {};

@@ -36,10 +36,7 @@ namespace ASC {
  * Unknown Event
  */
 struct VECTOR_ASC_EXPORT Unknown final : Event {
-    Unknown() :
-        Event() {
-        eventType = EventType::Unknown;
-    };
+    Unknown() : Event(EventType::Unknown) {}
 
     /** line content */
     std::string line {};

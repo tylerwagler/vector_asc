@@ -39,10 +39,7 @@ namespace ASC {
  * Message on MOST150 Control Channel.
  */
 struct VECTOR_ASC_EXPORT Most150ControlMessage final : Event {
-    Most150ControlMessage() :
-        Event() {
-        eventType = EventType::Most150ControlMessage;
-    };
+    Most150ControlMessage() : Event(EventType::Most150ControlMessage) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

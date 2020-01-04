@@ -37,10 +37,7 @@ namespace ASC {
  * Information about Stress activity of VN2600/2610 Hardware
  */
 struct VECTOR_ASC_EXPORT MostStress final : Event {
-    MostStress() :
-        Event() {
-        eventType = EventType::MostStress;
-    };
+    MostStress() : Event(EventType::MostStress) {}
 
     /** @copydoc MostTime */
     double time {0.0};

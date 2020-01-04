@@ -41,10 +41,7 @@ namespace ASC {
  * LIN hardware is synchronized with the baud rate of the external Master.
  */
 struct VECTOR_ASC_EXPORT LinBaudrate final : Event {
-    LinBaudrate() :
-        Event() {
-        eventType = EventType::LinBaudrate;
-    };
+    LinBaudrate() : Event(EventType::LinBaudrate) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

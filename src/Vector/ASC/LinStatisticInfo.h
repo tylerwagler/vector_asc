@@ -40,10 +40,7 @@ namespace ASC {
  * IMPORTANT: This event is generated up to CANoe/CANalyzer 5.2 only.
  */
 struct VECTOR_ASC_EXPORT LinStatisticInfo final : Event {
-    LinStatisticInfo() :
-        Event() {
-        eventType = EventType::LinStatisticInfo;
-    };
+    LinStatisticInfo() : Event(EventType::LinStatisticInfo) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

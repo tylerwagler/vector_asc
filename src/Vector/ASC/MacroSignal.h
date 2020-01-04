@@ -37,10 +37,7 @@ namespace ASC {
  * An event that is written if the user change a signal value with a panel control, and the macro recording is on.
  */
 struct VECTOR_ASC_EXPORT MacroSignal final : Event {
-    MacroSignal() :
-        Event() {
-        eventType = EventType::MacroSignal;
-    };
+    MacroSignal() : Event(EventType::MacroSignal) {}
 
     /** @Time */
     Time time {0.0};

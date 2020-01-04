@@ -39,10 +39,7 @@ namespace ASC {
  * event. Global marker events can be written only during the export from Trace window.
  */
 struct VECTOR_ASC_EXPORT GlobalMarker final : Event {
-    GlobalMarker() :
-        Event() {
-        eventType = EventType::GlobalMarker;
-    };
+    GlobalMarker() : Event(EventType::GlobalMarker) {}
 
     /** @copydoc Time */
     Time time {0.0};

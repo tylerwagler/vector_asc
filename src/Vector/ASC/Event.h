@@ -40,8 +40,6 @@ class File;
  * Base class for all events
  */
 struct VECTOR_ASC_EXPORT Event {
-    virtual ~Event() = default;
-
     /**
      * Event Type
      */
@@ -189,6 +187,11 @@ struct VECTOR_ASC_EXPORT Event {
         StartOfMeasurement = 240
     };
 
+    Event(EventType eventType) :
+        eventType(eventType) {}
+    virtual ~Event() = default;
+
+    /** @copydoc EventType */
     EventType eventType {EventType::Default};
 
     /**

@@ -26,6 +26,8 @@
 namespace Vector {
 namespace ASC {
 
+const std::string endl = "\r\n";
+
 void writeData(File & file, std::ostream & stream, std::vector<uint8_t> & data) {
     for (uint8_t d : data) {
         switch (file.base) {

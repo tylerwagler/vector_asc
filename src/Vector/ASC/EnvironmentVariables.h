@@ -37,10 +37,7 @@ namespace ASC {
  * An event that is written if the value of a environment variable changed.
  */
 struct VECTOR_ASC_EXPORT EnvironmentVariables final : Event {
-    EnvironmentVariables() :
-        Event() {
-        eventType = EventType::EnvironmentVariables;
-    };
+    EnvironmentVariables() : Event(EventType::EnvironmentVariables) {}
 
     /** @copydoc Time */
     Time time {0.0};

@@ -40,10 +40,7 @@ namespace ASC {
  * IMPORTANT: This event is generated up to CANoe/CANalyzer 5.2 only.
  */
 struct VECTOR_ASC_EXPORT LinEventTriggeredFrameInfo final : Event {
-    LinEventTriggeredFrameInfo() :
-        Event() {
-        eventType = EventType::LinEventTriggeredFrameInfo;
-    };
+    LinEventTriggeredFrameInfo() : Event(EventType::LinEventTriggeredFrameInfo) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

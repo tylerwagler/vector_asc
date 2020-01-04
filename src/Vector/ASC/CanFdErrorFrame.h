@@ -41,10 +41,7 @@ namespace ASC {
  * ...) about the partial frame preceding the actual Error Frame, otherwise these values are 0.
  */
 struct VECTOR_ASC_EXPORT CanFdErrorFrame final : Event {
-    CanFdErrorFrame() :
-        Event() {
-        eventType = EventType::CanFdErrorFrame;
-    };
+    CanFdErrorFrame() : Event(EventType::CanFdErrorFrame) {}
 
     /** @copydoc Time */
     Time time {0.0};

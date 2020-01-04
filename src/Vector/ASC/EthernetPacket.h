@@ -39,10 +39,7 @@ namespace ASC {
  * Receive or transmitted Ethernet packet.
  */
 struct VECTOR_ASC_EXPORT EthernetPacket final : Event {
-    EthernetPacket() :
-        Event() {
-        eventType = EventType::EthernetPacket;
-    };
+    EthernetPacket() : Event(EventType::EthernetPacket) {}
 
     /** @copydoc EthTime */
     EthTime time {0.0};

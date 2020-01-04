@@ -39,10 +39,7 @@ namespace ASC {
  * Event transports changes of HW IO pins. The event is used for debugging purposes only.
  */
 struct VECTOR_ASC_EXPORT MostTrigger final : Event {
-    MostTrigger() :
-        Event() {
-        eventType = EventType::MostTrigger;
-    };
+    MostTrigger() : Event(EventType::MostTrigger) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

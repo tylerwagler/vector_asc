@@ -39,10 +39,7 @@ namespace ASC {
  * An error is displayed if the same frame is received with a different checksum model.
  */
 struct VECTOR_ASC_EXPORT LinChecksumInfo final : Event {
-    LinChecksumInfo() :
-        Event() {
-        eventType = EventType::LinChecksumInfo;
-    };
+    LinChecksumInfo() : Event(EventType::LinChecksumInfo) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};

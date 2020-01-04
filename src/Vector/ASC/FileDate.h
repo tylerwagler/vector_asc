@@ -34,10 +34,7 @@ namespace ASC {
 
 /** File Date */
 struct VECTOR_ASC_EXPORT FileDate final : Event {
-    FileDate() :
-        Event() {
-        eventType = EventType::FileDate;
-    };
+    FileDate() : Event(EventType::FileDate) {}
 
     /** date/time */
     struct tm date {};

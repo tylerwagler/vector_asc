@@ -39,10 +39,7 @@ namespace ASC {
  * Message on MOST150 Ethernet Packet Channel.
  */
 struct VECTOR_ASC_EXPORT MostEthernetPacket final : Event {
-    MostEthernetPacket() :
-        Event() {
-        eventType = EventType::MostEthernetPacket;
-    };
+    MostEthernetPacket() : Event(EventType::MostEthernetPacket) {}
 
     /** @copydoc MostTime */
     MostTime time {0.0};

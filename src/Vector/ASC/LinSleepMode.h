@@ -39,10 +39,7 @@ namespace ASC {
  *   - Every time the mode (Wakeup or Sleep) of LIN hardware changes.
  */
 struct VECTOR_ASC_EXPORT LinSleepMode final : Event {
-    LinSleepMode() :
-        Event() {
-        eventType = EventType::LinSleepMode;
-    };
+    LinSleepMode() : Event(EventType::LinSleepMode) {}
 
     /** @copydoc LinTime */
     LinTime time {0.0};
