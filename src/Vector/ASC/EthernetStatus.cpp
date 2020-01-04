@@ -29,21 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-EthernetStatus::EthernetStatus() :
-    Event(),
-    time(0.0),
-    channel(0),
-    link(),
-    linkSpeed(),
-    physical(),
-    duplex(),
-    mdi(),
-    connector(),
-    brClockMode(),
-    brPairs() {
-    eventType = EventType::EthernetStatus;
-}
-
 EthernetStatus * EthernetStatus::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Eth_Time REGEX_WS "ETH" REGEX_WS REGEX_Eth_Channel REGEX_WS "STAT"
                      REGEX_WS "Link:" REGEX_ws "(.+?)"

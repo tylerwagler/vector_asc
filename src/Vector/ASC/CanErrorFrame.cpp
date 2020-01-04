@@ -28,21 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-CanErrorFrame::CanErrorFrame() :
-    Event(),
-    time(0.0),
-    channel(0),
-    flags(0),
-    codeExt(0),
-    code(0),
-    id(0),
-    extendedId(false),
-    dlc(0),
-    position(0),
-    length(0) {
-    eventType = EventType::CanErrorFrame;
-}
-
 CanErrorFrame * CanErrorFrame::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS "ErrorFrame"
                      "(" REGEX_WS "ECC:" REGEX_ws "([01]+))?"

@@ -28,14 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-MostLightLock::MostLightLock() :
-    Event(),
-    time(0.0),
-    channel(0),
-    llState(0) {
-    eventType = EventType::MostLightLock;
-}
-
 MostLightLock * MostLightLock::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "LL:" REGEX_ws REGEX_MOST_LLState REGEX_ENDL);
     std::smatch match;

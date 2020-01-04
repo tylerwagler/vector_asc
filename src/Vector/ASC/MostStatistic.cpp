@@ -29,17 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-MostStatistic::MostStatistic() :
-    Event(),
-    time(0.0),
-    channel(0),
-    fr(0),
-    lt(0),
-    bl(0),
-    pk(0) {
-    eventType = EventType::MostStatistic;
-}
-
 MostStatistic * MostStatistic::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "MostStatistic:"
                      REGEX_ws "Fr:" REGEX_ws REGEX_MOST_StatVal

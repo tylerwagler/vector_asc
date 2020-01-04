@@ -38,45 +38,47 @@ namespace ASC {
  *
  * FlexRay Message received or transmitted on a FlexRay channel.
  */
-class VECTOR_ASC_EXPORT FlexRayOldMessage final : public Event {
-  public:
-    FlexRayOldMessage();
+struct VECTOR_ASC_EXPORT FlexRayOldMessage final : Event {
+    FlexRayOldMessage() :
+        Event() {
+        eventType = EventType::FlexRayOldMessage;
+    };
 
     /** @copydoc FlexRayOldTime */
-    FlexRayOldTime time;
+    FlexRayOldTime time {0.0};
 
     /** @copydoc FlexRayOldChannel */
-    FlexRayOldChannel channel;
+    FlexRayOldChannel channel {};
 
     /** @copydoc FlexRayOldId */
-    FlexRayOldId id;
+    FlexRayOldId id {0};
 
     /** @copydoc FlexRayOldCycle */
-    FlexRayOldCycle cycle;
+    FlexRayOldCycle cycle {0};
 
     /** @copydoc FlexRayOldNm */
-    FlexRayOldNm nm;
+    FlexRayOldNm nm {false};
 
     /** @copydoc FlexRayOldSync */
-    FlexRayOldSync sync;
+    FlexRayOldSync sync {false};
 
     /** @copydoc FlexRayOldHeaderCrc */
-    FlexRayOldHeaderCrc headerCrc;
+    FlexRayOldHeaderCrc headerCrc {0};
 
     /** @copydoc FlexRayOldSymbolicName */
-    FlexRayOldSymbolicName symbolicName;
+    FlexRayOldSymbolicName symbolicName {};
 
     /** @copydoc FlexRayOldDlc */
-    FlexRayOldDlc dlc;
+    FlexRayOldDlc dlc {0};
 
     /** @copydoc FlexRayOldDx */
-    std::vector<FlexRayOldDx> data;
+    std::vector<FlexRayOldDx> data {};
 
     /** @copydoc FlexRayOldFrameState */
-    FlexRayOldFrameState frameState;
+    FlexRayOldFrameState frameState {0};
 
     /** @copydoc FlexRayOldHeaderBitMask */
-    FlexRayOldHeaderBitMask headerBitMask;
+    FlexRayOldHeaderBitMask headerBitMask {0};
 
     /** @copydoc Event::read() */
     static FlexRayOldMessage * read(File & file, std::string & line);

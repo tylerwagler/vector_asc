@@ -30,18 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-LinSyncError::LinSyncError() :
-    Event(),
-    time(0.0),
-    channel(0),
-    timeInterval(),
-    startOfFrame(0.0),
-    baudrate(0),
-    syncBreak(0),
-    syncDel(0) {
-    eventType = EventType::LinSyncError;
-}
-
 LinSyncError * LinSyncError::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SyncError"
                      "((" REGEX_WS REGEX_LIN_TimeInterval "){4})"

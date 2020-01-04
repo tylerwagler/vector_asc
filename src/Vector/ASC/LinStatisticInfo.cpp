@@ -29,20 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-LinStatisticInfo::LinStatisticInfo() :
-    Event(),
-    time(0.0),
-    channel(0),
-    channelNum(0),
-    busLoad(0.0),
-    burstsTotal(0),
-    burstsOverrun(0),
-    framesSent(0),
-    framesReceived(0),
-    framesUnanswered(0) {
-    eventType = EventType::LinStatisticInfo;
-}
-
 LinStatisticInfo * LinStatisticInfo::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Statistic"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:].]+)"

@@ -39,36 +39,38 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated up to CANoe/CANalyzer 5.2 only.
  */
-class VECTOR_ASC_EXPORT LinStatisticInfo final : public Event {
-  public:
-    LinStatisticInfo();
+struct VECTOR_ASC_EXPORT LinStatisticInfo final : Event {
+    LinStatisticInfo() :
+        Event() {
+        eventType = EventType::LinStatisticInfo;
+    };
 
     /** @copydoc LinTime */
-    LinTime time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** ChannelNum */
-    uint16_t channelNum;
+    uint16_t channelNum {0};
 
     /** BusLoad */
-    double busLoad;
+    double busLoad {0.0};
 
     /** Bursts total */
-    uint32_t burstsTotal;
+    uint32_t burstsTotal {0};
 
     /** Bursts overrun */
-    uint32_t burstsOverrun;
+    uint32_t burstsOverrun {0};
 
     /** Frame sent */
-    uint32_t framesSent;
+    uint32_t framesSent {0};
 
     /** Frames received */
-    uint32_t framesReceived;
+    uint32_t framesReceived {0};
 
     /** Frames unanswered */
-    uint32_t framesUnanswered;
+    uint32_t framesUnanswered {0};
 
     /** @copydoc Event::read() */
     static LinStatisticInfo * read(File & file, std::string & line);

@@ -36,21 +36,23 @@ namespace ASC {
  *
  * A CAN Remote Frame received or transmitted on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanRemoteFrame final : public Event {
-  public:
-    CanRemoteFrame();
+struct VECTOR_ASC_EXPORT CanRemoteFrame final : Event {
+    CanRemoteFrame() :
+        Event() {
+        eventType = EventType::CanRemoteFrame;
+    };
 
     /** @copydoc Time */
-    Time time;
+    Time time {0.0};
 
     /** @copydoc Channel */
-    Channel channel;
+    Channel channel {0};
 
     /** @copydoc IdNum */
-    IdNum id;
+    IdNum id {0};
 
     /** @copydoc Dir */
-    Dir dir;
+    Dir dir {Dir::Rx};
 
     /** @copydoc Event::read() */
     static CanRemoteFrame * read(File & file, std::string & line);

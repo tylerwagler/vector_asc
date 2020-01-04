@@ -24,13 +24,6 @@
 namespace Vector {
 namespace ASC {
 
-Event::Event() :
-    eventType(EventType::Default) {
-}
-
-Event::~Event() {
-}
-
 Event * read(File & /*file*/, std::string & /*line*/) {
     return nullptr;
 }

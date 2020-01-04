@@ -36,12 +36,14 @@ namespace ASC {
  *
  * An event that is written if the user change a signal value with a panel control, and the macro recording is on.
  */
-class VECTOR_ASC_EXPORT MacroSignal final : public Event {
-  public:
-    MacroSignal();
+struct VECTOR_ASC_EXPORT MacroSignal final : Event {
+    MacroSignal() :
+        Event() {
+        eventType = EventType::MacroSignal;
+    };
 
     /** @Time */
-    Time time;
+    Time time {0.0};
 
     /** F = FlexRay / L = Lin / nothing = CAN */
     enum class Bussystem : char {
@@ -56,22 +58,22 @@ class VECTOR_ASC_EXPORT MacroSignal final : public Event {
     };
 
     /** F = FlexRay / L = Lin / nothing = CAN */
-    Bussystem bussystem;
+    Bussystem bussystem {Bussystem::Can};
 
     /** the number of the CAN/LIN/FlexRay channel */
-    uint16_t channel;
+    uint16_t channel {0};
 
     /** a string which contains the node name of the signal */
-    std::string node;
+    std::string node {};
 
     /** a string which contains the message name of the signal */
-    std::string message;
+    std::string message {};
 
     /** a string which contains the signal name */
-    std::string signal;
+    std::string signal {};
 
     /** the signal value as number OR a string from the value description table (if exists) */
-    std::string value;
+    std::string value {};
 
     /** @copydoc Event::read() */
     static MacroSignal * read(File & file, std::string & line);

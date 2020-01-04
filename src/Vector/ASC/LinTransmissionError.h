@@ -36,63 +36,65 @@ namespace ASC {
  *
  * FlexRay Error event transmitted by the FlexRay hardware.
  */
-class VECTOR_ASC_EXPORT LinTransmissionError final : public Event {
-  public:
-    LinTransmissionError();
+struct VECTOR_ASC_EXPORT LinTransmissionError final : Event {
+    LinTransmissionError() :
+        Event() {
+        eventType = EventType::LinTransmissionError;
+    };
 
     /** @copydoc LinTime */
-    LinTime time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** @copydoc LinId */
-    LinId id;
+    LinId id {};
 
     /** @copydoc LinSlaveId */
-    LinSlaveId slaveId;
+    LinSlaveId slaveId {0};
 
     /** @copydoc LinState */
-    LinState state;
+    LinState state {0};
 
     /** @copydoc LinHeaderTime */
-    LinHeaderTime headerTime;
+    LinHeaderTime headerTime {0};
 
     /** @copydoc LinFullTime */
-    LinFullTime fullTime;
+    LinFullTime fullTime {0};
 
     /** @copydoc LinStartOfFrame */
-    LinStartOfFrame startOfFrame;
+    LinStartOfFrame startOfFrame {0.0};
 
     /** @copydoc LinBaudrateType */
-    LinBaudrateType baudrate;
+    LinBaudrateType baudrate {0};
 
     /** @copydoc LinSyncBreak */
-    LinSyncBreak syncBreak;
+    LinSyncBreak syncBreak {0};
 
     /** @copydoc LinSyncDel */
-    LinSyncDel syncDel;
+    LinSyncDel syncDel {0};
 
     /** @copydoc LinNad */
-    LinNad nad;
+    LinNad nad {0};
 
     /** @copydoc LinMessageId */
-    LinMessageId messageId;
+    LinMessageId messageId {0};
 
     /** @copydoc LinSupplierId */
-    LinSupplierId supplierId;
+    LinSupplierId supplierId {0};
 
     /** @copydoc LinEndOfHeader */
-    LinEndOfHeader endOfHeader;
+    LinEndOfHeader endOfHeader {0.0};
 
     /** @copydoc LinHeaderBaudrate */
-    LinHeaderBaudrate headerBaudrate;
+    LinHeaderBaudrate headerBaudrate {0.0};
 
     /** @copydoc LinStopBitOffsetInHeader */
-    LinStopBitOffsetInHeader stopBitOffsetInHeader;
+    LinStopBitOffsetInHeader stopBitOffsetInHeader {0};
 
     /** @copydoc LinChecksumModel */
-    LinChecksumModel checksumModel;
+    LinChecksumModel checksumModel {LinChecksumModel::Unknown};
 
     /** @copydoc Event::read() */
     static LinTransmissionError * read(File & file, std::string & line);

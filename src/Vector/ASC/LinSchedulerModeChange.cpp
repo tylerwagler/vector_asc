@@ -28,15 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-LinSchedulerModeChange::LinSchedulerModeChange() :
-    Event(),
-    time(0.0),
-    channel(0),
-    priorSchedulerMode(0),
-    nextSchedulerMode(0) {
-    eventType = EventType::LinSchedulerModeChange;
-}
-
 LinSchedulerModeChange * LinSchedulerModeChange::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SchedModChng"
                      REGEX_WS "prior scheduler mode" REGEX_ws "=" REGEX_ws REGEX_LIN_scheduleTableIndex ","

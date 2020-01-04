@@ -28,18 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-MacroSignal::MacroSignal() :
-    Event(),
-    time(0.0),
-    bussystem(Bussystem::Can),
-    channel(0),
-    node(),
-    message(),
-    signal(),
-    value() {
-    eventType = EventType::MacroSignal;
-}
-
 MacroSignal * MacroSignal::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "([LF]?)([[:digit:]]+)" REGEX_WS "(.+?)::(.+?)::(.+?)"
                      REGEX_ws "=" REGEX_ws "(.+?)" REGEX_ENDL);

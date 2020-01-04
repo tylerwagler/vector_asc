@@ -29,19 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-TpFlowControlFrame::TpFlowControlFrame() :
-    Event(),
-    canChannel(0),
-    connectionId(0),
-    type(TpDiagType::Info),
-    source(),
-    destination(),
-    fcType(TpDiagFcType::Cts),
-    bs(0),
-    stMin(0) {
-    eventType = EventType::TpFlowControlFrame;
-}
-
 TpFlowControlFrame * TpFlowControlFrame::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_TPDiag_CANChannel REGEX_WS "OTP\\(" REGEX_TPDiag_connectionId "\\)"
                      REGEX_WS REGEX_TPDiag_type REGEX_WS REGEX_TPDiag_source "->" REGEX_TPDiag_destination ":"

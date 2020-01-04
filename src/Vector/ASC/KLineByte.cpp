@@ -30,17 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-KLineByte::KLineByte() :
-    Event(),
-    time(0.0),
-    port(),
-    direction(Dir::Rx),
-    baudrate(0),
-    length(0),
-    data() {
-    eventType = EventType::KLineByte;
-}
-
 KLineByte * KLineByte::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_KLine_time REGEX_WS REGEX_KLine_port REGEX_WS REGEX_KLine_direction
                      REGEX_WS REGEX_KLine_baudrate REGEX_WS REGEX_KLine_length

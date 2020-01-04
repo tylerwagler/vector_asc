@@ -30,31 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-CanFdErrorFrame::CanFdErrorFrame() :
-    Event(),
-    time(0.0),
-    channel(0),
-    dir(Dir::Rx),
-    errorText(),
-    flags1(0),
-    code(0),
-    codeExt(0),
-    phase(Phase::Data),
-    position(0),
-    id(0),
-    brs(false),
-    esi(false),
-    dlc(0),
-    dataLength(0),
-    data(),
-    messageDuration(0),
-    flags2(0),
-    crc(0),
-    bitTimingConfArb(0),
-    bitTimingConfData(0) {
-    eventType = EventType::CanFdErrorFrame;
-}
-
 CanFdErrorFrame * CanFdErrorFrame::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "CANFD" REGEX_WS REGEX_Channel REGEX_WS REGEX_Dir REGEX_WS "ErrorFrame"
                      REGEX_WS "(Not Acknowledge error, dominant error flag)"

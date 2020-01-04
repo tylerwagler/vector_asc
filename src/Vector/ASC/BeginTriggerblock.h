@@ -37,15 +37,17 @@ namespace ASC {
  *
  * An event that is written when a trigger block begins.
  */
-class VECTOR_ASC_EXPORT BeginTriggerblock final : public Event {
-  public:
-    BeginTriggerblock();
+struct VECTOR_ASC_EXPORT BeginTriggerblock final : Event {
+    BeginTriggerblock() :
+        Event() {
+        eventType = EventType::BeginTriggerblock;
+    }
 
     /** date/time */
-    tm date;
+    tm date {};
 
     /** language (only parsed, write works via File::language) */
-    File::Language language;
+    File::Language language {File::Language::En};
 
     /** @copydoc Event::read() */
     static BeginTriggerblock * read(File & file, std::string & line);

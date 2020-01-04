@@ -36,15 +36,17 @@ namespace ASC {
  *
  * A CAN Error Frame received on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanErrorFrame final : public Event {
-  public:
-    CanErrorFrame();
+struct VECTOR_ASC_EXPORT CanErrorFrame final : Event {
+    CanErrorFrame() :
+        Event() {
+        eventType = EventType::CanErrorFrame;
+    };
 
     /** @copydoc Time */
-    Time time;
+    Time time {0.0};
 
     /** @copydoc Channel */
-    Channel channel;
+    Channel channel {0};
 
     /**
      * Bit field defining the validity of the parameters Code, CodeExt, ID, DLC, Position, and
@@ -55,10 +57,10 @@ class VECTOR_ASC_EXPORT CanErrorFrame final : public Event {
      *   - Bit 2: Vector CAN Core Error Position is valid
      *   - Bit 3: Vector CAN Core Frame Length in ns is valid
      */
-    uint8_t flags;
+    uint8_t flags {0};
 
     /** Extended error flags */
-    uint16_t codeExt;
+    uint16_t codeExt {0};
 
     /**
      * Content of Philips SJA1000 Error Code Capture (ECC) register, or the Vector CAN-
@@ -66,22 +68,22 @@ class VECTOR_ASC_EXPORT CanErrorFrame final : public Event {
      *
      * @note CANcardXL, CANcaseXL, CANboardXL, and all other interfaces with SJA1000
      */
-    uint8_t code;
+    uint8_t code {0};
 
     /** @copydoc IdNum */
-    IdNum id;
+    IdNum id {0};
 
     /** Extended ID */
-    bool extendedId;
+    bool extendedId {false};
 
     /** @copydoc Dlc */
-    Dlc dlc;
+    Dlc dlc {0};
 
     /** Position */
-    uint16_t position;
+    uint16_t position {0};
 
     /** Length */
-    uint16_t length;
+    uint16_t length {0};
 
     /** @copydoc Event::read() */
     static CanErrorFrame * read(File & file, std::string & line);

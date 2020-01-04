@@ -39,21 +39,23 @@ namespace ASC {
  * spy. The event transports all states even if only a single state has changed. <HWModeMask> de-
  * notes which state differs regarding to the previous HW mode event.
  */
-class VECTOR_ASC_EXPORT MostHwMode final : public Event {
-  public:
-    MostHwMode();
+struct VECTOR_ASC_EXPORT MostHwMode final : Event {
+    MostHwMode() :
+        Event() {
+        eventType = EventType::MostHwMode;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostHwMode */
-    MostHwModeType hwMode;
+    MostHwModeType hwMode {0};
 
     /** @copydoc MostHwModeMask */
-    MostHwModeMask hwModeMask;
+    MostHwModeMask hwModeMask {0};
 
     /** @copydoc Event::read() */
     static MostHwMode * read(File & file, std::string & line);

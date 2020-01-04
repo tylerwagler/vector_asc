@@ -49,8 +49,7 @@ class Event;
  * This is similar to std::fstream for ASCs
  */
 class VECTOR_ASC_EXPORT File final {
-  public:
-    File();
+public:
     virtual ~File();
 
     /** enumeration for openMode */
@@ -63,10 +62,10 @@ class VECTOR_ASC_EXPORT File final {
     };
 
     /** open mode */
-    OpenMode openMode;
+    OpenMode openMode {OpenMode::Read};
 
     /** Date */
-    struct tm date;
+    struct tm date {};
 
     /** Language */
     enum Language : uint8_t {
@@ -78,7 +77,7 @@ class VECTOR_ASC_EXPORT File final {
     };
 
     /** Language */
-    Language language;
+    Language language {Language::En};
 
     /** Number base */
     enum Base : uint8_t {
@@ -90,7 +89,7 @@ class VECTOR_ASC_EXPORT File final {
     };
 
     /** Number base */
-    Base base;
+    Base base {Base::Dec};
 
     /** Timestamps are written absolute or relative to the preceding event. */
     enum class Timestamps : uint8_t {
@@ -102,10 +101,10 @@ class VECTOR_ASC_EXPORT File final {
     };
 
     /** Timestamps are written absolute or relative to the preceding event. */
-    Timestamps timestamps;
+    Timestamps timestamps {Timestamps::Absolute};
 
     /** internal events logged */
-    bool internalEventsLogged;
+    bool internalEventsLogged {true};
 
     /** Version */
     enum Version : uint32_t {
@@ -123,7 +122,7 @@ class VECTOR_ASC_EXPORT File final {
     };
 
     /** Version */
-    uint32_t version;
+    uint32_t version {Version::Ver_8_1};
 
     /**
      * time stamp precision
@@ -131,7 +130,7 @@ class VECTOR_ASC_EXPORT File final {
      * Old versions used to have precision 4 and newer versions use to have 6.
      * If left at default 0, the precision is automatically set dependent on file version.
      */
-    uint8_t timestampPrecision;
+    uint8_t timestampPrecision {6};
 
     /**
      * open file
@@ -178,15 +177,15 @@ class VECTOR_ASC_EXPORT File final {
      */
     void write(Event * event);
 
-  private:
+private:
     /** file */
-    std::fstream file;
+    std::fstream file {};
 
     /** scanner */
-    ascFlexLexer * scanner;
+    ascFlexLexer * scanner {nullptr};
 
     /** end of file */
-    bool endOfFile;
+    bool endOfFile {false};
 };
 
 }

@@ -38,96 +38,98 @@ namespace ASC {
  *
  * LIN frame received or transmitted on a LIN channel.
  */
-class VECTOR_ASC_EXPORT LinMessage final : public Event {
-  public:
-    LinMessage();
+struct VECTOR_ASC_EXPORT LinMessage final : Event {
+    LinMessage() :
+        Event() {
+        eventType = EventType::LinMessage;
+    };
 
     /** @copydoc LinTime */
-    LinTime time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** @copydoc LinId */
-    LinId id;
+    LinId id {};
 
     /** @copydoc LinDir */
-    LinDir dir;
+    LinDir dir {Dir::Rx};
 
     /** @copydoc LinDlc */
-    LinDlc dlc;
+    LinDlc dlc {0};
 
     /** @copydoc LinDx */
-    std::vector<LinDx> data;
+    std::vector<LinDx> data {};
 
     /** @copydoc LinSlaveId */
-    LinSlaveId slaveId;
+    LinSlaveId slaveId {0};
 
     /** @copydoc LinState */
-    LinState state;
+    LinState state {0};
 
     /** @copydoc LinChecksum */
-    LinChecksum checksum;
+    LinChecksum checksum {0};
 
     /** @copydoc LinHeaderTime */
-    LinHeaderTime headerTime;
+    LinHeaderTime headerTime {0};
 
     /** @copydoc LinFullTime */
-    LinFullTime fullTime;
+    LinFullTime fullTime {0};
 
     /** @copydoc LinStartOfFrame */
-    LinStartOfFrame startOfFrame;
+    LinStartOfFrame startOfFrame {0.0};
 
     /** @copydoc LinSyncBreakTime */
-    LinSyncBreakTime syncBreakTime;
+    LinSyncBreakTime syncBreakTime {};
 
     /** @copydoc LinSyncDelimiterTime */
-    LinSyncDelimiterTime syncDelimiterTime;
+    LinSyncDelimiterTime syncDelimiterTime {};
 
     /** @copydoc LinBaudrateType */
-    LinBaudrateType baudrate;
+    LinBaudrateType baudrate {0};
 
     /** @copydoc LinSyncBreak */
-    LinSyncBreak syncBreak;
+    LinSyncBreak syncBreak {0};
 
     /** @copydoc LinSyncDel */
-    LinSyncDel syncDel;
+    LinSyncDel syncDel {0};
 
     /** @copydoc LinNad */
-    LinNad nad;
+    LinNad nad {0};
 
     /** @copydoc LinMessageId */
-    LinMessageId messageId;
+    LinMessageId messageId {0};
 
     /** @copydoc LinSupplierId */
-    LinSupplierId supplierId;
+    LinSupplierId supplierId {0};
 
     /** @copydoc LinEndOfHeader */
-    LinEndOfHeader endOfHeader;
+    LinEndOfHeader endOfHeader {0.0};
 
     /** @copydoc LinT */
-    std::vector<LinT> endOfByte;
+    std::vector<LinT> endOfByte {};
 
     /** @copydoc LinSimulated */
-    LinSimulated simulated;
+    LinSimulated simulated {false};
 
     /** @copydoc LinEndOfFrame */
-    LinEndOfFrame endOfFrame;
+    LinEndOfFrame endOfFrame {0.0};
 
     /** @copydoc LinResponseBaudrate */
-    LinResponseBaudrate responseBaudrate;
+    LinResponseBaudrate responseBaudrate {0};
 
     /** @copydoc LinHeaderBaudrate */
-    LinHeaderBaudrate headerBaudrate;
+    LinHeaderBaudrate headerBaudrate {0.0};
 
     /** @copydoc LinStopBitOffsetInHeader */
-    LinStopBitOffsetInHeader stopBitOffsetInHeader;
+    LinStopBitOffsetInHeader stopBitOffsetInHeader {0};
 
     /** @copydoc LinStopBitOffsetInResponse */
-    LinStopBitOffsetInResponse stopBitOffsetInResponse;
+    LinStopBitOffsetInResponse stopBitOffsetInResponse {0};
 
     /** @copydoc LinChecksumModel */
-    LinChecksumModel checksumModel;
+    LinChecksumModel checksumModel {LinChecksumModel::Unknown};
 
     /** @copydoc Event::read() */
     static LinMessage * read(File & file, std::string & line);

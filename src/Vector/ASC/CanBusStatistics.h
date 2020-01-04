@@ -36,36 +36,38 @@ namespace ASC {
  *
  * CAN Statistic event, which contains statistic information about the CAN channels.
  */
-class VECTOR_ASC_EXPORT CanBusStatistics final : public Event {
-  public:
-    CanBusStatistics();
+struct VECTOR_ASC_EXPORT CanBusStatistics final : Event {
+    CanBusStatistics() :
+        Event() {
+        eventType = EventType::CanBusStatistics;
+    };
 
     /** @copydoc Time */
-    Time time;
+    Time time {0.0};
 
     /** @copydoc Channel */
-    Channel channel;
+    Channel channel {0};
 
     /** CAN Data Frames */
-    StatNumber dataFrames;
+    StatNumber dataFrames {0};
 
     /** CAN Remote Frames */
-    StatNumber remoteFrames;
+    StatNumber remoteFrames {0};
 
     /** CAN Extended Data Frames */
-    StatNumber extendedDataFrames;
+    StatNumber extendedDataFrames {0};
 
     /** CAN Extended Remote Frames */
-    StatNumber extendedRemoteFrames;
+    StatNumber extendedRemoteFrames {0};
 
     /** Error Frames */
-    StatNumber errorFrames;
+    StatNumber errorFrames {0};
 
     /** Overload Frames */
-    StatNumber overloadFrames;
+    StatNumber overloadFrames {0};
 
     /** Busload */
-    StatPercent busload;
+    StatPercent busload {0.0};
 
     /** @copydoc Event::read() */
     static CanBusStatistics * read(File & file, std::string & line);

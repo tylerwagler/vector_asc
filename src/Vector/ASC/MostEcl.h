@@ -36,21 +36,23 @@ namespace ASC {
  *
  * State change of the MOST Electrical Control Line.
  */
-class VECTOR_ASC_EXPORT MostEcl final : public Event {
-  public:
-    MostEcl();
+struct VECTOR_ASC_EXPORT MostEcl final : Event {
+    MostEcl() :
+        Event() {
+        eventType = EventType::MostEcl;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostEclMode */
-    MostEclMode eclMode;
+    MostEclMode eclMode {MostEclMode::Discrete};
 
     /** @copydoc MostEclState */
-    MostEclState eclState;
+    MostEclState eclState {MostEclState::LineLow};
 
     /** @copydoc Event::read() */
     static MostEcl * read(File & file, std::string & line);

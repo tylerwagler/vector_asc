@@ -29,16 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-MostSystem::MostSystem() :
-    Event(),
-    time(0.0),
-    channel(0),
-    sysId(MostSysId::SystemLock),
-    sysValue(0),
-    sysValueOld(0) {
-    eventType = EventType::MostSystem;
-}
-
 MostSystem * MostSystem::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "System:"
                      REGEX_ws REGEX_MOST_SysID REGEX_WS REGEX_MOST_SysValue REGEX_WS REGEX_MOST_SysValueOld REGEX_ENDL);

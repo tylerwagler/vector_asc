@@ -29,20 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-CanBusStatistics::CanBusStatistics() :
-    Event(),
-    time(0.0),
-    channel(0),
-    dataFrames(0),
-    remoteFrames(0),
-    extendedDataFrames(0),
-    extendedRemoteFrames(0),
-    errorFrames(0),
-    overloadFrames(0),
-    busload(0.0) {
-    eventType = EventType::CanBusStatistics;
-}
-
 CanBusStatistics * CanBusStatistics::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS "Statistic:"
                      REGEX_WS "D" REGEX_WS REGEX_StatNumber

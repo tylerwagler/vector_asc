@@ -36,15 +36,17 @@ namespace ASC {
  *
  * Ethernet link status.
  */
-class VECTOR_ASC_EXPORT EthernetStatus final : public Event {
-  public:
-    EthernetStatus();
+struct VECTOR_ASC_EXPORT EthernetStatus final : Event {
+    EthernetStatus() :
+        Event() {
+        eventType = EventType::EthernetStatus;
+    };
 
     /** @copydoc EthTime */
-    EthTime time;
+    EthTime time {0.0};
 
     /** @copydoc EthChannel */
-    EthChannel channel;
+    EthChannel channel {0};
 
     /** Link */
     enum class Link {
@@ -65,10 +67,10 @@ class VECTOR_ASC_EXPORT EthernetStatus final : public Event {
     };
 
     /** Link */
-    Link link;
+    Link link {Link::Unknown};
 
     /** LinkSpeed in Mbit/s */
-    uint32_t linkSpeed;
+    uint32_t linkSpeed {0};
 
     /** Physical */
     enum class Physical {
@@ -83,7 +85,7 @@ class VECTOR_ASC_EXPORT EthernetStatus final : public Event {
     };
 
     /** Physical */
-    Physical physical;
+    Physical physical {Physical::Unknown};
 
     /** Duplex */
     enum class Duplex {
@@ -98,7 +100,7 @@ class VECTOR_ASC_EXPORT EthernetStatus final : public Event {
     };
 
     /** Duplex */
-    Duplex duplex;
+    Duplex duplex {Duplex::Unknown};
 
     /** MDI */
     enum class Mdi {
@@ -113,7 +115,7 @@ class VECTOR_ASC_EXPORT EthernetStatus final : public Event {
     };
 
     /** MDI */
-    Mdi mdi;
+    Mdi mdi {Mdi::Unknown};
 
     /** Connector */
     enum class Connector {
@@ -128,7 +130,7 @@ class VECTOR_ASC_EXPORT EthernetStatus final : public Event {
     };
 
     /** Connector */
-    Connector connector;
+    Connector connector {Connector::Unknown};
 
     /** BRClockMode */
     enum class BRClockMode {
@@ -143,7 +145,7 @@ class VECTOR_ASC_EXPORT EthernetStatus final : public Event {
     };
 
     /** BRClockMode */
-    BRClockMode brClockMode;
+    BRClockMode brClockMode {BRClockMode::Unknown};
 
     /** BRPairs */
     enum class BRPairs {
@@ -161,7 +163,7 @@ class VECTOR_ASC_EXPORT EthernetStatus final : public Event {
     };
 
     /** BrPairs */
-    BRPairs brPairs;
+    BRPairs brPairs {BRPairs::Unknown};
 
     /** @copydoc Event::read() */
     static EthernetStatus * read(File & file, std::string & line);

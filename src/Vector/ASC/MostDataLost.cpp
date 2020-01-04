@@ -29,17 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-MostDataLost::MostDataLost() :
-    Event(),
-    time(0.0),
-    channel(0),
-    dlInfo(0),
-    dlCtrl(0),
-    dlAsync(0),
-    dlTime() {
-    eventType = EventType::MostDataLost;
-}
-
 MostDataLost * MostDataLost::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "DataLost:"
                      REGEX_ws REGEX_MOST_DLInfo REGEX_WS REGEX_MOST_DLCtrl REGEX_WS REGEX_MOST_DLAsync

@@ -38,39 +38,41 @@ namespace ASC {
  *
  * CAN Message with extended identifier received or transmitted on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanExtendedMessage final : public Event {
-  public:
-    CanExtendedMessage();
+struct VECTOR_ASC_EXPORT CanExtendedMessage final : Event {
+    CanExtendedMessage() :
+        Event() {
+        eventType = EventType::CanExtendedMessage;
+    }
 
     /** @copydoc Time */
-    Time time;
+    Time time {0.0};
 
     /** @copydoc Channel */
-    Channel channel;
+    Channel channel {0};
 
     /** @copydoc IdNum */
-    IdNum id;
+    IdNum id {0};
 
     /** @copydoc Dir */
-    Dir dir;
+    Dir dir {Dir::Rx};
 
     /** @copydoc Dlc */
-    Dlc dlc;
+    Dlc dlc {0};
 
     /** @copydoc Dx */
-    std::vector<Dx> data;
+    std::vector<Dx> data {};
 
     /** @copydoc MessageDuration */
-    MessageDuration messageDuration;
+    MessageDuration messageDuration {0};
 
     /** @copydoc MessageLength */
-    MessageLength messageLength;
+    MessageLength messageLength {0};
 
     /** @copydoc MessageFlags */
-    MessageFlags messageFlags;
+    MessageFlags messageFlags {};
 
     /** @copydoc IdNum */
-    IdNum messageId;
+    IdNum messageId {0};
 
     /** @copydoc Event::read() */
     static CanExtendedMessage * read(File & file, std::string & line);

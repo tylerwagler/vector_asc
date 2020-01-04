@@ -25,12 +25,6 @@
 namespace Vector {
 namespace ASC {
 
-Unknown::Unknown() :
-    Event(),
-    line() {
-    eventType = EventType::Unknown;
-}
-
 void Unknown::write(File & /*file*/, std::ostream & stream) {
     stream << line << endl;
 }

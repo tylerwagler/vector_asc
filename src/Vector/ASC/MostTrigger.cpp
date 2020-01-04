@@ -29,16 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-MostTrigger::MostTrigger() :
-    Event(),
-    time(0.0),
-    channel(0),
-    trigMode(MostTrigMode::Unknown),
-    trigHw(0),
-    trigValue() {
-    eventType = EventType::MostTrigger;
-}
-
 MostTrigger * MostTrigger::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Trigger:"
                      REGEX_ws REGEX_MOST_TrigMode REGEX_WS REGEX_MOST_TrigHW REGEX_WS REGEX_MOST_TrigValue

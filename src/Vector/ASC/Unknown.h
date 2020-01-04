@@ -35,12 +35,14 @@ namespace ASC {
 /**
  * Unknown Event
  */
-class VECTOR_ASC_EXPORT Unknown final : public Event {
-  public:
-    Unknown();
+struct VECTOR_ASC_EXPORT Unknown final : Event {
+    Unknown() :
+        Event() {
+        eventType = EventType::Unknown;
+    };
 
     /** line content */
-    std::string line;
+    std::string line {};
 
     virtual void write(File & file, std::ostream & stream) override;
 };

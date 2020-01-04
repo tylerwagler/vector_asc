@@ -29,15 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-MostNetState::MostNetState() :
-    Event(),
-    time(0.0),
-    channel(0),
-    netStateOld(0),
-    netStateNew(0) {
-    eventType = EventType::MostNetState;
-}
-
 MostNetState * MostNetState::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "NetState:"
                      REGEX_ws REGEX_MOST_NetStateOld REGEX_WS REGEX_MOST_NetStateNew REGEX_ENDL);

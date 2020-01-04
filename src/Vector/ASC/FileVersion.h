@@ -33,18 +33,20 @@ namespace Vector {
 namespace ASC {
 
 /** File Version */
-class VECTOR_ASC_EXPORT FileVersion final : public Event {
-  public:
-    FileVersion();
+struct VECTOR_ASC_EXPORT FileVersion final : Event {
+    FileVersion() :
+        Event() {
+        eventType = EventType::FileVersion;
+    };
 
     /** major version number */
-    uint8_t versionMajor;
+    uint8_t versionMajor {7};
 
     /** minor version number */
-    uint8_t versionMinor;
+    uint8_t versionMinor {0};
 
     /** patch version number */
-    uint8_t versionPatch;
+    uint8_t versionPatch {0};
 
     /** @copydoc Event::read() */
     static FileVersion * read(File & file, std::string & line);

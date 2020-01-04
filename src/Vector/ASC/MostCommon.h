@@ -29,8 +29,6 @@
 #include <Vector/ASC/File.h>
 #include <Vector/ASC/MostSymbols.h>
 
-#include <Vector/ASC/vector_asc_export.h>
-
 namespace Vector {
 namespace ASC {
 

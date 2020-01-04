@@ -33,12 +33,14 @@ namespace Vector {
 namespace ASC {
 
 /** File Comment */
-class VECTOR_ASC_EXPORT FileComment final : public Event {
-  public:
-    FileComment();
+struct VECTOR_ASC_EXPORT FileComment final : Event {
+    FileComment() :
+        Event() {
+        eventType = EventType::FileComment;
+    };
 
     /** comment */
-    std::string comment;
+    std::string comment {};
 
     /** @copydoc Event::read() */
     static FileComment * read(File & file, std::string & line);

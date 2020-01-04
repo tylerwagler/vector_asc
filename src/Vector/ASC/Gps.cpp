@@ -28,18 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-Gps::Gps() :
-    Event(),
-    time(0.0),
-    channel(0),
-    latitude(0.0),
-    longitude(0.0),
-    altitude(0.0),
-    speed(0.0),
-    course(0.0) {
-    eventType = EventType::Gps;
-}
-
 Gps * Gps::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "GPS-Device:" REGEX_ws "([[:digit:]]+)"
                      REGEX_WS "La:" REGEX_ws "([[:digit:].]+)"

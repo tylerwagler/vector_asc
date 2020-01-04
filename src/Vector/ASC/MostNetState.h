@@ -36,21 +36,24 @@ namespace ASC {
  *
  * Network state derived by MOST Supervisor Layer I+II.
  */
-class VECTOR_ASC_EXPORT MostNetState final : public Event {
-  public:
-    MostNetState();
+struct VECTOR_ASC_EXPORT MostNetState final : Event {
+public:
+    MostNetState() :
+        Event() {
+        eventType = EventType::MostNetState;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostNetStateOld */
-    MostNetStateOld netStateOld;
+    MostNetStateOld netStateOld {0};
 
     /** @copydoc MostNetStateNew */
-    MostNetStateNew netStateNew;
+    MostNetStateNew netStateNew {0};
 
     /** @copydoc Event::read() */
     static MostNetState * read(File & file, std::string & line);

@@ -29,16 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-MostSpecialRegister::MostSpecialRegister() :
-    Event(),
-    time(0.0),
-    channel(0),
-    regSubType(MostRegSubType::Unspecified),
-    regId(0),
-    regValue(0) {
-    eventType = EventType::MostSpecialRegister;
-}
-
 MostSpecialRegister * MostSpecialRegister::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Register:"
                      REGEX_ws REGEX_MOST_RegSubType REGEX_WS REGEX_MOST_RegID REGEX_WS REGEX_MOST_RegValue REGEX_ENDL);

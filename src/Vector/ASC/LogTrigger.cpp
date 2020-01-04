@@ -28,12 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-LogTrigger::LogTrigger() :
-    Event(),
-    time(0.0) {
-    eventType = EventType::LogTrigger;
-}
-
 LogTrigger * LogTrigger::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log trigger event" REGEX_ws "(.+)?" REGEX_ENDL);
     std::smatch match;

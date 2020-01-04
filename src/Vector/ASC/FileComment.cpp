@@ -28,12 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-FileComment::FileComment() :
-    Event(),
-    comment() {
-    eventType = EventType::FileComment;
-}
-
 FileComment * FileComment::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "//" "(.+?)" REGEX_ENDL);
     std::smatch match;

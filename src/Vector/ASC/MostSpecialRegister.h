@@ -39,24 +39,26 @@ namespace ASC {
  * Directly after measurement start the current values of the special registers are reported even if they
  * have not changed.
  */
-class VECTOR_ASC_EXPORT MostSpecialRegister final : public Event {
-  public:
-    MostSpecialRegister();
+struct VECTOR_ASC_EXPORT MostSpecialRegister final : Event {
+    MostSpecialRegister() :
+        Event() {
+        eventType = EventType::MostSpecialRegister;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostRegSubType */
-    MostRegSubType regSubType;
+    MostRegSubType regSubType {MostRegSubType::Unspecified};
 
     /** @copydoc MostRegId */
-    MostRegId regId;
+    MostRegId regId {0};
 
     /** @copydoc MostRegValue */
-    MostRegValue regValue;
+    MostRegValue regValue {0};
 
     /** @copydoc Event::read() */
     static MostSpecialRegister * read(File & file, std::string & line);

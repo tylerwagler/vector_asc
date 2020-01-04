@@ -38,57 +38,59 @@ namespace ASC {
  *
  * Message on MOST150 Control Channel.
  */
-class VECTOR_ASC_EXPORT Most150ControlMessage final : public Event {
-  public:
-    Most150ControlMessage();
+struct VECTOR_ASC_EXPORT Most150ControlMessage final : Event {
+    Most150ControlMessage() :
+        Event() {
+        eventType = EventType::Most150ControlMessage;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostDir */
-    MostDir dir;
+    MostDir dir {Dir::Rx};
 
     /** @copydoc MostSourceAdr */
-    MostSourceAdr sourceAdr;
+    MostSourceAdr sourceAdr {0};
 
     /** @copydoc MostDestAdr */
-    MostDestAdr destAdr;
+    MostDestAdr destAdr {0};
 
     /** @copydoc MostState */
-    MostState state;
+    MostState state {0};
 
     /** @copydoc MostAckNack */
-    MostAckNack ackNack;
+    MostAckNack ackNack {0};
 
     /** @copydoc MostTransferType */
-    MostTransferType transferType;
+    MostTransferType transferType {MostTransferType::Node};
 
     /** @copydoc MostPack */
-    MostPAck pAck;
+    MostPAck pAck {0};
 
     /** @copydoc MostPriority */
-    MostPriority priority;
+    MostPriority priority {0};
 
     /** @copydoc MostPindex */
-    MostPIndex pIndex;
+    MostPIndex pIndex {0};
 
     /** @copydoc MostCrc2 */
-    MostCrc2 crc2;
+    MostCrc2 crc2 {0};
 
     /** @copydoc MostCack */
-    MostCAck cAck;
+    MostCAck cAck {0};
 
     /** @copydoc MostRsvdUl */
-    MostRsvdUl rsvdUl;
+    MostRsvdUl rsvdUl {0};
 
     /** @copydoc MostMsg150Len */
-    MostMsg150Len msg150Len;
+    MostMsg150Len msg150Len {0};
 
     /** @copydoc MostDx */
-    std::vector<MostDx> data;
+    std::vector<MostDx> data {};
 
     /** @copydoc Event::read() */
     static Most150ControlMessage * read(File & file, std::string & line);

@@ -38,36 +38,38 @@ namespace ASC {
  *
  * Message on MOST25 Control Channel received in spy mode (listen only).
  */
-class VECTOR_ASC_EXPORT Most25ControlMessageSpyMode final : public Event {
-  public:
-    Most25ControlMessageSpyMode();
+struct VECTOR_ASC_EXPORT Most25ControlMessageSpyMode final : Event {
+    Most25ControlMessageSpyMode() :
+        Event() {
+        eventType = EventType::Most25ControlMessageSpyMode;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostSourceAdr */
-    MostSourceAdr sourceAdr;
+    MostSourceAdr sourceAdr {0};
 
     /** @copydoc MostDestAdr */
-    MostDestAdr destAdr;
+    MostDestAdr destAdr {0};
 
     /** @copydoc MostRtype */
-    MostRType rType;
+    MostRType rType {0};
 
     /** @copydoc MostDx */
-    std::vector<MostDx> data;
+    std::vector<MostDx> data {};
 
     /** @copydoc MostState */
-    MostState state;
+    MostState state {0};
 
     /** @copydoc MostAckNack */
-    MostAckNack ackNack;
+    MostAckNack ackNack {0};
 
     /** @copydoc MostCrc */
-    MostCrc crc;
+    MostCrc crc {0};
 
     /** @copydoc Event::read() */
     static Most25ControlMessageSpyMode * read(File & file, std::string & line);

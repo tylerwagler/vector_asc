@@ -30,15 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-DiagRequest::DiagRequest() :
-    Event(),
-    time(0.0),
-    ecuQualifier(),
-    command(Command::ByteSequence),
-    byteSequence() {
-    eventType = EventType::DiagRequest;
-}
-
 DiagRequest * DiagRequest::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_TPDiag_timestamp REGEX_WS "DiagRequest" REGEX_ws
                      "\\[" REGEX_TPDiag_ECUQualifier "\\]" REGEX_ws "(Close|Open|TPon|TPoff|" REGEX_TPDiag_byteSequence ")" REGEX_ENDL);

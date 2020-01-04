@@ -38,27 +38,29 @@ namespace ASC {
  *
  * The event transports the current state and changes of the MOST50/MOST150 Allocation Table.
  */
-class VECTOR_ASC_EXPORT Most150AllocTable final : public Event {
-  public:
-    Most150AllocTable();
+struct VECTOR_ASC_EXPORT Most150AllocTable final : Event {
+    Most150AllocTable() :
+        Event() {
+        eventType = EventType::Most150AllocTable;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostAt150EventModeFlags */
-    MostAt150EventModeFlags at150EventModeFlags;
+    MostAt150EventModeFlags at150EventModeFlags {0};
 
     /** @copydoc MostFreeBytes */
-    MostFreeBytes freeBytes;
+    MostFreeBytes freeBytes {0};
 
     /** @copydoc MostAt150Size */
-    MostAt150Size at150Size;
+    MostAt150Size at150Size {0};
 
     /** @copydoc MostWx */
-    std::vector<MostWx> wordData;
+    std::vector<MostWx> wordData {};
 
     /** @copydoc Event::read() */
     static Most150AllocTable * read(File & file, std::string & line);

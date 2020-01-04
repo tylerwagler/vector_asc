@@ -37,21 +37,23 @@ namespace ASC {
  * This info event is only displayed when a Master is simulated and a frame header of a new schedule
  * table is transmitted for the first time. This info event may appear on starting a measurement.
  */
-class VECTOR_ASC_EXPORT LinSchedulerModeChange final : public Event {
-  public:
-    LinSchedulerModeChange();
+struct VECTOR_ASC_EXPORT LinSchedulerModeChange final : Event {
+    LinSchedulerModeChange() :
+        Event() {
+        eventType = EventType::LinSchedulerModeChange;
+    };
 
     /** @copydoc LinTime */
-    LinTime time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** @copydoc LinScheduleTableIndex */
-    LinScheduleTableIndex priorSchedulerMode;
+    LinScheduleTableIndex priorSchedulerMode {0};
 
     /** @copydoc LinScheduleTableIndex */
-    LinScheduleTableIndex nextSchedulerMode;
+    LinScheduleTableIndex nextSchedulerMode {0};
 
     /** @copydoc Event::read() */
     static LinSchedulerModeChange * read(File & file, std::string & line);

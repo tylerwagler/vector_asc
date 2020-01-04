@@ -28,13 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-LogDirectStop::LogDirectStop() :
-    Event(),
-    time(0.0),
-    postTrigger(0) {
-    eventType = EventType::LogDirectStop;
-}
-
 LogDirectStop * LogDirectStop::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log direct stop" REGEX_ws "\\(" REGEX_PostTrigger "ms\\)" REGEX_ENDL);
     std::smatch match;

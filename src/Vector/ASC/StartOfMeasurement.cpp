@@ -28,13 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-StartOfMeasurement::StartOfMeasurement() :
-    Event(),
-    time(0.0),
-    language(File::Language::En) {
-    eventType = EventType::StartOfMeasurement;
-}
-
 StartOfMeasurement * StartOfMeasurement::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "((Start of measurement)|(Start der Messung))" REGEX_ENDL);
     std::smatch match;

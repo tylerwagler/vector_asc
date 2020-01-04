@@ -36,15 +36,17 @@ namespace ASC {
  *
  * An Overload Frame received on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanOverloadFrame final : public Event {
-  public:
-    CanOverloadFrame();
+struct VECTOR_ASC_EXPORT CanOverloadFrame final : Event {
+    CanOverloadFrame() :
+        Event() {
+        eventType = EventType::CanOverloadFrame;
+    };
 
     /** absolute or relative time in seconds */
-    Time time;
+    Time time {0.0};
 
     /** Number of CAN channel. */
-    Channel channel;
+    Channel channel {0};
 
     /* "State/Error:", "chip status bus off", "Tx Error Count:", "Rx Error Count:" */
 

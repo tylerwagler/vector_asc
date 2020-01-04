@@ -29,15 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-LinDlcInfo::LinDlcInfo() :
-    Event(),
-    time(0.0),
-    channel(0),
-    id(),
-    dlc(0) {
-    eventType = EventType::LinDlcInfo;
-}
-
 LinDlcInfo * LinDlcInfo::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS "DlcInfo"
                      REGEX_WS REGEX_LIN_DLC REGEX_ENDL);

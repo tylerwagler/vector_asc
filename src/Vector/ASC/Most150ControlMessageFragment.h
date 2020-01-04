@@ -39,57 +39,59 @@ namespace ASC {
  * Partial transmitted MOST50 or MOST150 Control Channel message. Fragments are reported from
  * a network spy if the message transmission is corrupted or terminated.
  */
-class VECTOR_ASC_EXPORT Most150ControlMessageFragment final : public Event {
-  public:
-    Most150ControlMessageFragment();
+struct VECTOR_ASC_EXPORT Most150ControlMessageFragment final : Event {
+    Most150ControlMessageFragment() :
+        Event() {
+        eventType = EventType::Most150ControlMessageFragment;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostFrgMask */
-    MostFrgMask frgMask;
+    MostFrgMask frgMask {0};
 
     /** @copydoc MostSourceAdr */
-    MostSourceAdr sourceAdr;
+    MostSourceAdr sourceAdr {0};
 
     /** @copydoc MostDestAdr */
-    MostDestAdr destAdr;
+    MostDestAdr destAdr {0};
 
     /** @copydoc MostAckNack */
-    MostAckNack ackNack;
+    MostAckNack ackNack {0};
 
     /** @copydoc MostPack */
-    MostPAck pAck;
+    MostPAck pAck {0};
 
     /** @copydoc MostPriority */
-    MostPriority priority;
+    MostPriority priority {0};
 
     /** @copydoc MostPindex */
-    MostPIndex pIndex;
+    MostPIndex pIndex {0};
 
     /** @copydoc MostCrc2 */
-    MostCrc2 crc2;
+    MostCrc2 crc2 {0};
 
     /** @copydoc MostCack */
-    MostCAck cAck;
+    MostCAck cAck {0};
 
     /** @copydoc MostRsvdUl */
-    MostRsvdUl rsvdUl;
+    MostRsvdUl rsvdUl {0};
 
     /** @copydoc MostFrgDataLen */
-    MostFrgDataLen frgDataLen;
+    MostFrgDataLen frgDataLen {0};
 
     /** @copydoc MostFrgDataLenAnnounced */
-    MostFrgDataLenAnnounced frgDataLenAnnounced;
+    MostFrgDataLenAnnounced frgDataLenAnnounced {0};
 
     /** @copydoc MostFirstDataLen */
-    MostFirstDataLen firstDataLen;
+    MostFirstDataLen firstDataLen {0};
 
     /** @copydoc MostDx */
-    std::vector<MostDx> data;
+    std::vector<MostDx> data {};
 
     /** @copydoc Event::read() */
     static Most150ControlMessageFragment * read(File & file, std::string & line);

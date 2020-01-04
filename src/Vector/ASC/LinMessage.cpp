@@ -30,40 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-LinMessage::LinMessage() :
-    Event(),
-    time(0.0),
-    channel(0),
-    id(),
-    dir(Dir::Rx),
-    dlc(0),
-    data(),
-    slaveId(0),
-    state(0),
-    checksum(0),
-    headerTime(0),
-    fullTime(0),
-    startOfFrame(0.0),
-    syncBreakTime(),
-    syncDelimiterTime(),
-    baudrate(0),
-    syncBreak(0),
-    syncDel(0),
-    nad(0),
-    messageId(0),
-    supplierId(0),
-    endOfHeader(0.0),
-    endOfByte(),
-    simulated(false),
-    endOfFrame(0.0),
-    responseBaudrate(0),
-    headerBaudrate(0.0),
-    stopBitOffsetInHeader(0),
-    stopBitOffsetInResponse(0),
-    checksumModel(LinChecksumModel::Unknown) {
-    eventType = EventType::LinMessage;
-}
-
 LinMessage * LinMessage::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS REGEX_LIN_Dir
                      REGEX_WS REGEX_LIN_DLC "((" REGEX_WS REGEX_LIN_Dx "){0,8})"

@@ -29,17 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-EthernetRxError::EthernetRxError() :
-    Event(),
-    time(0.0),
-    channel(0),
-    errorCode(0),
-    frameChecksum(0),
-    dataLen(0),
-    data() {
-    eventType = EventType::EthernetRxError;
-}
-
 EthernetRxError * EthernetRxError::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Eth_Time REGEX_WS "ETH" REGEX_WS REGEX_Eth_Channel REGEX_WS "RxEr"
                      REGEX_WS REGEX_Eth_ErrorCode REGEX_WS REGEX_Eth_FrameChecksum

@@ -48,18 +48,20 @@ namespace ASC {
  * time is greater than a certain threshold, it is called "Critical Unlock" (details see MOST specifica-
  * tion).
  */
-class VECTOR_ASC_EXPORT MostLightLock final : public Event {
-  public:
-    MostLightLock();
+struct VECTOR_ASC_EXPORT MostLightLock final : Event {
+    MostLightLock() :
+        Event() {
+        eventType = EventType::MostLightLock;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostLlState */
-    MostLlState llState;
+    MostLlState llState {0};
 
     /** @copydoc Event::read() */
     static MostLightLock * read(File & file, std::string & line);

@@ -28,19 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-GlobalMarker::GlobalMarker() :
-    Event(),
-    time(0.0),
-    type(0),
-    backgroundColor(0),
-    foregroundColor(0),
-    relocatable(true),
-    groupName(),
-    markerName(),
-    description() {
-    eventType = EventType::GlobalMarker;
-}
-
 GlobalMarker * GlobalMarker::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "([[:digit:]]+)"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"

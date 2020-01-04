@@ -36,21 +36,23 @@ namespace ASC {
  *
  * Information about Stress activity of VN2600/2610 Hardware
  */
-class VECTOR_ASC_EXPORT MostStress final : public Event {
-  public:
-    MostStress();
+struct VECTOR_ASC_EXPORT MostStress final : Event {
+    MostStress() :
+        Event() {
+        eventType = EventType::MostStress;
+    };
 
     /** @copydoc MostTime */
-    double time;
+    double time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostStressMode */
-    MostStressMode stressMode;
+    MostStressMode stressMode {0};
 
     /** @copydoc MostStressState */
-    MostStressState stressState;
+    MostStressState stressState {MostStressState::Stopped};
 
     /** @copydoc Event::read() */
     static MostStress * read(File & file, std::string & line);

@@ -41,69 +41,71 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
-class VECTOR_ASC_EXPORT LinShortOrSlowResponse final : public Event {
-  public:
-    LinShortOrSlowResponse();
+struct VECTOR_ASC_EXPORT LinShortOrSlowResponse final : Event {
+    LinShortOrSlowResponse() :
+        Event() {
+        eventType = EventType::LinShortOrSlowResponse;
+    };
 
     /** @copydoc LinTime */
-    LinTime time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** @copydoc LinId */
-    LinId id;
+    LinId id {};
 
     /** @copydoc LinDlc */
-    LinDlc dlc;
+    LinDlc dlc {0};
 
     /** @copydoc LinNumberOfResponseBytes */
-    LinNumberOfResponseBytes numberOfResponseBytes;
+    LinNumberOfResponseBytes numberOfResponseBytes {0};
 
     /** @copydoc LinDx */
-    std::vector<LinDx> data;
+    std::vector<LinDx> data {};
 
     /** @copydoc LinIsSlowResponse */
-    LinIsSlowResponse isSlowResponse;
+    LinIsSlowResponse isSlowResponse {false};
 
     /** @copydoc LinResponseWasInterruptedByBreak */
-    LinResponseWasInterruptedByBreak responseWasInterruptedByBreak;
+    LinResponseWasInterruptedByBreak responseWasInterruptedByBreak {false};
 
     /** @copydoc LinStartOfFrame */
-    LinStartOfFrame startOfFrame;
+    LinStartOfFrame startOfFrame {0.0};
 
     /** @copydoc LinBaudrateType */
-    LinBaudrateType baudrate;
+    LinBaudrateType baudrate {0};
 
     /** @copydoc LinSyncBreak */
-    LinSyncBreak syncBreak;
+    LinSyncBreak syncBreak {0};
 
     /** @copydoc LinSyncDel */
-    LinSyncDel syncDel;
+    LinSyncDel syncDel {0};
 
     /** @copydoc LinNad */
-    LinNad nad;
+    LinNad nad {0};
 
     /** @copydoc LinMessageId */
-    LinMessageId messageId;
+    LinMessageId messageId {0};
 
     /** @copydoc LinSupplierId */
-    LinSupplierId supplierId;
+    LinSupplierId supplierId {0};
 
     /** @copydoc LinEndOfHeader */
-    LinEndOfHeader endOfHeader;
+    LinEndOfHeader endOfHeader {0.0};
 
     /** @copydoc LinT */
-    std::vector<LinT> endOfByte;
+    std::vector<LinT> endOfByte {};
 
     /** @copydoc LinHeaderBaudrate */
-    LinHeaderBaudrate headerBaudrate;
+    LinHeaderBaudrate headerBaudrate {0.0};
 
     /** @copydoc LinStopBitOffsetInHeader */
-    LinStopBitOffsetInHeader stopBitOffsetInHeader;
+    LinStopBitOffsetInHeader stopBitOffsetInHeader {0};
 
     /** @copydoc LinChecksumModel */
-    LinChecksumModel checksumModel;
+    LinChecksumModel checksumModel {LinChecksumModel::Unknown};
 
     /** @copydoc Event::read() */
     static LinShortOrSlowResponse * read(File & file, std::string & line);

@@ -36,24 +36,26 @@ namespace ASC {
  *
  * Event for various system states.
  */
-class VECTOR_ASC_EXPORT MostSystem final : public Event {
-  public:
-    MostSystem();
+struct VECTOR_ASC_EXPORT MostSystem final : Event {
+    MostSystem() :
+        Event() {
+        eventType = EventType::MostSystem;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostSysId */
-    MostSysId sysId;
+    MostSysId sysId {MostSysId::SystemLock};
 
     /** @copydoc MostSysValue */
-    MostSysValue sysValue;
+    MostSysValue sysValue {0};
 
     /** @copydoc MostSysValueOld */
-    MostSysValueOld sysValueOld;
+    MostSysValueOld sysValueOld {0};
 
     /** @copydoc Event::read() */
     static MostSystem * read(File & file, std::string & line);

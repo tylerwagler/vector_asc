@@ -29,17 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-LinUnexpectedWakeup::LinUnexpectedWakeup() :
-    Event(),
-    time(0.0),
-    channel(0),
-    width(0),
-    wakeupByte(0),
-    startOfFrame(0),
-    baudrate(0) {
-    eventType = EventType::LinUnexpectedWakeup;
-}
-
 LinUnexpectedWakeup * LinUnexpectedWakeup::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Unexpected wakeup:"
                      "((" REGEX_ws "approx\\." REGEX_ws REGEX_LIN_Width REGEX_ws "us" ")|("

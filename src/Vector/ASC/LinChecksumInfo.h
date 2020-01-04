@@ -38,21 +38,23 @@ namespace ASC {
  * an unknown frame. This checksum model is set as the expected checksum model for this frame.
  * An error is displayed if the same frame is received with a different checksum model.
  */
-class VECTOR_ASC_EXPORT LinChecksumInfo final : public Event {
-  public:
-    LinChecksumInfo();
+struct VECTOR_ASC_EXPORT LinChecksumInfo final : Event {
+    LinChecksumInfo() :
+        Event() {
+        eventType = EventType::LinChecksumInfo;
+    };
 
     /** @copydoc LinTime */
-    LinTime time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** @copydoc LinId */
-    LinId id;
+    LinId id {};
 
     /** @copydoc LinChecksumModelInfo */
-    LinChecksumModelInfo checksumModelInfo;
+    LinChecksumModelInfo checksumModelInfo {};
 
     /** @copydoc Event::read() */
     static LinChecksumInfo * read(File & file, std::string & line);

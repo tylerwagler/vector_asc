@@ -37,45 +37,47 @@ namespace ASC {
  *
  * FlexRay Message received or transmitted on a FlexRay channel.
  */
-class VECTOR_ASC_EXPORT FlexRayStatus final : public Event {
-  public:
-    FlexRayStatus();
+struct VECTOR_ASC_EXPORT FlexRayStatus final : Event {
+    FlexRayStatus() :
+        Event() {
+        eventType = EventType::FlexRayStatus;
+    };
 
     /** Timestamp */
-    double time;
+    double time {0.0};
 
     /** Clusternr. */
-    uint32_t clusterNr;
+    uint32_t clusterNr {0};
 
     /** Client-ID */
-    uint32_t clientId;
+    uint32_t clientId {0};
 
     /** Channelnr. */
-    uint32_t channelNr;
+    uint32_t channelNr {0};
 
     /** Channel mask */
-    uint32_t channelMask;
+    uint32_t channelMask {0};
 
     /** Cycle no. */
-    uint32_t cycleNo;
+    uint32_t cycleNo {0};
 
     /** CC-Type. */
-    uint32_t ccType;
+    uint32_t ccType {0};
 
     /** Sync-State */
-    uint32_t syncState;
+    uint32_t syncState {0};
 
     /** CC-Data[2] */
-    std::array<uint32_t, 2> ccData;
+    std::array<uint32_t, 2> ccData {};
 
     /** Symbol */
-    uint32_t symbol;
+    uint32_t symbol {0};
 
     /** WakeUp State */
-    uint32_t wakeUpState;
+    uint32_t wakeUpState {0};
 
     /** Spy flag */
-    bool spyFlag;
+    bool spyFlag {false};
 
     /** @copydoc Event::read() */
     static FlexRayStatus * read(File & file, std::string & line);

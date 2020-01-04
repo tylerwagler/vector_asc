@@ -38,33 +38,35 @@ namespace ASC {
  * global marker event is assigned to another event (set in Trace Window) it has to be written before that
  * event. Global marker events can be written only during the export from Trace window.
  */
-class VECTOR_ASC_EXPORT GlobalMarker final : public Event {
-  public:
-    GlobalMarker();
+struct VECTOR_ASC_EXPORT GlobalMarker final : Event {
+    GlobalMarker() :
+        Event() {
+        eventType = EventType::GlobalMarker;
+    };
 
     /** @copydoc Time */
-    Time time;
+    Time time {0.0};
 
     /** the type of the commented event */
-    uint32_t type;
+    uint32_t type {0};
 
     /** background color of the marker group */
-    uint32_t backgroundColor;
+    uint32_t backgroundColor {0};
 
     /** foreground color of the marker group */
-    uint32_t foregroundColor;
+    uint32_t foregroundColor {0};
 
     /** defines whether the marker can be moved */
-    bool relocatable;
+    bool relocatable {true};
 
     /** the name of the marker group */
-    std::string groupName;
+    std::string groupName {};
 
     /** the name of the marker */
-    std::string markerName;
+    std::string markerName {};
 
     /** marker description */
-    std::string description;
+    std::string description {};
 
     /** @copydoc Event::read() */
     static GlobalMarker * read(File & file, std::string & line);

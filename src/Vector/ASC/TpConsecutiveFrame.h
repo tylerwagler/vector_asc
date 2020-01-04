@@ -34,30 +34,32 @@ namespace Vector {
 namespace ASC {
 
 /** TPg Consecutive Frame */
-class VECTOR_ASC_EXPORT TpConsecutiveFrame final : public Event {
-  public:
-    TpConsecutiveFrame();
+struct VECTOR_ASC_EXPORT TpConsecutiveFrame final : Event {
+    TpConsecutiveFrame() :
+        Event() {
+        eventType = EventType::TpConsecutiveFrame;
+    };
 
     /** @copydoc TpDiagCanChannel */
-    TpDiagCanChannel canChannel;
+    TpDiagCanChannel canChannel {0};
 
     /** @copydoc TpDiagConnectionId */
-    TpDiagConnectionId connectionId;
+    TpDiagConnectionId connectionId {0};
 
     /** @copydoc TpDiagType */
-    TpDiagType type;
+    TpDiagType type {TpDiagType::Info};
 
     /** @copydoc TpDiagSource */
-    TpDiagSource source;
+    TpDiagSource source {};
 
     /** @copydoc TpDiagDestination */
-    TpDiagDestination destination;
+    TpDiagDestination destination {};
 
     /** @copydoc TpDiagSn */
-    TpDiagSn sn;
+    TpDiagSn sn {0};
 
     /** @copydoc TpDiagTransportedBytes */
-    std::vector<TpDiagTransportedBytes> transportedBytes;
+    std::vector<TpDiagTransportedBytes> transportedBytes {};
 
     /** @copydoc Event::read() */
     static TpConsecutiveFrame * read(File & file, std::string & line);

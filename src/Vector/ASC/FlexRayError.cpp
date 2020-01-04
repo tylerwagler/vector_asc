@@ -29,18 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-FlexRayError::FlexRayError() :
-    Event(),
-    time(0.0),
-    clusterNr(0),
-    clientId(0),
-    channelNr(0),
-    channelMask(0),
-    ccType(0),
-    ccData() {
-    eventType = EventType::FlexRayError;
-}
-
 FlexRayError * FlexRayError::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "EE"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"

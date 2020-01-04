@@ -30,17 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-Most150AllocTable::Most150AllocTable() :
-    Event(),
-    time(0.0),
-    channel(0),
-    at150EventModeFlags(0),
-    freeBytes(0),
-    at150Size(0),
-    wordData() {
-    eventType = EventType::Most150AllocTable;
-}
-
 Most150AllocTable * Most150AllocTable::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "AT150:"
                      REGEX_ws REGEX_MOST_AT150EventModeFlags REGEX_WS REGEX_MOST_FreeBytes REGEX_WS REGEX_MOST_AT150Size

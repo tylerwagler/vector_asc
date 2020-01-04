@@ -36,21 +36,23 @@ namespace ASC {
  *
  * An event that is written if the value of a environment variable changed.
  */
-class VECTOR_ASC_EXPORT EnvironmentVariables final : public Event {
-  public:
-    EnvironmentVariables();
+struct VECTOR_ASC_EXPORT EnvironmentVariables final : Event {
+    EnvironmentVariables() :
+        Event() {
+        eventType = EventType::EnvironmentVariables;
+    };
 
     /** @copydoc Time */
-    Time time;
+    Time time {0.0};
 
     /** a string which contains the environment variable name */
-    std::string evname;
+    std::string evname {};
 
     /**
      * the environment value as number, string or databytes (depend on variable type)
      * OR a string from the value description table (if exists; only for integer variable type)
      */
-    std::string value;
+    std::string value {};
 
     /** @copydoc Event::read() */
     static EnvironmentVariables * read(File & file, std::string & line);

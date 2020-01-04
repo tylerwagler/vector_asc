@@ -38,36 +38,38 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
-class VECTOR_ASC_EXPORT LinDisturbance final : public Event {
-  public:
-    LinDisturbance();
+struct VECTOR_ASC_EXPORT LinDisturbance final : Event {
+    LinDisturbance() :
+        Event() {
+        eventType = EventType::LinDisturbance;
+    };
 
     /** @copydoc LinTime */
-    LinTime time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** @copydoc LinDisturbanceType */
-    LinDisturbanceType disturbanceType;
+    LinDisturbanceType disturbanceType {};
 
     /** @copydoc LinByteIndex */
-    LinByteIndex byteIndex;
+    LinByteIndex byteIndex {0};
 
     /** @copydoc LinBitIndex */
-    LinBitIndex bitIndex;
+    LinBitIndex bitIndex {0};
 
     /** @copydoc LinBitOffsetInSixteenthBits */
-    LinBitOffsetInSixteenthBits bitOffset;
+    LinBitOffsetInSixteenthBits bitOffset {0};
 
     /** @copydoc LinDisturbanceLengthInSixteenthBits */
-    LinDisturbanceLengthInSixteenthBits length;
+    LinDisturbanceLengthInSixteenthBits length {0};
 
     /** @copydoc LinIdOrFf */
-    LinIdOrFf header;
+    LinIdOrFf header {0};
 
     /** @copydoc LinIdOrFf */
-    LinIdOrFf disturbingHeader;
+    LinIdOrFf disturbingHeader {0};
 
     /** @copydoc Event::read() */
     static LinDisturbance * read(File & file, std::string & line);

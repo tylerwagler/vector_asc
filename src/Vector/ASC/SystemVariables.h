@@ -38,24 +38,26 @@ namespace ASC {
  *
  * An event that is written if the value of a system variable changed.
  */
-class VECTOR_ASC_EXPORT SystemVariables final : public Event {
-  public:
-    SystemVariables();
+struct VECTOR_ASC_EXPORT SystemVariables final : Event {
+    SystemVariables() :
+        Event() {
+        eventType = EventType::SystemVariables;
+    };
 
     /** @copydoc Time */
-    Time time;
+    Time time {0.0};
 
     /** @copydoc Svtype */
-    Svtype svtype;
+    Svtype svtype {};
 
     /** two flags: Unused. */
-    std::array<bool, 2> flag;
+    std::array<bool, 2> flag {};
 
     /** the full path (name with namespace) of the system variable */
-    std::string path;
+    std::string path {};
 
     /** the value as number or string (depend on variable data type). */
-    std::string value;
+    std::string value {};
 
     /** @copydoc Event::read() */
     static SystemVariables * read(File & file, std::string & line);

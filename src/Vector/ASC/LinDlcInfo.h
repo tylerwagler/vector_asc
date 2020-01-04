@@ -41,21 +41,23 @@ namespace ASC {
  * If the master mode of LIN hardware is activated and a frame’s DLC is not specified, then the DLC
  * is determined using the frame’s identifier.
  */
-class VECTOR_ASC_EXPORT LinDlcInfo final : public Event {
-  public:
-    LinDlcInfo();
+struct VECTOR_ASC_EXPORT LinDlcInfo final : Event {
+    LinDlcInfo() :
+        Event() {
+        eventType = EventType::LinDlcInfo;
+    };
 
     /** @copydoc LinTime */
-    LinTime time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** @copydoc LinId */
-    LinId id;
+    LinId id {};
 
     /** @copydoc LinDlc */
-    LinDlc dlc;
+    LinDlc dlc {0};
 
     /** @copydoc Event::read() */
     static LinDlcInfo * read(File & file, std::string & line);

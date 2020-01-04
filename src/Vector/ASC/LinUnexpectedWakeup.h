@@ -39,27 +39,29 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
-class VECTOR_ASC_EXPORT LinUnexpectedWakeup final : public Event {
-  public:
-    LinUnexpectedWakeup();
+struct VECTOR_ASC_EXPORT LinUnexpectedWakeup final : Event {
+    LinUnexpectedWakeup() :
+        Event() {
+        eventType = EventType::LinUnexpectedWakeup;
+    };
 
     /** @copydoc LinTime */
-    LinTime time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** @copydoc LinWidth */
-    LinWidth width;
+    LinWidth width {0};
 
     /** @copydoc LinWakeupByte */
-    LinWakeupByte wakeupByte;
+    LinWakeupByte wakeupByte {0};
 
     /** @copydoc LinStartOfFrame */
-    LinStartOfFrame startOfFrame;
+    LinStartOfFrame startOfFrame {0};
 
     /** @copydoc LinBaudrateType */
-    LinBaudrateType baudrate;
+    LinBaudrateType baudrate {0};
 
     /** @copydoc Event::read() */
     static LinUnexpectedWakeup * read(File & file, std::string & line);

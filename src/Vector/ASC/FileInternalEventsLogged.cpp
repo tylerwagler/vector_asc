@@ -28,12 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-FileInternalEventsLogged::FileInternalEventsLogged() :
-    Event(),
-    internalEventsLogged(true) {
-    eventType = EventType::FileInternalEventsLogged;
-}
-
 FileInternalEventsLogged * FileInternalEventsLogged::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "(no )?internal events logged" REGEX_ENDL);
     std::smatch match;

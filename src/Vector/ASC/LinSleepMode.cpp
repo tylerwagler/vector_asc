@@ -28,15 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-LinSleepMode::LinSleepMode() :
-    Event(),
-    time(0.0),
-    channel(0),
-    simulated(false),
-    description() {
-    eventType = EventType::LinSleepMode;
-}
-
 LinSleepMode * LinSleepMode::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SleepModeEvent"
                      REGEX_WS REGEX_LIN_simulated REGEX_WS REGEX_LIN_description REGEX_ENDL);

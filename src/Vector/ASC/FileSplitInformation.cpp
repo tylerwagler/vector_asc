@@ -29,13 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-FileSplitInformation::FileSplitInformation() :
-    Event(),
-    time(0.0),
-    fileName() {
-    eventType = EventType::FileSplitInformation;
-}
-
 FileSplitInformation * FileSplitInformation::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_Time REGEX_WS "previous log file:" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;

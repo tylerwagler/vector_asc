@@ -29,29 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-LinTransmissionError::LinTransmissionError() :
-    Event(),
-    time(0.0),
-    channel(0),
-    id(),
-    slaveId(0),
-    state(0),
-    headerTime(0),
-    fullTime(0),
-    startOfFrame(0.0),
-    baudrate(0),
-    syncBreak(0),
-    syncDel(0),
-    nad(0),
-    messageId(0),
-    supplierId(0),
-    endOfHeader(0.0),
-    headerBaudrate(0.0),
-    stopBitOffsetInHeader(0),
-    checksumModel() {
-    eventType = EventType::LinTransmissionError;
-}
-
 LinTransmissionError * LinTransmissionError::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS "TransmErr"
                      "(" REGEX_WS "slave" REGEX_ws "=" REGEX_ws REGEX_LIN_slaveId ","

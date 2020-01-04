@@ -40,74 +40,76 @@ namespace ASC {
  * (NACK Error, CRC Error) the hardware/driver may provide further information (ID, DLC, Data
  * ...) about the partial frame preceding the actual Error Frame, otherwise these values are 0.
  */
-class VECTOR_ASC_EXPORT CanFdErrorFrame final : public Event {
-  public:
-    CanFdErrorFrame();
+struct VECTOR_ASC_EXPORT CanFdErrorFrame final : Event {
+    CanFdErrorFrame() :
+        Event() {
+        eventType = EventType::CanFdErrorFrame;
+    };
 
     /** @copydoc Time */
-    Time time;
+    Time time {0.0};
 
     /** @copydoc Channel */
-    Channel channel;
+    Channel channel {0};
 
     /** @copydoc Dir */
-    Dir dir;
+    Dir dir {Dir::Rx};
 
     /** Error Text */
-    std::string errorText;
+    std::string errorText {};
 
     /** @copydoc CanErrorframe::flags */
-    uint16_t flags1;
+    uint16_t flags1 {0};
 
     /** @copydoc CanErrorframe::code */
-    uint8_t code;
+    uint8_t code {0};
 
     /** @copydoc CanErrorframe::codeExt */
-    uint16_t codeExt;
+    uint16_t codeExt {0};
 
     /** Phase */
     enum class Phase {
         Data
     };
 
-    /** Phase */
-    Phase phase;
+    /** @copydoc Phase */
+    Phase phase {Phase::Data};
 
     /** Position */
-    uint16_t position;
+    uint16_t position {0};
 
     /** @copydoc IdNum */
-    IdNum id;
+    IdNum id {0};
 
     /** @copydoc Brs */
-    Brs brs;
+    Brs brs {false};
 
     /** @copydoc Esi */
-    Esi esi;
+    Esi esi {false};
 
     /** @copydoc Dlc */
-    Dlc dlc;
+    Dlc dlc {0};
 
     /** @copydoc DataLength */
-    DataLength dataLength;
+    DataLength dataLength {0};
 
     /** @copydoc Dx */
-    std::vector<Dx> data;
+    std::vector<Dx> data {};
 
     /** @copydoc MessageDuration */
-    MessageDuration messageDuration;
+    MessageDuration messageDuration {0};
 
     /** Flags */
-    uint32_t flags2;
+    uint32_t flags2 {0};
 
     /** CRC */
-    uint32_t crc;
+    uint32_t crc {0};
 
     /** @copydoc BitTimingConfArb */
-    BitTimingConfArb bitTimingConfArb;
+    BitTimingConfArb bitTimingConfArb {0};
 
     /** @copydoc BitTimingConfData */
-    BitTimingConfData bitTimingConfData;
+    BitTimingConfData bitTimingConfData {0};
 
     /** @copydoc Event::read() */
     static CanFdErrorFrame * read(File & file, std::string & line);

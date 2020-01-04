@@ -37,15 +37,17 @@ namespace ASC {
  * A Log Trigger event. There can be additional information appended at the end of the line, e.g. "
  * (this trigger was in post trigger time of last block)" or "(ignored)".
  */
-class VECTOR_ASC_EXPORT LogTrigger final : public Event {
-  public:
-    LogTrigger();
+struct VECTOR_ASC_EXPORT LogTrigger final : Event {
+    LogTrigger() :
+        Event() {
+        eventType = EventType::LogTrigger;
+    };
 
     /** @copydoc Time */
-    Time time;
+    Time time {0.0};
 
     /** additional information */
-    std::string information;
+    std::string information {};
 
     /** @copydoc Event::read() */
     static LogTrigger * read(File & file, std::string & line);

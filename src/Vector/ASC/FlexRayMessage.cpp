@@ -30,33 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-FlexRayMessage::FlexRayMessage() :
-    Event(),
-    time(0.0),
-    flexRayEventType(FlexRayEventType::RMSG),
-    clusterNr(0),
-    clientId(0),
-    channelNr(0),
-    channelMask(0),
-    slotId(0),
-    cycleNo(0),
-    direction(Dir::Rx),
-    appParam(0),
-    flags(0),
-    ccType(0),
-    ccData(0),
-    headerCrc(0),
-    name(),
-    payloadLength(0),
-    bufferLength(0),
-    data(),
-    frameCrc(0),
-    spyFlag(false),
-    frameLengthNs(0),
-    pduOffset(0) {
-    eventType = EventType::FlexRayMessage;
-}
-
 FlexRayMessage * FlexRayMessage::readRmsg(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "RMSG"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"

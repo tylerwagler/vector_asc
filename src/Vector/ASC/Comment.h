@@ -39,18 +39,20 @@ namespace ASC {
  * A comment event that is written before another event that was commented in Trace Window. Commenting events is
  * supported only in Trace Window, so this event can be written only during the export from Trace window.
  */
-class VECTOR_ASC_EXPORT Comment final : public Event {
-  public:
-    Comment();
+struct VECTOR_ASC_EXPORT Comment final : Event {
+    Comment() :
+        Event() {
+        eventType = EventType::Comment;
+    };
 
     /** @copydoc Time */
-    Time time;
+    Time time {0.0};
 
     /** the type of the commented event */
-    uint32_t type;
+    uint32_t type {0};
 
     /** the text of the comment */
-    std::string commentText;
+    std::string commentText {};
 
     /** @copydoc Event::read() */
     static Comment * read(File & file, std::string & line);

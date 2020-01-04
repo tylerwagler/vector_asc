@@ -30,15 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-Most25AllocTable::Most25AllocTable() :
-    Event(),
-    time(0.0),
-    channel(0),
-    allocTableSize(0),
-    data() {
-    eventType = EventType::Most25AllocTable;
-}
-
 Most25AllocTable * Most25AllocTable::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "AllocTab:"
                      REGEX_ws REGEX_MOST_AllocTableSize "((" REGEX_WS REGEX_MOST_DxAT ")*)" REGEX_ENDL);

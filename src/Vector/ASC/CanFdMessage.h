@@ -38,57 +38,59 @@ namespace ASC {
  *
  * An Overload Frame received on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanFdMessage final : public Event {
-  public:
-    CanFdMessage();
+struct VECTOR_ASC_EXPORT CanFdMessage final : Event {
+    CanFdMessage() :
+        Event() {
+        eventType = EventType::CanFdMessage;
+    };
 
     /** @copydoc Time */
-    Time time;
+    Time time {0.0};
 
     /** @copydoc Channel */
-    Channel channel;
+    Channel channel {0};
 
     /** @copydoc Dir */
-    Dir dir;
+    Dir dir {Dir::Rx};
 
     /** @copydoc IdNum */
-    IdNum id;
+    IdNum id {0};
 
     /** SymbolicName */
-    std::string symbolicName;
+    std::string symbolicName {};
 
     /** @copydoc Brs */
-    Brs brs;
+    Brs brs {false};
 
     /** @copydoc Esi */
-    Esi esi;
+    Esi esi {false};
 
     /** @copydoc Dlc */
-    Dlc dlc;
+    Dlc dlc {0};
 
     /** @copydoc DataLength */
-    DataLength dataLength;
+    DataLength dataLength {0};
 
     /** @copydoc Dx */
-    std::vector<Dx> data;
+    std::vector<Dx> data {};
 
     /** @copydoc MessageDuration */
-    MessageDuration messageDuration;
+    MessageDuration messageDuration {0};
 
     /** @copydoc MessageLength */
-    MessageLength messageLength;
+    MessageLength messageLength {0};
 
     /** Flags */
-    uint32_t flags;
+    uint32_t flags {0};
 
     /** CRC */
-    uint32_t crc;
+    uint32_t crc {0};
 
     /** @copydoc BitTimingConfArb */
-    BitTimingConfArb bitTimingConfArb;
+    BitTimingConfArb bitTimingConfArb {0};
 
     /** @copydoc BitTimingConfData */
-    BitTimingConfData bitTimingConfData;
+    BitTimingConfData bitTimingConfData {0};
 
     /** @copydoc Event::read() */
     static CanFdMessage * read(File & file, std::string & line);

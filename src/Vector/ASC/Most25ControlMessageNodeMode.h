@@ -38,33 +38,35 @@ namespace ASC {
  *
  * Message on MOST25 Control Channel received or transmitted in node mode.
  */
-class VECTOR_ASC_EXPORT Most25ControlMessageNodeMode final : public Event {
-  public:
-    Most25ControlMessageNodeMode();
+struct VECTOR_ASC_EXPORT Most25ControlMessageNodeMode final : Event {
+    Most25ControlMessageNodeMode() :
+        Event() {
+        eventType = EventType::Most25ControlMessageNodeMode;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostDir */
-    MostDir dir;
+    MostDir dir {Dir::Rx};
 
     /** @copydoc MostSourceAdr */
-    MostSourceAdr sourceAdr;
+    MostSourceAdr sourceAdr {0};
 
     /** @copydoc MostDestAdr */
-    MostDestAdr destAdr;
+    MostDestAdr destAdr {0};
 
     /** @copydoc MostRtype */
-    MostRType rType;
+    MostRType rType {0};
 
     /** @copydoc MostDx */
-    std::vector<MostDx> data;
+    std::vector<MostDx> data {};
 
     /** @copydoc MostState2 */
-    MostState2 state2;
+    MostState2 state2 {0};
 
     /** @copydoc Event::read() */
     static Most25ControlMessageNodeMode * read(File & file, std::string & line);

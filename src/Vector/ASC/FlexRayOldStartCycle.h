@@ -38,21 +38,23 @@ namespace ASC {
  *
  * FlexRay Message received or transmitted on a FlexRay channel.
  */
-class VECTOR_ASC_EXPORT FlexRayOldStartCycle final : public Event {
-  public:
-    FlexRayOldStartCycle();
+struct VECTOR_ASC_EXPORT FlexRayOldStartCycle final : Event {
+    FlexRayOldStartCycle() :
+        Event() {
+        eventType = EventType::FlexRayOldStartCycle;
+    };
 
     /** @copydoc FlexRayOldTime */
-    FlexRayOldTime time;
+    FlexRayOldTime time {0.0};
 
     /** @copydoc FlexRayOldChannel */
-    FlexRayOldChannel channel;
+    FlexRayOldChannel channel {};
 
     /** @copydoc FlexRayOldDlc */
-    FlexRayOldDlc dlc;
+    FlexRayOldDlc dlc {0};
 
     /** @copydoc FlexRayOldDx */
-    std::vector<FlexRayOldDx> data;
+    std::vector<FlexRayOldDx> data {};
 
     /** @copydoc Event::read() */
     static FlexRayOldStartCycle * read(File & file, std::string & line);

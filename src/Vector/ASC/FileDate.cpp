@@ -28,13 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-FileDate::FileDate() :
-    Event(),
-    date(),
-    language(File::Language::En) {
-    eventType = EventType::FileDate;
-}
-
 FileDate * FileDate::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "date" REGEX_WS REGEX_WeekDay REGEX_WS REGEX_Month REGEX_WS REGEX_Date REGEX_WS REGEX_FullTime REGEX_WS REGEX_Year REGEX_ENDL);
     std::smatch match;

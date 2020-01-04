@@ -37,24 +37,26 @@ namespace ASC {
  * The enhanced LIN hardware capabilities can be used to define a timeout for a FSM state to a pre-
  * defined error state on exceeding this timeout and a Slave timeout message is displayed.
  */
-class VECTOR_ASC_EXPORT LinSlaveTimeout final : public Event {
-  public:
-    LinSlaveTimeout();
+struct VECTOR_ASC_EXPORT LinSlaveTimeout final : Event {
+    LinSlaveTimeout() :
+        Event() {
+        eventType = EventType::LinSlaveTimeout;
+    };
 
     /** @copydoc LinTime */
-    LinTime time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** @copydoc LinSlaveId */
-    LinSlaveId slaveId;
+    LinSlaveId slaveId {0};
 
     /** @copydoc LinCurrentState */
-    LinState currentState;
+    LinState currentState {0};
 
     /** @copydoc LinFollowingState */
-    LinState followingState;
+    LinState followingState {0};
 
     /** @copydoc Event::read() */
     static LinSlaveTimeout * read(File & file, std::string & line);

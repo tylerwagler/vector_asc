@@ -29,14 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-LinBaudrate::LinBaudrate() :
-    Event(),
-    time(0.0),
-    channel(0),
-    baudrate(0) {
-    eventType = EventType::LinBaudrate;
-}
-
 LinBaudrate * LinBaudrate::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Baudrate"
                      REGEX_WS REGEX_LIN_baudrate REGEX_ENDL);

@@ -29,17 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-LinDominantSignal::LinDominantSignal() :
-    Event(),
-    time(0.0),
-    channel(0),
-    domSigState(),
-    domSigLength(0),
-    startOfFrame(0.0),
-    baudrate(0) {
-    eventType = EventType::LinDominantSignal;
-}
-
 LinDominantSignal * LinDominantSignal::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Dominant signal"
                      REGEX_WS REGEX_LIN_DomSigState REGEX_WS REGEX_LIN_DomSigLength REGEX_WS "microseconds"

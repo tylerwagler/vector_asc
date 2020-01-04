@@ -36,30 +36,32 @@ namespace ASC {
  *
  * A Wakeup-Frame event is displayed when a wakeup request has been detected on a LIN channel.
  */
-class VECTOR_ASC_EXPORT LinWakeupFrame final : public Event {
-  public:
-    LinWakeupFrame();
+struct VECTOR_ASC_EXPORT LinWakeupFrame final : Event {
+    LinWakeupFrame() :
+        Event() {
+        eventType = EventType::LinWakeupFrame;
+    };
 
     /** @copydoc LinTime */
-    double time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** @copydoc LinDir */
-    LinDir dir;
+    LinDir dir {Dir::Rx};
 
     /** @copydoc LinWakeupByte */
-    LinWakeupByte wakeupByte;
+    LinWakeupByte wakeupByte {0};
 
     /** @copydoc LinStartOfFrame */
-    LinStartOfFrame startOfFrame;
+    LinStartOfFrame startOfFrame {0};
 
     /** @copydoc LinBaudrateType */
-    LinBaudrateType baudrate;
+    LinBaudrateType baudrate {0};
 
     /** @copydoc LinWakeupLengthInfo */
-    LinWakeupLengthInfo wakeupLengthInfo;
+    LinWakeupLengthInfo wakeupLengthInfo {0};
 
     /** @copydoc Event::read() */
     static LinWakeupFrame * read(File & file, std::string & line);

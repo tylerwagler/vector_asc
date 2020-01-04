@@ -29,20 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-LinDisturbance::LinDisturbance() :
-    Event(),
-    time(0.0),
-    channel(0),
-    disturbanceType(),
-    byteIndex(0),
-    bitIndex(0),
-    bitOffset(0),
-    length(0),
-    header(0),
-    disturbingHeader(0) {
-    eventType = EventType::LinDisturbance;
-}
-
 LinDisturbance * LinDisturbance::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "DisturbanceEvent"
                      REGEX_WS "Type" REGEX_ws "=" REGEX_ws REGEX_LIN_DisturbanceType

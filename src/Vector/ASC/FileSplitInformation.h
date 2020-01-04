@@ -33,15 +33,17 @@ namespace Vector {
 namespace ASC {
 
 /** File Split Information */
-class VECTOR_ASC_EXPORT FileSplitInformation final : public Event {
-  public:
-    FileSplitInformation();
+struct VECTOR_ASC_EXPORT FileSplitInformation final : Event {
+    FileSplitInformation() :
+        Event() {
+        eventType = EventType::FileSplitInformation;
+    };
 
     /** last absolute time stamp of the previous log file */
-    double time;
+    double time {0.0};
 
     /** filename of the previous log file without path information */
-    std::string fileName;
+    std::string fileName {};
 
     /** @copydoc Event::read() */
     static FileSplitInformation * read(File & file, std::string & line);

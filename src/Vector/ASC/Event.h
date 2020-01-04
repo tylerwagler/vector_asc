@@ -39,10 +39,8 @@ class File;
 /**
  * Base class for all events
  */
-class VECTOR_ASC_EXPORT Event {
-  public:
-    Event();
-    virtual ~Event();
+struct VECTOR_ASC_EXPORT Event {
+    virtual ~Event() = default;
 
     /**
      * Event Type
@@ -191,7 +189,7 @@ class VECTOR_ASC_EXPORT Event {
         StartOfMeasurement = 240
     };
 
-    EventType eventType;
+    EventType eventType {EventType::Default};
 
     /**
      * Parse function

@@ -29,17 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-LinSpike::LinSpike() :
-    Event(),
-    time(0.0),
-    channel(0),
-    dir(Dir::Rx),
-    spikeLength(0),
-    startOfFrame(0),
-    baudrate(0) {
-    eventType = EventType::LinSpike;
-}
-
 LinSpike * LinSpike::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Spike"
                      REGEX_WS REGEX_LIN_Dir REGEX_WS REGEX_LIN_SpikeLength REGEX_WS "microseconds"

@@ -33,12 +33,14 @@ namespace Vector {
 namespace ASC {
 
 /** File Internal Events Logged */
-class VECTOR_ASC_EXPORT FileInternalEventsLogged final : public Event {
-  public:
-    FileInternalEventsLogged();
+struct VECTOR_ASC_EXPORT FileInternalEventsLogged final : Event {
+    FileInternalEventsLogged() :
+        Event() {
+        eventType = EventType::FileInternalEventsLogged;
+    };
 
     /** internal events logged */
-    bool internalEventsLogged;
+    bool internalEventsLogged {true};
 
     /** @copydoc Event::read() */
     static FileInternalEventsLogged * read(File & file, std::string & line);

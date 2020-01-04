@@ -27,8 +27,6 @@
 
 #include <Vector/ASC/CanSymbolsRegEx.h>
 
-#include <Vector/ASC/vector_asc_export.h>
-
 namespace Vector {
 namespace ASC {
 

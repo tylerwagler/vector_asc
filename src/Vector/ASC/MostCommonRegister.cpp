@@ -30,18 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-MostCommonRegister::MostCommonRegister() :
-    Event(),
-    time(0.0),
-    channel(0),
-    regSubType(MostRegSubType::Unspecified),
-    regChip(0),
-    regOffset(0),
-    regDataLen(0),
-    data() {
-    eventType = EventType::MostCommonRegister;
-}
-
 MostCommonRegister * MostCommonRegister::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "RegData:"
                      REGEX_ws REGEX_MOST_RegSubType REGEX_WS REGEX_MOST_RegChip REGEX_WS REGEX_MOST_RegOffset

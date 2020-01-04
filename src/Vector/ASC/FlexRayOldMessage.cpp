@@ -30,23 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-FlexRayOldMessage::FlexRayOldMessage() :
-    Event(),
-    time(0.0),
-    channel(),
-    id(0),
-    cycle(0),
-    nm(false),
-    sync(false),
-    headerCrc(0),
-    symbolicName(),
-    dlc(0),
-    data(),
-    frameState(0),
-    headerBitMask(0) {
-    eventType = EventType::FlexRayOldMessage;
-}
-
 FlexRayOldMessage * FlexRayOldMessage::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_FlexRayOld_Time REGEX_WS REGEX_FlexRayOld_Channel REGEX_WS "V9"
                      REGEX_WS REGEX_FlexRayOld_ID REGEX_WS REGEX_FlexRayOld_Cycle REGEX_WS REGEX_FlexRayOld_NM

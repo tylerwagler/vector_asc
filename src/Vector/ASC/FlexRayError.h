@@ -37,30 +37,32 @@ namespace ASC {
  *
  * FlexRay Message received or transmitted on a FlexRay channel.
  */
-class VECTOR_ASC_EXPORT FlexRayError final : public Event {
-  public:
-    FlexRayError();
+struct VECTOR_ASC_EXPORT FlexRayError final : Event {
+    FlexRayError() :
+        Event() {
+        eventType = EventType::FlexRayError;
+    };
 
     /** Timestamp */
-    double time;
+    double time {0.0};
 
     /** Clusternr. */
-    uint32_t clusterNr;
+    uint32_t clusterNr {0};
 
     /** Client-ID */
-    uint32_t clientId;
+    uint32_t clientId {0};
 
     /** Channelnr. */
-    uint32_t channelNr;
+    uint32_t channelNr {0};
 
     /** Channel mask */
-    uint32_t channelMask;
+    uint32_t channelMask {0};
 
     /** CC-Type. */
-    uint32_t ccType;
+    uint32_t ccType {0};
 
     /** CC-Data[4] */
-    std::array<uint32_t, 4> ccData;
+    std::array<uint32_t, 4> ccData {};
 
     /** @copydoc Event::read() */
     static FlexRayError * read(File & file, std::string & line);

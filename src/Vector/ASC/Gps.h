@@ -36,30 +36,32 @@ namespace ASC {
  *
  * An event that is written if an event is received on the GPS channel.
  */
-class VECTOR_ASC_EXPORT Gps final : public Event {
-  public:
-    Gps();
+struct VECTOR_ASC_EXPORT Gps final : Event {
+    Gps() :
+        Event() {
+        eventType = EventType::Gps;
+    };
 
     /** absolute or relative time in seconds */
-    Time time;
+    Time time {0.0};
 
     /** the number of the GPS device on which the event is received */
-    uint16_t channel;
+    uint16_t channel {0};
 
     /** the latitude value of the GPS event */
-    double latitude;
+    double latitude {0.0};
 
     /** the longitude value of the GPS event */
-    double longitude;
+    double longitude {0.0};
 
     /** the altitude value of the GPS event */
-    double altitude;
+    double altitude {0.0};
 
     /** the speed value of the GPS event */
-    double speed;
+    double speed {0.0};
 
     /** the course value of the GPS event */
-    double course;
+    double course {0.0};
 
     /** @copydoc Event::read() */
     static Gps * read(File & file, std::string & line);

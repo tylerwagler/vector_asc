@@ -40,27 +40,29 @@ namespace ASC {
  *
  * Usually the event is not visible in a trace window.
  */
-class VECTOR_ASC_EXPORT MostStatistic final : public Event {
-  public:
-    MostStatistic();
+struct VECTOR_ASC_EXPORT MostStatistic final : Event {
+    MostStatistic() :
+        Event() {
+        eventType = EventType::MostStatistic;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** number of Control messages */
-    MostStatVal fr;
+    MostStatVal fr {0};
 
     /** number of signal state transition events */
-    MostStatVal lt;
+    MostStatVal lt {0};
 
     /** fill level of the interface’s event queue (Optolyzer G1 only) */
-    MostStatVal bl;
+    MostStatVal bl {0};
 
     /** number of packets */
-    MostStatVal pk;
+    MostStatVal pk {0};
 
     /** @copydoc Event::read() */
     static MostStatistic * read(File & file, std::string & line);

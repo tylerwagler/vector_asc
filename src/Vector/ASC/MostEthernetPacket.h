@@ -38,51 +38,53 @@ namespace ASC {
  *
  * Message on MOST150 Ethernet Packet Channel.
  */
-class VECTOR_ASC_EXPORT MostEthernetPacket final : public Event {
-  public:
-    MostEthernetPacket();
+struct VECTOR_ASC_EXPORT MostEthernetPacket final : Event {
+    MostEthernetPacket() :
+        Event() {
+        eventType = EventType::MostEthernetPacket;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostDir */
-    MostDir dir;
+    MostDir dir {Dir::Rx};
 
     /** @copydoc MostSourceMacAdr */
-    MostSourceMacAdr sourceMacAdr;
+    MostSourceMacAdr sourceMacAdr {0};
 
     /** @copydoc MostDestMacAdr */
-    MostDestMacAdr destMacAdr;
+    MostDestMacAdr destMacAdr {0};
 
     /** @copydoc MostState */
-    MostState state;
+    MostState state {0};
 
     /** @copydoc MostAckNack */
-    MostAckNack ackNack;
+    MostAckNack ackNack {0};
 
     /** @copydoc MostTransferType */
-    MostTransferType transferType;
+    MostTransferType transferType {MostTransferType::Node};
 
     /** @copydoc MostPack */
-    MostPAck pAck;
+    MostPAck pAck {0};
 
     /** @copydoc MostCrc4 */
-    MostCrc4 crc4;
+    MostCrc4 crc4 {0};
 
     /** @copydoc MostCack */
-    MostCAck cAck;
+    MostCAck cAck {0};
 
     /** @copydoc MostRsvdUl */
-    MostRsvdUl rsvdUl;
+    MostRsvdUl rsvdUl {0};
 
     /** @copydoc MostPktEthLen */
-    MostPktEthLen pktEthLen;
+    MostPktEthLen pktEthLen {0};
 
     /** @copydoc MostDx */
-    std::vector<MostDx> data;
+    std::vector<MostDx> data {};
 
     /** @copydoc Event::read() */
     static MostEthernetPacket * read(File & file, std::string & line);

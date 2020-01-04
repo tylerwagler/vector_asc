@@ -29,19 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-AfdxPacket::AfdxPacket() :
-    Event(),
-    time(0.0),
-    channel(0),
-    dir(Dir::Rx),
-    ethChannel(0),
-    flags(0),
-    bag(0),
-    dataLen(0),
-    data() {
-    eventType = EventType::AfdxPacket;
-}
-
 AfdxPacket * AfdxPacket::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Afdx_Time REGEX_WS "AFDX" REGEX_WS REGEX_Afdx_Channel REGEX_WS REGEX_Afdx_Dir
                      REGEX_WS REGEX_Afdx_EthChannel REGEX_WS REGEX_Afdx_Flags REGEX_WS REGEX_Afdx_BAG REGEX_WS

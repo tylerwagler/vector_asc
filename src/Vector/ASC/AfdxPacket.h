@@ -38,33 +38,34 @@ namespace ASC {
  *
  * Receive or transmitted AFDX packet.
  */
-class VECTOR_ASC_EXPORT AfdxPacket final : public Event {
-  public:
-    AfdxPacket();
+struct VECTOR_ASC_EXPORT AfdxPacket final : Event {
+    AfdxPacket() : Event() {
+        eventType = EventType::AfdxPacket;
+    }
 
     /** @copydoc AfdxTime */
-    AfdxTime time;
+    AfdxTime time {0.0};
 
     /** @copydoc AfdxChannel */
-    AfdxChannel channel;
+    AfdxChannel channel {0};
 
     /** @copydoc AfdxDir */
-    AfdxDir dir;
+    AfdxDir dir {Dir::Rx};
 
     /** @copydoc AfdxEthChannel */
-    AfdxEthChannel ethChannel;
+    AfdxEthChannel ethChannel {0};
 
     /** @copydoc AfdxFlags */
-    AfdxFlags flags;
+    AfdxFlags flags {0};
 
     /** @copydoc AfdxBag */
-    AfdxBag bag;
+    AfdxBag bag {0};
 
     /** @copydoc AfdxDataLen */
-    AfdxDataLen dataLen;
+    AfdxDataLen dataLen {0};
 
     /** @copydoc AfdxData */
-    std::vector<AfdxData> data;
+    std::vector<AfdxData> data {};
 
     /** @copydoc Event::read() */
     static AfdxPacket * read(File & file, std::string & line);

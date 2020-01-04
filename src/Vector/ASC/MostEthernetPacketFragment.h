@@ -38,51 +38,53 @@ namespace ASC {
  *
  * Partial transmitted message on MOST150 Ethernet Packet Channel.
  */
-class VECTOR_ASC_EXPORT MostEthernetPacketFragment final : public Event {
-  public:
-    MostEthernetPacketFragment();
+struct VECTOR_ASC_EXPORT MostEthernetPacketFragment final : Event {
+    MostEthernetPacketFragment() :
+        Event() {
+        eventType = EventType::MostEthernetPacketFragment;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostFrgMask */
-    MostFrgMask frgMask;
+    MostFrgMask frgMask {0};
 
     /** @copydoc MostSourceMacAdr */
-    MostSourceMacAdr sourceMacAdr;
+    MostSourceMacAdr sourceMacAdr {0};
 
     /** @copydoc MostDestMacAdr */
-    MostDestMacAdr destMacAdr;
+    MostDestMacAdr destMacAdr {0};
 
     /** @copydoc MostAckNack */
-    MostAckNack ackNack;
+    MostAckNack ackNack {0};
 
     /** @copydoc MostPack */
-    MostPAck pAck;
+    MostPAck pAck {0};
 
     /** @copydoc MostCrc4 */
-    MostCrc4 crc4;
+    MostCrc4 crc4 {0};
 
     /** @copydoc MostCack */
-    MostCAck cAck;
+    MostCAck cAck {0};
 
     /** @copydoc MostRsvdUl */
-    MostRsvdUl rsvdUl;
+    MostRsvdUl rsvdUl {0};
 
     /** @copydoc MostFrgDataLen */
-    MostFrgDataLen frgDataLen;
+    MostFrgDataLen frgDataLen {0};
 
     /** @copydoc MostFrgDataLenAnnounced */
-    MostFrgDataLenAnnounced frgDataLenAnnounced;
+    MostFrgDataLenAnnounced frgDataLenAnnounced {0};
 
     /** @copydoc MostFirstDataLen */
-    MostFirstDataLen firstDataLen;
+    MostFirstDataLen firstDataLen {0};
 
     /** @copydoc MostDx */
-    std::vector<MostDx> data;
+    std::vector<MostDx> data {};
 
     /** @copydoc Event::read() */
     static MostEthernetPacketFragment * read(File & file, std::string & line);

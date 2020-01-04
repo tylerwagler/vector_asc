@@ -38,12 +38,14 @@ namespace ASC {
  *
  * FlexRay Message received or transmitted on a FlexRay channel.
  */
-class VECTOR_ASC_EXPORT FlexRayMessage final : public Event {
-  public:
-    FlexRayMessage();
+struct VECTOR_ASC_EXPORT FlexRayMessage final : Event {
+    FlexRayMessage() :
+        Event() {
+        eventType = EventType::FlexRayMessage;
+    };
 
     /** Timestamp */
-    double time;
+    double time {0.0};
 
     /** Event type */
     enum FlexRayEventType : uint8_t {
@@ -52,75 +54,85 @@ class VECTOR_ASC_EXPORT FlexRayMessage final : public Event {
     };
 
     /** Event type */
-    FlexRayEventType flexRayEventType;
+    FlexRayEventType flexRayEventType {FlexRayEventType::RMSG};
 
     /** Clusternr. */
-    uint32_t clusterNr;
+    uint32_t clusterNr {0};
 
     /** Client-ID */
-    uint32_t clientId;
+    uint32_t clientId {0};
 
     /** Channelnr. */
-    uint32_t channelNr;
+    uint32_t channelNr {0};
 
     /** Channel mask */
-    uint32_t channelMask;
+    uint32_t channelMask {0};
 
     /** Slot ID */
-    uint32_t slotId;
+    uint32_t slotId {0};
 
     /** Cycle no. */
-    uint32_t cycleNo;
+    uint32_t cycleNo {0};
 
     /** Direction */
-    Dir direction;
+    Dir direction {Dir::Rx};
 
     /** App. param. */
-    uint32_t appParam;
+    uint32_t appParam {0};
 
     /** Flags */
-    uint32_t flags;
+    uint32_t flags {0};
 
     /** CC-Type. */
-    uint32_t ccType;
+    uint32_t ccType {0};
 
     /** CC-Data */
-    uint32_t ccData;
+    uint32_t ccData {0};
 
     /** Header CRC */
-    uint32_t headerCrc;
+    uint32_t headerCrc {0};
 
     /** Name */
-    std::string name;
+    std::string name {};
 
     /** Payload length */
-    int32_t payloadLength;
+    int32_t payloadLength {0};
 
     /** Buffer length */
-    int32_t bufferLength;
+    int32_t bufferLength {0};
 
     /** Data[n] */
-    std::vector<uint8_t> data;
+    std::vector<uint8_t> data {};
 
     /** Frame CRC */
-    uint32_t frameCrc;
+    uint32_t frameCrc {0};
 
     /** Spy Flag */
-    bool spyFlag;
+    bool spyFlag {false};
 
     /** Frame Length NS */
-    uint32_t frameLengthNs;
+    uint32_t frameLengthNs {0};
 
     /** PDU Offset */
-    int32_t pduOffset;
+    int32_t pduOffset {0};
 
     /** @copydoc Event::read() */
     static FlexRayMessage * read(File & file, std::string & line);
 
     virtual void write(File & file, std::ostream & stream) override;
 
-  private:
+    /**
+     * @copydoc Event::read()
+     *
+     * specific for FlexRay RMSG
+     */
     static FlexRayMessage * readRmsg(File & file, std::string & line);
+
+    /**
+     * @copydoc Event::read()
+     *
+     * specific for FlexRay PDU
+     */
     static FlexRayMessage * readPdu(File & file, std::string & line);
 };
 

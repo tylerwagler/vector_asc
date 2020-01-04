@@ -26,20 +26,6 @@
 namespace Vector {
 namespace ASC {
 
-File::File() :
-    openMode(OpenMode::Read),
-    date(),
-    language(Language::En),
-    base(Base::Dec),
-    timestamps(Timestamps::Absolute),
-    internalEventsLogged(true),
-    version(Version::Ver_8_1), // version will be set as soon as FileVersion is read
-    timestampPrecision(6),
-    file(),
-    scanner(nullptr),
-    endOfFile(false) {
-}
-
 File::~File() {
     delete scanner;
     scanner = nullptr;

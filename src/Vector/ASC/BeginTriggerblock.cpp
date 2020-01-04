@@ -28,13 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-BeginTriggerblock::BeginTriggerblock() :
-    Event(),
-    date(),
-    language(File::Language::En) {
-    eventType = EventType::BeginTriggerblock;
-}
-
 BeginTriggerblock * BeginTriggerblock::read(File &, std::string & line) {
     std::regex regex(REGEX_STOL "Begin Triggerblock" REGEX_WS REGEX_WeekDay REGEX_WS REGEX_Month REGEX_WS REGEX_Date
                      REGEX_WS REGEX_FullTime REGEX_WS REGEX_Year REGEX_ENDL);

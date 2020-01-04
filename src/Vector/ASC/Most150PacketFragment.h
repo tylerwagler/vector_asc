@@ -38,57 +38,59 @@ namespace ASC {
  *
  * Partial transmitted message on MOST50 or MOST150 Packet Data Channel.
  */
-class VECTOR_ASC_EXPORT Most150PacketFragment final : public Event {
-  public:
-    Most150PacketFragment();
+struct VECTOR_ASC_EXPORT Most150PacketFragment final : Event {
+    Most150PacketFragment() :
+        Event() {
+        eventType = EventType::Most150PacketFragment;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostFrgMask */
-    MostFrgMask frgMask;
+    MostFrgMask frgMask {0};
 
     /** @copydoc MostSourceAdr */
-    MostSourceAdr sourceAdr;
+    MostSourceAdr sourceAdr {0};
 
     /** @copydoc MostDestAdr */
-    MostDestAdr destAdr;
+    MostDestAdr destAdr {0};
 
     /** @copydoc MostAckNack */
-    MostAckNack ackNack;
+    MostAckNack ackNack {0};
 
     /** @copydoc MostPack */
-    MostPAck pAck;
+    MostPAck pAck {0};
 
     /** @copydoc MostRsvdUc */
-    MostRsvdUc rsvdUc;
+    MostRsvdUc rsvdUc {0};
 
     /** @copydoc MostPindex */
-    MostPIndex pIndex;
+    MostPIndex pIndex {0};
 
     /** @copydoc MostCrc2 */
-    MostCrc2 crc2;
+    MostCrc2 crc2 {0};
 
     /** @copydoc MostCack */
-    MostCAck cAck;
+    MostCAck cAck {0};
 
     /** @copydoc MostRsvdUl */
-    MostRsvdUl rsvdUl;
+    MostRsvdUl rsvdUl {0};
 
     /** @copydoc MostFrgDataLen */
-    MostFrgDataLen frgDataLen;
+    MostFrgDataLen frgDataLen {0};
 
     /** @copydoc MostFrgDataLenAnnounced */
-    MostFrgDataLenAnnounced frgDataLenAnnounced;
+    MostFrgDataLenAnnounced frgDataLenAnnounced {0};
 
     /** @copydoc MostFirstDataLen */
-    MostFirstDataLen firstDataLen;
+    MostFirstDataLen firstDataLen {0};
 
     /** @copydoc MostDx */
-    std::vector<MostDx> data;
+    std::vector<MostDx> data {};
 
     /** @copydoc Event::read() */
     static Most150PacketFragment * read(File & file, std::string & line);

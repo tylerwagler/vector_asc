@@ -37,27 +37,29 @@ namespace ASC {
  * A spike event occurs when a short (normally less than 1 bit time) dominant signal has been de-
  * tected on a LIN channel.
  */
-class VECTOR_ASC_EXPORT LinSpike final : public Event {
-  public:
-    LinSpike();
+struct VECTOR_ASC_EXPORT LinSpike final : Event {
+    LinSpike() :
+        Event() {
+        eventType = EventType::LinSpike;
+    };
 
     /** @copydoc LinTime */
-    LinTime time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** @copydoc LinDir */
-    LinDir dir;
+    LinDir dir {Dir::Rx};
 
     /** @copydoc LinSpikeLength */
-    LinSpikeLength spikeLength;
+    LinSpikeLength spikeLength {0};
 
     /** @copydoc LinStartOfFrame */
-    LinStartOfFrame startOfFrame;
+    LinStartOfFrame startOfFrame {0};
 
     /** @copydoc LinBaudrateType */
-    LinBaudrateType baudrate;
+    LinBaudrateType baudrate {0};
 
     /** @copydoc Event::read() */
     static LinSpike * read(File & file, std::string & line);

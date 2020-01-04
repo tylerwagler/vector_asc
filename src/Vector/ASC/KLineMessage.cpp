@@ -30,19 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-KLineMessage::KLineMessage() :
-    Event(),
-    time(0.0),
-    port(),
-    direction(Dir::Rx),
-    baudrate(0),
-    source(),
-    destination(),
-    length(0),
-    data() {
-    eventType = EventType::KLineMessage;
-}
-
 KLineMessage * KLineMessage::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL "//" REGEX_ws "K-Line:" REGEX_ws REGEX_KLine_time REGEX_WS REGEX_KLine_port
                      REGEX_WS REGEX_KLine_direction REGEX_WS REGEX_KLine_baudrate REGEX_WS REGEX_KLine_source

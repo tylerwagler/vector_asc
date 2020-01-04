@@ -28,13 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-CanOverloadFrame::CanOverloadFrame() :
-    Event(),
-    time(0.0),
-    channel(0) {
-    eventType = EventType::CanOverloadFrame;
-}
-
 CanOverloadFrame * CanOverloadFrame::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS "OverloadFrame" REGEX_ENDL);
     std::smatch match;

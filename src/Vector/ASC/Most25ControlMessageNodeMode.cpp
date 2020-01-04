@@ -30,19 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-Most25ControlMessageNodeMode::Most25ControlMessageNodeMode() :
-    Event(),
-    time(0.0),
-    channel(0),
-    dir(Dir::Rx),
-    sourceAdr(0),
-    destAdr(0),
-    rType(0),
-    data(),
-    state2(0) {
-    eventType = EventType::Most25ControlMessageNodeMode;
-}
-
 Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS REGEX_MOST_Dir
                      REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr REGEX_WS REGEX_MOST_RType

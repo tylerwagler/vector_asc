@@ -30,25 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-MostEthernetPacketFragment::MostEthernetPacketFragment() :
-    Event(),
-    time(0.0),
-    channel(0),
-    frgMask(0),
-    sourceMacAdr(0),
-    destMacAdr(0),
-    ackNack(0),
-    pAck(0),
-    crc4(0),
-    cAck(0),
-    rsvdUl(0),
-    frgDataLen(0),
-    frgDataLenAnnounced(0),
-    firstDataLen(0),
-    data() {
-    eventType = EventType::MostEthernetPacketFragment;
-}
-
 MostEthernetPacketFragment * MostEthernetPacketFragment::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "PktEthFrg:"
                      REGEX_ws REGEX_MOST_FrgMask REGEX_WS REGEX_MOST_SourceMacAdr REGEX_WS REGEX_MOST_DestMacAdr

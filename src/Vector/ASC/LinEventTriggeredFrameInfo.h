@@ -39,24 +39,26 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated up to CANoe/CANalyzer 5.2 only.
  */
-class VECTOR_ASC_EXPORT LinEventTriggeredFrameInfo final : public Event {
-  public:
-    LinEventTriggeredFrameInfo();
+struct VECTOR_ASC_EXPORT LinEventTriggeredFrameInfo final : Event {
+    LinEventTriggeredFrameInfo() :
+        Event() {
+        eventType = EventType::LinEventTriggeredFrameInfo;
+    };
 
     /** @copydoc LinTime */
-    LinTime time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** @copydoc LinId */
-    LinId id;
+    LinId id {};
 
     /** @copydoc LinEtfName */
-    LinEtfName etfName;
+    LinEtfName etfName {};
 
     /** @copydoc LinDescription */
-    LinDescription description;
+    LinDescription description {};
 
     /** @copydoc Event::read() */
     static LinEventTriggeredFrameInfo * read(File & file, std::string & line);

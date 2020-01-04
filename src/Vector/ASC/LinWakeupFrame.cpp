@@ -29,18 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-LinWakeupFrame::LinWakeupFrame() :
-    Event(),
-    time(0.0),
-    channel(0),
-    dir(Dir::Rx),
-    wakeupByte(0),
-    startOfFrame(0),
-    baudrate(0),
-    wakeupLengthInfo(0) {
-    eventType = EventType::LinWakeupFrame;
-}
-
 LinWakeupFrame * LinWakeupFrame::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "WakeupFrame"
                      REGEX_WS REGEX_LIN_Dir REGEX_WS REGEX_LIN_WakeupByte

@@ -28,16 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-LinEventTriggeredFrameInfo::LinEventTriggeredFrameInfo() :
-    Event(),
-    time(0.0),
-    channel(0),
-    id(),
-    etfName(),
-    description() {
-    eventType = EventType::LinEventTriggeredFrameInfo;
-}
-
 LinEventTriggeredFrameInfo * LinEventTriggeredFrameInfo::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID
                      REGEX_WS "EvTrigFrmInfo" REGEX_WS REGEX_LIN_ETFName REGEX_WS REGEX_LIN_description REGEX_ENDL);

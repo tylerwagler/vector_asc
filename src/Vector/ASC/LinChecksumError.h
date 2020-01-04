@@ -39,90 +39,92 @@ namespace ASC {
  * A checksum error event occurs when a Slave sends an incorrect checksum value for a frame re-
  * sponse that is otherwise correct.
  */
-class VECTOR_ASC_EXPORT LinChecksumError final : public Event {
-  public:
-    LinChecksumError();
+struct VECTOR_ASC_EXPORT LinChecksumError final : Event {
+    LinChecksumError() :
+        Event() {
+        eventType = EventType::LinChecksumError;
+    };
 
     /** @copydoc LinTime */
-    LinTime time;
+    LinTime time {0.0};
 
     /** @copydoc LinChannel */
-    LinChannel channel;
+    LinChannel channel {0};
 
     /** @copydoc LinId */
-    LinId id;
+    LinId id {};
 
     /** @copydoc LinDir */
-    LinDir dir;
+    LinDir dir {Dir::Rx};
 
     /** @copydoc LinDlc */
-    LinDlc dlc;
+    LinDlc dlc {0};
 
     /** @copydoc LinDx */
-    std::vector<LinDx> data;
+    std::vector<LinDx> data {};
 
     /** @copydoc LinSlaveId */
-    LinSlaveId slaveId;
+    LinSlaveId slaveId {0};
 
     /** @copydoc LinState */
-    LinState state;
+    LinState state {0};
 
     /** @copydoc LinChecksum */
-    LinChecksum checksum;
+    LinChecksum checksum {0};
 
     /** @copydoc LinHeaderTime */
-    LinHeaderTime headerTime;
+    LinHeaderTime headerTime {0};
 
     /** @copydoc LinFullTime */
-    LinFullTime fullTime;
+    LinFullTime fullTime {0};
 
     /** @copydoc LinStartOfFrame */
-    LinStartOfFrame startOfFrame;
+    LinStartOfFrame startOfFrame {0.0};
 
     /** @copydoc LinBaudrateType */
-    LinBaudrateType baudrate;
+    LinBaudrateType baudrate {0};
 
     /** @copydoc LinSyncBreak */
-    LinSyncBreak syncBreak;
+    LinSyncBreak syncBreak {0};
 
     /** @copydoc LinSyncDel */
-    LinSyncDel syncDel;
+    LinSyncDel syncDel {0};
 
     /** @copydoc LinNad */
-    LinNad nad;
+    LinNad nad {0};
 
     /** @copydoc LinMessageId */
-    LinMessageId messageId;
+    LinMessageId messageId {0};
 
     /** @copydoc LinSupplierId */
-    LinSupplierId supplierId;
+    LinSupplierId supplierId {0};
 
     /** @copydoc LinEndOfHeader */
-    LinEndOfHeader endOfHeader;
+    LinEndOfHeader endOfHeader {0.0};
 
     /** @copydoc LinT */
-    std::vector<LinT> endOfByte;
+    std::vector<LinT> endOfByte {};
 
     /** @copydoc LinSimulated */
-    LinSimulated simulated;
+    LinSimulated simulated {false};
 
     /** @copydoc LinEndOfFrame */
-    LinEndOfFrame endOfFrame;
+    LinEndOfFrame endOfFrame {0.0};
 
     /** @copydoc LinResponseBaudrate */
-    LinResponseBaudrate responseBaudrate;
+    LinResponseBaudrate responseBaudrate {0};
 
     /** @copydoc LinHeaderBaudrate */
-    LinHeaderBaudrate headerBaudrate;
+    LinHeaderBaudrate headerBaudrate {0.0};
 
     /** @copydoc LinStopBitOffsetInHeader */
-    LinStopBitOffsetInHeader stopBitOffsetInHeader;
+    LinStopBitOffsetInHeader stopBitOffsetInHeader {0};
 
     /** @copydoc LinStopBitOffsetInResponse */
-    LinStopBitOffsetInResponse stopBitOffsetInResponse;
+    LinStopBitOffsetInResponse stopBitOffsetInResponse {0};
 
     /** @copydoc LinChecksumModel */
-    LinChecksumModel checksumModel;
+    LinChecksumModel checksumModel {LinChecksumModel::Unknown};
 
     /** @copydoc Event::read() */
     static LinChecksumError * read(File & file, std::string & line);

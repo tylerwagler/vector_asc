@@ -30,27 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-Most150Packet::Most150Packet() :
-    Event(),
-    time(0.0),
-    channel(0),
-    dir(Dir::Rx),
-    sourceAdr(0),
-    destAdr(0),
-    state(0),
-    ackNack(0),
-    transferType(MostTransferType::Node),
-    pAck(0),
-    rsvdUc(0),
-    pIndex(0),
-    crc2(0),
-    cAck(0),
-    rsvdUl(0),
-    pkt150Len(0),
-    data() {
-    eventType = EventType::Most150Packet;
-}
-
 Most150Packet * Most150Packet::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Pkt150:"
                      REGEX_ws REGEX_MOST_Dir REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr

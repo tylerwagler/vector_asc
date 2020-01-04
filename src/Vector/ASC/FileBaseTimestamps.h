@@ -33,15 +33,17 @@ namespace Vector {
 namespace ASC {
 
 /** File Base Timestamps */
-class VECTOR_ASC_EXPORT FileBaseTimestamps final : public Event {
-  public:
-    FileBaseTimestamps();
+struct VECTOR_ASC_EXPORT FileBaseTimestamps final : Event {
+    FileBaseTimestamps() :
+        Event() {
+        eventType = EventType::FileBaseTimestamps;
+    };
 
     /** Events can either be recorder in hexadecimal or decimal mode. */
-    File::Base base;
+    File::Base base {File::Base::Hex};
 
     /** Timestamps are written absolute or relative to the preceding event. */
-    File::Timestamps timestamps;
+    File::Timestamps timestamps {File::Timestamps::Absolute};
 
     /** @copydoc Event::read() */
     static FileBaseTimestamps * read(File & file, std::string & line);

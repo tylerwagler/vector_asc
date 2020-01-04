@@ -28,14 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-FileVersion::FileVersion() :
-    Event(),
-    versionMajor(7),
-    versionMinor(0),
-    versionPatch(0) {
-    eventType = EventType::FileVersion;
-}
-
 FileVersion * FileVersion::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "//" REGEX_ws "version" REGEX_WS "([[:digit:]]{1,3})\\.([[:digit:]]{1,3})\\.([[:digit:]]{1,3})" REGEX_ENDL);
     std::smatch match;

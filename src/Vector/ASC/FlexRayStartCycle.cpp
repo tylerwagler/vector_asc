@@ -30,22 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-FlexRayStartCycle::FlexRayStartCycle() :
-    Event(),
-    time(0.0),
-    clusterNr(0),
-    clientId(0),
-    channelNr(0),
-    channelMask(0),
-    cycleNo(0),
-    direction(Dir::Rx),
-    ccType(0),
-    ccData(),
-    nmVectL(0),
-    nmVect() {
-    eventType = EventType::FlexRayStartCycle;
-}
-
 FlexRayStartCycle * FlexRayStartCycle::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "SCE"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"

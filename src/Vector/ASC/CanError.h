@@ -36,24 +36,26 @@ namespace ASC {
  *
  * An event that provides CAN error information.
  */
-class VECTOR_ASC_EXPORT CanError final : public Event {
-  public:
-    CanError();
+struct VECTOR_ASC_EXPORT CanError final : Event {
+    CanError() :
+        Event() {
+        eventType = EventType::CanError;
+    }
 
     /** @copydoc Time */
-    Time time;
+    Time time {0.0};
 
     /** @copydoc Channel */
-    Channel channel;
+    Channel channel {0};
 
     /** @copydoc Error */
-    Error error;
+    Error error {};
 
     /** txErr */
-    uint8_t txErr;
+    uint8_t txErr {0};
 
     /** rxErr */
-    uint8_t rxErr;
+    uint8_t rxErr {0};
 
     /** @copydoc Event::read() */
     static CanError * read(File & file, std::string & line);

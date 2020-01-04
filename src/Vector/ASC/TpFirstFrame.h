@@ -34,30 +34,32 @@ namespace Vector {
 namespace ASC {
 
 /** TP First Frame */
-class VECTOR_ASC_EXPORT TpFirstFrame final : public Event {
-  public:
-    TpFirstFrame();
+struct VECTOR_ASC_EXPORT TpFirstFrame final : Event {
+    TpFirstFrame() :
+        Event() {
+        eventType = EventType::TpFirstFrame;
+    };
 
     /** @copydoc TpDiagCanChannel */
-    TpDiagCanChannel canChannel;
+    TpDiagCanChannel canChannel {0};
 
     /** @copydoc TpDiagConnectionId */
-    TpDiagConnectionId connectionId;
+    TpDiagConnectionId connectionId {0};
 
     /** @copydoc TpDiagType */
-    TpDiagType type;
+    TpDiagType type {TpDiagType::Info};
 
     /** @copydoc TpDiagSource */
-    TpDiagSource source;
+    TpDiagSource source {};
 
     /** @copydoc TpDiagDestination */
-    TpDiagDestination destination;
+    TpDiagDestination destination {};
 
     /** @copydoc TpDiagLength */
-    TpDiagLength length;
+    TpDiagLength length {0};
 
     /** @copydoc TpDiagTransportedBytes */
-    std::vector<TpDiagTransportedBytes> transportedBytes;
+    std::vector<TpDiagTransportedBytes> transportedBytes {};
 
     /** @copydoc Event::read() */
     static TpFirstFrame * read(File & file, std::string & line);

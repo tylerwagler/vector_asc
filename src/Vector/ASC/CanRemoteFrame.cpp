@@ -29,15 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-CanRemoteFrame::CanRemoteFrame() :
-    Event(),
-    time(0.0),
-    channel(0),
-    id(0),
-    dir(Dir::Rx) {
-    eventType = EventType::CanRemoteFrame;
-}
-
 CanRemoteFrame * CanRemoteFrame::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS REGEX_ID REGEX_WS REGEX_Dir REGEX_WS "r" REGEX_ENDL);
     std::smatch match;

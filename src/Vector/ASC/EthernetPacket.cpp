@@ -29,16 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-EthernetPacket::EthernetPacket() :
-    Event(),
-    time(0.0),
-    channel(0),
-    dir(Dir::Rx),
-    dataLen(0),
-    data() {
-    eventType = EventType::EthernetPacket;
-}
-
 EthernetPacket * EthernetPacket::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Eth_Time REGEX_WS "ETH" REGEX_WS REGEX_Eth_Channel REGEX_WS REGEX_Eth_Dir
                      REGEX_WS REGEX_Eth_DataLen ":" REGEX_Eth_Data REGEX_ENDL);

@@ -38,18 +38,20 @@ namespace ASC {
  *
  * Electrical physical layer: Signal output state
  */
-class VECTOR_ASC_EXPORT MostTxLight final : public Event {
-  public:
-    MostTxLight();
+struct VECTOR_ASC_EXPORT MostTxLight final : Event {
+    MostTxLight() :
+        Event() {
+        eventType = EventType::MostTxLight;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostTxLightState */
-    MostTxLightState txLightState;
+    MostTxLightState txLightState {MostTxLightState::Off};
 
     /** @copydoc Event::read() */
     static MostTxLight * read(File & file, std::string & line);

@@ -28,13 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-FileBaseTimestamps::FileBaseTimestamps() :
-    Event(),
-    base(File::Base::Hex),
-    timestamps(File::Timestamps::Absolute) {
-    eventType = EventType::FileBaseTimestamps;
-}
-
 FileBaseTimestamps * FileBaseTimestamps::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "base" REGEX_WS "(hex|dec)" REGEX_WS "timestamps" REGEX_WS "(absolute|relative)" REGEX_ENDL);
     std::smatch match;

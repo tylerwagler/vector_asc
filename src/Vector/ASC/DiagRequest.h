@@ -34,15 +34,17 @@ namespace Vector {
 namespace ASC {
 
 /** Diagnostic request */
-class VECTOR_ASC_EXPORT DiagRequest final : public Event {
-  public:
-    DiagRequest();
+struct VECTOR_ASC_EXPORT DiagRequest final : Event {
+    DiagRequest() :
+        Event() {
+        eventType = EventType::DiagRequest;
+    };
 
     /** @copydoc TpDiagTimestamp */
-    TpDiagTimestamp time;
+    TpDiagTimestamp time {0.0};
 
     /** @copydoc TpDiagEcuQualifier */
-    TpDiagEcuQualifier ecuQualifier;
+    TpDiagEcuQualifier ecuQualifier {};
 
     /** Command */
     enum class Command {
@@ -63,10 +65,10 @@ class VECTOR_ASC_EXPORT DiagRequest final : public Event {
     };
 
     /** Command */
-    Command command;
+    Command command {Command::ByteSequence};
 
     /** @copydoc TpDiagByteSequence */
-    std::vector<TpDiagByteSequence> byteSequence;
+    std::vector<TpDiagByteSequence> byteSequence {};
 
     /** @copydoc Event::read() */
     static DiagRequest * read(File & file, std::string & line);

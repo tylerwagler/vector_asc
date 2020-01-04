@@ -33,15 +33,17 @@ namespace Vector {
 namespace ASC {
 
 /** File Date */
-class VECTOR_ASC_EXPORT FileDate final : public Event {
-  public:
-    FileDate();
+struct VECTOR_ASC_EXPORT FileDate final : Event {
+    FileDate() :
+        Event() {
+        eventType = EventType::FileDate;
+    };
 
     /** date/time */
-    struct tm date;
+    struct tm date {};
 
     /** language (only parsed, write works via File::language) */
-    File::Language language;
+    File::Language language {File::Language::En};
 
     /** @copydoc Event::read() */
     static FileDate * read(File & file, std::string & line);

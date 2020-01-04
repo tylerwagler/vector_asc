@@ -30,27 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-Most150ControlMessageFragment::Most150ControlMessageFragment() :
-    Event(),
-    time(0.0),
-    channel(0),
-    frgMask(0),
-    sourceAdr(0),
-    destAdr(0),
-    ackNack(0),
-    pAck(0),
-    priority(0),
-    pIndex(0),
-    crc2(0),
-    cAck(0),
-    rsvdUl(0),
-    frgDataLen(0),
-    frgDataLenAnnounced(0),
-    firstDataLen(0),
-    data() {
-    eventType = EventType::Most150ControlMessageFragment;
-}
-
 Most150ControlMessageFragment * Most150ControlMessageFragment::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Msg150Frg:"
                      REGEX_ws REGEX_MOST_FrgMask REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr

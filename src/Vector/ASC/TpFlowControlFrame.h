@@ -32,33 +32,35 @@ namespace Vector {
 namespace ASC {
 
 /** TP Flow Control Frame */
-class VECTOR_ASC_EXPORT TpFlowControlFrame final : public Event {
-  public:
-    TpFlowControlFrame();
+struct VECTOR_ASC_EXPORT TpFlowControlFrame final : Event {
+    TpFlowControlFrame() :
+        Event() {
+        eventType = EventType::TpFlowControlFrame;
+    };
 
     /** @copydoc TpDiagCanChannel */
-    TpDiagCanChannel canChannel;
+    TpDiagCanChannel canChannel {0};
 
     /** @copydoc TpDiagConnectionId */
-    TpDiagConnectionId connectionId;
+    TpDiagConnectionId connectionId {0};
 
     /** @copydoc TpDiagType */
-    TpDiagType type;
+    TpDiagType type {TpDiagType::Info};
 
     /** @copydoc TpDiagSource */
-    TpDiagSource source;
+    TpDiagSource source {};
 
     /** @copydoc TpDiagDestination */
-    TpDiagDestination destination;
+    TpDiagDestination destination {};
 
     /** @copydoc TpDiagFcType */
-    TpDiagFcType fcType;
+    TpDiagFcType fcType {TpDiagFcType::Cts};
 
     /** @copydoc TpDiagBs */
-    TpDiagBs bs;
+    TpDiagBs bs {0};
 
     /** @copydoc TpDiagStMin */
-    TpDiagStMin stMin;
+    TpDiagStMin stMin {0};
 
     /** @copydoc Event::read() */
     static TpFlowControlFrame * read(File & file, std::string & line);

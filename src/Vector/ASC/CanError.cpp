@@ -28,16 +28,6 @@
 namespace Vector {
 namespace ASC {
 
-CanError::CanError() :
-    Event(),
-    time(0.0),
-    channel(0),
-    error(),
-    txErr(0),
-    rxErr(0) {
-    eventType = EventType::CanError;
-}
-
 CanError * CanError::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "CAN" REGEX_WS  REGEX_Channel REGEX_WS "Status:" REGEX_ws REGEX_Error REGEX_ENDL);
     std::smatch match;

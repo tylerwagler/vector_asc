@@ -30,31 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-LinShortOrSlowResponse::LinShortOrSlowResponse() :
-    Event(),
-    time(0.0),
-    channel(0),
-    id(),
-    dlc(0),
-    numberOfResponseBytes(0),
-    data(),
-    isSlowResponse(false),
-    responseWasInterruptedByBreak(false),
-    startOfFrame(0.0),
-    baudrate(0),
-    syncBreak(0),
-    syncDel(0),
-    nad(0),
-    messageId(0),
-    supplierId(0),
-    endOfHeader(0.0),
-    endOfByte(),
-    headerBaudrate(0.0),
-    stopBitOffsetInHeader(0),
-    checksumModel() {
-    eventType = EventType::LinShortOrSlowResponse;
-}
-
 LinShortOrSlowResponse * LinShortOrSlowResponse::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS REGEX_LIN_DLC
                      REGEX_WS "ShortOrSlowResponse:" REGEX_ws "NumRespBytes" REGEX_ws "=" REGEX_ws REGEX_LIN_NumberOfResponseBytes "((" REGEX_WS "[[:xdigit:]]+){0,9})"

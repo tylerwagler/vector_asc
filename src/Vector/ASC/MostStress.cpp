@@ -29,15 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-MostStress::MostStress() :
-    Event(),
-    time(0.0),
-    channel(0),
-    stressMode(0),
-    stressState(MostStressState::Stopped) {
-    eventType = EventType::MostStress;
-}
-
 MostStress * MostStress::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Stress:"
                      REGEX_ws REGEX_MOST_StressMode REGEX_WS REGEX_MOST_StressState REGEX_ENDL);

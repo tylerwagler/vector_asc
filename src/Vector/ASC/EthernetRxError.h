@@ -38,27 +38,29 @@ namespace ASC {
  *
  * Receive or transmitted Ethernet packet.
  */
-class VECTOR_ASC_EXPORT EthernetRxError final : public Event {
-  public:
-    EthernetRxError();
+struct VECTOR_ASC_EXPORT EthernetRxError final : Event {
+    EthernetRxError() :
+        Event() {
+        eventType = EventType::EthernetRxError;
+    };
 
     /** @copydoc EthTime */
-    EthTime time;
+    EthTime time {0.0};
 
     /** @copydoc EthChannel */
-    EthChannel channel;
+    EthChannel channel {0};
 
     /** @copydoc EthErrorCode */
-    EthErrorCode errorCode;
+    EthErrorCode errorCode {0};
 
     /** @copydoc EthFrameChecksum */
-    EthFrameChecksum frameChecksum;
+    EthFrameChecksum frameChecksum {0};
 
     /** @copydoc EthDataLen */
-    EthDataLen dataLen;
+    EthDataLen dataLen {0};
 
     /** @copydoc EthData */
-    std::vector<EthData> data;
+    std::vector<EthData> data {};
 
     /** @copydoc Event::read() */
     static EthernetRxError * read(File & file, std::string & line);

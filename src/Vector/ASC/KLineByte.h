@@ -34,27 +34,29 @@ namespace Vector {
 namespace ASC {
 
 /** K-Line Byte event */
-class VECTOR_ASC_EXPORT KLineByte final : public Event {
-  public:
-    KLineByte();
+struct VECTOR_ASC_EXPORT KLineByte final : Event {
+    KLineByte() :
+        Event() {
+        eventType = EventType::KLineByte;
+    };
 
     /** @copydoc KLineTime */
-    KLineTime time;
+    KLineTime time {0.0};
 
     /** @copydoc KLinePort */
-    KLinePort port;
+    KLinePort port {};
 
     /** @copydoc KLineDirection */
-    KLineDirection direction;
+    KLineDirection direction {Dir::Rx};
 
     /** @copydoc KLineBaudrate */
-    KLineBaudrate baudrate;
+    KLineBaudrate baudrate {0};
 
     /** @copydoc KLineLength */
-    KLineLength length;
+    KLineLength length {0};
 
     /** @copydoc KLineData */
-    std::vector<KLineData> data;
+    std::vector<KLineData> data {};
 
     /** @copydoc Event::read() */
     static KLineByte * read(File & file, std::string & line);

@@ -38,45 +38,47 @@ namespace ASC {
  *
  * Message on MOST25 Packet Data Channel.
  */
-class VECTOR_ASC_EXPORT Most25Packet final : public Event {
-  public:
-    Most25Packet();
+struct VECTOR_ASC_EXPORT Most25Packet final : Event {
+    Most25Packet() :
+        Event() {
+        eventType = EventType::Most25Packet;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostDir */
-    MostDir dir;
+    MostDir dir {Dir::Rx};
 
     /** @copydoc MostSourceAdr */
-    MostSourceAdr sourceAdr;
+    MostSourceAdr sourceAdr {0};
 
     /** @copydoc MostDestAdr */
-    MostDestAdr destAdr;
+    MostDestAdr destAdr {0};
 
     /** @copydoc MostPktState */
-    MostPktState pktState;
+    MostPktState pktState {0};
 
     /** @copydoc MostTransferType */
-    MostTransferType transferType;
+    MostTransferType transferType {MostTransferType::Node};
 
     /** @copydoc MostPktPrio */
-    MostPktPrio pktPrio;
+    MostPktPrio pktPrio {0};
 
     /** @copydoc MostPktArbitr */
-    MostPktArbitr pktArbitr;
+    MostPktArbitr pktArbitr {0};
 
     /** @copydoc MostCrc2 */
-    MostCrc2 crc2;
+    MostCrc2 crc2 {0};
 
     /** @copydoc MostPktLen */
-    MostPktLen pktLen;
+    MostPktLen pktLen {0};
 
     /** @copydoc MostDx */
-    std::vector<MostDx> data;
+    std::vector<MostDx> data {};
 
     /** @copydoc Event::read() */
     static Most25Packet * read(File & file, std::string & line);

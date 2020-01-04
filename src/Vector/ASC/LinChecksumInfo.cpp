@@ -29,15 +29,6 @@
 namespace Vector {
 namespace ASC {
 
-LinChecksumInfo::LinChecksumInfo() :
-    Event(),
-    time(0.0),
-    channel(0),
-    id(),
-    checksumModelInfo() {
-    eventType = EventType::LinChecksumInfo;
-}
-
 LinChecksumInfo * LinChecksumInfo::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS "CSInfo"
                      REGEX_WS REGEX_LIN_checksumModelInfo REGEX_ENDL);

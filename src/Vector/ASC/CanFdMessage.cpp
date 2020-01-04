@@ -30,27 +30,6 @@
 namespace Vector {
 namespace ASC {
 
-CanFdMessage::CanFdMessage() :
-    Event(),
-    time(0.0),
-    channel(0),
-    dir(Dir::Rx),
-    id(0),
-    symbolicName(),
-    brs(false),
-    esi(false),
-    dlc(0),
-    dataLength(0),
-    data(),
-    messageDuration(0),
-    messageLength(0),
-    flags(0),
-    crc(0),
-    bitTimingConfArb(0),
-    bitTimingConfData(0) {
-    eventType = EventType::CanFdMessage;
-}
-
 CanFdMessage * CanFdMessage::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "CANFD" REGEX_WS REGEX_Channel REGEX_WS REGEX_Dir REGEX_WS REGEX_ID
                      "(" REGEX_WS "([[:alnum:]_]+))?"

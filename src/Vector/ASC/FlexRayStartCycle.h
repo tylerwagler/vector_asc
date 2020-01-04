@@ -39,42 +39,44 @@ namespace ASC {
  *
  * FlexRay Message received or transmitted on a FlexRay channel.
  */
-class VECTOR_ASC_EXPORT FlexRayStartCycle final : public Event {
-  public:
-    FlexRayStartCycle();
+struct VECTOR_ASC_EXPORT FlexRayStartCycle final : Event {
+    FlexRayStartCycle() :
+        Event() {
+        eventType = EventType::FlexRayStartCycle;
+    };
 
     /** Timestamp */
-    double time;
+    double time {0.0};
 
     /** Clusternr. */
-    uint32_t clusterNr;
+    uint32_t clusterNr {0};
 
     /** Client-ID */
-    uint32_t clientId;
+    uint32_t clientId {0};
 
     /** Channelnr. */
-    uint32_t channelNr;
+    uint32_t channelNr {0};
 
     /** Channel mask */
-    uint32_t channelMask;
+    uint32_t channelMask {0};
 
     /** Cycle no. */
-    uint32_t cycleNo;
+    uint32_t cycleNo {0};
 
     /** Direction */
-    Dir direction;
+    Dir direction {Dir::Rx};
 
     /** CC-Type. */
-    uint32_t ccType;
+    uint32_t ccType {0};
 
     /** CC-Data[5] */
-    std::array<uint32_t, 5> ccData;
+    std::array<uint32_t, 5> ccData {};
 
     /** NM_Vect_L */
-    uint32_t nmVectL;
+    uint32_t nmVectL {0};
 
     /** NM_Vect[n] */
-    std::vector<uint8_t> nmVect;
+    std::vector<uint8_t> nmVect {};
 
     /** @copydoc Event::read() */
     static FlexRayStartCycle * read(File & file, std::string & line);

@@ -31,15 +31,17 @@
 namespace Vector {
 namespace ASC {
 
-class VECTOR_ASC_EXPORT StartOfMeasurement final : public Event {
-  public:
-    StartOfMeasurement();
+struct VECTOR_ASC_EXPORT StartOfMeasurement final : Event {
+    StartOfMeasurement() :
+        Event() {
+        eventType = EventType::StartOfMeasurement;
+    };
 
     /** @copydoc Time */
-    Time time;
+    Time time {0.0};
 
     /** language (only parsed, write works via File::language) */
-    File::Language language;
+    File::Language language {File::Language::En};
 
     /** @copydoc Event::read() */
     static StartOfMeasurement * read(File & file, std::string & line);

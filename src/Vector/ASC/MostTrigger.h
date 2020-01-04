@@ -38,24 +38,26 @@ namespace ASC {
  *
  * Event transports changes of HW IO pins. The event is used for debugging purposes only.
  */
-class VECTOR_ASC_EXPORT MostTrigger final : public Event {
-  public:
-    MostTrigger();
+struct VECTOR_ASC_EXPORT MostTrigger final : Event {
+    MostTrigger() :
+        Event() {
+        eventType = EventType::MostTrigger;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostTrigMode */
-    MostTrigMode trigMode;
+    MostTrigMode trigMode {MostTrigMode::Unknown};
 
     /** @copydoc MostTrigHw */
-    MostTrigHw trigHw;
+    MostTrigHw trigHw {0};
 
     /** @copydoc MostTrigValue */
-    std::array<MostTrigValue, 2> trigValue;
+    std::array<MostTrigValue, 2> trigValue {};
 
     /** @copydoc Event::read() */
     static MostTrigger * read(File & file, std::string & line);

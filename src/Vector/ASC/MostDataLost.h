@@ -38,27 +38,29 @@ namespace ASC {
  *
  * Indicates loss of data. (Number of lost messages and start and end time stamp of data loss.)
  */
-class VECTOR_ASC_EXPORT MostDataLost final : public Event {
-  public:
-    MostDataLost();
+struct VECTOR_ASC_EXPORT MostDataLost final : Event {
+    MostDataLost() :
+        Event() {
+        eventType = EventType::MostDataLost;
+    };
 
     /** @copydoc MostTime */
-    MostTime time;
+    MostTime time {0.0};
 
     /** @copydoc MostChannel */
-    MostChannel channel;
+    MostChannel channel {0};
 
     /** @copydoc MostDlInfo */
-    MostDlInfo dlInfo;
+    MostDlInfo dlInfo {0};
 
     /** @copydoc MostDlCtrl */
-    MostDlCtrl dlCtrl;
+    MostDlCtrl dlCtrl {0};
 
     /** @copydoc MostDlAsync */
-    MostDlAsync dlAsync;
+    MostDlAsync dlAsync {0};
 
     /** @copydoc MostDlTime */
-    std::array<MostDlTime, 2> dlTime;
+    std::array<MostDlTime, 2> dlTime {};
 
     /** @copydoc Event::read() */
     static MostDataLost * read(File & file, std::string & line);
