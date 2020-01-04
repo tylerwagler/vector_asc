@@ -35,9 +35,8 @@ namespace ASC {
 /**
  * Unknown Event
  */
-class VECTOR_ASC_EXPORT Unknown final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT Unknown final : public Event {
+  public:
     Unknown();
 
     /** line content */

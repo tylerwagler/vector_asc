@@ -38,13 +38,11 @@ MostCommonRegister::MostCommonRegister() :
     regChip(0),
     regOffset(0),
     regDataLen(0),
-    data()
-{
+    data() {
     eventType = EventType::MostCommonRegister;
 }
 
-MostCommonRegister * MostCommonRegister::read(File & /*file*/, std::string & line)
-{
+MostCommonRegister * MostCommonRegister::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "RegData:"
                      REGEX_ws REGEX_MOST_RegSubType REGEX_WS REGEX_MOST_RegChip REGEX_WS REGEX_MOST_RegOffset
                      REGEX_WS REGEX_MOST_RegDataLen
@@ -54,7 +52,7 @@ MostCommonRegister * MostCommonRegister::read(File & /*file*/, std::string & lin
         MostCommonRegister * mostCommonRegister = new MostCommonRegister;
         mostCommonRegister->time = std::stod(match[1]);
         mostCommonRegister->channel = std::stoul(match[2]);
-        switch(std::stoul(match[3])) {
+        switch (std::stoul(match[3])) {
         case 0:
             mostCommonRegister->regSubType = MostRegSubType::Unspecified;
             break;
@@ -85,7 +83,7 @@ MostCommonRegister * MostCommonRegister::read(File & /*file*/, std::string & lin
         mostCommonRegister->regDataLen = std::stoul(match[6], nullptr, 16);
         std::istringstream iss(match[7]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             mostCommonRegister->data.push_back(s);
@@ -96,8 +94,7 @@ MostCommonRegister * MostCommonRegister::read(File & /*file*/, std::string & lin
     return nullptr;
 }
 
-void MostCommonRegister::write(File & file, std::ostream & stream)
-{
+void MostCommonRegister::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 
@@ -113,7 +110,7 @@ void MostCommonRegister::write(File & file, std::ostream & stream)
             << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) regDataLen;
 
     /* format: " %02X" */
-    for(MostDx d: data)
+    for (MostDx d : data)
         stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) d;
 
     stream << endl;

@@ -31,28 +31,25 @@ namespace ASC {
 BeginTriggerblock::BeginTriggerblock() :
     Event(),
     date(),
-    language(File::Language::En)
-{
+    language(File::Language::En) {
     eventType = EventType::BeginTriggerblock;
 }
 
-BeginTriggerblock * BeginTriggerblock::read(File &, std::string & line)
-{
+BeginTriggerblock * BeginTriggerblock::read(File &, std::string & line) {
     std::regex regex(REGEX_STOL "Begin Triggerblock" REGEX_WS REGEX_WeekDay REGEX_WS REGEX_Month REGEX_WS REGEX_Date
                      REGEX_WS REGEX_FullTime REGEX_WS REGEX_Year REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         BeginTriggerblock * beginTriggerblock = new BeginTriggerblock;
         readDate(match[1], match[2], match[3], match[4], match[5], match[6], match[7], match[8],
-                beginTriggerblock->language, beginTriggerblock->date);
+                 beginTriggerblock->language, beginTriggerblock->date);
         return beginTriggerblock;
     }
 
     return nullptr;
 }
 
-void BeginTriggerblock::write(File & file, std::ostream & stream)
-{
+void BeginTriggerblock::write(File & file, std::ostream & stream) {
     /* format: "Begin Triggerblock" */
     stream << "Begin Triggerblock";
 

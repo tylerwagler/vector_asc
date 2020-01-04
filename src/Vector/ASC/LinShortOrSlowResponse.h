@@ -41,9 +41,8 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
-class VECTOR_ASC_EXPORT LinShortOrSlowResponse final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LinShortOrSlowResponse final : public Event {
+  public:
     LinShortOrSlowResponse();
 
     /** @copydoc LinTime */

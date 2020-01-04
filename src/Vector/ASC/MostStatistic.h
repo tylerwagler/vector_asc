@@ -40,9 +40,8 @@ namespace ASC {
  *
  * Usually the event is not visible in a trace window.
  */
-class VECTOR_ASC_EXPORT MostStatistic final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MostStatistic final : public Event {
+  public:
     MostStatistic();
 
     /** @copydoc MostTime */

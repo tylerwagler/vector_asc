@@ -38,9 +38,8 @@ namespace ASC {
  *
  * Simple CAN Message received or transmitted on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanMessage final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT CanMessage final : public Event {
+  public:
     CanMessage();
 
     /** @copydoc Time */

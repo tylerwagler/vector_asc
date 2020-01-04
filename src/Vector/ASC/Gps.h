@@ -36,9 +36,8 @@ namespace ASC {
  *
  * An event that is written if an event is received on the GPS channel.
  */
-class VECTOR_ASC_EXPORT Gps final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT Gps final : public Event {
+  public:
     Gps();
 
     /** absolute or relative time in seconds */

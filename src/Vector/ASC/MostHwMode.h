@@ -39,9 +39,8 @@ namespace ASC {
  * spy. The event transports all states even if only a single state has changed. <HWModeMask> de-
  * notes which state differs regarding to the previous HW mode event.
  */
-class VECTOR_ASC_EXPORT MostHwMode final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MostHwMode final : public Event {
+  public:
     MostHwMode();
 
     /** @copydoc MostTime */

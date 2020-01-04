@@ -39,9 +39,8 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated up to CANoe/CANalyzer 5.2 only.
  */
-class VECTOR_ASC_EXPORT LinEventTriggeredFrameInfo final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LinEventTriggeredFrameInfo final : public Event {
+  public:
     LinEventTriggeredFrameInfo();
 
     /** @copydoc LinTime */

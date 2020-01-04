@@ -37,9 +37,8 @@ namespace ASC {
  * A spike event occurs when a short (normally less than 1 bit time) dominant signal has been de-
  * tected on a LIN channel.
  */
-class VECTOR_ASC_EXPORT LinSpike final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LinSpike final : public Event {
+  public:
     LinSpike();
 
     /** @copydoc LinTime */

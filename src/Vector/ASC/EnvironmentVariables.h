@@ -36,9 +36,8 @@ namespace ASC {
  *
  * An event that is written if the value of a environment variable changed.
  */
-class VECTOR_ASC_EXPORT EnvironmentVariables final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT EnvironmentVariables final : public Event {
+  public:
     EnvironmentVariables();
 
     /** @copydoc Time */

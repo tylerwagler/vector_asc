@@ -53,13 +53,11 @@ FlexRayMessage::FlexRayMessage() :
     frameCrc(0),
     spyFlag(false),
     frameLengthNs(0),
-    pduOffset(0)
-{
+    pduOffset(0) {
     eventType = EventType::FlexRayMessage;
 }
 
-FlexRayMessage * FlexRayMessage::readRmsg(File & /*file*/, std::string & line)
-{
+FlexRayMessage * FlexRayMessage::readRmsg(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "RMSG"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
                      REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)"
@@ -96,7 +94,7 @@ FlexRayMessage * FlexRayMessage::readRmsg(File & /*file*/, std::string & line)
         flexRayMessage->payloadLength = std::stoul(match[15]);
         flexRayMessage->bufferLength = std::stoul(match[16]);
         std::istringstream iss(match[17]);
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             flexRayMessage->data.push_back(s);
@@ -110,8 +108,7 @@ FlexRayMessage * FlexRayMessage::readRmsg(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-FlexRayMessage * FlexRayMessage::readPdu(File & file, std::string & line)
-{
+FlexRayMessage * FlexRayMessage::readPdu(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "PDU"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
                      REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)"
@@ -148,7 +145,7 @@ FlexRayMessage * FlexRayMessage::readPdu(File & file, std::string & line)
         flexRayMessage->payloadLength = std::stoul(match[15], nullptr, file.base);
         flexRayMessage->bufferLength = std::stoul(match[16], nullptr, file.base);
         std::istringstream iss(match[17]);
-        switch(file.base) {
+        switch (file.base) {
         case 10:
             iss >> std::dec;
             break;
@@ -156,7 +153,7 @@ FlexRayMessage * FlexRayMessage::readPdu(File & file, std::string & line)
             iss >> std::hex;
             break;
         }
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             flexRayMessage->data.push_back(s);
@@ -171,8 +168,7 @@ FlexRayMessage * FlexRayMessage::readPdu(File & file, std::string & line)
     return nullptr;
 }
 
-FlexRayMessage * FlexRayMessage::read(File & file, std::string & line)
-{
+FlexRayMessage * FlexRayMessage::read(File & file, std::string & line) {
     FlexRayMessage * flexRayMessage;
 
     flexRayMessage = readRmsg(file, line);
@@ -186,12 +182,11 @@ FlexRayMessage * FlexRayMessage::read(File & file, std::string & line)
     return nullptr;
 }
 
-void FlexRayMessage::write(File & file, std::ostream & stream)
-{
+void FlexRayMessage::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << " Fr ";
 
-    switch(flexRayEventType) {
+    switch (flexRayEventType) {
     case FlexRayEventType::RMSG:
         /* format: "RMSG " */
         stream << "RMSG ";
@@ -209,7 +204,7 @@ void FlexRayMessage::write(File & file, std::ostream & stream)
             << ' ' << channelNr
             << ' ' << channelMask;
 
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream
                 << ' ' << std::dec << slotId

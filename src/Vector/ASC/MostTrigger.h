@@ -38,9 +38,8 @@ namespace ASC {
  *
  * Event transports changes of HW IO pins. The event is used for debugging purposes only.
  */
-class VECTOR_ASC_EXPORT MostTrigger final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MostTrigger final : public Event {
+  public:
     MostTrigger();
 
     /** @copydoc MostTime */

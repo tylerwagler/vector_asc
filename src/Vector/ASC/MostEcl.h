@@ -36,9 +36,8 @@ namespace ASC {
  *
  * State change of the MOST Electrical Control Line.
  */
-class VECTOR_ASC_EXPORT MostEcl final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MostEcl final : public Event {
+  public:
     MostEcl();
 
     /** @copydoc MostTime */

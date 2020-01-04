@@ -40,13 +40,11 @@ Most25ControlMessageSpyMode::Most25ControlMessageSpyMode() :
     data(),
     state(0),
     ackNack(0),
-    crc(0)
-{
+    crc(0) {
     eventType = EventType::Most25ControlMessageSpyMode;
 }
 
-Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::read(File & file, std::string & line)
-{
+Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Rx"
                      REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr REGEX_WS REGEX_MOST_RType
                      "((" REGEX_WS REGEX_MOST_Dx "){17})"
@@ -60,7 +58,7 @@ Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::read(File & file, std
         most25ControlMessageSpyMode->destAdr = std::stoul(match[4], nullptr, file.base);
         most25ControlMessageSpyMode->rType = std::stoul(match[5], nullptr, file.base);
         std::istringstream iss(match[6]);
-        switch(file.base) {
+        switch (file.base) {
         case 10:
             iss >> std::dec;
             break;
@@ -68,7 +66,7 @@ Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::read(File & file, std
             iss >> std::hex;
             break;
         }
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             most25ControlMessageSpyMode->data.push_back(s);
@@ -82,8 +80,7 @@ Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::read(File & file, std
     return nullptr;
 }
 
-void Most25ControlMessageSpyMode::write(File & file, std::ostream & stream)
-{
+void Most25ControlMessageSpyMode::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
     writeMostDir(file, stream, Dir::Rx);

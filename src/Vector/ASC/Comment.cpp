@@ -32,13 +32,11 @@ Comment::Comment() :
     Event(),
     time(0.0),
     type(0),
-    commentText()
-{
+    commentText() {
     eventType = EventType::Comment;
 }
 
-Comment * Comment::read(File & /*file*/, std::string & line)
-{
+Comment * Comment::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "Comment:" REGEX_ws "([[:digit:]]+)" REGEX_WS "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
@@ -52,8 +50,7 @@ Comment * Comment::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void Comment::write(File & file, std::ostream & stream)
-{
+void Comment::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << ' ';
 

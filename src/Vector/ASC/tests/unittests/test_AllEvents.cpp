@@ -11,18 +11,16 @@
 
 #include <Vector/ASC.h>
 
-BOOST_AUTO_TEST_CASE(AllEvents)
-{
+BOOST_AUTO_TEST_CASE(AllEvents) {
     /* input directory */
     boost::filesystem::path indir(CMAKE_CURRENT_SOURCE_DIR "/events/");
 
     /* output directory */
     boost::filesystem::path outdir(CMAKE_CURRENT_BINARY_DIR "/events/");
-    if (!exists(outdir)) {
+    if (!exists(outdir))
         BOOST_REQUIRE(create_directory(outdir));
-    }
 
-    for(boost::filesystem::directory_entry & x : boost::filesystem::directory_iterator(indir)) {
+    for (boost::filesystem::directory_entry & x : boost::filesystem::directory_iterator(indir)) {
         std::string eventFile = x.path().filename().string();
         std::cout << eventFile << std::endl;
 
@@ -39,29 +37,26 @@ BOOST_AUTO_TEST_CASE(AllEvents)
         BOOST_REQUIRE(fileout.is_open());
 
         /* parse log file */
-        while(!filein.eof()) {
+        while (!filein.eof()) {
             Vector::ASC::Event * event;
             event = filein.read();
             BOOST_CHECK((event != nullptr) || filein.eof());
             if (event != nullptr) {
                 /* these values must be copied to File */
-                switch(event->eventType) {
-                case Vector::ASC::Event::EventType::FileDate:
-                {
+                switch (event->eventType) {
+                case Vector::ASC::Event::EventType::FileDate: {
                     /*Vector::ASC::FileDate * fileDate = static_cast<Vector::ASC::FileDate *>(event);*/
                     fileout.language = filein.language;
                     fileout.date = filein.date;
                 }
                 break;
-                case Vector::ASC::Event::EventType::FileBaseTimestamps:
-                {
+                case Vector::ASC::Event::EventType::FileBaseTimestamps: {
                     /*Vector::ASC::FileBaseTimestamps * fileBaseTimestamps = static_cast<Vector::ASC::FileBaseTimestamps *>(event);*/
                     fileout.base = filein.base;
                     fileout.timestamps = filein.timestamps;
                 }
                 break;
-                case Vector::ASC::Event::EventType::FileVersion:
-                {
+                case Vector::ASC::Event::EventType::FileVersion: {
                     /*Vector::ASC::FileVersion * fileVersion = static_cast<Vector::ASC::FileVersion *>(event);*/
                     fileout.version = filein.version;
                 }

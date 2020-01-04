@@ -48,13 +48,11 @@ LinTransmissionError::LinTransmissionError() :
     endOfHeader(0.0),
     headerBaudrate(0.0),
     stopBitOffsetInHeader(0),
-    checksumModel()
-{
+    checksumModel() {
     eventType = EventType::LinTransmissionError;
 }
 
-LinTransmissionError * LinTransmissionError::read(File & file, std::string & line)
-{
+LinTransmissionError * LinTransmissionError::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS "TransmErr"
                      "(" REGEX_WS "slave" REGEX_ws "=" REGEX_ws REGEX_LIN_slaveId ","
                      REGEX_ws "state" REGEX_ws "=" REGEX_ws REGEX_LIN_state ")?"
@@ -111,8 +109,7 @@ LinTransmissionError * LinTransmissionError::read(File & file, std::string & lin
     return nullptr;
 }
 
-void LinTransmissionError::write(File & file, std::ostream & stream)
-{
+void LinTransmissionError::write(File & file, std::ostream & stream) {
     writeLinTime(file, stream, time);
     stream << ' ';
 

@@ -39,9 +39,8 @@ class File;
 /**
  * Base class for all events
  */
-class VECTOR_ASC_EXPORT Event
-{
-public:
+class VECTOR_ASC_EXPORT Event {
+  public:
     Event();
     virtual ~Event();
 

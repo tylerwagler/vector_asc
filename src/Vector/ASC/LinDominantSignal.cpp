@@ -36,13 +36,11 @@ LinDominantSignal::LinDominantSignal() :
     domSigState(),
     domSigLength(0),
     startOfFrame(0.0),
-    baudrate(0)
-{
+    baudrate(0) {
     eventType = EventType::LinDominantSignal;
 }
 
-LinDominantSignal * LinDominantSignal::read(File & /*file*/, std::string & line)
-{
+LinDominantSignal * LinDominantSignal::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Dominant signal"
                      REGEX_WS REGEX_LIN_DomSigState REGEX_WS REGEX_LIN_DomSigLength REGEX_WS "microseconds"
                      "(" REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
@@ -69,15 +67,14 @@ LinDominantSignal * LinDominantSignal::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void LinDominantSignal::write(File & file, std::ostream & stream)
-{
+void LinDominantSignal::write(File & file, std::ostream & stream) {
     writeLinTime(file, stream, time);
     stream << ' ';
 
     /* format: "%s Dominant signal %s  %8d microseconds" */
     writeLinChannel(file, stream, channel);
     stream << " Dominant signal ";
-    switch(domSigState) {
+    switch (domSigState) {
     case LinDomSigState::Detected:
         stream << "detected";
         break;

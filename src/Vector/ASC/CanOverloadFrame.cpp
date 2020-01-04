@@ -31,13 +31,11 @@ namespace ASC {
 CanOverloadFrame::CanOverloadFrame() :
     Event(),
     time(0.0),
-    channel(0)
-{
+    channel(0) {
     eventType = EventType::CanOverloadFrame;
 }
 
-CanOverloadFrame * CanOverloadFrame::read(File & /*file*/, std::string & line)
-{
+CanOverloadFrame * CanOverloadFrame::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS "OverloadFrame" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
@@ -50,8 +48,7 @@ CanOverloadFrame * CanOverloadFrame::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void CanOverloadFrame::write(File & file, std::ostream & stream)
-{
+void CanOverloadFrame::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << ' ' << std::dec << (uint16_t) channel << "  ";
 

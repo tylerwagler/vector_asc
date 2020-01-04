@@ -33,13 +33,11 @@ MostTxLight::MostTxLight() :
     Event(),
     time(0.0),
     channel(0),
-    txLightState(MostTxLightState::Off)
-{
+    txLightState(MostTxLightState::Off) {
     eventType = EventType::MostTxLight;
 }
 
-MostTxLight * MostTxLight::read(File & /*file*/, std::string & line)
-{
+MostTxLight * MostTxLight::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "TxLight:"
                      REGEX_ws REGEX_MOST_TxLightState REGEX_ENDL);
     std::smatch match;
@@ -47,7 +45,7 @@ MostTxLight * MostTxLight::read(File & /*file*/, std::string & line)
         MostTxLight * mostTxLight = new MostTxLight;
         mostTxLight->time = std::stod(match[1]);
         mostTxLight->channel = std::stoul(match[2]);
-        switch(std::stoul(match[3])) {
+        switch (std::stoul(match[3])) {
         case 0:
             mostTxLight->txLightState = MostTxLightState::Off;
             break;
@@ -64,8 +62,7 @@ MostTxLight * MostTxLight::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void MostTxLight::write(File & file, std::ostream & stream)
-{
+void MostTxLight::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

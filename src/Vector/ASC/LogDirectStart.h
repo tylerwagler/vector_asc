@@ -37,9 +37,8 @@ namespace ASC {
  * An event that is written if the logging was started directly by the button in the measurement
  * setup or by the CAPL function StartLogging().
  */
-class VECTOR_ASC_EXPORT LogDirectStart final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LogDirectStart final : public Event {
+  public:
     LogDirectStart();
 
     /** @copydoc Time */

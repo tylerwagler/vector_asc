@@ -34,13 +34,11 @@ LinChecksumInfo::LinChecksumInfo() :
     time(0.0),
     channel(0),
     id(),
-    checksumModelInfo()
-{
+    checksumModelInfo() {
     eventType = EventType::LinChecksumInfo;
 }
 
-LinChecksumInfo * LinChecksumInfo::read(File & /*file*/, std::string & line)
-{
+LinChecksumInfo * LinChecksumInfo::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS "CSInfo"
                      REGEX_WS REGEX_LIN_checksumModelInfo REGEX_ENDL);
     std::smatch match;
@@ -59,8 +57,7 @@ LinChecksumInfo * LinChecksumInfo::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void LinChecksumInfo::write(File & file, std::ostream & stream)
-{
+void LinChecksumInfo::write(File & file, std::ostream & stream) {
     /* format: "%s %-12.1x CSInfo    %s" */
     /* format: "%s %-12.1d CSInfo    %s" */
     /* format: "%s %s CSInfo    %s" */
@@ -70,7 +67,7 @@ void LinChecksumInfo::write(File & file, std::ostream & stream)
     stream << ' ';
     stream << std::left << std::setw(12) << id;
     stream << " CSInfo    ";
-    switch(checksumModelInfo) {
+    switch (checksumModelInfo) {
     case LinChecksumModelInfo::Classic:
         /* format: "Using classic checksum" */
         stream << "Using classic checksum";

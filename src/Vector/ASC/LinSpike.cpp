@@ -36,13 +36,11 @@ LinSpike::LinSpike() :
     dir(Dir::Rx),
     spikeLength(0),
     startOfFrame(0),
-    baudrate(0)
-{
+    baudrate(0) {
     eventType = EventType::LinSpike;
 }
 
-LinSpike * LinSpike::read(File & /*file*/, std::string & line)
-{
+LinSpike * LinSpike::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Spike"
                      REGEX_WS REGEX_LIN_Dir REGEX_WS REGEX_LIN_SpikeLength REGEX_WS "microseconds"
                      "(" REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
@@ -67,8 +65,7 @@ LinSpike * LinSpike::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void LinSpike::write(File & file, std::ostream & stream)
-{
+void LinSpike::write(File & file, std::ostream & stream) {
     writeLinTime(file, stream, time);
     stream << ' ';
 

@@ -36,9 +36,8 @@ namespace ASC {
  *
  * Event for various system states.
  */
-class VECTOR_ASC_EXPORT MostSystem final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MostSystem final : public Event {
+  public:
     MostSystem();
 
     /** @copydoc MostTime */

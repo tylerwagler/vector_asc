@@ -26,10 +26,9 @@
 namespace Vector {
 namespace ASC {
 
-void writeData(File & file, std::ostream & stream, std::vector<uint8_t> & data)
-{
-    for(uint8_t d: data) {
-        switch(file.base) {
+void writeData(File & file, std::ostream & stream, std::vector<uint8_t> & data) {
+    for (uint8_t d : data) {
+        switch (file.base) {
         case 10:
             stream << ' ' << std::right
                    << std::setfill(' ') << std::setw(3)
@@ -44,9 +43,8 @@ void writeData(File & file, std::ostream & stream, std::vector<uint8_t> & data)
     }
 }
 
-void writeDir(File & /*file*/, std::ostream & stream, Dir dir)
-{
-    switch(dir) {
+void writeDir(File & /*file*/, std::ostream & stream, Dir dir) {
+    switch (dir) {
     case Dir::Rx:
         /* format: "Rx  " */
         stream << "Rx  ";
@@ -62,8 +60,7 @@ void writeDir(File & /*file*/, std::ostream & stream, Dir dir)
     }
 }
 
-void writeTime(File & file, std::ostream & stream, Time & time)
-{
+void writeTime(File & file, std::ostream & stream, Time & time) {
     stream
             << std::right << std::setfill(' ')
             << std::setw(5 + file.timestampPrecision)
@@ -108,15 +105,14 @@ static std::string monNameDe[12] = {
  */
 
 void readDate(
-        std::string wday, std::string mon, std::string mday,
-        std::string hour, std::string min, std::string sec, std::string amFm,
-        std::string year,
-        File::Language & language,
-        struct tm & date)
-{
+    std::string wday, std::string mon, std::string mday,
+    std::string hour, std::string min, std::string sec, std::string amFm,
+    std::string year,
+    File::Language & language,
+    struct tm & date) {
     /* parse week day */
     bool wdayFound = false;
-    for(int i = 0; i < 7; ++i) {
+    for (int i = 0; i < 7; ++i) {
         if (wdayNameEn[i] == wday) {
             date.tm_wday = i;
             language = File::Language::En;
@@ -125,7 +121,7 @@ void readDate(
         }
     }
     if (!wdayFound)
-        for(int i = 0; i < 7; ++i) {
+        for (int i = 0; i < 7; ++i) {
             if (wdayNameDe[i] == wday) {
                 date.tm_wday = i;
                 language = File::Language::De;
@@ -136,7 +132,7 @@ void readDate(
 
     /* parse month */
     bool monFound = false;
-    for(int i = 0; i < 12; ++i) {
+    for (int i = 0; i < 12; ++i) {
         if (monNameEn[i] == mon) {
             date.tm_mon = i;
             language = File::Language::En;
@@ -145,7 +141,7 @@ void readDate(
         }
     }
     if (!monFound)
-        for(int i = 0; i < 12; ++i) {
+        for (int i = 0; i < 12; ++i) {
             if (monNameDe[i] == mon) {
                 date.tm_mon = i;
                 language = File::Language::De;
@@ -178,8 +174,7 @@ void readDate(
     date.tm_year = std::stoul(year) - 1900;
 }
 
-void writeDate(File & file, std::ostream & ostream, struct tm & date)
-{
+void writeDate(File & file, std::ostream & ostream, struct tm & date) {
     uint16_t hour = date.tm_hour;
 
     /* 12/24-hour clock handling */

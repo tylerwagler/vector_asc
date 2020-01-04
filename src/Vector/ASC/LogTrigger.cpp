@@ -30,13 +30,11 @@ namespace ASC {
 
 LogTrigger::LogTrigger() :
     Event(),
-    time(0.0)
-{
+    time(0.0) {
     eventType = EventType::LogTrigger;
 }
 
-LogTrigger * LogTrigger::read(File & /*file*/, std::string & line)
-{
+LogTrigger * LogTrigger::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log trigger event" REGEX_ws "(.+)?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
@@ -49,8 +47,7 @@ LogTrigger * LogTrigger::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void LogTrigger::write(File & file, std::ostream & stream)
-{
+void LogTrigger::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << ' ';
 

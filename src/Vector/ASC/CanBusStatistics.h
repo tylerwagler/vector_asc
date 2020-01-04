@@ -36,9 +36,8 @@ namespace ASC {
  *
  * CAN Statistic event, which contains statistic information about the CAN channels.
  */
-class VECTOR_ASC_EXPORT CanBusStatistics final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT CanBusStatistics final : public Event {
+  public:
     CanBusStatistics();
 
     /** @copydoc Time */

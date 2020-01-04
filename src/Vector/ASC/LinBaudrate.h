@@ -40,9 +40,8 @@ namespace ASC {
  *
  * LIN hardware is synchronized with the baud rate of the external Master.
  */
-class VECTOR_ASC_EXPORT LinBaudrate final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LinBaudrate final : public Event {
+  public:
     LinBaudrate();
 
     /** @copydoc LinTime */

@@ -34,9 +34,8 @@ namespace Vector {
 namespace ASC {
 
 /** TP Single Frame */
-class VECTOR_ASC_EXPORT TpSingleFrame final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT TpSingleFrame final : public Event {
+  public:
     TpSingleFrame();
 
     /** @copydoc TpDiagCanChannel */

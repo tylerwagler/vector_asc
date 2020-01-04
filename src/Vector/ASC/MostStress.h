@@ -36,9 +36,8 @@ namespace ASC {
  *
  * Information about Stress activity of VN2600/2610 Hardware
  */
-class VECTOR_ASC_EXPORT MostStress final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MostStress final : public Event {
+  public:
     MostStress();
 
     /** @copydoc MostTime */

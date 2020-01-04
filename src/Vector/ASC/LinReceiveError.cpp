@@ -58,13 +58,11 @@ LinReceiveError::LinReceiveError() :
     headerBaudrate(0.0),
     stopBitOffsetInHeader(0),
     stopBitOffsetInResponse(0),
-    checksumModel(LinChecksumModel::Unknown)
-{
+    checksumModel(LinChecksumModel::Unknown) {
     eventType = EventType::LinReceiveError;
 }
 
-LinReceiveError * LinReceiveError::read(File & file, std::string & line)
-{
+LinReceiveError * LinReceiveError::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel
                      "(" REGEX_WS REGEX_LIN_ID REGEX_WS REGEX_LIN_DLC ")?"
                      REGEX_WS "RcvError:" REGEX_ws REGEX_LIN_description
@@ -107,7 +105,7 @@ LinReceiveError * LinReceiveError::read(File & file, std::string & line)
             linReceiveError->isDlcTimeout = (match[15] == '1');
             linReceiveError->hasDataBytes = (match[16] == '1');
             std::istringstream iss1(match[17]);
-            switch(file.base) {
+            switch (file.base) {
             case 10:
                 iss1 >> std::dec;
                 break;
@@ -115,7 +113,7 @@ LinReceiveError * LinReceiveError::read(File & file, std::string & line)
                 iss1 >> std::hex;
                 break;
             }
-            while(!iss1.eof()) {
+            while (!iss1.eof()) {
                 unsigned short s;
                 iss1 >> s;
                 linReceiveError->data.push_back(s);
@@ -133,7 +131,7 @@ LinReceiveError * LinReceiveError::read(File & file, std::string & line)
                 linReceiveError->endOfHeader = std::stod(match[28]);
             if (match[29] != "") {
                 std::istringstream iss2(match[30]);
-                while(!iss2.eof()) {
+                while (!iss2.eof()) {
                     double s;
                     iss2 >> s;
                     linReceiveError->endOfByte.push_back(s);
@@ -164,8 +162,7 @@ LinReceiveError * LinReceiveError::read(File & file, std::string & line)
     return nullptr;
 }
 
-void LinReceiveError::write(File & file, std::ostream & stream)
-{
+void LinReceiveError::write(File & file, std::ostream & stream) {
     writeLinTime(file, stream, time);
     stream << ' ';
 

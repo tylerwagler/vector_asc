@@ -41,13 +41,11 @@ CanExtendedMessage::CanExtendedMessage() :
     messageDuration(0),
     messageLength(0),
     messageFlags(),
-    messageId(0)
-{
+    messageId(0) {
     eventType = EventType::CanExtendedMessage;
 }
 
-CanExtendedMessage * CanExtendedMessage::read(File & file, std::string & line)
-{
+CanExtendedMessage * CanExtendedMessage::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS REGEX_ID "x" REGEX_WS REGEX_Dir REGEX_WS "d" REGEX_WS REGEX_DLC
                      "((" REGEX_WS REGEX_Dx "){0,8})"
                      "(" REGEX_WS "Length" REGEX_ws "=" REGEX_ws REGEX_MessageDuration ")?"
@@ -71,7 +69,7 @@ CanExtendedMessage * CanExtendedMessage::read(File & file, std::string & line)
             iss >> std::dec;
         if (file.base == 16)
             iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             canExtendedMessage->data.push_back(s);
@@ -98,12 +96,11 @@ CanExtendedMessage * CanExtendedMessage::read(File & file, std::string & line)
     return nullptr;
 }
 
-void CanExtendedMessage::write(File & file, std::ostream & stream)
-{
+void CanExtendedMessage::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << ' ' << std::dec << (uint16_t) channel << "  ";
     std::stringstream ss;
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         ss << std::dec << id << 'x';
         stream << std::left << std::setfill(' ') << std::setw(15) << ss.str();
@@ -134,9 +131,8 @@ void CanExtendedMessage::write(File & file, std::ostream & stream)
 
 #if 0
     /* <MessageFlags> */
-    if (!messageFlags.empty()) {
+    if (!messageFlags.empty())
         stream << ' ' << std::dec << messageFlags;
-    }
 #endif
 
     if (file.version >= File::Version::Ver_8_0) {

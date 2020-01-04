@@ -25,21 +25,17 @@ namespace Vector {
 namespace ASC {
 
 Event::Event() :
-    eventType(EventType::Default)
-{
+    eventType(EventType::Default) {
 }
 
-Event::~Event()
-{
+Event::~Event() {
 }
 
-Event * read(File & /*file*/, std::string & /*line*/)
-{
+Event * read(File & /*file*/, std::string & /*line*/) {
     return nullptr;
 }
 
-void Event::write(File & /*file*/, std::ostream & /*stream*/)
-{
+void Event::write(File & /*file*/, std::ostream & /*stream*/) {
 }
 
 }

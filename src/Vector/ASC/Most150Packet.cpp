@@ -47,13 +47,11 @@ Most150Packet::Most150Packet() :
     cAck(0),
     rsvdUl(0),
     pkt150Len(0),
-    data()
-{
+    data() {
     eventType = EventType::Most150Packet;
 }
 
-Most150Packet * Most150Packet::read(File & /*file*/, std::string & line)
-{
+Most150Packet * Most150Packet::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Pkt150:"
                      REGEX_ws REGEX_MOST_Dir REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr
                      REGEX_WS REGEX_MOST_State REGEX_WS REGEX_MOST_AckNack REGEX_WS REGEX_MOST_TransferType
@@ -73,7 +71,7 @@ Most150Packet * Most150Packet::read(File & /*file*/, std::string & line)
         most150Packet->destAdr = std::stoul(match[5], nullptr, 16);
         most150Packet->state = std::stoul(match[6], nullptr, 16);
         most150Packet->ackNack = std::stoul(match[7], nullptr, 16);
-        switch(std::stoul(match[16])) {
+        switch (std::stoul(match[16])) {
         case 1:
             most150Packet->transferType = MostTransferType::Node;
             break;
@@ -90,7 +88,7 @@ Most150Packet * Most150Packet::read(File & /*file*/, std::string & line)
         most150Packet->pkt150Len = std::stoul(match[15], nullptr, 16);
         std::istringstream iss(match[16]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             most150Packet->data.push_back(s);
@@ -101,8 +99,7 @@ Most150Packet * Most150Packet::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void Most150Packet::write(File & file, std::ostream & stream)
-{
+void Most150Packet::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

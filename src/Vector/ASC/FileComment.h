@@ -33,9 +33,8 @@ namespace Vector {
 namespace ASC {
 
 /** File Comment */
-class VECTOR_ASC_EXPORT FileComment final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT FileComment final : public Event {
+  public:
     FileComment();
 
     /** comment */

@@ -38,9 +38,8 @@ namespace ASC {
  * an unknown frame. This checksum model is set as the expected checksum model for this frame.
  * An error is displayed if the same frame is received with a different checksum model.
  */
-class VECTOR_ASC_EXPORT LinChecksumInfo final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LinChecksumInfo final : public Event {
+  public:
     LinChecksumInfo();
 
     /** @copydoc LinTime */

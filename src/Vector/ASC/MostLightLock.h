@@ -48,9 +48,8 @@ namespace ASC {
  * time is greater than a certain threshold, it is called "Critical Unlock" (details see MOST specifica-
  * tion).
  */
-class VECTOR_ASC_EXPORT MostLightLock final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MostLightLock final : public Event {
+  public:
     MostLightLock();
 
     /** @copydoc MostTime */

@@ -38,9 +38,8 @@ namespace ASC {
  *
  * Message on MOST25 Control Channel received in spy mode (listen only).
  */
-class VECTOR_ASC_EXPORT Most25ControlMessageSpyMode final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT Most25ControlMessageSpyMode final : public Event {
+  public:
     Most25ControlMessageSpyMode();
 
     /** @copydoc MostTime */

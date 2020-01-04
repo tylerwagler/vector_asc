@@ -34,13 +34,11 @@ MostStress::MostStress() :
     time(0.0),
     channel(0),
     stressMode(0),
-    stressState(MostStressState::Stopped)
-{
+    stressState(MostStressState::Stopped) {
     eventType = EventType::MostStress;
 }
 
-MostStress * MostStress::read(File & /*file*/, std::string & line)
-{
+MostStress * MostStress::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Stress:"
                      REGEX_ws REGEX_MOST_StressMode REGEX_WS REGEX_MOST_StressState REGEX_ENDL);
     std::smatch match;
@@ -49,7 +47,7 @@ MostStress * MostStress::read(File & /*file*/, std::string & line)
         mostStress->time = std::stod(match[1]);
         mostStress->channel = std::stoul(match[2]);
         mostStress->stressMode = std::stoul(match[3]);
-        switch(std::stoul(match[4])) {
+        switch (std::stoul(match[4])) {
         case 0:
             mostStress->stressState = MostStressState::Stopped;
             break;
@@ -63,8 +61,7 @@ MostStress * MostStress::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void MostStress::write(File & file, std::ostream & stream)
-{
+void MostStress::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

@@ -58,13 +58,11 @@ LinChecksumError::LinChecksumError() :
     headerBaudrate(0.0),
     stopBitOffsetInHeader(0),
     stopBitOffsetInResponse(0),
-    checksumModel()
-{
+    checksumModel() {
     eventType = EventType::LinChecksumError;
 }
 
-LinChecksumError * LinChecksumError::read(File & file, std::string & line)
-{
+LinChecksumError * LinChecksumError::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS "CSErr"
                      REGEX_WS REGEX_LIN_Dir REGEX_WS REGEX_LIN_DLC
                      "((" REGEX_WS "[[:xdigit:]]+){0,8})"
@@ -97,7 +95,7 @@ LinChecksumError * LinChecksumError::read(File & file, std::string & line)
             linChecksumError->dir = Dir::Tx;
         linChecksumError->dlc = std::stoul(match[5], nullptr, file.base);
         std::istringstream iss1(match[6]);
-        switch(file.base) {
+        switch (file.base) {
         case 10:
             iss1 >> std::dec;
             break;
@@ -105,7 +103,7 @@ LinChecksumError * LinChecksumError::read(File & file, std::string & line)
             iss1 >> std::hex;
             break;
         }
-        while(!iss1.eof()) {
+        while (!iss1.eof()) {
             unsigned short s;
             iss1 >> s;
             linChecksumError->data.push_back(s);
@@ -129,7 +127,7 @@ LinChecksumError * LinChecksumError::read(File & file, std::string & line)
             }
             linChecksumError->endOfHeader = std::stod(match[23]);
             std::istringstream iss2(match[24]);
-            while(!iss2.eof()) {
+            while (!iss2.eof()) {
                 double s;
                 iss2 >> s;
                 linChecksumError->endOfByte.push_back(s);
@@ -163,8 +161,7 @@ LinChecksumError * LinChecksumError::read(File & file, std::string & line)
     return nullptr;
 }
 
-void LinChecksumError::write(File & file, std::ostream & stream)
-{
+void LinChecksumError::write(File & file, std::ostream & stream) {
     writeLinTime(file, stream, time);
     stream << ' ';
 

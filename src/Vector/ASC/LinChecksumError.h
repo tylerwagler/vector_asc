@@ -39,9 +39,8 @@ namespace ASC {
  * A checksum error event occurs when a Slave sends an incorrect checksum value for a frame re-
  * sponse that is otherwise correct.
  */
-class VECTOR_ASC_EXPORT LinChecksumError final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LinChecksumError final : public Event {
+  public:
     LinChecksumError();
 
     /** @copydoc LinTime */

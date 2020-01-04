@@ -3,38 +3,30 @@
 
 #include "Vector/ASC.h"
 
-void showUnknown(Vector::ASC::Unknown * unknown)
-{
+void showUnknown(Vector::ASC::Unknown * unknown) {
 }
 
-void showFileDate(Vector::ASC::FileDate * fileDate)
-{
+void showFileDate(Vector::ASC::FileDate * fileDate) {
 }
 
-void showFileBaseTimestamps(Vector::ASC::FileBaseTimestamps * fileBaseTimestamps)
-{
+void showFileBaseTimestamps(Vector::ASC::FileBaseTimestamps * fileBaseTimestamps) {
 }
 
-void showFileInternalEventsLogged(Vector::ASC::FileInternalEventsLogged * fileInternalEventsLogged)
-{
+void showFileInternalEventsLogged(Vector::ASC::FileInternalEventsLogged * fileInternalEventsLogged) {
 }
 
-void showFileVersion(Vector::ASC::FileVersion * fileVersion)
-{
+void showFileVersion(Vector::ASC::FileVersion * fileVersion) {
 }
 
-void showFileSplitInformation(Vector::ASC::FileSplitInformation * fileSplitInformation)
-{
+void showFileSplitInformation(Vector::ASC::FileSplitInformation * fileSplitInformation) {
 }
 
-void showFileComment(Vector::ASC::FileComment * fileComment)
-{
+void showFileComment(Vector::ASC::FileComment * fileComment) {
 }
 
 // @todo the further event routines are yet missing...
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char * argv[]) {
     if (argc != 2) {
         std::cout << "Parser <filename.blf>" << std::endl;
         return -1;
@@ -43,12 +35,12 @@ int main(int argc, char *argv[])
     Vector::ASC::File file;
     file.open(argv[1]);
 
-    while(!file.eof()) {
+    while (!file.eof()) {
         Vector::ASC::Event * event = file.read();
         if (event == nullptr)
             continue;
 
-        switch(event->eventType) {
+        switch (event->eventType) {
         case Vector::ASC::Event::EventType::Default:
             break;
 

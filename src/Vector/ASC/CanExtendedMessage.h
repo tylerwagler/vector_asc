@@ -38,9 +38,8 @@ namespace ASC {
  *
  * CAN Message with extended identifier received or transmitted on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanExtendedMessage final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT CanExtendedMessage final : public Event {
+  public:
     CanExtendedMessage();
 
     /** @copydoc Time */

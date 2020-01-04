@@ -39,13 +39,11 @@ LinDisturbance::LinDisturbance() :
     bitOffset(0),
     length(0),
     header(0),
-    disturbingHeader(0)
-{
+    disturbingHeader(0) {
     eventType = EventType::LinDisturbance;
 }
 
-LinDisturbance * LinDisturbance::read(File & file, std::string & line)
-{
+LinDisturbance * LinDisturbance::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "DisturbanceEvent"
                      REGEX_WS "Type" REGEX_ws "=" REGEX_ws REGEX_LIN_DisturbanceType
                      REGEX_WS "ByteIndex" REGEX_ws "=" REGEX_ws REGEX_LIN_ByteIndex
@@ -81,8 +79,7 @@ LinDisturbance * LinDisturbance::read(File & file, std::string & line)
     return nullptr;
 }
 
-void LinDisturbance::write(File & file, std::ostream & stream)
-{
+void LinDisturbance::write(File & file, std::ostream & stream) {
     if (file.version < File::Version::Ver_7_5)
         return;
 
@@ -94,7 +91,7 @@ void LinDisturbance::write(File & file, std::ostream & stream)
     stream
             << " DisturbanceEvent"
             << " Type = ";
-    switch(disturbanceType) {
+    switch (disturbanceType) {
     case LinDisturbanceType::Dominant:
         stream << "dominant";
         break;
@@ -118,7 +115,7 @@ void LinDisturbance::write(File & file, std::ostream & stream)
             << " Length = " << std::dec << (int16_t) length
             << ' ';
 
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         /* format: "Header = %3d Disturbing header = %3d" */
         stream

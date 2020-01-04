@@ -47,13 +47,11 @@ CanFdExtendedMessage::CanFdExtendedMessage() :
     flags(0),
     crc(0),
     bitTimingConfArb(0),
-    bitTimingConfData(0)
-{
+    bitTimingConfData(0) {
     eventType = EventType::CanFdExtendedMessage;
 }
 
-CanFdExtendedMessage * CanFdExtendedMessage::read(File & /*file*/, std::string & line)
-{
+CanFdExtendedMessage * CanFdExtendedMessage::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "CANFD" REGEX_WS REGEX_Channel REGEX_WS REGEX_Dir REGEX_WS REGEX_ID "x"
                      "(" REGEX_WS "([[:alnum:]_]+))?"
                      REGEX_WS REGEX_BRS REGEX_WS REGEX_ESI REGEX_WS REGEX_DLC REGEX_WS REGEX_DataLength
@@ -80,7 +78,7 @@ CanFdExtendedMessage * CanFdExtendedMessage::read(File & /*file*/, std::string &
         canFdExtendedMessage->dataLength = std::stoul(match[10]);
         std::istringstream iss(match[11]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             canFdExtendedMessage->data.push_back(s);
@@ -97,8 +95,7 @@ CanFdExtendedMessage * CanFdExtendedMessage::read(File & /*file*/, std::string &
     return nullptr;
 }
 
-void CanFdExtendedMessage::write(File & file, std::ostream & stream)
-{
+void CanFdExtendedMessage::write(File & file, std::ostream & stream) {
     if (file.version < File::Version::Ver_8_1)
         return;
 
@@ -112,7 +109,7 @@ void CanFdExtendedMessage::write(File & file, std::ostream & stream)
     writeDir(file, stream, dir);
     stream << ' ';
     std::stringstream ss;
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         ss << std::dec << id << 'x';
         stream << std::left << std::setfill(' ') << std::setw(15) << ss.str();
@@ -127,7 +124,7 @@ void CanFdExtendedMessage::write(File & file, std::ostream & stream)
             << ' ' << (brs ? '1' : '0')
             << ' ' << (esi ? '1' : '0')
             << ' ';
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream << std::dec << (uint16_t) dlc;
         break;

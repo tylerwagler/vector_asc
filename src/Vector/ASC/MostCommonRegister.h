@@ -39,9 +39,8 @@ namespace ASC {
  * This event transports a register read or write result (e.g. reading the routing engine of the OS8104).
  * Unlike the special register event this event does not occur spontaneous.
  */
-class VECTOR_ASC_EXPORT MostCommonRegister final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MostCommonRegister final : public Event {
+  public:
     MostCommonRegister();
 
     /** @copydoc MostTime */

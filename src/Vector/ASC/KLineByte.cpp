@@ -37,13 +37,11 @@ KLineByte::KLineByte() :
     direction(Dir::Rx),
     baudrate(0),
     length(0),
-    data()
-{
+    data() {
     eventType = EventType::KLineByte;
 }
 
-KLineByte * KLineByte::read(File & file, std::string & line)
-{
+KLineByte * KLineByte::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_KLine_time REGEX_WS REGEX_KLine_port REGEX_WS REGEX_KLine_direction
                      REGEX_WS REGEX_KLine_baudrate REGEX_WS REGEX_KLine_length
                      "((" REGEX_WS REGEX_KLine_data ")*)" REGEX_ENDL);
@@ -63,7 +61,7 @@ KLineByte * KLineByte::read(File & file, std::string & line)
             iss >> std::dec;
         if (file.base == 16)
             iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             kLineByte->data.push_back(s);
@@ -74,8 +72,7 @@ KLineByte * KLineByte::read(File & file, std::string & line)
     return nullptr;
 }
 
-void KLineByte::write(File & file, std::ostream & stream)
-{
+void KLineByte::write(File & file, std::ostream & stream) {
     writeKLineTime(file, stream, time);
     stream << "    " << port << ' ';
     writeKLineDirection(file, stream, direction);

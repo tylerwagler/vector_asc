@@ -34,13 +34,11 @@ LinDlcInfo::LinDlcInfo() :
     time(0.0),
     channel(0),
     id(),
-    dlc(0)
-{
+    dlc(0) {
     eventType = EventType::LinDlcInfo;
 }
 
-LinDlcInfo * LinDlcInfo::read(File & /*file*/, std::string & line)
-{
+LinDlcInfo * LinDlcInfo::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS "DlcInfo"
                      REGEX_WS REGEX_LIN_DLC REGEX_ENDL);
     std::smatch match;
@@ -56,8 +54,7 @@ LinDlcInfo * LinDlcInfo::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void LinDlcInfo::write(File & file, std::ostream & stream)
-{
+void LinDlcInfo::write(File & file, std::ostream & stream) {
     writeLinTime(file, stream, time);
     stream << ' ';
 

@@ -36,9 +36,8 @@ namespace ASC {
  *
  * An event that provides CAN error information.
  */
-class VECTOR_ASC_EXPORT CanError final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT CanError final : public Event {
+  public:
     CanError();
 
     /** @copydoc Time */

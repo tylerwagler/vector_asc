@@ -51,13 +51,11 @@ LinShortOrSlowResponse::LinShortOrSlowResponse() :
     endOfByte(),
     headerBaudrate(0.0),
     stopBitOffsetInHeader(0),
-    checksumModel()
-{
+    checksumModel() {
     eventType = EventType::LinShortOrSlowResponse;
 }
 
-LinShortOrSlowResponse * LinShortOrSlowResponse::read(File & /*file*/, std::string & line)
-{
+LinShortOrSlowResponse * LinShortOrSlowResponse::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS REGEX_LIN_DLC
                      REGEX_WS "ShortOrSlowResponse:" REGEX_ws "NumRespBytes" REGEX_ws "=" REGEX_ws REGEX_LIN_NumberOfResponseBytes "((" REGEX_WS "[[:xdigit:]]+){0,9})"
                      REGEX_WS "SlowResponse" REGEX_ws "=" REGEX_ws REGEX_LIN_IsSlowResponse
@@ -81,7 +79,7 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::read(File & /*file*/, std::stri
         linShortOrSlowResponse->numberOfResponseBytes = std::stoul(match[5]);
         std::istringstream iss1(match[6]);
         iss1 >> std::hex;
-        while(!iss1.eof()) {
+        while (!iss1.eof()) {
             unsigned short s;
             iss1 >> s;
             linShortOrSlowResponse->data.push_back(s);
@@ -99,7 +97,7 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::read(File & /*file*/, std::stri
         }
         linShortOrSlowResponse->endOfHeader = std::stod(match[18]);
         std::istringstream iss2(match[19]);
-        while(!iss2.eof()) {
+        while (!iss2.eof()) {
             double s;
             iss2 >> s;
             linShortOrSlowResponse->endOfByte.push_back(s);
@@ -120,8 +118,7 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::read(File & /*file*/, std::stri
     return nullptr;
 }
 
-void LinShortOrSlowResponse::write(File & file, std::ostream & stream)
-{
+void LinShortOrSlowResponse::write(File & file, std::ostream & stream) {
     if (file.version < File::Version::Ver_7_5)
         return;
 

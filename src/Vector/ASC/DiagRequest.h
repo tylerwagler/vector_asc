@@ -34,9 +34,8 @@ namespace Vector {
 namespace ASC {
 
 /** Diagnostic request */
-class VECTOR_ASC_EXPORT DiagRequest final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT DiagRequest final : public Event {
+  public:
     DiagRequest();
 
     /** @copydoc TpDiagTimestamp */

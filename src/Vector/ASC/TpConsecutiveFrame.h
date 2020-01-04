@@ -34,9 +34,8 @@ namespace Vector {
 namespace ASC {
 
 /** TPg Consecutive Frame */
-class VECTOR_ASC_EXPORT TpConsecutiveFrame final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT TpConsecutiveFrame final : public Event {
+  public:
     TpConsecutiveFrame();
 
     /** @copydoc TpDiagCanChannel */

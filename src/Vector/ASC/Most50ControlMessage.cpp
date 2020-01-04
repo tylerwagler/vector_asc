@@ -47,13 +47,11 @@ Most50ControlMessage::Most50ControlMessage() :
     rsvdUc3(0),
     rsvdUl(0),
     msg50Len(0),
-    data()
-{
+    data() {
     eventType = EventType::Most50ControlMessage;
 }
 
-Most50ControlMessage * Most50ControlMessage::read(File & /*file*/, std::string & line)
-{
+Most50ControlMessage * Most50ControlMessage::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Msg50:"
                      REGEX_ws REGEX_MOST_Dir REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr
                      REGEX_WS REGEX_MOST_State REGEX_WS REGEX_MOST_AckNack REGEX_WS REGEX_MOST_TransferType
@@ -73,7 +71,7 @@ Most50ControlMessage * Most50ControlMessage::read(File & /*file*/, std::string &
         most50ControlMessage->destAdr = std::stoul(match[5], nullptr, 16);
         most50ControlMessage->state = std::stoul(match[6], nullptr, 16);
         most50ControlMessage->ackNack = std::stoul(match[7], nullptr, 16);
-        switch(std::stoul(match[8])) {
+        switch (std::stoul(match[8])) {
         case 1:
             most50ControlMessage->transferType = MostTransferType::Node;
             break;
@@ -90,7 +88,7 @@ Most50ControlMessage * Most50ControlMessage::read(File & /*file*/, std::string &
         most50ControlMessage->msg50Len = std::stoul(match[15], nullptr, 16);
         std::istringstream iss(match[16]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             most50ControlMessage->data.push_back(s);
@@ -101,8 +99,7 @@ Most50ControlMessage * Most50ControlMessage::read(File & /*file*/, std::string &
     return nullptr;
 }
 
-void Most50ControlMessage::write(File & file, std::ostream & stream)
-{
+void Most50ControlMessage::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

@@ -38,9 +38,8 @@ namespace ASC {
  *
  * An event that is written if the value of a system variable changed.
  */
-class VECTOR_ASC_EXPORT SystemVariables final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT SystemVariables final : public Event {
+  public:
     SystemVariables();
 
     /** @copydoc Time */

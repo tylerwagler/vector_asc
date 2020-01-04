@@ -38,9 +38,8 @@ namespace ASC {
  * Noe/CANalyzerVersion 6.1) carried by the main bus statistic event but was not logged. Usually the
  * event is not visible in a Trace window.
  */
-class VECTOR_ASC_EXPORT MostStatisticExtended final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MostStatisticExtended final : public Event {
+  public:
     MostStatisticExtended();
 
     /** @copydoc MostTime */

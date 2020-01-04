@@ -37,13 +37,11 @@ LinWakeupFrame::LinWakeupFrame() :
     wakeupByte(0),
     startOfFrame(0),
     baudrate(0),
-    wakeupLengthInfo(0)
-{
+    wakeupLengthInfo(0) {
     eventType = EventType::LinWakeupFrame;
 }
 
-LinWakeupFrame * LinWakeupFrame::read(File & file, std::string & line)
-{
+LinWakeupFrame * LinWakeupFrame::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "WakeupFrame"
                      REGEX_WS REGEX_LIN_Dir REGEX_WS REGEX_LIN_WakeupByte
                      "(" REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
@@ -70,8 +68,7 @@ LinWakeupFrame * LinWakeupFrame::read(File & file, std::string & line)
     return nullptr;
 }
 
-void LinWakeupFrame::write(File & file, std::ostream & stream)
-{
+void LinWakeupFrame::write(File & file, std::ostream & stream) {
     writeLinTime(file, stream, time);
     stream << ' ';
 
@@ -81,7 +78,7 @@ void LinWakeupFrame::write(File & file, std::ostream & stream)
     stream << " WakeupFrame     ";
     writeLinDir(file, stream, dir);
     stream << "       ";
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream << std::left << std::setw(3) << std::dec << (int16_t) wakeupByte;
         break;

@@ -33,9 +33,8 @@ namespace Vector {
 namespace ASC {
 
 /** File Date */
-class VECTOR_ASC_EXPORT FileDate final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT FileDate final : public Event {
+  public:
     FileDate();
 
     /** date/time */

@@ -47,13 +47,11 @@ Most150PacketFragment::Most150PacketFragment() :
     frgDataLen(0),
     frgDataLenAnnounced(0),
     firstDataLen(0),
-    data()
-{
+    data() {
     eventType = EventType::Most150PacketFragment;
 }
 
-Most150PacketFragment * Most150PacketFragment::read(File & /*file*/, std::string & line)
-{
+Most150PacketFragment * Most150PacketFragment::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Pkt150Frg:"
                      REGEX_ws REGEX_MOST_FrgMask REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr
                      REGEX_WS REGEX_MOST_AckNack REGEX_WS REGEX_MOST_PAck REGEX_WS REGEX_MOST_RsvdUC
@@ -81,7 +79,7 @@ Most150PacketFragment * Most150PacketFragment::read(File & /*file*/, std::string
         most150PacketFragment->firstDataLen = std::stoul(match[15], nullptr, 16);
         std::istringstream iss(match[16]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             most150PacketFragment->data.push_back(s);
@@ -92,8 +90,7 @@ Most150PacketFragment * Most150PacketFragment::read(File & /*file*/, std::string
     return nullptr;
 }
 
-void Most150PacketFragment::write(File & file, std::ostream & stream)
-{
+void Most150PacketFragment::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

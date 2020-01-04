@@ -39,13 +39,11 @@ LinStatisticInfo::LinStatisticInfo() :
     burstsOverrun(0),
     framesSent(0),
     framesReceived(0),
-    framesUnanswered(0)
-{
+    framesUnanswered(0) {
     eventType = EventType::LinStatisticInfo;
 }
 
-LinStatisticInfo * LinStatisticInfo::read(File & /*file*/, std::string & line)
-{
+LinStatisticInfo * LinStatisticInfo::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Statistic"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:].]+)"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
@@ -69,8 +67,7 @@ LinStatisticInfo * LinStatisticInfo::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void LinStatisticInfo::write(File & file, std::ostream & stream)
-{
+void LinStatisticInfo::write(File & file, std::ostream & stream) {
     if (file.version > File::Version::Ver_5_2)
         return;
 

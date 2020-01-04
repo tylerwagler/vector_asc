@@ -40,13 +40,11 @@ EthernetStatus::EthernetStatus() :
     mdi(),
     connector(),
     brClockMode(),
-    brPairs()
-{
+    brPairs() {
     eventType = EventType::EthernetStatus;
 }
 
-EthernetStatus * EthernetStatus::read(File & /*file*/, std::string & line)
-{
+EthernetStatus * EthernetStatus::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Eth_Time REGEX_WS "ETH" REGEX_WS REGEX_Eth_Channel REGEX_WS "STAT"
                      REGEX_WS "Link:" REGEX_ws "(.+?)"
                      REGEX_WS "LinkSpeed:" REGEX_ws "(.+?)"
@@ -60,61 +58,48 @@ EthernetStatus * EthernetStatus::read(File & /*file*/, std::string & line)
         EthernetStatus * ethernetStatus = new EthernetStatus;
         ethernetStatus->time = std::stod(match[1]);
         ethernetStatus->channel = std::stoul(match[2]);
-        if (match[3] == "Link_up") {
+        if (match[3] == "Link_up")
             ethernetStatus->link = EthernetStatus::Link::Up;
-        } else
-        if (match[3] == "Link_error") {
+        else if (match[3] == "Link_error")
             ethernetStatus->link = EthernetStatus::Link::Error;
-        } else
-        if (match[3] == "Negotiate_link") {
+        else if (match[3] == "Negotiate_link")
             ethernetStatus->link = EthernetStatus::Link::Negotiate;
-        } else
-        if (match[3] == "Link_down") {
+        else if (match[3] == "Link_down")
             ethernetStatus->link = EthernetStatus::Link::Down;
-        } else {
+        else
             ethernetStatus->link = EthernetStatus::Link::Unknown;
-        }
         ethernetStatus->linkSpeed = std::stoul(match[4]);
-        if (match[5] == "IEEE802.3") {
+        if (match[5] == "IEEE802.3")
             ethernetStatus->physical = EthernetStatus::Physical::Ieee802_3;
-        } else
-        if (match[5] == "BroadR_Reach") {
+        else if (match[5] == "BroadR_Reach")
             ethernetStatus->physical = EthernetStatus::Physical::BroadR_Reach;
-        } else {
+        else
             ethernetStatus->physical = EthernetStatus::Physical::Unknown;
-        }
-        if (match[6] == "Full") {
+        if (match[6] == "Full")
             ethernetStatus->duplex = EthernetStatus::Duplex::Full;
-        } else
-        if (match[6] == "Half") {
+        else if (match[6] == "Half")
             ethernetStatus->duplex = EthernetStatus::Duplex::Half;
-        } else {
+        else
             ethernetStatus->duplex = EthernetStatus::Duplex::Unknown;
-        }
-        if (match[7] == "Crossover") {
+        if (match[7] == "Crossover")
             ethernetStatus->mdi = EthernetStatus::Mdi::Crossover;
-        } else
-        if (match[7] == "Direct") {
+        else if (match[7] == "Direct")
             ethernetStatus->mdi = EthernetStatus::Mdi::Direct;
-        } else {
+        else
             ethernetStatus->mdi = EthernetStatus::Mdi::Unknown;
-        }
-        if (match[8] == "RJ45") {
+        if (match[8] == "RJ45")
             ethernetStatus->connector = EthernetStatus::Connector::Rj45;
-        } else
-        if (match[8] == "D-Sub") {
+        else if (match[8] == "D-Sub")
             ethernetStatus->connector = EthernetStatus::Connector::DSub;
-        } else {
+        else
             ethernetStatus->connector = EthernetStatus::Connector::Unknown;
-        }
         return ethernetStatus;
     }
 
     return nullptr;
 }
 
-void EthernetStatus::write(File & file, std::ostream & stream)
-{
+void EthernetStatus::write(File & file, std::ostream & stream) {
     writeEthTime(file, stream, time);
     stream << ' ';
 
@@ -128,7 +113,7 @@ void EthernetStatus::write(File & file, std::ostream & stream)
     /* format: " Link:" */
     stream << " Link:";
     /* format: "Link_up", "Link_error", "Negotiate_link", "Link_down" */
-    switch(link) {
+    switch (link) {
     case Link::Unknown:
         break;
     case Link::Up:
@@ -153,7 +138,7 @@ void EthernetStatus::write(File & file, std::ostream & stream)
     /* format: " Physical:" */
     stream << " Physical:";
     /* format: "IEEE802.3", "BroadR-Reach" */
-    switch(physical) {
+    switch (physical) {
     case Physical::Unknown:
         break;
     case Physical::Ieee802_3:
@@ -167,7 +152,7 @@ void EthernetStatus::write(File & file, std::ostream & stream)
     /* format: " Duplex:" */
     stream << " Duplex:";
     /* format: "Full", "Half" */
-    switch(duplex) {
+    switch (duplex) {
     case Duplex::Unknown:
         break;
     case Duplex::Full:
@@ -181,7 +166,7 @@ void EthernetStatus::write(File & file, std::ostream & stream)
     /* format: " MDI:" */
     stream << " MDI:";
     /* format: "Crossover", "Direct" */
-    switch(mdi) {
+    switch (mdi) {
     case Mdi::Unknown:
         break;
     case Mdi::Crossover:
@@ -195,7 +180,7 @@ void EthernetStatus::write(File & file, std::ostream & stream)
     /* format: " Connector:" */
     stream << " Connector:";
     /* format: "RJ45", "D-Sub" */
-    switch(connector) {
+    switch (connector) {
     case Connector::Unknown:
         break;
     case Connector::Rj45:
@@ -210,7 +195,7 @@ void EthernetStatus::write(File & file, std::ostream & stream)
         /* format: " BRClockMode:" */
         stream << " BRClockMode:";
         /* format: "Master", "Slave" */
-        switch(brClockMode) {
+        switch (brClockMode) {
         case BRClockMode::Unknown:
             break;
         case BRClockMode::Master:
@@ -224,7 +209,7 @@ void EthernetStatus::write(File & file, std::ostream & stream)
         /* format: " BrPairs:" */
         stream << " BrPairs:";
         /* format: "1-pair", "2-pair", "4-pair" */
-        switch(brPairs) {
+        switch (brPairs) {
         case BRPairs::Unknown:
             break;
         case BRPairs::BR1Pair:

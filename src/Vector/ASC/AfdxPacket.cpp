@@ -38,13 +38,11 @@ AfdxPacket::AfdxPacket() :
     flags(0),
     bag(0),
     dataLen(0),
-    data()
-{
+    data() {
     eventType = EventType::AfdxPacket;
 }
 
-AfdxPacket * AfdxPacket::read(File & file, std::string & line)
-{
+AfdxPacket * AfdxPacket::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Afdx_Time REGEX_WS "AFDX" REGEX_WS REGEX_Afdx_Channel REGEX_WS REGEX_Afdx_Dir
                      REGEX_WS REGEX_Afdx_EthChannel REGEX_WS REGEX_Afdx_Flags REGEX_WS REGEX_Afdx_BAG REGEX_WS
                      REGEX_Afdx_DataLen ":" REGEX_Afdx_Data REGEX_ENDL);
@@ -63,9 +61,9 @@ AfdxPacket * AfdxPacket::read(File & file, std::string & line)
         afdxPacket->flags = std::stoul(match[5], nullptr, file.base);
         afdxPacket->bag = std::stoul(match[6], nullptr, file.base);
         afdxPacket->dataLen = std::stoul(match[7], nullptr, file.base);
-        for(int i = 0; i < match[8].length()/2; ++i) {
+        for (int i = 0; i < match[8].length() / 2; ++i) {
             std::string s;
-            s.append(match[8], 2*i, 2);
+            s.append(match[8], 2 * i, 2);
             afdxPacket->data.push_back(std::stoul(s, nullptr, 16));
         }
         return afdxPacket;
@@ -74,8 +72,7 @@ AfdxPacket * AfdxPacket::read(File & file, std::string & line)
     return nullptr;
 }
 
-void AfdxPacket::write(File & file, std::ostream & stream)
-{
+void AfdxPacket::write(File & file, std::ostream & stream) {
     writeAfdxTime(file, stream, time);
     stream << ' ';
 
@@ -119,7 +116,7 @@ void AfdxPacket::write(File & file, std::ostream & stream)
         break;
     }
 
-    for(AfdxData d: data)
+    for (AfdxData d : data)
         stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) d;
 
     stream << endl;

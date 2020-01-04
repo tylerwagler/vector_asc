@@ -38,9 +38,8 @@ namespace ASC {
  *
  * Indicates loss of data. (Number of lost messages and start and end time stamp of data loss.)
  */
-class VECTOR_ASC_EXPORT MostDataLost final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MostDataLost final : public Event {
+  public:
     MostDataLost();
 
     /** @copydoc MostTime */

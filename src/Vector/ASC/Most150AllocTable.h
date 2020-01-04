@@ -38,9 +38,8 @@ namespace ASC {
  *
  * The event transports the current state and changes of the MOST50/MOST150 Allocation Table.
  */
-class VECTOR_ASC_EXPORT Most150AllocTable final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT Most150AllocTable final : public Event {
+  public:
     Most150AllocTable();
 
     /** @copydoc MostTime */

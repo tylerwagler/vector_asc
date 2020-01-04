@@ -33,13 +33,11 @@ EnvironmentVariables::EnvironmentVariables() :
     Event(),
     time(0.0),
     evname(),
-    value()
-{
+    value() {
     eventType = EventType::EnvironmentVariables;
 }
 
-EnvironmentVariables * EnvironmentVariables::read(File & /*file*/, std::string & line)
-{
+EnvironmentVariables * EnvironmentVariables::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "(.+?)" REGEX_ws ":=" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
@@ -53,8 +51,7 @@ EnvironmentVariables * EnvironmentVariables::read(File & /*file*/, std::string &
     return nullptr;
 }
 
-void EnvironmentVariables::write(File & file, std::ostream & stream)
-{
+void EnvironmentVariables::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << "    " << std::left << std::setw(12) << evname << " := " << value;
 

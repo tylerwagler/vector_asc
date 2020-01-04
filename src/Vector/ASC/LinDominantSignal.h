@@ -37,9 +37,8 @@ namespace ASC {
  * A dominant signal event occurs when a LIN channel remains in the dominant state for a time,
  * which is longer than a valid wakeup frame and not a valid sync break.
  */
-class VECTOR_ASC_EXPORT LinDominantSignal final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LinDominantSignal final : public Event {
+  public:
     LinDominantSignal();
 
     /** @copydoc LinTime */

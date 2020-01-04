@@ -32,13 +32,11 @@ MostLightLock::MostLightLock() :
     Event(),
     time(0.0),
     channel(0),
-    llState(0)
-{
+    llState(0) {
     eventType = EventType::MostLightLock;
 }
 
-MostLightLock * MostLightLock::read(File & file, std::string & line)
-{
+MostLightLock * MostLightLock::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "LL:" REGEX_ws REGEX_MOST_LLState REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
@@ -52,15 +50,14 @@ MostLightLock * MostLightLock::read(File & file, std::string & line)
     return nullptr;
 }
 
-void MostLightLock::write(File & file, std::ostream & stream)
-{
+void MostLightLock::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 
     /* format: "LL: %hu" */
     /* format: "LL: %hX" */
     stream << "LL: ";
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream << std::dec << (uint16_t) llState;
         break;

@@ -38,9 +38,8 @@ namespace ASC {
  *
  * Message on MOST150 Ethernet Packet Channel.
  */
-class VECTOR_ASC_EXPORT MostEthernetPacket final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MostEthernetPacket final : public Event {
+  public:
     MostEthernetPacket();
 
     /** @copydoc MostTime */

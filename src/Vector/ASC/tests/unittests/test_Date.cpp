@@ -9,8 +9,7 @@
 
 #include "Vector/ASC/CanCommon.h"
 
-BOOST_AUTO_TEST_CASE(ReadDates)
-{
+BOOST_AUTO_TEST_CASE(ReadDates) {
     std::string hour;
     std::string amFm;
     Vector::ASC::File::Language language;
@@ -53,8 +52,7 @@ BOOST_AUTO_TEST_CASE(ReadDates)
     BOOST_CHECK_EQUAL(date.tm_hour, 23);
 }
 
-BOOST_AUTO_TEST_CASE(WriteDates)
-{
+BOOST_AUTO_TEST_CASE(WriteDates) {
     Vector::ASC::File file;
     std::ostringstream ss;
     struct tm date;

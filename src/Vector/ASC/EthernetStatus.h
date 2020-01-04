@@ -36,9 +36,8 @@ namespace ASC {
  *
  * Ethernet link status.
  */
-class VECTOR_ASC_EXPORT EthernetStatus final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT EthernetStatus final : public Event {
+  public:
     EthernetStatus();
 
     /** @copydoc EthTime */

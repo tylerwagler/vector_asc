@@ -33,13 +33,11 @@ LinSchedulerModeChange::LinSchedulerModeChange() :
     time(0.0),
     channel(0),
     priorSchedulerMode(0),
-    nextSchedulerMode(0)
-{
+    nextSchedulerMode(0) {
     eventType = EventType::LinSchedulerModeChange;
 }
 
-LinSchedulerModeChange * LinSchedulerModeChange::read(File & /*file*/, std::string & line)
-{
+LinSchedulerModeChange * LinSchedulerModeChange::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SchedModChng"
                      REGEX_WS "prior scheduler mode" REGEX_ws "=" REGEX_ws REGEX_LIN_scheduleTableIndex ","
                      REGEX_ws "next scheduler mode" REGEX_ws "=" REGEX_ws REGEX_LIN_scheduleTableIndex REGEX_ENDL);
@@ -56,8 +54,7 @@ LinSchedulerModeChange * LinSchedulerModeChange::read(File & /*file*/, std::stri
     return nullptr;
 }
 
-void LinSchedulerModeChange::write(File & file, std::ostream & stream)
-{
+void LinSchedulerModeChange::write(File & file, std::ostream & stream) {
     writeLinTime(file, stream, time);
     stream << ' ';
 

@@ -31,13 +31,11 @@ namespace ASC {
 FileBaseTimestamps::FileBaseTimestamps() :
     Event(),
     base(File::Base::Hex),
-    timestamps(File::Timestamps::Absolute)
-{
+    timestamps(File::Timestamps::Absolute) {
     eventType = EventType::FileBaseTimestamps;
 }
 
-FileBaseTimestamps * FileBaseTimestamps::read(File & /*file*/, std::string & line)
-{
+FileBaseTimestamps * FileBaseTimestamps::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "base" REGEX_WS "(hex|dec)" REGEX_WS "timestamps" REGEX_WS "(absolute|relative)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_search(line, match, regex)) {
@@ -56,8 +54,7 @@ FileBaseTimestamps * FileBaseTimestamps::read(File & /*file*/, std::string & lin
     return nullptr;
 }
 
-void FileBaseTimestamps::write(File & /*file*/, std::ostream & stream)
-{
+void FileBaseTimestamps::write(File & /*file*/, std::ostream & stream) {
     /* format: "base %s  timestamps %s" */
     stream
             << "base "

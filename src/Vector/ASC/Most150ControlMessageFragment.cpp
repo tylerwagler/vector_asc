@@ -47,13 +47,11 @@ Most150ControlMessageFragment::Most150ControlMessageFragment() :
     frgDataLen(0),
     frgDataLenAnnounced(0),
     firstDataLen(0),
-    data()
-{
+    data() {
     eventType = EventType::Most150ControlMessageFragment;
 }
 
-Most150ControlMessageFragment * Most150ControlMessageFragment::read(File & /*file*/, std::string & line)
-{
+Most150ControlMessageFragment * Most150ControlMessageFragment::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Msg150Frg:"
                      REGEX_ws REGEX_MOST_FrgMask REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr
                      REGEX_WS REGEX_MOST_AckNack REGEX_WS REGEX_MOST_PAck REGEX_WS REGEX_MOST_Priority
@@ -81,7 +79,7 @@ Most150ControlMessageFragment * Most150ControlMessageFragment::read(File & /*fil
         most150ControlMessageFragment->firstDataLen = std::stoul(match[15], nullptr, 16);
         std::istringstream iss(match[16]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             most150ControlMessageFragment->data.push_back(s);
@@ -92,8 +90,7 @@ Most150ControlMessageFragment * Most150ControlMessageFragment::read(File & /*fil
     return nullptr;
 }
 
-void Most150ControlMessageFragment::write(File & file, std::ostream & stream)
-{
+void Most150ControlMessageFragment::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 
@@ -110,7 +107,7 @@ void Most150ControlMessageFragment::write(File & file, std::ostream & stream)
     writeMostCrc2(file, stream, crc2);
     writeMostCAck(file, stream, cAck);
     writeMostRsvdUl(file, stream, rsvdUl);
-    writeMostFrgDataLen(file, stream ,frgDataLen);
+    writeMostFrgDataLen(file, stream, frgDataLen);
     writeMostFrgDataLenAnnounced(file, stream, frgDataLenAnnounced);
     writeMostFirstDataLen(file, stream, firstDataLen);
     writeMostData(file, stream, data);

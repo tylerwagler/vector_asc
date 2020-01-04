@@ -37,9 +37,8 @@ namespace ASC {
  *
  * An event that is written when a trigger block begins.
  */
-class VECTOR_ASC_EXPORT BeginTriggerblock final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT BeginTriggerblock final : public Event {
+  public:
     BeginTriggerblock();
 
     /** date/time */

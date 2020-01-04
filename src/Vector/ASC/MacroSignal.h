@@ -36,9 +36,8 @@ namespace ASC {
  *
  * An event that is written if the user change a signal value with a panel control, and the macro recording is on.
  */
-class VECTOR_ASC_EXPORT MacroSignal final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MacroSignal final : public Event {
+  public:
     MacroSignal();
 
     /** @Time */

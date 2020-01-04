@@ -31,13 +31,11 @@ namespace ASC {
 StartOfMeasurement::StartOfMeasurement() :
     Event(),
     time(0.0),
-    language(File::Language::En)
-{
+    language(File::Language::En) {
     eventType = EventType::StartOfMeasurement;
 }
 
-StartOfMeasurement * StartOfMeasurement::read(File & /*file*/, std::string & line)
-{
+StartOfMeasurement * StartOfMeasurement::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "((Start of measurement)|(Start der Messung))" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
@@ -53,8 +51,7 @@ StartOfMeasurement * StartOfMeasurement::read(File & /*file*/, std::string & lin
     return nullptr;
 }
 
-void StartOfMeasurement::write(File & file, std::ostream & stream)
-{
+void StartOfMeasurement::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << ' ';
 

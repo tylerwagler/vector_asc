@@ -35,13 +35,11 @@ Most25AllocTable::Most25AllocTable() :
     time(0.0),
     channel(0),
     allocTableSize(0),
-    data()
-{
+    data() {
     eventType = EventType::Most25AllocTable;
 }
 
-Most25AllocTable * Most25AllocTable::read(File & /*file*/, std::string & line)
-{
+Most25AllocTable * Most25AllocTable::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "AllocTab:"
                      REGEX_ws REGEX_MOST_AllocTableSize "((" REGEX_WS REGEX_MOST_DxAT ")*)" REGEX_ENDL);
     std::smatch match;
@@ -52,7 +50,7 @@ Most25AllocTable * Most25AllocTable::read(File & /*file*/, std::string & line)
         most25AllocTable->allocTableSize = std::stoul(match[3], nullptr, 16);
         std::istringstream iss(match[4]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             most25AllocTable->data.push_back(s);
@@ -63,8 +61,7 @@ Most25AllocTable * Most25AllocTable::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void Most25AllocTable::write(File & file, std::ostream & stream)
-{
+void Most25AllocTable::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

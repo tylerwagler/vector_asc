@@ -35,13 +35,11 @@ MostSpecialRegister::MostSpecialRegister() :
     channel(0),
     regSubType(MostRegSubType::Unspecified),
     regId(0),
-    regValue(0)
-{
+    regValue(0) {
     eventType = EventType::MostSpecialRegister;
 }
 
-MostSpecialRegister * MostSpecialRegister::read(File & /*file*/, std::string & line)
-{
+MostSpecialRegister * MostSpecialRegister::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Register:"
                      REGEX_ws REGEX_MOST_RegSubType REGEX_WS REGEX_MOST_RegID REGEX_WS REGEX_MOST_RegValue REGEX_ENDL);
     std::smatch match;
@@ -49,7 +47,7 @@ MostSpecialRegister * MostSpecialRegister::read(File & /*file*/, std::string & l
         MostSpecialRegister * mostSpecialRegister = new MostSpecialRegister;
         mostSpecialRegister->time = std::stod(match[1]);
         mostSpecialRegister->channel = std::stoul(match[2]);
-        switch(std::stoul(match[3])) {
+        switch (std::stoul(match[3])) {
         case 0:
             mostSpecialRegister->regSubType = MostRegSubType::Unspecified;
             break;
@@ -83,8 +81,7 @@ MostSpecialRegister * MostSpecialRegister::read(File & /*file*/, std::string & l
     return nullptr;
 }
 
-void MostSpecialRegister::write(File & file, std::ostream & stream)
-{
+void MostSpecialRegister::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

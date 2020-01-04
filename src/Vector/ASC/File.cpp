@@ -37,22 +37,19 @@ File::File() :
     timestampPrecision(6),
     file(),
     scanner(nullptr),
-    endOfFile(false)
-{
+    endOfFile(false) {
 }
 
-File::~File()
-{
+File::~File() {
     delete scanner;
     scanner = nullptr;
 }
 
-void File::open(const char * filename, OpenMode openMode)
-{
+void File::open(const char * filename, OpenMode openMode) {
     this->openMode = openMode;
     this->endOfFile = false;
 
-    switch(this->openMode) {
+    switch (this->openMode) {
     case OpenMode::Read:
         /* open file for reading */
         file.open(filename, std::ios_base::in);
@@ -61,9 +58,7 @@ void File::open(const char * filename, OpenMode openMode)
         delete scanner;
         try {
             scanner = new ascFlexLexer(&file);
-        }
-        catch(std::bad_alloc & ba)
-        {
+        } catch (std::bad_alloc & ba) {
             close(); // delete scanner and close file
         }
 
@@ -75,18 +70,15 @@ void File::open(const char * filename, OpenMode openMode)
     }
 }
 
-void File::open(const std::string & filename, OpenMode openMode)
-{
+void File::open(const std::string & filename, OpenMode openMode) {
     open(filename.c_str(), openMode);
 }
 
-bool File::is_open() const
-{
+bool File::is_open() const {
     return file.is_open();
 }
 
-void File::close()
-{
+void File::close() {
     /* delete scanner */
     delete scanner;
     scanner = nullptr;
@@ -95,13 +87,11 @@ void File::close()
     file.close();
 }
 
-bool File::eof()
-{
+bool File::eof() {
     return endOfFile;
 }
 
-Event * File::read()
-{
+Event * File::read() {
     /* safety check */
     if (scanner == nullptr)
         return nullptr;
@@ -114,22 +104,20 @@ Event * File::read()
     if (line.back() == '\r')
         line.pop_back();
 
-    switch(eventType) {
+    switch (eventType) {
     case Event::EventType::Default:
         endOfFile = true;
         break;
 
     /* unknown */
-    case Event::EventType::Unknown:
-    {
+    case Event::EventType::Unknown: {
         Unknown * unknown = new Unknown();
         unknown->line = line;
         return unknown;
     }
 
     /* File */
-    case Event::EventType::FileDate:
-    {
+    case Event::EventType::FileDate: {
         FileDate * fileDate = FileDate::read(*this, line);
         if (fileDate) {
             date = fileDate->date;
@@ -137,8 +125,7 @@ Event * File::read()
         }
         return fileDate;
     }
-    case Event::EventType::FileBaseTimestamps:
-    {
+    case Event::EventType::FileBaseTimestamps: {
         FileBaseTimestamps * fileBaseTimestamps = FileBaseTimestamps::read(*this, line);
         if (fileBaseTimestamps) {
             base = fileBaseTimestamps->base;
@@ -146,15 +133,13 @@ Event * File::read()
         }
         return fileBaseTimestamps;
     }
-    case Event::EventType::FileInternalEventsLogged:
-    {
+    case Event::EventType::FileInternalEventsLogged: {
         FileInternalEventsLogged * fileInternalEventsLogged = FileInternalEventsLogged::read(*this, line);
         if (fileInternalEventsLogged)
             internalEventsLogged = fileInternalEventsLogged->internalEventsLogged;
         return fileInternalEventsLogged;
     }
-    case Event::EventType::FileVersion:
-    {
+    case Event::EventType::FileVersion: {
         FileVersion * fileVersion = FileVersion::read(*this, line);
         if (fileVersion)
             version =
@@ -201,8 +186,7 @@ Event * File::read()
         return LogDirectStart::read(*this, line);
     case Event::EventType::LogDirectStop:
         return LogDirectStop::read(*this, line);
-    case Event::EventType::BeginTriggerblock:
-    {
+    case Event::EventType::BeginTriggerblock: {
         BeginTriggerblock * beginTriggerblock = BeginTriggerblock::read(*this, line);
         if (beginTriggerblock)
             language = beginTriggerblock->language;
@@ -382,8 +366,7 @@ Event * File::read()
         return DiagRequest::read(*this, line);
 
     /* undocumented events */
-    case Event::EventType::StartOfMeasurement:
-    {
+    case Event::EventType::StartOfMeasurement: {
         StartOfMeasurement * startOfMeasurement = StartOfMeasurement::read(*this, line);
         if (startOfMeasurement)
             language = startOfMeasurement->language;
@@ -397,8 +380,7 @@ Event * File::read()
     return nullptr;
 }
 
-void File::write(Event * event)
-{
+void File::write(Event * event) {
     if (event != nullptr)
         event->write(*this, file);
 }

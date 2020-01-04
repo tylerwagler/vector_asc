@@ -38,13 +38,11 @@ TpConsecutiveFrame::TpConsecutiveFrame() :
     source(),
     destination(),
     sn(0),
-    transportedBytes()
-{
+    transportedBytes() {
     eventType = EventType::TpConsecutiveFrame;
 }
 
-TpConsecutiveFrame * TpConsecutiveFrame::read(File & /*file*/, std::string & line)
-{
+TpConsecutiveFrame * TpConsecutiveFrame::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_TPDiag_CANChannel REGEX_WS "OTP\\(" REGEX_TPDiag_connectionId "\\)"
                      REGEX_WS REGEX_TPDiag_type REGEX_WS REGEX_TPDiag_source "->" REGEX_TPDiag_destination ":"
                      REGEX_ws "CF" REGEX_WS "Seq.Nr.:" REGEX_ws REGEX_TPDiag_SN REGEX_ws
@@ -69,7 +67,7 @@ TpConsecutiveFrame * TpConsecutiveFrame::read(File & /*file*/, std::string & lin
         tpConsecutiveFrame->sn = std::stoul(match[6]);
         std::istringstream iss(match[7]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             tpConsecutiveFrame->transportedBytes.push_back(s);
@@ -80,15 +78,14 @@ TpConsecutiveFrame * TpConsecutiveFrame::read(File & /*file*/, std::string & lin
     return nullptr;
 }
 
-void TpConsecutiveFrame::write(File & /*file*/, std::ostream & stream)
-{
+void TpConsecutiveFrame::write(File & /*file*/, std::ostream & stream) {
     stream << "// " << std::dec << (uint16_t) canChannel;
 
     /* format: "  OTP(" */
     stream << "  OTP(";
 
     stream << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) connectionId << ") ";
-    switch(type) {
+    switch (type) {
     case TpDiagType::Info:
         stream << "Info";
         break;
@@ -110,7 +107,7 @@ void TpConsecutiveFrame::write(File & /*file*/, std::ostream & stream)
     stream
             << "CF Seq.Nr.: " << std::dec << (uint16_t) sn
             << " [";
-    for(TpDiagTransportedBytes transportedByte : transportedBytes)
+    for (TpDiagTransportedBytes transportedByte : transportedBytes)
         stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) transportedByte;
     stream << " ]";
 

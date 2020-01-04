@@ -39,13 +39,11 @@ CanErrorFrame::CanErrorFrame() :
     extendedId(false),
     dlc(0),
     position(0),
-    length(0)
-{
+    length(0) {
     eventType = EventType::CanErrorFrame;
 }
 
-CanErrorFrame * CanErrorFrame::read(File & file, std::string & line)
-{
+CanErrorFrame * CanErrorFrame::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS "ErrorFrame"
                      "(" REGEX_WS "ECC:" REGEX_ws "([01]+))?"
                      "(" REGEX_WS "Flags" REGEX_ws "=" REGEX_ws "0x([[:xdigit:]]+))?"
@@ -63,7 +61,7 @@ CanErrorFrame * CanErrorFrame::read(File & file, std::string & line)
         canErrorFrame->channel = std::stoul(match[2]);
         if (match[3] != "") {
             canErrorFrame->code = std::stoul(match[4], nullptr, 2);
-            canErrorFrame->flags |= (1<<0); // SJA 1000 ECC is valid
+            canErrorFrame->flags |= (1 << 0); // SJA 1000 ECC is valid
         }
         if (match[5] != "")
             canErrorFrame->flags = std::stoul(match[6], nullptr, 16);
@@ -85,8 +83,7 @@ CanErrorFrame * CanErrorFrame::read(File & file, std::string & line)
     return nullptr;
 }
 
-void CanErrorFrame::write(File & file, std::ostream & stream)
-{
+void CanErrorFrame::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << ' ' << std::dec << (uint16_t) channel << "  ";
 
@@ -125,9 +122,8 @@ void CanErrorFrame::write(File & file, std::ostream & stream)
         /* format: "ID = " */
         stream << " ID = ";
         stream << std::hex << id;
-        if (extendedId) {
+        if (extendedId)
             stream << 'x';
-        }
 
         /* format: "DLC = " */
         stream << " DLC = ";

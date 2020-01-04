@@ -39,9 +39,8 @@ namespace ASC {
  *
  * FlexRay Message received or transmitted on a FlexRay channel.
  */
-class VECTOR_ASC_EXPORT FlexRayStartCycle final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT FlexRayStartCycle final : public Event {
+  public:
     FlexRayStartCycle();
 
     /** Timestamp */

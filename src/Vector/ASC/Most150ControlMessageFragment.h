@@ -39,9 +39,8 @@ namespace ASC {
  * Partial transmitted MOST50 or MOST150 Control Channel message. Fragments are reported from
  * a network spy if the message transmission is corrupted or terminated.
  */
-class VECTOR_ASC_EXPORT Most150ControlMessageFragment final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT Most150ControlMessageFragment final : public Event {
+  public:
     Most150ControlMessageFragment();
 
     /** @copydoc MostTime */

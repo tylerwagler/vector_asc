@@ -11,18 +11,16 @@
 
 #include <Vector/ASC.h>
 
-BOOST_AUTO_TEST_CASE(AllLogfiles)
-{
+BOOST_AUTO_TEST_CASE(AllLogfiles) {
     /* input directory */
     boost::filesystem::path indir(CMAKE_CURRENT_SOURCE_DIR "/data/");
 
     /* output directory */
     boost::filesystem::path outdir(CMAKE_CURRENT_BINARY_DIR "/data/");
-    if (!exists(outdir)) {
+    if (!exists(outdir))
         BOOST_REQUIRE(create_directory(outdir));
-    }
 
-    for(boost::filesystem::directory_entry & x : boost::filesystem::directory_iterator(indir)) {
+    for (boost::filesystem::directory_entry & x : boost::filesystem::directory_iterator(indir)) {
         std::string eventFile = x.path().filename().string();
         std::cout << eventFile << std::endl;
 
@@ -39,13 +37,13 @@ BOOST_AUTO_TEST_CASE(AllLogfiles)
         BOOST_REQUIRE(fileout.is_open());
 
         /* parse log file */
-        while(!filein.eof()) {
+        while (!filein.eof()) {
             Vector::ASC::Event * event;
             event = filein.read();
             BOOST_CHECK((event != nullptr) || filein.eof());
             if (event != nullptr) {
                 /* these values must be copied to File */
-                switch(event->eventType) {
+                switch (event->eventType) {
                 case Vector::ASC::Event::EventType::FileDate:
                     fileout.date = filein.date;
                     fileout.language = filein.language;

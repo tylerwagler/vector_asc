@@ -38,9 +38,8 @@ namespace ASC {
  *
  * Electrical physical layer: Signal output state
  */
-class VECTOR_ASC_EXPORT MostTxLight final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MostTxLight final : public Event {
+  public:
     MostTxLight();
 
     /** @copydoc MostTime */

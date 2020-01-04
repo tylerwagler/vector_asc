@@ -32,13 +32,11 @@ FileVersion::FileVersion() :
     Event(),
     versionMajor(7),
     versionMinor(0),
-    versionPatch(0)
-{
+    versionPatch(0) {
     eventType = EventType::FileVersion;
 }
 
-FileVersion * FileVersion::read(File & /*file*/, std::string & line)
-{
+FileVersion * FileVersion::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "//" REGEX_ws "version" REGEX_WS "([[:digit:]]{1,3})\\.([[:digit:]]{1,3})\\.([[:digit:]]{1,3})" REGEX_ENDL);
     std::smatch match;
     if (std::regex_search(line, match, regex)) {
@@ -52,8 +50,7 @@ FileVersion * FileVersion::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void FileVersion::write(File & /*file*/, std::ostream & stream)
-{
+void FileVersion::write(File & /*file*/, std::ostream & stream) {
     /* format: "// version %d.%d.%d" */
     stream
             << "// version"

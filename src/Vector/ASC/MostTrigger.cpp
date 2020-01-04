@@ -35,13 +35,11 @@ MostTrigger::MostTrigger() :
     channel(0),
     trigMode(MostTrigMode::Unknown),
     trigHw(0),
-    trigValue()
-{
+    trigValue() {
     eventType = EventType::MostTrigger;
 }
 
-MostTrigger * MostTrigger::read(File & /*file*/, std::string & line)
-{
+MostTrigger * MostTrigger::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Trigger:"
                      REGEX_ws REGEX_MOST_TrigMode REGEX_WS REGEX_MOST_TrigHW REGEX_WS REGEX_MOST_TrigValue
                      REGEX_WS REGEX_MOST_TrigValue REGEX_ENDL);
@@ -50,7 +48,7 @@ MostTrigger * MostTrigger::read(File & /*file*/, std::string & line)
         MostTrigger * mostTrigger = new MostTrigger;
         mostTrigger->time = std::stod(match[1]);
         mostTrigger->channel = std::stoul(match[2]);
-        switch(std::stoul(match[3], nullptr, 16)) {
+        switch (std::stoul(match[3], nullptr, 16)) {
         case 0:
             mostTrigger->trigMode = MostTrigMode::Unknown;
             break;
@@ -70,8 +68,7 @@ MostTrigger * MostTrigger::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void MostTrigger::write(File & file, std::ostream & stream)
-{
+void MostTrigger::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

@@ -31,27 +31,24 @@ namespace ASC {
 FileDate::FileDate() :
     Event(),
     date(),
-    language(File::Language::En)
-{
+    language(File::Language::En) {
     eventType = EventType::FileDate;
 }
 
-FileDate * FileDate::read(File & /*file*/, std::string & line)
-{
+FileDate * FileDate::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "date" REGEX_WS REGEX_WeekDay REGEX_WS REGEX_Month REGEX_WS REGEX_Date REGEX_WS REGEX_FullTime REGEX_WS REGEX_Year REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
         FileDate * fileDate = new FileDate;
         readDate(match[1], match[2], match[3], match[4], match[5], match[6], match[7], match[8],
-                fileDate->language, fileDate->date);
+                 fileDate->language, fileDate->date);
         return fileDate;
     }
 
     return nullptr;
 }
 
-void FileDate::write(File & file, std::ostream & stream)
-{
+void FileDate::write(File & file, std::ostream & stream) {
     /* format: "date %s" */
     stream << "date ";
     writeDate(file, stream, date);

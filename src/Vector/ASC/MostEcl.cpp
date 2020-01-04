@@ -34,13 +34,11 @@ MostEcl::MostEcl() :
     time(0.0),
     channel(0),
     eclMode(MostEclMode::Discrete),
-    eclState(MostEclState::LineLow)
-{
+    eclState(MostEclState::LineLow) {
     eventType = EventType::MostEcl;
 }
 
-MostEcl * MostEcl::read(File & /*file*/, std::string & line)
-{
+MostEcl * MostEcl::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Ecl:"
                      REGEX_ws REGEX_MOST_EclMode REGEX_WS REGEX_MOST_EclState REGEX_ENDL);
     std::smatch match;
@@ -48,10 +46,10 @@ MostEcl * MostEcl::read(File & /*file*/, std::string & line)
         MostEcl * mostEcl = new MostEcl;
         mostEcl->time = std::stod(match[1]);
         mostEcl->channel = std::stoul(match[2]);
-        switch(std::stoul(match[3])) {
+        switch (std::stoul(match[3])) {
         case 0:
             mostEcl->eclMode = MostEclMode::Discrete;
-            switch(std::stoul(match[4])) {
+            switch (std::stoul(match[4])) {
             case 0:
                 mostEcl->eclState = MostEclState::LineLow;
                 break;
@@ -62,7 +60,7 @@ MostEcl * MostEcl::read(File & /*file*/, std::string & line)
             break;
         case 1:
             mostEcl->eclMode = MostEclMode::Sequence;
-            switch(std::stoul(match[4])) {
+            switch (std::stoul(match[4])) {
             case 0:
                 mostEcl->eclState = MostEclState::SequenceStopped;
                 break;
@@ -78,8 +76,7 @@ MostEcl * MostEcl::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void MostEcl::write(File & file, std::ostream & stream)
-{
+void MostEcl::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

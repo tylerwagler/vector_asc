@@ -42,13 +42,11 @@ FlexRayStatus::FlexRayStatus() :
     ccData(),
     symbol(0),
     wakeUpState(0),
-    spyFlag(false)
-{
+    spyFlag(false) {
     eventType = EventType::FlexRayStatus;
 }
 
-FlexRayStatus * FlexRayStatus::read(File & file, std::string & line)
-{
+FlexRayStatus * FlexRayStatus::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "SE"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
                      REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([012])"
@@ -76,8 +74,7 @@ FlexRayStatus * FlexRayStatus::read(File & file, std::string & line)
     return nullptr;
 }
 
-void FlexRayStatus::write(File & file, std::ostream & stream)
-{
+void FlexRayStatus::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << " Fr ";
 
@@ -91,7 +88,7 @@ void FlexRayStatus::write(File & file, std::ostream & stream)
             << ' ' << channelNr
             << ' ' << channelMask;
 
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream
                 << ' ' << std::dec << cycleNo

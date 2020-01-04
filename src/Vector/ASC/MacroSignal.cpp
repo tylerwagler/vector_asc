@@ -36,13 +36,11 @@ MacroSignal::MacroSignal() :
     node(),
     message(),
     signal(),
-    value()
-{
+    value() {
     eventType = EventType::MacroSignal;
 }
 
-MacroSignal * MacroSignal::read(File & /*file*/, std::string & line)
-{
+MacroSignal * MacroSignal::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "([LF]?)([[:digit:]]+)" REGEX_WS "(.+?)::(.+?)::(.+?)"
                      REGEX_ws "=" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;
@@ -66,12 +64,11 @@ MacroSignal * MacroSignal::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void MacroSignal::write(File & file, std::ostream & stream)
-{
+void MacroSignal::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << ' ';
 
-    switch(bussystem) {
+    switch (bussystem) {
     case Bussystem::FlexRay:
         stream << 'F';
         break;

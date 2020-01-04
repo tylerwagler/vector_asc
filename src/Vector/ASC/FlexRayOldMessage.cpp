@@ -43,13 +43,11 @@ FlexRayOldMessage::FlexRayOldMessage() :
     dlc(0),
     data(),
     frameState(0),
-    headerBitMask(0)
-{
+    headerBitMask(0) {
     eventType = EventType::FlexRayOldMessage;
 }
 
-FlexRayOldMessage * FlexRayOldMessage::read(File & /*file*/, std::string & line)
-{
+FlexRayOldMessage * FlexRayOldMessage::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_FlexRayOld_Time REGEX_WS REGEX_FlexRayOld_Channel REGEX_WS "V9"
                      REGEX_WS REGEX_FlexRayOld_ID REGEX_WS REGEX_FlexRayOld_Cycle REGEX_WS REGEX_FlexRayOld_NM
                      REGEX_WS REGEX_FlexRayOld_Sync REGEX_WS REGEX_FlexRayOld_HeaderCRC
@@ -69,7 +67,7 @@ FlexRayOldMessage * FlexRayOldMessage::read(File & /*file*/, std::string & line)
         flexRayOldMessage->symbolicName = match[8];
         flexRayOldMessage->dlc = std::stoul(match[9]);
         std::istringstream iss(match[10]);
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             flexRayOldMessage->data.push_back(s);
@@ -82,8 +80,7 @@ FlexRayOldMessage * FlexRayOldMessage::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void FlexRayOldMessage::write(File & file, std::ostream & stream)
-{
+void FlexRayOldMessage::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream
             << " Fr "
@@ -96,7 +93,7 @@ void FlexRayOldMessage::write(File & file, std::ostream & stream)
             << ' ' << headerCrc
             << ' ' << symbolicName
             << ' ' << std::setfill(' ') << std::setw(2) << std::dec << (uint16_t) dlc;
-    for(FlexRayOldDx d: data)
+    for (FlexRayOldDx d : data)
         stream << ' ' << std::setfill(' ') << std::setw(3) << std::dec << (uint16_t) d;
     stream
             << ' ' << std::setfill('0') << std::setw(4) << std::hex << frameState

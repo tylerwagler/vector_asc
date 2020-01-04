@@ -36,9 +36,8 @@ namespace ASC {
  *
  * A CAN Remote Frame received or transmitted on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanRemoteFrame final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT CanRemoteFrame final : public Event {
+  public:
     CanRemoteFrame();
 
     /** @copydoc Time */

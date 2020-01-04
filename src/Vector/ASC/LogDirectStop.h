@@ -37,9 +37,8 @@ namespace ASC {
  * An event that is written if the logging was stopped directly by the buttons in the measurement
  * setup or by the CAPL function StopLogging().
  */
-class VECTOR_ASC_EXPORT LogDirectStop final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LogDirectStop final : public Event {
+  public:
     LogDirectStop();
 
     /** @copydoc Time */

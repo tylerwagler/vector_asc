@@ -45,13 +45,11 @@ MostEthernetPacket::MostEthernetPacket() :
     cAck(0),
     rsvdUl(0),
     pktEthLen(0),
-    data()
-{
+    data() {
     eventType = EventType::MostEthernetPacket;
 }
 
-MostEthernetPacket * MostEthernetPacket::read(File & /*file*/, std::string & line)
-{
+MostEthernetPacket * MostEthernetPacket::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "PktEth:"
                      REGEX_ws REGEX_MOST_Dir REGEX_WS REGEX_MOST_SourceMacAdr REGEX_WS REGEX_MOST_DestMacAdr
                      REGEX_WS REGEX_MOST_State REGEX_WS REGEX_MOST_AckNack REGEX_WS REGEX_MOST_TransferType
@@ -71,7 +69,7 @@ MostEthernetPacket * MostEthernetPacket::read(File & /*file*/, std::string & lin
         mostEthernetPacket->destMacAdr = std::stoul(match[5], nullptr, 16);
         mostEthernetPacket->state = std::stoul(match[6], nullptr, 16);
         mostEthernetPacket->ackNack = std::stoul(match[7], nullptr, 16);
-        switch(std::stoul(match[8])) {
+        switch (std::stoul(match[8])) {
         case 1:
             mostEthernetPacket->transferType = MostTransferType::Node;
             break;
@@ -86,7 +84,7 @@ MostEthernetPacket * MostEthernetPacket::read(File & /*file*/, std::string & lin
         mostEthernetPacket->pktEthLen = std::stoul(match[13], nullptr, 16);
         std::istringstream iss(match[14]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             mostEthernetPacket->data.push_back(s);
@@ -97,8 +95,7 @@ MostEthernetPacket * MostEthernetPacket::read(File & /*file*/, std::string & lin
     return nullptr;
 }
 
-void MostEthernetPacket::write(File & file, std::ostream & stream)
-{
+void MostEthernetPacket::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

@@ -38,9 +38,8 @@ namespace ASC {
  *
  * Message on MOST25 Control Channel received or transmitted in node mode.
  */
-class VECTOR_ASC_EXPORT Most25ControlMessageNodeMode final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT Most25ControlMessageNodeMode final : public Event {
+  public:
     Most25ControlMessageNodeMode();
 
     /** @copydoc MostTime */

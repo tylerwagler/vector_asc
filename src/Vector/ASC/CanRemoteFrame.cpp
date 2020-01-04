@@ -34,13 +34,11 @@ CanRemoteFrame::CanRemoteFrame() :
     time(0.0),
     channel(0),
     id(0),
-    dir(Dir::Rx)
-{
+    dir(Dir::Rx) {
     eventType = EventType::CanRemoteFrame;
 }
 
-CanRemoteFrame * CanRemoteFrame::read(File & /*file*/, std::string & line)
-{
+CanRemoteFrame * CanRemoteFrame::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS REGEX_ID REGEX_WS REGEX_Dir REGEX_WS "r" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
@@ -58,11 +56,10 @@ CanRemoteFrame * CanRemoteFrame::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void CanRemoteFrame::write(File & file, std::ostream & stream)
-{
+void CanRemoteFrame::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << ' ' << std::dec << (uint16_t) channel << "  ";
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream << std::left << std::setfill(' ') << std::setw(15) << std::dec << id;
         break;

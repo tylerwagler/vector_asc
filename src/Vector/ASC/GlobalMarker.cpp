@@ -37,13 +37,11 @@ GlobalMarker::GlobalMarker() :
     relocatable(true),
     groupName(),
     markerName(),
-    description()
-{
+    description() {
     eventType = EventType::GlobalMarker;
 }
 
-GlobalMarker * GlobalMarker::read(File & /*file*/, std::string & line)
-{
+GlobalMarker * GlobalMarker::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "([[:digit:]]+)"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
                      REGEX_WS "([01])"
@@ -68,8 +66,7 @@ GlobalMarker * GlobalMarker::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void GlobalMarker::write(File & file, std::ostream & stream)
-{
+void GlobalMarker::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream
             << ' ' << std::dec << type

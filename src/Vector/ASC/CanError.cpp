@@ -34,13 +34,11 @@ CanError::CanError() :
     channel(0),
     error(),
     txErr(0),
-    rxErr(0)
-{
+    rxErr(0) {
     eventType = EventType::CanError;
 }
 
-CanError * CanError::read(File & /*file*/, std::string & line)
-{
+CanError * CanError::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "CAN" REGEX_WS  REGEX_Channel REGEX_WS "Status:" REGEX_ws REGEX_Error REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
@@ -59,37 +57,29 @@ CanError * CanError::read(File & /*file*/, std::string & line)
             errorStr.erase(txErrPos);
         }
         size_t minusPos = errorStr.find(" -");
-        if (minusPos != std::string::npos) {
+        if (minusPos != std::string::npos)
             errorStr.erase(minusPos);
-        }
-        if (errorStr == "chip status busoff") {
+        if (errorStr == "chip status busoff")
             canError->error = Error::ChipStatusBusoff;
-        } else
-        if (errorStr == "chip status error passive") {
+        else if (errorStr == "chip status error passive")
             canError->error = Error::ChipStatusErrorPassive;
-        } else
-        if (errorStr == "chip status error active") {
+        else if (errorStr == "chip status error active")
             canError->error = Error::ChipStatusErrorActive;
-        } else
-        if (errorStr == "rx queue overrun") {
+        else if (errorStr == "rx queue overrun")
             canError->error = Error::RxQueueOverrun;
-        } else
-        if (errorStr == "chip status warning level") {
+        else if (errorStr == "chip status warning level")
             canError->error = Error::ChipStatusWarningLevel;
-        } else
-        if (errorStr == "hardware interface disconnected") {
+        else if (errorStr == "hardware interface disconnected")
             canError->error = Error::HardwareInterfaceDisconnected;
-        } else {
+        else
             canError->error = Error::Unknown;
-        }
         return canError;
     }
 
     return nullptr;
 }
 
-void CanError::write(File & file, std::ostream & stream)
-{
+void CanError::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
 
     if (file.version >= File::Version::Ver_8_0) {
@@ -104,7 +94,7 @@ void CanError::write(File & file, std::ostream & stream)
                 << " Status:";
     }
 
-    switch(error) {
+    switch (error) {
     case Error::Unknown:
         break;
     case Error::ChipStatusBusoff:

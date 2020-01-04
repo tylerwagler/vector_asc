@@ -38,13 +38,11 @@ LinSyncError::LinSyncError() :
     startOfFrame(0.0),
     baudrate(0),
     syncBreak(0),
-    syncDel(0)
-{
+    syncDel(0) {
     eventType = EventType::LinSyncError;
 }
 
-LinSyncError * LinSyncError::read(File & /*file*/, std::string & line)
-{
+LinSyncError * LinSyncError::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SyncError"
                      "((" REGEX_WS REGEX_LIN_TimeInterval "){4})"
                      "(" REGEX_WS "SOF" REGEX_ws "=" REGEX_ws REGEX_LIN_startOfFrame
@@ -57,7 +55,7 @@ LinSyncError * LinSyncError::read(File & /*file*/, std::string & line)
         linSyncError->time = std::stod(match[1]);
         linSyncError->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         std::istringstream iss(match[3]);
-        for(int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; ++i) {
             unsigned short s;
             iss >> s;
             linSyncError->timeInterval[i] = s;
@@ -74,8 +72,7 @@ LinSyncError * LinSyncError::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void LinSyncError::write(File & file, std::ostream & stream)
-{
+void LinSyncError::write(File & file, std::ostream & stream) {
     writeLinTime(file, stream, time);
     stream << ' ';
 
@@ -83,7 +80,7 @@ void LinSyncError::write(File & file, std::ostream & stream)
     writeLinChannel(file, stream, channel);
     stream << "              SyncError ";
 
-    for(LinTimeInterval ti: timeInterval)
+    for (LinTimeInterval ti : timeInterval)
         stream << ' ' << std::setw(3) << std::dec << ti;
     if (file.version >= File::Version::Ver_6_1) {
         writeLinStartOfFrame(file, stream, startOfFrame);

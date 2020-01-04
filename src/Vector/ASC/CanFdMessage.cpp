@@ -47,13 +47,11 @@ CanFdMessage::CanFdMessage() :
     flags(0),
     crc(0),
     bitTimingConfArb(0),
-    bitTimingConfData(0)
-{
+    bitTimingConfData(0) {
     eventType = EventType::CanFdMessage;
 }
 
-CanFdMessage * CanFdMessage::read(File & file, std::string & line)
-{
+CanFdMessage * CanFdMessage::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "CANFD" REGEX_WS REGEX_Channel REGEX_WS REGEX_Dir REGEX_WS REGEX_ID
                      "(" REGEX_WS "([[:alnum:]_]+))?"
                      REGEX_WS REGEX_BRS REGEX_WS REGEX_ESI REGEX_WS REGEX_DLC REGEX_WS REGEX_DataLength
@@ -80,7 +78,7 @@ CanFdMessage * CanFdMessage::read(File & file, std::string & line)
         canFdMessage->dataLength = std::stoul(match[10]);
         std::istringstream iss(match[11]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             canFdMessage->data.push_back(s);
@@ -97,8 +95,7 @@ CanFdMessage * CanFdMessage::read(File & file, std::string & line)
     return nullptr;
 }
 
-void CanFdMessage::write(File & file, std::ostream & stream)
-{
+void CanFdMessage::write(File & file, std::ostream & stream) {
     if (file.version < File::Version::Ver_8_1)
         return;
 
@@ -111,7 +108,7 @@ void CanFdMessage::write(File & file, std::ostream & stream)
     stream << ' ' << std::dec << (uint16_t) channel << ' ';
     writeDir(file, stream, dir);
     stream << ' ';
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream << std::dec << id;
         break;
@@ -123,7 +120,7 @@ void CanFdMessage::write(File & file, std::ostream & stream)
             << ' ' << (brs ? '1' : '0')
             << ' ' << (esi ? '1' : '0')
             << ' ';
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream << std::dec << (uint16_t) dlc;
         break;

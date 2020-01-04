@@ -38,9 +38,8 @@ namespace ASC {
  *
  * Receive or transmitted AFDX packet.
  */
-class VECTOR_ASC_EXPORT AfdxPacket final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT AfdxPacket final : public Event {
+  public:
     AfdxPacket();
 
     /** @copydoc AfdxTime */

@@ -35,13 +35,11 @@ FlexRayOldStartCycle::FlexRayOldStartCycle() :
     time(0.0),
     channel(),
     dlc(0),
-    data()
-{
+    data() {
     eventType = EventType::FlexRayOldStartCycle;
 }
 
-FlexRayOldStartCycle * FlexRayOldStartCycle::read(File & /*file*/, std::string & line)
-{
+FlexRayOldStartCycle * FlexRayOldStartCycle::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_FlexRayOld_Time REGEX_WS REGEX_FlexRayOld_Channel REGEX_WS "StartCycleEvent"
                      REGEX_WS "NM Vector:" REGEX_ws REGEX_FlexRayOld_DLC "((" REGEX_WS REGEX_FlexRayOld_Dx "){0,255})" REGEX_ENDL);
     std::smatch match;
@@ -52,7 +50,7 @@ FlexRayOldStartCycle * FlexRayOldStartCycle::read(File & /*file*/, std::string &
         flexRayOldStartCycle->dlc = std::stoul(match[3]);
         std::istringstream iss(match[4]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             flexRayOldStartCycle->data.push_back(s);
@@ -63,15 +61,14 @@ FlexRayOldStartCycle * FlexRayOldStartCycle::read(File & /*file*/, std::string &
     return nullptr;
 }
 
-void FlexRayOldStartCycle::write(File & file, std::ostream & stream)
-{
+void FlexRayOldStartCycle::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream
             << " Fr "
             << channel
             << " StartCycleEvent NM Vector: "
             << std::dec << (uint16_t) dlc;
-    for(FlexRayOldDx d: data)
+    for (FlexRayOldDx d : data)
         stream << ' ' << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) d;
 
     stream << endl;

@@ -35,9 +35,8 @@ namespace ASC {
  *
  * An event that is written when a trigger block ends.
  */
-class VECTOR_ASC_EXPORT EndTriggerblock final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT EndTriggerblock final : public Event {
+  public:
     EndTriggerblock();
 
     /** @copydoc Event::read() */

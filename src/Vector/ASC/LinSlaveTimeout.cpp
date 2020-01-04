@@ -34,13 +34,11 @@ LinSlaveTimeout::LinSlaveTimeout() :
     channel(0),
     slaveId(0),
     currentState(0),
-    followingState(0)
-{
+    followingState(0) {
     eventType = EventType::LinSlaveTimeout;
 }
 
-LinSlaveTimeout * LinSlaveTimeout::read(File & /*file*/, std::string & line)
-{
+LinSlaveTimeout * LinSlaveTimeout::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "SlaveTimeout"
                      REGEX_WS "slave-id" REGEX_ws "=" REGEX_ws REGEX_LIN_slaveId ","
                      REGEX_ws "current state" REGEX_ws "=" REGEX_ws REGEX_LIN_state ","
@@ -59,8 +57,7 @@ LinSlaveTimeout * LinSlaveTimeout::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void LinSlaveTimeout::write(File & file, std::ostream & stream)
-{
+void LinSlaveTimeout::write(File & file, std::ostream & stream) {
     writeLinTime(file, stream, time);
     stream << ' ';
 

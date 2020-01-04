@@ -26,14 +26,12 @@
 namespace Vector {
 namespace ASC {
 
-void writeLinBaudrate(File & /*file*/, std::ostream & stream, LinBaudrateType & linBaudrate)
-{
+void writeLinBaudrate(File & /*file*/, std::ostream & stream, LinBaudrateType & linBaudrate) {
     /* format: "  BR = %-5u" */
     stream << "  BR = " << std::left << std::setw(5) << std::dec << linBaudrate;
 }
 
-void writeLinChannel(File & /*file*/, std::ostream & stream, LinChannel & linChannel)
-{
+void writeLinChannel(File & /*file*/, std::ostream & stream, LinChannel & linChannel) {
     stream << "L";
     if (linChannel == 1)
         stream << 'i';
@@ -41,12 +39,11 @@ void writeLinChannel(File & /*file*/, std::ostream & stream, LinChannel & linCha
         stream << std::setw(0) << std::dec << linChannel;
 }
 
-void writeLinChecksum(File & file, std::ostream & stream, LinChecksum & linChecksum)
-{
+void writeLinChecksum(File & file, std::ostream & stream, LinChecksum & linChecksum) {
     /* format: "  checksum = %3u" */
     /* format: "  checksum = %2.2x" */
     stream << "  checksum = ";
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream << std::setw(3) << std::dec;
         break;
@@ -57,11 +54,10 @@ void writeLinChecksum(File & file, std::ostream & stream, LinChecksum & linCheck
     stream << (uint16_t) linChecksum;
 }
 
-void writeLinChecksumModel(File & /*file*/, std::ostream & stream, LinChecksumModel & linChecksumModel)
-{
+void writeLinChecksumModel(File & /*file*/, std::ostream & stream, LinChecksumModel & linChecksumModel) {
     /* format: "  CSM = %s" */
     stream << "  CSM = ";
-    switch(linChecksumModel) {
+    switch (linChecksumModel) {
     case LinChecksumModel::Unknown:
         stream << "unknown";
         break;
@@ -77,39 +73,34 @@ void writeLinChecksumModel(File & /*file*/, std::ostream & stream, LinChecksumMo
     }
 }
 
-void writeLinEndOfByte(File & /*file*/, std::ostream & stream, std::vector<LinT> & linEndOfByte, LinDlc & /*linDlc*/)
-{
+void writeLinEndOfByte(File & /*file*/, std::ostream & stream, std::vector<LinT> & linEndOfByte, LinDlc & /*linDlc*/) {
     /* format: "   EOB = " */
     stream << "   EOB = ";
 
-    for(LinT t: linEndOfByte)
+    for (LinT t : linEndOfByte)
         stream << ' ' << std::setw(0) << std::setprecision(6) << std::fixed << t;
 }
 
-void writeLinEndOfFrame(File & /*file*/, std::ostream & stream, LinEndOfFrame & linEndOfFrame)
-{
+void writeLinEndOfFrame(File & /*file*/, std::ostream & stream, LinEndOfFrame & linEndOfFrame) {
     /* format: "   EOF = " */
     stream << "   EOF = ";
 
     stream << std::setw(0) << std::setprecision(6) << std::fixed << linEndOfFrame;
 }
 
-void writeLinEndOfHeader(File & /*file*/, std::ostream & stream, LinEndOfHeader & linEndOfHeader)
-{
+void writeLinEndOfHeader(File & /*file*/, std::ostream & stream, LinEndOfHeader & linEndOfHeader) {
     /* format: "   EOH = " */
     stream << "   EOH = ";
 
     stream << std::setw(0) << std::setprecision(6) << std::fixed << linEndOfHeader;
 }
 
-void writeLinHeaderBaudrate(File & /*file*/, std::ostream & stream, LinHeaderBaudrate & linHeaderBaudrate)
-{
+void writeLinHeaderBaudrate(File & /*file*/, std::ostream & stream, LinHeaderBaudrate & linHeaderBaudrate) {
     /* format: "  HBR = %-5.6f" */
     stream << "  HBR = " << std::left << std::setw(5) << std::setprecision(6) << std::fixed << linHeaderBaudrate;
 }
 
-void writeLinHeaderTimeLinFullTime(File & /*file*/, std::ostream & stream, LinHeaderTime & linHeaderTime, LinFullTime & linFullTime)
-{
+void writeLinHeaderTimeLinFullTime(File & /*file*/, std::ostream & stream, LinHeaderTime & linHeaderTime, LinFullTime & linFullTime) {
     stream << std::setfill(' ');
 
     /* format: "   header time = %3u, full time = %3u" */
@@ -120,21 +111,19 @@ void writeLinHeaderTimeLinFullTime(File & /*file*/, std::ostream & stream, LinHe
             << std::right << std::setw(3) << std::dec << linFullTime;
 }
 
-void writeLinIsShortErrorLinIsDlcTimeoutLinHasDatabytes(File & /*file*/, std::ostream & stream, LinIsShortError & linIsShortError, LinIsDlcTimeout & linIsDlcTimeout, LinHasDatabytes & linHasDatabytes)
-{
+void writeLinIsShortErrorLinIsDlcTimeoutLinHasDatabytes(File & /*file*/, std::ostream & stream, LinIsShortError & linIsShortError, LinIsDlcTimeout & linIsDlcTimeout, LinHasDatabytes & linHasDatabytes) {
     /* format: "  ShortError = %d  DlcTimeout = %d  HasDatabytes = %d" */
     stream
-            << "  ShortError = " << (linIsShortError ? '1': '0')
-            << "  DlcTimeout = " << (linIsDlcTimeout ? '1': '0')
-            << "  HasDatabytes = " << (linHasDatabytes ? '1': '0');
+            << "  ShortError = " << (linIsShortError ? '1' : '0')
+            << "  DlcTimeout = " << (linIsDlcTimeout ? '1' : '0')
+            << "  HasDatabytes = " << (linHasDatabytes ? '1' : '0');
 }
 
-void writeLinOffendingByte(File & file, std::ostream & stream, LinOffendingByte & linOffendingByte)
-{
+void writeLinOffendingByte(File & file, std::ostream & stream, LinOffendingByte & linOffendingByte) {
     /* format: "char = %3d" */
     /* format: "char = %2.2x" */
     stream << "char = ";
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream << std::setw(3) << std::dec << (uint16_t) linOffendingByte;
         break;
@@ -145,20 +134,17 @@ void writeLinOffendingByte(File & file, std::ostream & stream, LinOffendingByte 
 
 }
 
-void writeLinResponseBaudrate(File & /*file*/, std::ostream & stream, LinResponseBaudrate & linResponseBaudrate)
-{
+void writeLinResponseBaudrate(File & /*file*/, std::ostream & stream, LinResponseBaudrate & linResponseBaudrate) {
     /* format: "  RBR = %-5u" */
     stream << "  RBR = " << std::left << std::setw(5) << std::dec << linResponseBaudrate;
 }
 
-void writeLinSimulated(File & /*file*/, std::ostream & stream, LinSimulated & linSimulated)
-{
+void writeLinSimulated(File & /*file*/, std::ostream & stream, LinSimulated & linSimulated) {
     /* format: "  sim = %d " */
     stream << "  sim = " << (linSimulated ? '1' : '0') << ' ';
 }
 
-void writeLinSlaveIdLinState(File & /*file*/, std::ostream & stream, LinSlaveId & linSlaveId, LinState & linState)
-{
+void writeLinSlaveIdLinState(File & /*file*/, std::ostream & stream, LinSlaveId & linSlaveId, LinState & linState) {
     /* format: "  slave = %2u, state = %3u," */
     /* format: "slave = %2u, state = %3u " */
     /* format: "slave = %2u, state = %3u" */
@@ -169,9 +155,8 @@ void writeLinSlaveIdLinState(File & /*file*/, std::ostream & stream, LinSlaveId 
             << std::right << std::setw(3) << std::dec << (uint16_t) linState;
 }
 
-void writeLinStartOfFrame(File & file, std::ostream & stream, LinStartOfFrame & linStartOfFrame)
-{
-    if(file.version < File::Version::Ver_6_1) {
+void writeLinStartOfFrame(File & file, std::ostream & stream, LinStartOfFrame & linStartOfFrame) {
+    if (file.version < File::Version::Ver_6_1) {
         /* format: ", start of frame = %s" */
         stream
                 << ", start of frame = "
@@ -184,12 +169,11 @@ void writeLinStartOfFrame(File & file, std::ostream & stream, LinStartOfFrame & 
     }
 }
 
-void writeLinStateReason(File & file, std::ostream & stream, LinStateReason & linStateReason)
-{
+void writeLinStateReason(File & file, std::ostream & stream, LinStateReason & linStateReason) {
     /* format: "  StateReason = %-3d */
     /* format: "  StateReason = %2.2x" */
     stream << "  StateReason = ";
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream << std::left << std::setw(3) << std::dec << (uint16_t) linStateReason;
         break;
@@ -199,24 +183,21 @@ void writeLinStateReason(File & file, std::ostream & stream, LinStateReason & li
     }
 }
 
-void writeLinStopBitOffsetInHeader(File & /*file*/, std::ostream & stream, LinStopBitOffsetInHeader & linStopBitOffsetInHeader)
-{
+void writeLinStopBitOffsetInHeader(File & /*file*/, std::ostream & stream, LinStopBitOffsetInHeader & linStopBitOffsetInHeader) {
     /* format: "  HSO = %-8u" */
     stream << "  HSO = " << std::left << std::setw(8) << std::dec << linStopBitOffsetInHeader;
 }
 
-void writeLinStopBitOffsetInResponse(File & /*file*/, std::ostream & stream, LinStopBitOffsetInResponse & linStopBitOffsetInResponse)
-{
+void writeLinStopBitOffsetInResponse(File & /*file*/, std::ostream & stream, LinStopBitOffsetInResponse & linStopBitOffsetInResponse) {
     /* format: "  RSO = %-8u" */
     stream << "  RSO = " << std::left << std::setw(8) << std::dec << linStopBitOffsetInResponse;
 }
 
-void writeLinSubId(File & file, std::ostream & stream, LinNad & linNad, LinMessageId & linMessageId, LinSupplierId & linSupplierId)
-{
+void writeLinSubId(File & file, std::ostream & stream, LinNad & linNad, LinMessageId & linMessageId, LinSupplierId & linSupplierId) {
     /* format: "  subId = %-3u %-5u %-5u" */
     /* format: "  subId = %2.2x %4.4x %4.4x" */
     stream << "  subId = ";
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream
                 << std::left << std::setw(3) << std::dec << (uint16_t) linNad
@@ -232,14 +213,12 @@ void writeLinSubId(File & file, std::ostream & stream, LinNad & linNad, LinMessa
     }
 }
 
-void writeLinSyncDel(File & /*file*/, std::ostream & stream, LinSyncDel & linSyncDel)
-{
+void writeLinSyncDel(File & /*file*/, std::ostream & stream, LinSyncDel & linSyncDel) {
     /* format: " %-6u" */
     stream << ' ' << std::left << std::setw(6) << linSyncDel;
 }
 
-void writeLinSyncDelimiterTime(File & /*file*/, std::ostream & stream, LinSyncDelimiterTime & linSyncDelimiterTime)
-{
+void writeLinSyncDelimiterTime(File & /*file*/, std::ostream & stream, LinSyncDelimiterTime & linSyncDelimiterTime) {
     /* format: ", sync delimiter = %3u us " */
     stream
             << ", sync delimiter = "
@@ -250,14 +229,12 @@ void writeLinSyncDelimiterTime(File & /*file*/, std::ostream & stream, LinSyncDe
     stream << '(' << std::fixed << linSyncDelimiterTime.bitTimes << " bits)";
 }
 
-void writeLinSyncBreak(File & /*file*/, std::ostream & stream, LinSyncBreak & linSyncBreak)
-{
+void writeLinSyncBreak(File & /*file*/, std::ostream & stream, LinSyncBreak & linSyncBreak) {
     /* format: "  break = %-6u" */
     stream << "  break = " << std::left << std::setw(6) << linSyncBreak;
 }
 
-void writeLinSyncBreakTime(File & /*file*/, std::ostream & stream, LinSyncBreakTime & linSyncBreakTime)
-{
+void writeLinSyncBreakTime(File & /*file*/, std::ostream & stream, LinSyncBreakTime & linSyncBreakTime) {
     /* format: ", sync break = %3u us " */
     stream
             << ", sync break = "
@@ -268,8 +245,7 @@ void writeLinSyncBreakTime(File & /*file*/, std::ostream & stream, LinSyncBreakT
     stream << '(' << std::fixed << linSyncBreakTime.bitTimes << " bits)";
 }
 
-void writeLinWakeupLengthInfo(File & /*file*/, std::ostream & stream, LinWakeupLengthInfo & linWakeupLengthInfo)
-{
+void writeLinWakeupLengthInfo(File & /*file*/, std::ostream & stream, LinWakeupLengthInfo & linWakeupLengthInfo) {
     /* format: "  LengthCode = %d" */
     stream << "  LengthCode = " << std::dec << (int16_t) linWakeupLengthInfo;
 }

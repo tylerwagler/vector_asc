@@ -37,9 +37,8 @@ namespace ASC {
  * This info event is only displayed when a Master is simulated and a frame header of a new schedule
  * table is transmitted for the first time. This info event may appear on starting a measurement.
  */
-class VECTOR_ASC_EXPORT LinSchedulerModeChange final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LinSchedulerModeChange final : public Event {
+  public:
     LinSchedulerModeChange();
 
     /** @copydoc LinTime */

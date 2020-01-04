@@ -51,13 +51,11 @@ CanFdErrorFrame::CanFdErrorFrame() :
     flags2(0),
     crc(0),
     bitTimingConfArb(0),
-    bitTimingConfData(0)
-{
+    bitTimingConfData(0) {
     eventType = EventType::CanFdErrorFrame;
 }
 
-CanFdErrorFrame * CanFdErrorFrame::read(File & file, std::string & line)
-{
+CanFdErrorFrame * CanFdErrorFrame::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "CANFD" REGEX_WS REGEX_Channel REGEX_WS REGEX_Dir REGEX_WS "ErrorFrame"
                      REGEX_WS "(Not Acknowledge error, dominant error flag)"
                      REGEX_WS "([[:xdigit:]]{4})" REGEX_WS "([[:xdigit:]]{2})" REGEX_WS "([[:xdigit:]]{4})"
@@ -89,7 +87,7 @@ CanFdErrorFrame * CanFdErrorFrame::read(File & file, std::string & line)
         canFdErrorFrame->dataLength = std::stoul(match[14]);
         std::istringstream iss(match[15]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             canFdErrorFrame->data.push_back(s);
@@ -105,8 +103,7 @@ CanFdErrorFrame * CanFdErrorFrame::read(File & file, std::string & line)
     return nullptr;
 }
 
-void CanFdErrorFrame::write(File & file, std::ostream & stream)
-{
+void CanFdErrorFrame::write(File & file, std::ostream & stream) {
     if (file.version < File::Version::Ver_8_1)
         return;
 
@@ -134,7 +131,7 @@ void CanFdErrorFrame::write(File & file, std::ostream & stream)
             << ' ' << (brs ? '1' : '0')
             << ' ' << (esi ? '1' : '0')
             << ' ';
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream << std::dec << (uint16_t) dlc;
         break;

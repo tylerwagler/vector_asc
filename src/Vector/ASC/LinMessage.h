@@ -38,9 +38,8 @@ namespace ASC {
  *
  * LIN frame received or transmitted on a LIN channel.
  */
-class VECTOR_ASC_EXPORT LinMessage final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LinMessage final : public Event {
+  public:
     LinMessage();
 
     /** @copydoc LinTime */

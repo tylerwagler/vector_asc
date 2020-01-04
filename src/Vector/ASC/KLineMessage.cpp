@@ -39,13 +39,11 @@ KLineMessage::KLineMessage() :
     source(),
     destination(),
     length(0),
-    data()
-{
+    data() {
     eventType = EventType::KLineMessage;
 }
 
-KLineMessage * KLineMessage::read(File & file, std::string & line)
-{
+KLineMessage * KLineMessage::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL "//" REGEX_ws "K-Line:" REGEX_ws REGEX_KLine_time REGEX_WS REGEX_KLine_port
                      REGEX_WS REGEX_KLine_direction REGEX_WS REGEX_KLine_baudrate REGEX_WS REGEX_KLine_source
                      REGEX_WS REGEX_KLine_destination REGEX_WS REGEX_KLine_length
@@ -68,7 +66,7 @@ KLineMessage * KLineMessage::read(File & file, std::string & line)
             iss >> std::dec;
         if (file.base == 16)
             iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             kLineMessage->data.push_back(s);
@@ -79,8 +77,7 @@ KLineMessage * KLineMessage::read(File & file, std::string & line)
     return nullptr;
 }
 
-void KLineMessage::write(File & file, std::ostream & stream)
-{
+void KLineMessage::write(File & file, std::ostream & stream) {
     /* format: "// K-Line: " */
     stream << "// K-Line: ";
 

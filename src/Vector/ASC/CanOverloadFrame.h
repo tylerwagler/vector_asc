@@ -36,9 +36,8 @@ namespace ASC {
  *
  * An Overload Frame received on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanOverloadFrame final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT CanOverloadFrame final : public Event {
+  public:
     CanOverloadFrame();
 
     /** absolute or relative time in seconds */

@@ -52,9 +52,8 @@ namespace ASC {
  *   - if the LIN hardware only receives part of a frame, at the start of a measurement (in a cor-
  *     rectly functioning system).
  */
-class VECTOR_ASC_EXPORT LinReceiveError final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LinReceiveError final : public Event {
+  public:
     LinReceiveError();
 
     /** @copydoc LinTime */

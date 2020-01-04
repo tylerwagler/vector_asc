@@ -34,9 +34,8 @@ namespace Vector {
 namespace ASC {
 
 /** K-Line Message event */
-class VECTOR_ASC_EXPORT KLineMessage final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT KLineMessage final : public Event {
+  public:
     KLineMessage();
 
     /** @copydoc KLineTime */

@@ -48,9 +48,8 @@ namespace ASC {
  * nal edges is 2 bit times. After the first failure interval has been seen the rest of array elements are
  * initialized to 0.
  */
-class VECTOR_ASC_EXPORT LinSyncError final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LinSyncError final : public Event {
+  public:
     LinSyncError();
 
     /** @copydoc LinTime */

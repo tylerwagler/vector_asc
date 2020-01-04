@@ -38,9 +38,8 @@ namespace ASC {
  *
  * Receive or transmitted Ethernet packet.
  */
-class VECTOR_ASC_EXPORT EthernetRxError final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT EthernetRxError final : public Event {
+  public:
     EthernetRxError();
 
     /** @copydoc EthTime */

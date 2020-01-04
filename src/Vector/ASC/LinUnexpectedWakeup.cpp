@@ -36,13 +36,11 @@ LinUnexpectedWakeup::LinUnexpectedWakeup() :
     width(0),
     wakeupByte(0),
     startOfFrame(0),
-    baudrate(0)
-{
+    baudrate(0) {
     eventType = EventType::LinUnexpectedWakeup;
 }
 
-LinUnexpectedWakeup * LinUnexpectedWakeup::read(File & /*file*/, std::string & line)
-{
+LinUnexpectedWakeup * LinUnexpectedWakeup::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS "Unexpected wakeup:"
                      "((" REGEX_ws "approx\\." REGEX_ws REGEX_LIN_Width REGEX_ws "us" ")|("
                      REGEX_ws "Signal" REGEX_ws "=" REGEX_ws REGEX_LIN_WakeupByte "))"
@@ -67,8 +65,7 @@ LinUnexpectedWakeup * LinUnexpectedWakeup::read(File & /*file*/, std::string & l
     return nullptr;
 }
 
-void LinUnexpectedWakeup::write(File & file, std::ostream & stream)
-{
+void LinUnexpectedWakeup::write(File & file, std::ostream & stream) {
     if (file.version < File::Version::Ver_7_5)
         return;
 
@@ -84,7 +81,7 @@ void LinUnexpectedWakeup::write(File & file, std::ostream & stream)
         stream << "approx. " << std::dec << width << " us";
     } else {
         /* LIN 1.x */
-        switch(file.base) {
+        switch (file.base) {
         case 10:
             /* format: "Signal = %3d" */
             stream << "Signal = " << std::setw(3) << std::dec << (uint16_t) wakeupByte;

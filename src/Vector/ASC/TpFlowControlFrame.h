@@ -32,9 +32,8 @@ namespace Vector {
 namespace ASC {
 
 /** TP Flow Control Frame */
-class VECTOR_ASC_EXPORT TpFlowControlFrame final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT TpFlowControlFrame final : public Event {
+  public:
     TpFlowControlFrame();
 
     /** @copydoc TpDiagCanChannel */

@@ -33,9 +33,8 @@ namespace Vector {
 namespace ASC {
 
 /** File Base Timestamps */
-class VECTOR_ASC_EXPORT FileBaseTimestamps final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT FileBaseTimestamps final : public Event {
+  public:
     FileBaseTimestamps();
 
     /** Events can either be recorder in hexadecimal or decimal mode. */

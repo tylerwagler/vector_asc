@@ -33,9 +33,8 @@ namespace Vector {
 namespace ASC {
 
 /** File Split Information */
-class VECTOR_ASC_EXPORT FileSplitInformation final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT FileSplitInformation final : public Event {
+  public:
     FileSplitInformation();
 
     /** last absolute time stamp of the previous log file */

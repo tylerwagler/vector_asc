@@ -34,13 +34,11 @@ LinEventTriggeredFrameInfo::LinEventTriggeredFrameInfo() :
     channel(0),
     id(),
     etfName(),
-    description()
-{
+    description() {
     eventType = EventType::LinEventTriggeredFrameInfo;
 }
 
-LinEventTriggeredFrameInfo * LinEventTriggeredFrameInfo::read(File & /*file*/, std::string & line)
-{
+LinEventTriggeredFrameInfo * LinEventTriggeredFrameInfo::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID
                      REGEX_WS "EvTrigFrmInfo" REGEX_WS REGEX_LIN_ETFName REGEX_WS REGEX_LIN_description REGEX_ENDL);
     std::smatch match;
@@ -57,8 +55,7 @@ LinEventTriggeredFrameInfo * LinEventTriggeredFrameInfo::read(File & /*file*/, s
     return nullptr;
 }
 
-void LinEventTriggeredFrameInfo::write(File & file, std::ostream & stream)
-{
+void LinEventTriggeredFrameInfo::write(File & file, std::ostream & stream) {
     if (file.version > File::Version::Ver_5_2)
         return;
 

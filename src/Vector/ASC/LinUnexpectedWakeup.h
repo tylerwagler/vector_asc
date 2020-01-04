@@ -39,9 +39,8 @@ namespace ASC {
  *
  * IMPORTANT: This event is generated from CANoe/CANalyzer 7.5 only
  */
-class VECTOR_ASC_EXPORT LinUnexpectedWakeup final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LinUnexpectedWakeup final : public Event {
+  public:
     LinUnexpectedWakeup();
 
     /** @copydoc LinTime */

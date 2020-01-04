@@ -34,13 +34,11 @@ MostStatisticExtended::MostStatisticExtended() :
     time(0.0),
     channel(0),
     codingErrors(0),
-    frameCounter(0)
-{
+    frameCounter(0) {
     eventType = EventType::MostStatisticExtended;
 }
 
-MostStatisticExtended * MostStatisticExtended::read(File & /*file*/, std::string & line)
-{
+MostStatisticExtended * MostStatisticExtended::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "StatEx:"
                      REGEX_ws REGEX_MOST_CodingErrors REGEX_WS REGEX_MOST_FrameCounter REGEX_ENDL);
     std::smatch match;
@@ -56,8 +54,7 @@ MostStatisticExtended * MostStatisticExtended::read(File & /*file*/, std::string
     return nullptr;
 }
 
-void MostStatisticExtended::write(File & file, std::ostream & stream)
-{
+void MostStatisticExtended::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

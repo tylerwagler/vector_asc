@@ -31,13 +31,11 @@ namespace ASC {
 LogDirectStop::LogDirectStop() :
     Event(),
     time(0.0),
-    postTrigger(0)
-{
+    postTrigger(0) {
     eventType = EventType::LogDirectStop;
 }
 
-LogDirectStop * LogDirectStop::read(File & /*file*/, std::string & line)
-{
+LogDirectStop * LogDirectStop::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log direct stop" REGEX_ws "\\(" REGEX_PostTrigger "ms\\)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
@@ -50,8 +48,7 @@ LogDirectStop * LogDirectStop::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void LogDirectStop::write(File & file, std::ostream & stream)
-{
+void LogDirectStop::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << ' ';
 

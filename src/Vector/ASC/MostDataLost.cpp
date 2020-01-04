@@ -36,13 +36,11 @@ MostDataLost::MostDataLost() :
     dlInfo(0),
     dlCtrl(0),
     dlAsync(0),
-    dlTime()
-{
+    dlTime() {
     eventType = EventType::MostDataLost;
 }
 
-MostDataLost * MostDataLost::read(File & file, std::string & line)
-{
+MostDataLost * MostDataLost::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "DataLost:"
                      REGEX_ws REGEX_MOST_DLInfo REGEX_WS REGEX_MOST_DLCtrl REGEX_WS REGEX_MOST_DLAsync
                      REGEX_WS REGEX_MOST_DLTime REGEX_WS REGEX_MOST_DLTime REGEX_ENDL);
@@ -62,8 +60,7 @@ MostDataLost * MostDataLost::read(File & file, std::string & line)
     return nullptr;
 }
 
-void MostDataLost::write(File & file, std::ostream & stream)
-{
+void MostDataLost::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 
@@ -73,16 +70,16 @@ void MostDataLost::write(File & file, std::ostream & stream)
             << "DataLost: "
             << std::setfill('0') << std::setw(8) << std::uppercase << std::hex << dlInfo
             << ' ';
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream
                 << std::setfill(' ') << std::setw(5) << std::dec << dlCtrl
-                << ' '<< std::setfill(' ') << std::setw(5) << std::dec << dlAsync;
+                << ' ' << std::setfill(' ') << std::setw(5) << std::dec << dlAsync;
         break;
     case 16:
         stream
                 << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << dlCtrl
-                << ' '<< std::setfill('0') << std::setw(4) << std::uppercase << std::hex << dlAsync;
+                << ' ' << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << dlAsync;
         break;
     }
     stream

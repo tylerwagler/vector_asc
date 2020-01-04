@@ -35,13 +35,11 @@ SystemVariables::SystemVariables() :
     svtype(),
     flag(),
     path(),
-    value()
-{
+    value() {
     eventType = EventType::SystemVariables;
 }
 
-SystemVariables * SystemVariables::read(File & /*file*/, std::string & line)
-{
+SystemVariables * SystemVariables::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "SV:" REGEX_ws REGEX_svtype REGEX_WS "0" REGEX_WS "0"
                      REGEX_WS "(.+?)" REGEX_ws "=" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;
@@ -73,8 +71,7 @@ SystemVariables * SystemVariables::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void SystemVariables::write(File & file, std::ostream & stream)
-{
+void SystemVariables::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << "    ";
 

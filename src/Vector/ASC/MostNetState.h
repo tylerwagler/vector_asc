@@ -36,9 +36,8 @@ namespace ASC {
  *
  * Network state derived by MOST Supervisor Layer I+II.
  */
-class VECTOR_ASC_EXPORT MostNetState final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT MostNetState final : public Event {
+  public:
     MostNetState();
 
     /** @copydoc MostTime */

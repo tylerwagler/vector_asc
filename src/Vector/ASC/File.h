@@ -48,9 +48,8 @@ class Event;
  *
  * This is similar to std::fstream for ASCs
  */
-class VECTOR_ASC_EXPORT File final
-{
-public:
+class VECTOR_ASC_EXPORT File final {
+  public:
     File();
     virtual ~File();
 
@@ -110,17 +109,17 @@ public:
 
     /** Version */
     enum Version : uint32_t {
-        Ver_5_2     = (5<<24) | (2<<16) | ( 0),
-        Ver_6_0     = (6<<24) | (0<<16) | ( 0),
-        Ver_6_1     = (6<<24) | (1<<16) | ( 0),
-        Ver_7_0     = (7<<24) | (0<<16) | ( 0),
-        Ver_7_1_SP3 = (7<<24) | (1<<16) | (65),
-        Ver_7_2     = (7<<24) | (2<<16) | ( 0),
-        Ver_7_2_SP2 = (7<<24) | (2<<16) | (59), // don't know, but 42<x<60
-        Ver_7_2_SP3 = (7<<24) | (2<<16) | (60),
-        Ver_7_5     = (7<<24) | (5<<16) | ( 0),
-        Ver_8_0     = (8<<24) | (0<<16) | ( 0),
-        Ver_8_1     = (8<<24) | (1<<16) | ( 0)
+        Ver_5_2     = (5 << 24) | (2 << 16) | ( 0),
+        Ver_6_0     = (6 << 24) | (0 << 16) | ( 0),
+        Ver_6_1     = (6 << 24) | (1 << 16) | ( 0),
+        Ver_7_0     = (7 << 24) | (0 << 16) | ( 0),
+        Ver_7_1_SP3 = (7 << 24) | (1 << 16) | (65),
+        Ver_7_2     = (7 << 24) | (2 << 16) | ( 0),
+        Ver_7_2_SP2 = (7 << 24) | (2 << 16) | (59), // don't know, but 42<x<60
+        Ver_7_2_SP3 = (7 << 24) | (2 << 16) | (60),
+        Ver_7_5     = (7 << 24) | (5 << 16) | ( 0),
+        Ver_8_0     = (8 << 24) | (0 << 16) | ( 0),
+        Ver_8_1     = (8 << 24) | (1 << 16) | ( 0)
     };
 
     /** Version */
@@ -179,7 +178,7 @@ public:
      */
     void write(Event * event);
 
-private:
+  private:
     /** file */
     std::fstream file;
 

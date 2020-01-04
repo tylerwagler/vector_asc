@@ -60,13 +60,11 @@ LinMessage::LinMessage() :
     headerBaudrate(0.0),
     stopBitOffsetInHeader(0),
     stopBitOffsetInResponse(0),
-    checksumModel(LinChecksumModel::Unknown)
-{
+    checksumModel(LinChecksumModel::Unknown) {
     eventType = EventType::LinMessage;
 }
 
-LinMessage * LinMessage::read(File & file, std::string & line)
-{
+LinMessage * LinMessage::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_LIN_Time REGEX_WS REGEX_LIN_Channel REGEX_WS REGEX_LIN_ID REGEX_WS REGEX_LIN_Dir
                      REGEX_WS REGEX_LIN_DLC "((" REGEX_WS REGEX_LIN_Dx "){0,8})"
                      "(" REGEX_WS "slave" REGEX_ws "=" REGEX_ws REGEX_LIN_slaveId "," REGEX_ws "state" REGEX_ws "=" REGEX_ws REGEX_LIN_state ")?"
@@ -104,7 +102,7 @@ LinMessage * LinMessage::read(File & file, std::string & line)
             linMessage->dir = Dir::Tx;
         linMessage->dlc = std::stoul(match[5]);
         std::istringstream iss1(match[6]);
-        switch(file.base) {
+        switch (file.base) {
         case 10:
             iss1 >> std::dec;
             break;
@@ -112,7 +110,7 @@ LinMessage * LinMessage::read(File & file, std::string & line)
             iss1 >> std::hex;
             break;
         }
-        while(!iss1.eof()) {
+        while (!iss1.eof()) {
             unsigned short s;
             iss1 >> s;
             linMessage->data.push_back(s);
@@ -144,7 +142,7 @@ LinMessage * LinMessage::read(File & file, std::string & line)
                 }
                 linMessage->endOfHeader = std::stod(match[30]);
                 std::istringstream iss2(match[31]);
-                while(!iss2.eof()) {
+                while (!iss2.eof()) {
                     double s;
                     iss2 >> s;
                     linMessage->endOfByte.push_back(s);
@@ -176,8 +174,7 @@ LinMessage * LinMessage::read(File & file, std::string & line)
     return nullptr;
 }
 
-void LinMessage::write(File & file, std::ostream & stream)
-{
+void LinMessage::write(File & file, std::ostream & stream) {
     writeLinTime(file, stream, time);
     stream << ' ';
 

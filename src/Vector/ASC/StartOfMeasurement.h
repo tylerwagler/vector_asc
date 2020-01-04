@@ -31,9 +31,8 @@
 namespace Vector {
 namespace ASC {
 
-class VECTOR_ASC_EXPORT StartOfMeasurement final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT StartOfMeasurement final : public Event {
+  public:
     StartOfMeasurement();
 
     /** @copydoc Time */

@@ -30,13 +30,11 @@ namespace ASC {
 
 FileComment::FileComment() :
     Event(),
-    comment()
-{
+    comment() {
     eventType = EventType::FileComment;
 }
 
-FileComment * FileComment::read(File & /*file*/, std::string & line)
-{
+FileComment * FileComment::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "//" "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
@@ -48,8 +46,7 @@ FileComment * FileComment::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void FileComment::write(File & /*file*/, std::ostream & stream)
-{
+void FileComment::write(File & /*file*/, std::ostream & stream) {
     stream << "//" << comment;
 
     stream << endl;

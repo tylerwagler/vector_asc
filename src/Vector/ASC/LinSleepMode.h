@@ -38,9 +38,8 @@ namespace ASC {
  *   - At the start of a measurement in order to report the initial state of the LIN hardware,
  *   - Every time the mode (Wakeup or Sleep) of LIN hardware changes.
  */
-class VECTOR_ASC_EXPORT LinSleepMode final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LinSleepMode final : public Event {
+  public:
     LinSleepMode();
 
     /** @copydoc LinTime */

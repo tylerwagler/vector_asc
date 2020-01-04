@@ -38,9 +38,8 @@ namespace ASC {
  *
  * Partial transmitted message on MOST50 or MOST150 Packet Data Channel.
  */
-class VECTOR_ASC_EXPORT Most150PacketFragment final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT Most150PacketFragment final : public Event {
+  public:
     Most150PacketFragment();
 
     /** @copydoc MostTime */

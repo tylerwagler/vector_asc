@@ -38,9 +38,8 @@ namespace ASC {
  * global marker event is assigned to another event (set in Trace Window) it has to be written before that
  * event. Global marker events can be written only during the export from Trace window.
  */
-class VECTOR_ASC_EXPORT GlobalMarker final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT GlobalMarker final : public Event {
+  public:
     GlobalMarker();
 
     /** @copydoc Time */

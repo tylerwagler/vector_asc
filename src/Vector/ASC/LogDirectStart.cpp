@@ -31,13 +31,11 @@ namespace ASC {
 LogDirectStart::LogDirectStart() :
     Event(),
     time(0.0),
-    preTrigger(0)
-{
+    preTrigger(0) {
     eventType = EventType::LogDirectStart;
 }
 
-LogDirectStart * LogDirectStart::read(File & /*file*/, std::string & line)
-{
+LogDirectStart * LogDirectStart::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log direct start" REGEX_ws "\\(" REGEX_PreTrigger "ms\\)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
@@ -50,8 +48,7 @@ LogDirectStart * LogDirectStart::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void LogDirectStart::write(File & file, std::ostream & stream)
-{
+void LogDirectStart::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << ' ';
 

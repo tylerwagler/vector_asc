@@ -79,11 +79,11 @@ void writeTime(File & file, std::ostream & stream, Time & time);
  * @param tm contains parsed date structure
  */
 void readDate(
-        std::string wday, std::string mon, std::string mday,
-        std::string hour, std::string min, std::string sec, std::string amFm,
-        std::string year,
-        File::Language & language,
-        struct tm & date);
+    std::string wday, std::string mon, std::string mday,
+    std::string hour, std::string min, std::string sec, std::string amFm,
+    std::string year,
+    File::Language & language,
+    struct tm & date);
 
 /**
  * strftime modified for Vector::ASC

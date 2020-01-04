@@ -29,13 +29,11 @@ namespace Vector {
 namespace ASC {
 
 EndTriggerblock::EndTriggerblock() :
-    Event()
-{
+    Event() {
     eventType = EventType::EndTriggerblock;
 }
 
-EndTriggerblock * EndTriggerblock::read(File & /*file*/, std::string & line)
-{
+EndTriggerblock * EndTriggerblock::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "End TriggerBlock" REGEX_ENDL);
     if (std::regex_match(line, regex)) {
         EndTriggerblock * endTriggerblock = new EndTriggerblock;
@@ -45,8 +43,7 @@ EndTriggerblock * EndTriggerblock::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void EndTriggerblock::write(File & /*file*/, std::ostream & stream)
-{
+void EndTriggerblock::write(File & /*file*/, std::ostream & stream) {
     /* format: "End TriggerBlock" */
     stream << "End TriggerBlock";
 

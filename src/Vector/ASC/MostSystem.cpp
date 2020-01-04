@@ -35,13 +35,11 @@ MostSystem::MostSystem() :
     channel(0),
     sysId(MostSysId::SystemLock),
     sysValue(0),
-    sysValueOld(0)
-{
+    sysValueOld(0) {
     eventType = EventType::MostSystem;
 }
 
-MostSystem * MostSystem::read(File & /*file*/, std::string & line)
-{
+MostSystem * MostSystem::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "System:"
                      REGEX_ws REGEX_MOST_SysID REGEX_WS REGEX_MOST_SysValue REGEX_WS REGEX_MOST_SysValueOld REGEX_ENDL);
     std::smatch match;
@@ -49,7 +47,7 @@ MostSystem * MostSystem::read(File & /*file*/, std::string & line)
         MostSystem * mostSystem = new MostSystem;
         mostSystem->time = std::stod(match[1]);
         mostSystem->channel = std::stoul(match[2]);
-        switch(std::stoul(match[3])) {
+        switch (std::stoul(match[3])) {
         case 1:
             mostSystem->sysId = MostSysId::SystemLock;
             break;
@@ -68,8 +66,7 @@ MostSystem * MostSystem::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void MostSystem::write(File & file, std::ostream & stream)
-{
+void MostSystem::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

@@ -35,13 +35,11 @@ EthernetPacket::EthernetPacket() :
     channel(0),
     dir(Dir::Rx),
     dataLen(0),
-    data()
-{
+    data() {
     eventType = EventType::EthernetPacket;
 }
 
-EthernetPacket * EthernetPacket::read(File & file, std::string & line)
-{
+EthernetPacket * EthernetPacket::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Eth_Time REGEX_WS "ETH" REGEX_WS REGEX_Eth_Channel REGEX_WS REGEX_Eth_Dir
                      REGEX_WS REGEX_Eth_DataLen ":" REGEX_Eth_Data REGEX_ENDL);
     std::smatch match;
@@ -56,9 +54,9 @@ EthernetPacket * EthernetPacket::read(File & file, std::string & line)
         else if (match[3] == "TxRq")
             ethernetPacket->dir = Dir::TxRq;
         ethernetPacket->dataLen = std::stoul(match[4], nullptr, file.base);
-        for(int i = 0; i < match[5].length()/2; ++i) {
+        for (int i = 0; i < match[5].length() / 2; ++i) {
             std::string s;
-            s.append(match[5], 2*i, 2);
+            s.append(match[5], 2 * i, 2);
             ethernetPacket->data.push_back(std::stoul(s, nullptr, 16));
         }
         return ethernetPacket;
@@ -67,8 +65,7 @@ EthernetPacket * EthernetPacket::read(File & file, std::string & line)
     return nullptr;
 }
 
-void EthernetPacket::write(File & file, std::ostream & stream)
-{
+void EthernetPacket::write(File & file, std::ostream & stream) {
     writeEthTime(file, stream, time);
     stream << ' ';
 
@@ -77,7 +74,7 @@ void EthernetPacket::write(File & file, std::ostream & stream)
     stream << " ETH " << std::dec << (uint16_t) channel << ' ';
     writeEthDir(file, stream, dir);
 
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream << ' ' << std::setfill(' ') << std::setw(4) << std::dec << dataLen << ':';
         break;
@@ -85,7 +82,7 @@ void EthernetPacket::write(File & file, std::ostream & stream)
         stream << ' ' << std::setfill(' ') << std::setw(3) << std::hex << dataLen << ':';
         break;
     }
-    for(EthData d: data)
+    for (EthData d : data)
         stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) d;
 
     stream << endl;

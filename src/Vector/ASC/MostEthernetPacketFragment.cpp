@@ -45,13 +45,11 @@ MostEthernetPacketFragment::MostEthernetPacketFragment() :
     frgDataLen(0),
     frgDataLenAnnounced(0),
     firstDataLen(0),
-    data()
-{
+    data() {
     eventType = EventType::MostEthernetPacketFragment;
 }
 
-MostEthernetPacketFragment * MostEthernetPacketFragment::read(File & /*file*/, std::string & line)
-{
+MostEthernetPacketFragment * MostEthernetPacketFragment::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "PktEthFrg:"
                      REGEX_ws REGEX_MOST_FrgMask REGEX_WS REGEX_MOST_SourceMacAdr REGEX_WS REGEX_MOST_DestMacAdr
                      REGEX_WS REGEX_MOST_AckNack REGEX_WS REGEX_MOST_Pack REGEX_WS REGEX_MOST_CRC4
@@ -76,7 +74,7 @@ MostEthernetPacketFragment * MostEthernetPacketFragment::read(File & /*file*/, s
         mostEthernetPacketFragment->firstDataLen = std::stoul(match[13], nullptr, 16);
         std::istringstream iss(match[14]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             mostEthernetPacketFragment->data.push_back(s);
@@ -87,8 +85,7 @@ MostEthernetPacketFragment * MostEthernetPacketFragment::read(File & /*file*/, s
     return nullptr;
 }
 
-void MostEthernetPacketFragment::write(File & file, std::ostream & stream)
-{
+void MostEthernetPacketFragment::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

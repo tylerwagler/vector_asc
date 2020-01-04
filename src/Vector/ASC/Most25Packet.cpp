@@ -43,13 +43,11 @@ Most25Packet::Most25Packet() :
     pktArbitr(0),
     crc2(0),
     pktLen(0),
-    data()
-{
+    data() {
     eventType = EventType::Most25Packet;
 }
 
-Most25Packet * Most25Packet::read(File & file, std::string & line)
-{
+Most25Packet * Most25Packet::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "Pkt:" REGEX_ws REGEX_MOST_Dir
                      REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr REGEX_WS REGEX_MOST_PktState
                      REGEX_WS REGEX_MOST_TransferType REGEX_WS REGEX_MOST_PktPrio REGEX_WS REGEX_MOST_PktArbitr
@@ -67,7 +65,7 @@ Most25Packet * Most25Packet::read(File & file, std::string & line)
         most25Packet->sourceAdr = std::stoul(match[4], nullptr, 16);
         most25Packet->destAdr = std::stoul(match[5], nullptr, 16);
         most25Packet->pktState = std::stoul(match[6], nullptr, 16);
-        switch(std::stoul(match[7])) {
+        switch (std::stoul(match[7])) {
         case 1:
             most25Packet->transferType = MostTransferType::Node;
             break;
@@ -80,7 +78,7 @@ Most25Packet * Most25Packet::read(File & file, std::string & line)
         most25Packet->crc2 = std::stoul(match[10], nullptr, 16);
         most25Packet->pktLen = std::stoul(match[11], nullptr, file.base);
         std::istringstream iss(match[12]);
-        switch(file.base) {
+        switch (file.base) {
         case 10:
             iss >> std::dec;
             break;
@@ -88,7 +86,7 @@ Most25Packet * Most25Packet::read(File & file, std::string & line)
             iss >> std::hex;
             break;
         }
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             most25Packet->data.push_back(s);
@@ -99,8 +97,7 @@ Most25Packet * Most25Packet::read(File & file, std::string & line)
     return nullptr;
 }
 
-void Most25Packet::write(File & file, std::ostream & stream)
-{
+void Most25Packet::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 
@@ -116,7 +113,7 @@ void Most25Packet::write(File & file, std::ostream & stream)
     stream
             << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) pktState
             << ' ';
-    switch(transferType) {
+    switch (transferType) {
     case MostTransferType::Node:
         stream << "01";
         break;
@@ -132,7 +129,7 @@ void Most25Packet::write(File & file, std::ostream & stream)
             << ' '
             << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << crc2
             << ' ';
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream << std::setfill(' ') << std::setw(4) << std::dec << pktLen;
         break;

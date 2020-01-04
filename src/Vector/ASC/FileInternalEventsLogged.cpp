@@ -30,13 +30,11 @@ namespace ASC {
 
 FileInternalEventsLogged::FileInternalEventsLogged() :
     Event(),
-    internalEventsLogged(true)
-{
+    internalEventsLogged(true) {
     eventType = EventType::FileInternalEventsLogged;
 }
 
-FileInternalEventsLogged * FileInternalEventsLogged::read(File & /*file*/, std::string & line)
-{
+FileInternalEventsLogged * FileInternalEventsLogged::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "(no )?internal events logged" REGEX_ENDL);
     std::smatch match;
     if (std::regex_search(line, match, regex)) {
@@ -48,8 +46,7 @@ FileInternalEventsLogged * FileInternalEventsLogged::read(File & /*file*/, std::
     return nullptr;
 }
 
-void FileInternalEventsLogged::write(File & /*file*/, std::ostream & stream)
-{
+void FileInternalEventsLogged::write(File & /*file*/, std::ostream & stream) {
     if (!internalEventsLogged)
         stream << "no ";
 

@@ -38,13 +38,11 @@ TpFlowControlFrame::TpFlowControlFrame() :
     destination(),
     fcType(TpDiagFcType::Cts),
     bs(0),
-    stMin(0)
-{
+    stMin(0) {
     eventType = EventType::TpFlowControlFrame;
 }
 
-TpFlowControlFrame * TpFlowControlFrame::read(File & /*file*/, std::string & line)
-{
+TpFlowControlFrame * TpFlowControlFrame::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_TPDiag_CANChannel REGEX_WS "OTP\\(" REGEX_TPDiag_connectionId "\\)"
                      REGEX_WS REGEX_TPDiag_type REGEX_WS REGEX_TPDiag_source "->" REGEX_TPDiag_destination ":"
                      REGEX_ws "FC." REGEX_TPDiag_FCType ":" REGEX_ws "BSmax:" REGEX_ws "0x" REGEX_TPDiag_BS ","
@@ -80,15 +78,14 @@ TpFlowControlFrame * TpFlowControlFrame::read(File & /*file*/, std::string & lin
     return nullptr;
 }
 
-void TpFlowControlFrame::write(File & /*file*/, std::ostream & stream)
-{
+void TpFlowControlFrame::write(File & /*file*/, std::ostream & stream) {
     stream << "// " << std::dec << (uint16_t) canChannel;
 
     /* format: "  OTP(" */
     stream << "  OTP(";
 
     stream << std::setfill('0') << std::setw(2) << std::hex << (uint16_t) connectionId << ") ";
-    switch(type) {
+    switch (type) {
     case TpDiagType::Info:
         stream << "Info";
         break;
@@ -107,7 +104,7 @@ void TpFlowControlFrame::write(File & /*file*/, std::ostream & stream)
     }
     stream << " " << source << "->" << destination << ": ";
 
-    switch(fcType) {
+    switch (fcType) {
     case TpDiagFcType::Cts:
         /* format: "FC.CTS:  " */
         stream << "FC.CTS:  ";

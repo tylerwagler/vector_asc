@@ -36,13 +36,11 @@ Gps::Gps() :
     longitude(0.0),
     altitude(0.0),
     speed(0.0),
-    course(0.0)
-{
+    course(0.0) {
     eventType = EventType::Gps;
 }
 
-Gps * Gps::read(File & /*file*/, std::string & line)
-{
+Gps * Gps::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "GPS-Device:" REGEX_ws "([[:digit:]]+)"
                      REGEX_WS "La:" REGEX_ws "([[:digit:].]+)"
                      REGEX_WS "Lo:" REGEX_ws "([[:digit:].]+)"
@@ -66,8 +64,7 @@ Gps * Gps::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void Gps::write(File & file, std::ostream & stream)
-{
+void Gps::write(File & file, std::ostream & stream) {
     /* format: "%f GPS-Device: %d    La: %lf    Lo: %lf    Alt: %lf    Sp: %lf    Co: %lf" */
     writeTime(file, stream, time);
     stream

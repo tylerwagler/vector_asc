@@ -36,9 +36,8 @@ namespace ASC {
  *
  * A CAN Error Frame received on a CAN channel.
  */
-class VECTOR_ASC_EXPORT CanErrorFrame final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT CanErrorFrame final : public Event {
+  public:
     CanErrorFrame();
 
     /** @copydoc Time */

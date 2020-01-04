@@ -12,8 +12,7 @@
 #include <Vector/ASC.h>
 
 /* File */
-BOOST_AUTO_TEST_CASE(FileDate)
-{
+BOOST_AUTO_TEST_CASE(FileDate) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/FileDate.asc");
     BOOST_REQUIRE(file.is_open());
@@ -55,8 +54,7 @@ BOOST_AUTO_TEST_CASE(FileDate)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(FileBaseTimestamps)
-{
+BOOST_AUTO_TEST_CASE(FileBaseTimestamps) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/FileBaseTimestamps.asc");
     BOOST_REQUIRE(file.is_open());
@@ -78,8 +76,7 @@ BOOST_AUTO_TEST_CASE(FileBaseTimestamps)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(FileInternalEventsLogged)
-{
+BOOST_AUTO_TEST_CASE(FileInternalEventsLogged) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/FileInternalEventsLogged.asc");
     BOOST_REQUIRE(file.is_open());
@@ -107,8 +104,7 @@ BOOST_AUTO_TEST_CASE(FileInternalEventsLogged)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(FileVersion)
-{
+BOOST_AUTO_TEST_CASE(FileVersion) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/FileVersion.asc");
     BOOST_REQUIRE(file.is_open());
@@ -131,8 +127,7 @@ BOOST_AUTO_TEST_CASE(FileVersion)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(FileSplitInformation)
-{
+BOOST_AUTO_TEST_CASE(FileSplitInformation) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/FileSplitInformation.asc");
     BOOST_REQUIRE(file.is_open());
@@ -154,8 +149,7 @@ BOOST_AUTO_TEST_CASE(FileSplitInformation)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(FileComment)
-{
+BOOST_AUTO_TEST_CASE(FileComment) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/FileComment.asc");
     BOOST_REQUIRE(file.is_open());
@@ -177,8 +171,7 @@ BOOST_AUTO_TEST_CASE(FileComment)
 }
 
 /* CAN Events */
-BOOST_AUTO_TEST_CASE(CanMessage)
-{
+BOOST_AUTO_TEST_CASE(CanMessage) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/CanMessage.asc");
     BOOST_REQUIRE(file.is_open());
@@ -281,8 +274,7 @@ BOOST_AUTO_TEST_CASE(CanMessage)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(CanExtendedMessage)
-{
+BOOST_AUTO_TEST_CASE(CanExtendedMessage) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/CanExtendedMessage.asc");
     BOOST_REQUIRE(file.is_open());
@@ -358,8 +350,7 @@ BOOST_AUTO_TEST_CASE(CanExtendedMessage)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(CanRemoteFrame)
-{
+BOOST_AUTO_TEST_CASE(CanRemoteFrame) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/CanRemoteFrame.asc");
     BOOST_REQUIRE(file.is_open());
@@ -387,8 +378,7 @@ BOOST_AUTO_TEST_CASE(CanRemoteFrame)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(CanErrorFrame)
-{
+BOOST_AUTO_TEST_CASE(CanErrorFrame) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/CanErrorFrame.asc");
     BOOST_REQUIRE(file.is_open());
@@ -436,8 +426,7 @@ BOOST_AUTO_TEST_CASE(CanErrorFrame)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(CanBusStatistics)
-{
+BOOST_AUTO_TEST_CASE(CanBusStatistics) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/CanBusStatistics.asc");
     BOOST_REQUIRE(file.is_open());
@@ -466,8 +455,7 @@ BOOST_AUTO_TEST_CASE(CanBusStatistics)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(CanError)
-{
+BOOST_AUTO_TEST_CASE(CanError) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/CanError.asc");
     BOOST_REQUIRE(file.is_open());
@@ -503,8 +491,7 @@ BOOST_AUTO_TEST_CASE(CanError)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(CanOverloadFrame)
-{
+BOOST_AUTO_TEST_CASE(CanOverloadFrame) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/CanOverloadFrame.asc");
     BOOST_REQUIRE(file.is_open());
@@ -527,8 +514,7 @@ BOOST_AUTO_TEST_CASE(CanOverloadFrame)
 }
 
 /* CAN FD Events */
-BOOST_AUTO_TEST_CASE(CanFdMessage)
-{
+BOOST_AUTO_TEST_CASE(CanFdMessage) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/CanFdMessage.asc");
     BOOST_REQUIRE(file.is_open());
@@ -584,8 +570,7 @@ BOOST_AUTO_TEST_CASE(CanFdMessage)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(CanFdExtendedMessage)
-{
+BOOST_AUTO_TEST_CASE(CanFdExtendedMessage) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/CanFdExtendedMessage.asc");
     BOOST_REQUIRE(file.is_open());
@@ -615,8 +600,8 @@ BOOST_AUTO_TEST_CASE(CanFdExtendedMessage)
     BOOST_CHECK_EQUAL(canFdExtendedMessage->dlc, 0xf);
     BOOST_CHECK_EQUAL(canFdExtendedMessage->dataLength, 64);
     BOOST_REQUIRE_EQUAL(canFdExtendedMessage->data.size(), 64);
-    for(int i = 0; i < 64; ++i)
-        BOOST_CHECK_EQUAL(canFdExtendedMessage->data[i], i+1);
+    for (int i = 0; i < 64; ++i)
+        BOOST_CHECK_EQUAL(canFdExtendedMessage->data[i], i + 1);
     BOOST_CHECK_EQUAL(canFdExtendedMessage->messageDuration, 1238000);
     BOOST_CHECK_EQUAL(canFdExtendedMessage->messageLength, 111);
     BOOST_CHECK_EQUAL(canFdExtendedMessage->flags, 101000);
@@ -631,8 +616,7 @@ BOOST_AUTO_TEST_CASE(CanFdExtendedMessage)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(CanFdErrorFrame)
-{
+BOOST_AUTO_TEST_CASE(CanFdErrorFrame) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/CanFdErrorFrame.asc");
     BOOST_REQUIRE(file.is_open());
@@ -667,7 +651,7 @@ BOOST_AUTO_TEST_CASE(CanFdErrorFrame)
     BOOST_CHECK_EQUAL(canFdErrorFrame->dlc, 0xf);
     BOOST_CHECK_EQUAL(canFdErrorFrame->dataLength, 64);
     BOOST_REQUIRE_EQUAL(canFdErrorFrame->data.size(), 64);
-    for(int i = 0; i < 64; ++i)
+    for (int i = 0; i < 64; ++i)
         BOOST_CHECK_EQUAL(canFdErrorFrame->data[i], 0xaa);
     BOOST_CHECK_EQUAL(canFdErrorFrame->messageDuration, 336484);
     BOOST_CHECK_EQUAL(canFdErrorFrame->flags2, 3);
@@ -686,8 +670,7 @@ BOOST_AUTO_TEST_CASE(CanFdErrorFrame)
 // @todo CanFdOverloadFrame
 
 /* Log and Trigger Events */
-BOOST_AUTO_TEST_CASE(LogTrigger)
-{
+BOOST_AUTO_TEST_CASE(LogTrigger) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LogTrigger.asc");
     BOOST_REQUIRE(file.is_open());
@@ -717,8 +700,7 @@ BOOST_AUTO_TEST_CASE(LogTrigger)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LogDirectStart)
-{
+BOOST_AUTO_TEST_CASE(LogDirectStart) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LogDirectStart.asc");
     BOOST_REQUIRE(file.is_open());
@@ -740,8 +722,7 @@ BOOST_AUTO_TEST_CASE(LogDirectStart)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LogDirectStop)
-{
+BOOST_AUTO_TEST_CASE(LogDirectStop) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LogDirectStop.asc");
     BOOST_REQUIRE(file.is_open());
@@ -763,8 +744,7 @@ BOOST_AUTO_TEST_CASE(LogDirectStop)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(BeginTriggerblock)
-{
+BOOST_AUTO_TEST_CASE(BeginTriggerblock) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/BeginTriggerblock.asc");
     BOOST_REQUIRE(file.is_open());
@@ -779,7 +759,7 @@ BOOST_AUTO_TEST_CASE(BeginTriggerblock)
     BOOST_CHECK_EQUAL(beginTriggerblock->date.tm_wday, 1);
     BOOST_CHECK_EQUAL(beginTriggerblock->date.tm_mon, 2);
     BOOST_CHECK_EQUAL(beginTriggerblock->date.tm_mday, 7);
-    BOOST_CHECK_EQUAL(beginTriggerblock->date.tm_hour, 1+12);
+    BOOST_CHECK_EQUAL(beginTriggerblock->date.tm_hour, 1 + 12);
     BOOST_CHECK_EQUAL(beginTriggerblock->date.tm_min, 21);
     BOOST_CHECK_EQUAL(beginTriggerblock->date.tm_sec, 51);
     BOOST_CHECK_EQUAL(beginTriggerblock->date.tm_year, (2005 - 1900));
@@ -791,8 +771,7 @@ BOOST_AUTO_TEST_CASE(BeginTriggerblock)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(EndTriggerblock)
-{
+BOOST_AUTO_TEST_CASE(EndTriggerblock) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/EndTriggerblock.asc");
     BOOST_REQUIRE(file.is_open());
@@ -813,8 +792,7 @@ BOOST_AUTO_TEST_CASE(EndTriggerblock)
 }
 
 /* Environment Variables */
-BOOST_AUTO_TEST_CASE(EnvironmentVariables)
-{
+BOOST_AUTO_TEST_CASE(EnvironmentVariables) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/EnvironmentVariables.asc");
     BOOST_REQUIRE(file.is_open());
@@ -857,8 +835,7 @@ BOOST_AUTO_TEST_CASE(EnvironmentVariables)
 }
 
 /* System Variables */
-BOOST_AUTO_TEST_CASE(SystemVariables)
-{
+BOOST_AUTO_TEST_CASE(SystemVariables) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/SystemVariables.asc");
     BOOST_REQUIRE(file.is_open());
@@ -923,8 +900,7 @@ BOOST_AUTO_TEST_CASE(SystemVariables)
 }
 
 /* Macros Signal Event */
-BOOST_AUTO_TEST_CASE(MacroSignal)
-{
+BOOST_AUTO_TEST_CASE(MacroSignal) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MacroSignal.asc");
     BOOST_REQUIRE(file.is_open());
@@ -991,8 +967,7 @@ BOOST_AUTO_TEST_CASE(MacroSignal)
 }
 
 /* GPS events */
-BOOST_AUTO_TEST_CASE(Gps)
-{
+BOOST_AUTO_TEST_CASE(Gps) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/Gps.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1020,8 +995,7 @@ BOOST_AUTO_TEST_CASE(Gps)
 }
 
 /* Comment events */
-BOOST_AUTO_TEST_CASE(Comment)
-{
+BOOST_AUTO_TEST_CASE(Comment) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/Comment.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1045,8 +1019,7 @@ BOOST_AUTO_TEST_CASE(Comment)
 }
 
 /* Global market events */
-BOOST_AUTO_TEST_CASE(GlobalMarker)
-{
+BOOST_AUTO_TEST_CASE(GlobalMarker) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/GlobalMarker.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1075,8 +1048,7 @@ BOOST_AUTO_TEST_CASE(GlobalMarker)
 }
 
 /* Ethernet Events */
-BOOST_AUTO_TEST_CASE(EthernetPacket)
-{
+BOOST_AUTO_TEST_CASE(EthernetPacket) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/EthernetPacket.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1165,8 +1137,7 @@ BOOST_AUTO_TEST_CASE(EthernetPacket)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(EthernetStatus)
-{
+BOOST_AUTO_TEST_CASE(EthernetStatus) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/EthernetStatus.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1194,8 +1165,7 @@ BOOST_AUTO_TEST_CASE(EthernetStatus)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(EthernetRxError)
-{
+BOOST_AUTO_TEST_CASE(EthernetRxError) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/EthernetRxError.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1286,8 +1256,7 @@ BOOST_AUTO_TEST_CASE(EthernetRxError)
 }
 
 /* AFDX Events */
-BOOST_AUTO_TEST_CASE(AfdxPacket)
-{
+BOOST_AUTO_TEST_CASE(AfdxPacket) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/AfdxPacket.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1380,8 +1349,7 @@ BOOST_AUTO_TEST_CASE(AfdxPacket)
 }
 
 /* FlexRay Events (Old Format) */
-BOOST_AUTO_TEST_CASE(FlexRayOldMessage)
-{
+BOOST_AUTO_TEST_CASE(FlexRayOldMessage) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/FlexRayOldMessage.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1443,8 +1411,7 @@ BOOST_AUTO_TEST_CASE(FlexRayOldMessage)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(FlexRayOldStartCycle)
-{
+BOOST_AUTO_TEST_CASE(FlexRayOldStartCycle) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/FlexRayOldStartCycle.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1475,8 +1442,7 @@ BOOST_AUTO_TEST_CASE(FlexRayOldStartCycle)
 }
 
 /* FlexRay Events (New Format) */
-BOOST_AUTO_TEST_CASE(FlexRayMessage)
-{
+BOOST_AUTO_TEST_CASE(FlexRayMessage) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/FlexRayMessage.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1623,8 +1589,7 @@ BOOST_AUTO_TEST_CASE(FlexRayMessage)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(FlexRayStartCycle)
-{
+BOOST_AUTO_TEST_CASE(FlexRayStartCycle) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/FlexRayStartCycle.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1663,8 +1628,7 @@ BOOST_AUTO_TEST_CASE(FlexRayStartCycle)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(FlexRayStatus)
-{
+BOOST_AUTO_TEST_CASE(FlexRayStatus) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/FlexRayStatus.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1701,8 +1665,7 @@ BOOST_AUTO_TEST_CASE(FlexRayStatus)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(FlexRayError)
-{
+BOOST_AUTO_TEST_CASE(FlexRayError) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/FlexRayError.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1737,8 +1700,7 @@ BOOST_AUTO_TEST_CASE(FlexRayError)
 }
 
 /* K-Line Events */
-BOOST_AUTO_TEST_CASE(KLineByte)
-{
+BOOST_AUTO_TEST_CASE(KLineByte) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/KLineByte.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1775,8 +1737,7 @@ BOOST_AUTO_TEST_CASE(KLineByte)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(KLineMessage)
-{
+BOOST_AUTO_TEST_CASE(KLineMessage) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/KLineMessage.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1816,8 +1777,7 @@ BOOST_AUTO_TEST_CASE(KLineMessage)
 }
 
 /* LIN Events */
-BOOST_AUTO_TEST_CASE(LinMessage)
-{
+BOOST_AUTO_TEST_CASE(LinMessage) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinMessage.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1884,8 +1844,7 @@ BOOST_AUTO_TEST_CASE(LinMessage)
 }
 
 /* LIN Error Events */
-BOOST_AUTO_TEST_CASE(LinTransmissionError)
-{
+BOOST_AUTO_TEST_CASE(LinTransmissionError) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinTransmissionError.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1922,8 +1881,7 @@ BOOST_AUTO_TEST_CASE(LinTransmissionError)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinReceiveError)
-{
+BOOST_AUTO_TEST_CASE(LinReceiveError) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinReceiveError.asc");
     BOOST_REQUIRE(file.is_open());
@@ -1988,8 +1946,7 @@ BOOST_AUTO_TEST_CASE(LinReceiveError)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinSyncError)
-{
+BOOST_AUTO_TEST_CASE(LinSyncError) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinSyncError.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2023,8 +1980,7 @@ BOOST_AUTO_TEST_CASE(LinSyncError)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinChecksumError)
-{
+BOOST_AUTO_TEST_CASE(LinChecksumError) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinChecksumError.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2090,8 +2046,7 @@ BOOST_AUTO_TEST_CASE(LinChecksumError)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinSpike)
-{
+BOOST_AUTO_TEST_CASE(LinSpike) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinSpike.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2121,8 +2076,7 @@ BOOST_AUTO_TEST_CASE(LinSpike)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinDominantSignal)
-{
+BOOST_AUTO_TEST_CASE(LinDominantSignal) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinDominantSignal.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2165,8 +2119,7 @@ BOOST_AUTO_TEST_CASE(LinDominantSignal)
 }
 
 /* LIN Info Events */
-BOOST_AUTO_TEST_CASE(LinBaudrate)
-{
+BOOST_AUTO_TEST_CASE(LinBaudrate) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinBaudrate.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2189,8 +2142,7 @@ BOOST_AUTO_TEST_CASE(LinBaudrate)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinDlcInfo)
-{
+BOOST_AUTO_TEST_CASE(LinDlcInfo) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinDlcInfo.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2214,8 +2166,7 @@ BOOST_AUTO_TEST_CASE(LinDlcInfo)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinChecksumInfo)
-{
+BOOST_AUTO_TEST_CASE(LinChecksumInfo) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinChecksumInfo.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2239,8 +2190,7 @@ BOOST_AUTO_TEST_CASE(LinChecksumInfo)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinSchedulerModeChange)
-{
+BOOST_AUTO_TEST_CASE(LinSchedulerModeChange) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinSchedulerModeChange.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2264,8 +2214,7 @@ BOOST_AUTO_TEST_CASE(LinSchedulerModeChange)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinSlaveTimeout)
-{
+BOOST_AUTO_TEST_CASE(LinSlaveTimeout) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinSlaveTimeout.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2291,8 +2240,7 @@ BOOST_AUTO_TEST_CASE(LinSlaveTimeout)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinEventTriggeredFrameInfo)
-{
+BOOST_AUTO_TEST_CASE(LinEventTriggeredFrameInfo) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinEventTriggeredFrameInfo.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2321,8 +2269,7 @@ BOOST_AUTO_TEST_CASE(LinEventTriggeredFrameInfo)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinStatisticInfo)
-{
+BOOST_AUTO_TEST_CASE(LinStatisticInfo) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinStatisticInfo.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2355,8 +2302,7 @@ BOOST_AUTO_TEST_CASE(LinStatisticInfo)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinShortOrSlowResponse)
-{
+BOOST_AUTO_TEST_CASE(LinShortOrSlowResponse) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinShortOrSlowResponse.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2418,8 +2364,7 @@ BOOST_AUTO_TEST_CASE(LinShortOrSlowResponse)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinDisturbance)
-{
+BOOST_AUTO_TEST_CASE(LinDisturbance) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinDisturbance.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2457,8 +2402,7 @@ BOOST_AUTO_TEST_CASE(LinDisturbance)
 }
 
 /* LIN Sleep/Wakeup Events */
-BOOST_AUTO_TEST_CASE(LinSleepMode)
-{
+BOOST_AUTO_TEST_CASE(LinSleepMode) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinSleepMode.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2482,8 +2426,7 @@ BOOST_AUTO_TEST_CASE(LinSleepMode)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinWakeupFrame)
-{
+BOOST_AUTO_TEST_CASE(LinWakeupFrame) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinWakeupFrame.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2518,8 +2461,7 @@ BOOST_AUTO_TEST_CASE(LinWakeupFrame)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(LinUnexpectedWakeup)
-{
+BOOST_AUTO_TEST_CASE(LinUnexpectedWakeup) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/LinUnexpectedWakeup.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2549,8 +2491,7 @@ BOOST_AUTO_TEST_CASE(LinUnexpectedWakeup)
 }
 
 /* MOST Events */
-BOOST_AUTO_TEST_CASE(Most25ControlMessageNodeMode)
-{
+BOOST_AUTO_TEST_CASE(Most25ControlMessageNodeMode) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/Most25ControlMessageNodeMode.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2599,8 +2540,7 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageNodeMode)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(Most25ControlMessageSpyMode)
-{
+BOOST_AUTO_TEST_CASE(Most25ControlMessageSpyMode) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/Most25ControlMessageSpyMode.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2650,8 +2590,7 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageSpyMode)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(Most25Packet)
-{
+BOOST_AUTO_TEST_CASE(Most25Packet) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/Most25Packet.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2697,8 +2636,7 @@ BOOST_AUTO_TEST_CASE(Most25Packet)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostLightLock)
-{
+BOOST_AUTO_TEST_CASE(MostLightLock) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostLightLock.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2721,8 +2659,7 @@ BOOST_AUTO_TEST_CASE(MostLightLock)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostSpecialRegister)
-{
+BOOST_AUTO_TEST_CASE(MostSpecialRegister) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostSpecialRegister.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2747,8 +2684,7 @@ BOOST_AUTO_TEST_CASE(MostSpecialRegister)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostCommonRegister)
-{
+BOOST_AUTO_TEST_CASE(MostCommonRegister) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostCommonRegister.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2791,8 +2727,7 @@ BOOST_AUTO_TEST_CASE(MostCommonRegister)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostHwMode)
-{
+BOOST_AUTO_TEST_CASE(MostHwMode) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostHwMode.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2816,8 +2751,7 @@ BOOST_AUTO_TEST_CASE(MostHwMode)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostNetState)
-{
+BOOST_AUTO_TEST_CASE(MostNetState) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostNetState.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2841,8 +2775,7 @@ BOOST_AUTO_TEST_CASE(MostNetState)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostDataLost)
-{
+BOOST_AUTO_TEST_CASE(MostDataLost) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostDataLost.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2873,8 +2806,7 @@ BOOST_AUTO_TEST_CASE(MostDataLost)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostTrigger)
-{
+BOOST_AUTO_TEST_CASE(MostTrigger) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostTrigger.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2900,8 +2832,7 @@ BOOST_AUTO_TEST_CASE(MostTrigger)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostStatistic)
-{
+BOOST_AUTO_TEST_CASE(MostStatistic) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostStatistic.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2927,8 +2858,7 @@ BOOST_AUTO_TEST_CASE(MostStatistic)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostStatisticExtended)
-{
+BOOST_AUTO_TEST_CASE(MostStatisticExtended) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostStatisticExtended.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2952,8 +2882,7 @@ BOOST_AUTO_TEST_CASE(MostStatisticExtended)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostTxLight)
-{
+BOOST_AUTO_TEST_CASE(MostTxLight) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostTxLight.asc");
     BOOST_REQUIRE(file.is_open());
@@ -2976,8 +2905,7 @@ BOOST_AUTO_TEST_CASE(MostTxLight)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostStress)
-{
+BOOST_AUTO_TEST_CASE(MostStress) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostStress.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3001,8 +2929,7 @@ BOOST_AUTO_TEST_CASE(MostStress)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(Most25AllocTable)
-{
+BOOST_AUTO_TEST_CASE(Most25AllocTable) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/Most25AllocTable.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3086,8 +3013,7 @@ BOOST_AUTO_TEST_CASE(Most25AllocTable)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(Most150ControlMessage)
-{
+BOOST_AUTO_TEST_CASE(Most150ControlMessage) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/Most150ControlMessage.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3135,8 +3061,7 @@ BOOST_AUTO_TEST_CASE(Most150ControlMessage)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(Most150ControlMessageFragment)
-{
+BOOST_AUTO_TEST_CASE(Most150ControlMessageFragment) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/Most150ControlMessageFragment.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3182,8 +3107,7 @@ BOOST_AUTO_TEST_CASE(Most150ControlMessageFragment)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(Most150Packet)
-{
+BOOST_AUTO_TEST_CASE(Most150Packet) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/Most150Packet.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3231,8 +3155,7 @@ BOOST_AUTO_TEST_CASE(Most150Packet)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(Most150PacketFragment)
-{
+BOOST_AUTO_TEST_CASE(Most150PacketFragment) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/Most150PacketFragment.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3278,8 +3201,7 @@ BOOST_AUTO_TEST_CASE(Most150PacketFragment)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostEthernetPacket)
-{
+BOOST_AUTO_TEST_CASE(MostEthernetPacket) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostEthernetPacket.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3325,8 +3247,7 @@ BOOST_AUTO_TEST_CASE(MostEthernetPacket)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostEthernetPacketFragment)
-{
+BOOST_AUTO_TEST_CASE(MostEthernetPacketFragment) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostEthernetPacketFragment.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3370,8 +3291,7 @@ BOOST_AUTO_TEST_CASE(MostEthernetPacketFragment)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostSystem)
-{
+BOOST_AUTO_TEST_CASE(MostSystem) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostSystem.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3396,8 +3316,7 @@ BOOST_AUTO_TEST_CASE(MostSystem)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(Most150AllocTable)
-{
+BOOST_AUTO_TEST_CASE(Most150AllocTable) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/Most150AllocTable.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3443,8 +3362,7 @@ BOOST_AUTO_TEST_CASE(Most150AllocTable)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(Most50ControlMessage)
-{
+BOOST_AUTO_TEST_CASE(Most50ControlMessage) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/Most50ControlMessage.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3493,8 +3411,7 @@ BOOST_AUTO_TEST_CASE(Most50ControlMessage)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(Most50Packet)
-{
+BOOST_AUTO_TEST_CASE(Most50Packet) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/Most50Packet.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3542,8 +3459,7 @@ BOOST_AUTO_TEST_CASE(Most50Packet)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(MostEcl)
-{
+BOOST_AUTO_TEST_CASE(MostEcl) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/MostEcl.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3567,8 +3483,7 @@ BOOST_AUTO_TEST_CASE(MostEcl)
 }
 
 /* TP/Diagnostics Events */
-BOOST_AUTO_TEST_CASE(TpSingleFrame)
-{
+BOOST_AUTO_TEST_CASE(TpSingleFrame) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpSingleFrame.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3597,8 +3512,7 @@ BOOST_AUTO_TEST_CASE(TpSingleFrame)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(TpDiagFirstFrame)
-{
+BOOST_AUTO_TEST_CASE(TpDiagFirstFrame) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpFirstFrame.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3631,8 +3545,7 @@ BOOST_AUTO_TEST_CASE(TpDiagFirstFrame)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(TpConsecutiveFrame)
-{
+BOOST_AUTO_TEST_CASE(TpConsecutiveFrame) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpConsecutiveFrame.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3666,8 +3579,7 @@ BOOST_AUTO_TEST_CASE(TpConsecutiveFrame)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(TpFlowControlFrame)
-{
+BOOST_AUTO_TEST_CASE(TpFlowControlFrame) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/TpFlowControlFrame.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3695,8 +3607,7 @@ BOOST_AUTO_TEST_CASE(TpFlowControlFrame)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(DiagRequest)
-{
+BOOST_AUTO_TEST_CASE(DiagRequest) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/DiagRequest.asc");
     BOOST_REQUIRE(file.is_open());
@@ -3773,8 +3684,7 @@ BOOST_AUTO_TEST_CASE(DiagRequest)
     file.close();
 }
 
-BOOST_AUTO_TEST_CASE(StartOfMeasurement)
-{
+BOOST_AUTO_TEST_CASE(StartOfMeasurement) {
     Vector::ASC::File file;
     file.open(CMAKE_CURRENT_SOURCE_DIR "/events/StartOfMeasurement.asc");
     BOOST_REQUIRE(file.is_open());

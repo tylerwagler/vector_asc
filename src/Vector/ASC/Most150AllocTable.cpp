@@ -37,13 +37,11 @@ Most150AllocTable::Most150AllocTable() :
     at150EventModeFlags(0),
     freeBytes(0),
     at150Size(0),
-    wordData()
-{
+    wordData() {
     eventType = EventType::Most150AllocTable;
 }
 
-Most150AllocTable * Most150AllocTable::read(File & /*file*/, std::string & line)
-{
+Most150AllocTable * Most150AllocTable::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "AT150:"
                      REGEX_ws REGEX_MOST_AT150EventModeFlags REGEX_WS REGEX_MOST_FreeBytes REGEX_WS REGEX_MOST_AT150Size
                      "((" REGEX_WS REGEX_MOST_Wx ")*)" REGEX_ENDL);
@@ -57,7 +55,7 @@ Most150AllocTable * Most150AllocTable::read(File & /*file*/, std::string & line)
         most150AllocTable->at150Size = std::stoul(match[5], nullptr, 16);
         std::istringstream iss(match[6]);
         iss >> std::hex;
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             most150AllocTable->wordData.push_back(s);
@@ -68,8 +66,7 @@ Most150AllocTable * Most150AllocTable::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void Most150AllocTable::write(File & file, std::ostream & stream)
-{
+void Most150AllocTable::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
 

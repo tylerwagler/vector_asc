@@ -39,13 +39,11 @@ CanBusStatistics::CanBusStatistics() :
     extendedRemoteFrames(0),
     errorFrames(0),
     overloadFrames(0),
-    busload(0.0)
-{
+    busload(0.0) {
     eventType = EventType::CanBusStatistics;
 }
 
-CanBusStatistics * CanBusStatistics::read(File & /*file*/, std::string & line)
-{
+CanBusStatistics * CanBusStatistics::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS "Statistic:"
                      REGEX_WS "D" REGEX_WS REGEX_StatNumber
                      REGEX_WS "R" REGEX_WS REGEX_StatNumber
@@ -73,8 +71,7 @@ CanBusStatistics * CanBusStatistics::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void CanBusStatistics::write(File & file, std::ostream & stream)
-{
+void CanBusStatistics::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << ' ' << std::dec << (uint16_t) channel << "  ";
 

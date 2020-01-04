@@ -35,13 +35,11 @@ DiagRequest::DiagRequest() :
     time(0.0),
     ecuQualifier(),
     command(Command::ByteSequence),
-    byteSequence()
-{
+    byteSequence() {
     eventType = EventType::DiagRequest;
 }
 
-DiagRequest * DiagRequest::read(File & /*file*/, std::string & line)
-{
+DiagRequest * DiagRequest::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_TPDiag_timestamp REGEX_WS "DiagRequest" REGEX_ws
                      "\\[" REGEX_TPDiag_ECUQualifier "\\]" REGEX_ws "(Close|Open|TPon|TPoff|" REGEX_TPDiag_byteSequence ")" REGEX_ENDL);
     std::smatch match;
@@ -57,12 +55,11 @@ DiagRequest * DiagRequest::read(File & /*file*/, std::string & line)
             diagRequest->command = Command::TpOn;
         else if (match[3] == "TPoff")
             diagRequest->command = Command::TpOff;
-        else
-        {
+        else {
             diagRequest->command = Command::ByteSequence;
             std::istringstream iss(match[3]);
             iss >> std::hex;
-            while(!iss.eof()) {
+            while (!iss.eof()) {
                 unsigned short s;
                 iss >> s;
                 diagRequest->byteSequence.push_back(s);
@@ -74,14 +71,13 @@ DiagRequest * DiagRequest::read(File & /*file*/, std::string & line)
     return nullptr;
 }
 
-void DiagRequest::write(File & file, std::ostream & stream)
-{
+void DiagRequest::write(File & file, std::ostream & stream) {
     writeTpDiagTime(file, stream, time);
 
     /* format: "DiagRequest[%s]" */
     stream << " DiagRequest[" << ecuQualifier << "]";
 
-    switch(command) {
+    switch (command) {
     case Command::Close:
         /** format: " Close" */
         stream << " Close";
@@ -100,7 +96,7 @@ void DiagRequest::write(File & file, std::ostream & stream)
         break;
     case Command::ByteSequence:
         /* format: " %02X" */
-        for(TpDiagByteSequence b: byteSequence)
+        for (TpDiagByteSequence b : byteSequence)
             stream << ' ' << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) b;
     }
 

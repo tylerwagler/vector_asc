@@ -39,13 +39,11 @@ Most25ControlMessageNodeMode::Most25ControlMessageNodeMode() :
     destAdr(0),
     rType(0),
     data(),
-    state2(0)
-{
+    state2(0) {
     eventType = EventType::Most25ControlMessageNodeMode;
 }
 
-Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::read(File & file, std::string & line)
-{
+Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS REGEX_MOST_Dir
                      REGEX_WS REGEX_MOST_SourceAdr REGEX_WS REGEX_MOST_DestAdr REGEX_WS REGEX_MOST_RType
                      "((" REGEX_WS REGEX_MOST_Dx"){17})"
@@ -63,7 +61,7 @@ Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::read(File & file, s
         most25ControlMessageNodeMode->destAdr = std::stoul(match[5], nullptr, file.base);
         most25ControlMessageNodeMode->rType = std::stoul(match[6], nullptr, file.base);
         std::istringstream iss(match[7]);
-        switch(file.base) {
+        switch (file.base) {
         case 10:
             iss >> std::dec;
             break;
@@ -71,7 +69,7 @@ Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::read(File & file, s
             iss >> std::hex;
             break;
         }
-        while(!iss.eof()) {
+        while (!iss.eof()) {
             unsigned short s;
             iss >> s;
             most25ControlMessageNodeMode->data.push_back(s);
@@ -83,8 +81,7 @@ Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::read(File & file, s
     return nullptr;
 }
 
-void Most25ControlMessageNodeMode::write(File & file, std::ostream & stream)
-{
+void Most25ControlMessageNodeMode::write(File & file, std::ostream & stream) {
     writeMostTime(file, stream, time);
     writeMostChannel(file, stream, channel);
     writeMostDir(file, stream, dir);

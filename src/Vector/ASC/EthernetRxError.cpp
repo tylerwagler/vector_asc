@@ -36,13 +36,11 @@ EthernetRxError::EthernetRxError() :
     errorCode(0),
     frameChecksum(0),
     dataLen(0),
-    data()
-{
+    data() {
     eventType = EventType::EthernetRxError;
 }
 
-EthernetRxError * EthernetRxError::read(File & file, std::string & line)
-{
+EthernetRxError * EthernetRxError::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Eth_Time REGEX_WS "ETH" REGEX_WS REGEX_Eth_Channel REGEX_WS "RxEr"
                      REGEX_WS REGEX_Eth_ErrorCode REGEX_WS REGEX_Eth_FrameChecksum
                      REGEX_WS REGEX_Eth_DataLen ":" REGEX_Eth_Data REGEX_ENDL);
@@ -54,9 +52,9 @@ EthernetRxError * EthernetRxError::read(File & file, std::string & line)
         ethernetRxError->errorCode = std::stoul(match[3], nullptr, file.base);
         ethernetRxError->frameChecksum = std::stoul(match[4], nullptr, 16);
         ethernetRxError->dataLen = std::stoul(match[5], nullptr, file.base);
-        for(int i = 0; i < match[6].length()/2; ++i) {
+        for (int i = 0; i < match[6].length() / 2; ++i) {
             std::string s;
-            s.append(match[6], 2*i, 2);
+            s.append(match[6], 2 * i, 2);
             ethernetRxError->data.push_back(std::stoul(s, nullptr, 16));
         }
         return ethernetRxError;
@@ -65,8 +63,7 @@ EthernetRxError * EthernetRxError::read(File & file, std::string & line)
     return nullptr;
 }
 
-void EthernetRxError::write(File & file, std::ostream & stream)
-{
+void EthernetRxError::write(File & file, std::ostream & stream) {
     writeEthTime(file, stream, time);
     stream << ' ';
 
@@ -80,7 +77,7 @@ void EthernetRxError::write(File & file, std::ostream & stream)
             << ' '
             << std::setfill('0') << std::setw(8) << std::hex << frameChecksum;
 
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream << ' ' << std::setfill(' ') << std::setw(4) << std::dec << dataLen << ':';
         break;
@@ -88,7 +85,7 @@ void EthernetRxError::write(File & file, std::ostream & stream)
         stream << ' ' << std::setfill(' ') << std::setw(3) << std::hex << dataLen << ':';
         break;
     }
-    for(EthData d: data)
+    for (EthData d : data)
         stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) d;
 
     stream << endl;

@@ -38,9 +38,8 @@ namespace ASC {
  *
  * Message on MOST50 Packet Data Channel.
  */
-class VECTOR_ASC_EXPORT Most50Packet final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT Most50Packet final : public Event {
+  public:
     Most50Packet();
 
     /** @copydoc MostTime */

@@ -33,9 +33,8 @@ namespace Vector {
 namespace ASC {
 
 /** File Version */
-class VECTOR_ASC_EXPORT FileVersion final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT FileVersion final : public Event {
+  public:
     FileVersion();
 
     /** major version number */

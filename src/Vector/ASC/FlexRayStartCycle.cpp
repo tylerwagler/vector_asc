@@ -42,13 +42,11 @@ FlexRayStartCycle::FlexRayStartCycle() :
     ccType(0),
     ccData(),
     nmVectL(0),
-    nmVect()
-{
+    nmVect() {
     eventType = EventType::FlexRayStartCycle;
 }
 
-FlexRayStartCycle * FlexRayStartCycle::read(File & file, std::string & line)
-{
+FlexRayStartCycle * FlexRayStartCycle::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_FlexRay_Time REGEX_WS "Fr" REGEX_WS "SCE"
                      REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)" REGEX_WS "([[:digit:]]+)"
                      REGEX_WS "([[:xdigit:]]+)" REGEX_WS REGEX_FlexRay_Dir
@@ -80,7 +78,7 @@ FlexRayStartCycle * FlexRayStartCycle::read(File & file, std::string & line)
         flexRayStartCycle->nmVectL = std::stoul(match[14], nullptr, file.base);
         if (match[15] != "") {
             std::istringstream iss(match[15]);
-            switch(file.base) {
+            switch (file.base) {
             case 10:
                 iss >> std::dec;
                 break;
@@ -88,7 +86,7 @@ FlexRayStartCycle * FlexRayStartCycle::read(File & file, std::string & line)
                 iss >> std::hex;
                 break;
             }
-            while(!iss.eof()) {
+            while (!iss.eof()) {
                 unsigned short s;
                 iss >> s;
                 flexRayStartCycle->nmVect.push_back(s);
@@ -100,8 +98,7 @@ FlexRayStartCycle * FlexRayStartCycle::read(File & file, std::string & line)
     return nullptr;
 }
 
-void FlexRayStartCycle::write(File & file, std::ostream & stream)
-{
+void FlexRayStartCycle::write(File & file, std::ostream & stream) {
     writeTime(file, stream, time);
     stream << " Fr ";
 
@@ -115,7 +112,7 @@ void FlexRayStartCycle::write(File & file, std::ostream & stream)
             << ' ' << channelNr
             << ' ' << channelMask;
 
-    switch(file.base) {
+    switch (file.base) {
     case 10:
         stream
                 << ' ' << std::dec << cycleNo

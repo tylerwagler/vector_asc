@@ -37,9 +37,8 @@ namespace ASC {
  * A Log Trigger event. There can be additional information appended at the end of the line, e.g. "
  * (this trigger was in post trigger time of last block)" or "(ignored)".
  */
-class VECTOR_ASC_EXPORT LogTrigger final : public Event
-{
-public:
+class VECTOR_ASC_EXPORT LogTrigger final : public Event {
+  public:
     LogTrigger();
 
     /** @copydoc Time */
