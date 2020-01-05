@@ -34,7 +34,7 @@ MostSystem * MostSystem::read(File & /*file*/, std::string & line) {
                      REGEX_ws REGEX_MOST_SysID REGEX_WS REGEX_MOST_SysValue REGEX_WS REGEX_MOST_SysValueOld REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostSystem * mostSystem = new MostSystem;
+        auto * mostSystem = new MostSystem;
         mostSystem->time = std::stod(match[1]);
         mostSystem->channel = std::stoul(match[2]);
         switch (std::stoul(match[3])) {

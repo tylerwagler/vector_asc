@@ -39,7 +39,7 @@ Most150ControlMessage * Most150ControlMessage::read(File & /*file*/, std::string
                      REGEX_WS REGEX_MOST_Msg150Len "((" REGEX_WS REGEX_MOST_Dx ")+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        Most150ControlMessage * most150ControlMessage = new Most150ControlMessage;
+        auto * most150ControlMessage = new Most150ControlMessage;
         most150ControlMessage->time = std::stod(match[1]);
         most150ControlMessage->channel = std::stoul(match[2]);
         if (match[3] == "Rx")

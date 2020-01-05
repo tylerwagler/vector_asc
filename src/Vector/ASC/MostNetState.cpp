@@ -34,7 +34,7 @@ MostNetState * MostNetState::read(File & /*file*/, std::string & line) {
                      REGEX_ws REGEX_MOST_NetStateOld REGEX_WS REGEX_MOST_NetStateNew REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostNetState * mostNetState = new MostNetState;
+        auto * mostNetState = new MostNetState;
         mostNetState->time = std::stod(match[1]);
         mostNetState->channel = std::stoul(match[2]);
         mostNetState->netStateOld = std::stoul(match[3]);

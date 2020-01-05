@@ -36,7 +36,7 @@ KLineByte * KLineByte::read(File & file, std::string & line) {
                      "((" REGEX_WS REGEX_KLine_data ")*)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        KLineByte * kLineByte = new KLineByte;
+        auto * kLineByte = new KLineByte;
         kLineByte->time = std::stod(match[1]);
         kLineByte->port = match[2];
         if (match[4] == "Rx")

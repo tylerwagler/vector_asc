@@ -37,7 +37,7 @@ TpConsecutiveFrame * TpConsecutiveFrame::read(File & /*file*/, std::string & lin
                      "\\[" REGEX_TPDiag_transportedBytes REGEX_WS "\\]" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        TpConsecutiveFrame * tpConsecutiveFrame = new TpConsecutiveFrame;
+        auto * tpConsecutiveFrame = new TpConsecutiveFrame;
         tpConsecutiveFrame->canChannel = std::stoul(match[1]);
         tpConsecutiveFrame->connectionId = std::stoul(match[2], nullptr, 16);
         if (match[3] == "Info")

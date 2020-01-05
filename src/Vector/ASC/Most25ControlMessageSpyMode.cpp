@@ -37,7 +37,7 @@ Most25ControlMessageSpyMode * Most25ControlMessageSpyMode::read(File & file, std
                      REGEX_WS REGEX_MOST_State REGEX_WS REGEX_MOST_AckNack REGEX_WS REGEX_MOST_CRC REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        Most25ControlMessageSpyMode * most25ControlMessageSpyMode = new Most25ControlMessageSpyMode;
+        auto * most25ControlMessageSpyMode = new Most25ControlMessageSpyMode;
         most25ControlMessageSpyMode->time = std::stod(match[1]);
         most25ControlMessageSpyMode->channel = std::stoul(match[2]);
         most25ControlMessageSpyMode->sourceAdr = std::stoul(match[3], nullptr, file.base);

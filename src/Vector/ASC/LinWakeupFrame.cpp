@@ -37,7 +37,7 @@ LinWakeupFrame * LinWakeupFrame::read(File & file, std::string & line) {
                      REGEX_WS "LengthCode" REGEX_ws "=" REGEX_ws REGEX_LIN_WakeupLengthInfo ")?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinWakeupFrame * linWakeupFrame = new LinWakeupFrame;
+        auto * linWakeupFrame = new LinWakeupFrame;
         linWakeupFrame->time = std::stod(match[1]);
         linWakeupFrame->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         if (match[3] == "Rx")

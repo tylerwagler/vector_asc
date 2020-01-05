@@ -32,7 +32,7 @@ CanOverloadFrame * CanOverloadFrame::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS "OverloadFrame" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        CanOverloadFrame * canOverloadFrame = new CanOverloadFrame;
+        auto * canOverloadFrame = new CanOverloadFrame;
         canOverloadFrame->time = std::stod(match[1]);
         canOverloadFrame->channel = std::stoul(match[2]);
         return canOverloadFrame;

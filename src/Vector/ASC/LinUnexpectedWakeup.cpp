@@ -37,7 +37,7 @@ LinUnexpectedWakeup * LinUnexpectedWakeup::read(File & /*file*/, std::string & l
                      REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinUnexpectedWakeup * linUnexpectedWakeup = new LinUnexpectedWakeup;
+        auto * linUnexpectedWakeup = new LinUnexpectedWakeup;
         linUnexpectedWakeup->time = std::stod(match[1]);
         linUnexpectedWakeup->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         if (match[3] != "") {

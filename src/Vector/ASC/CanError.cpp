@@ -32,7 +32,7 @@ CanError * CanError::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "CAN" REGEX_WS  REGEX_Channel REGEX_WS "Status:" REGEX_ws REGEX_Error REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        CanError * canError = new CanError;
+        auto * canError = new CanError;
         canError->time = std::stod(match[1]);
         canError->channel = std::stoul(match[2]);
         std::string errorStr = match[3];

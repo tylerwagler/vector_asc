@@ -40,7 +40,7 @@ Most150PacketFragment * Most150PacketFragment::read(File & /*file*/, std::string
                      REGEX_WS REGEX_MOST_FirstDataLen "((" REGEX_WS REGEX_MOST_Dx ")+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        Most150PacketFragment * most150PacketFragment = new Most150PacketFragment;
+        auto * most150PacketFragment = new Most150PacketFragment;
         most150PacketFragment->time = std::stod(match[1]);
         most150PacketFragment->channel = std::stoul(match[2]);
         most150PacketFragment->frgMask = std::stoul(match[3], nullptr, 16);

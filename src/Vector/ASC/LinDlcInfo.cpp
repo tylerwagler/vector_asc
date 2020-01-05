@@ -34,7 +34,7 @@ LinDlcInfo * LinDlcInfo::read(File & /*file*/, std::string & line) {
                      REGEX_WS REGEX_LIN_DLC REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinDlcInfo * linDlcInfo = new LinDlcInfo;
+        auto * linDlcInfo = new LinDlcInfo;
         linDlcInfo->time = std::stod(match[1]);
         linDlcInfo->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linDlcInfo->id = match[3];

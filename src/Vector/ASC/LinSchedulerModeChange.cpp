@@ -34,7 +34,7 @@ LinSchedulerModeChange * LinSchedulerModeChange::read(File & /*file*/, std::stri
                      REGEX_ws "next scheduler mode" REGEX_ws "=" REGEX_ws REGEX_LIN_scheduleTableIndex REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinSchedulerModeChange * linSchedulerModeChange = new LinSchedulerModeChange;
+        auto * linSchedulerModeChange = new LinSchedulerModeChange;
         linSchedulerModeChange->time = std::stod(match[1]);
         linSchedulerModeChange->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linSchedulerModeChange->priorSchedulerMode = std::stoul(match[3]);

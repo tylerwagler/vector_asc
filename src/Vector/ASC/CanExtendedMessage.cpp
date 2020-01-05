@@ -40,7 +40,7 @@ CanExtendedMessage * CanExtendedMessage::read(File & file, std::string & line) {
                      REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        CanExtendedMessage * canExtendedMessage = new CanExtendedMessage;
+        auto * canExtendedMessage = new CanExtendedMessage;
         canExtendedMessage->time = std::stod(match[1]);
         canExtendedMessage->channel = std::stoul(match[2]);
         canExtendedMessage->id = std::stoul(match[3], nullptr, file.base);

@@ -39,7 +39,7 @@ FlexRayOldMessage * FlexRayOldMessage::read(File & /*file*/, std::string & line)
                      REGEX_WS REGEX_FlexRayOld_HeaderBitMask REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        FlexRayOldMessage * flexRayOldMessage = new FlexRayOldMessage;
+        auto * flexRayOldMessage = new FlexRayOldMessage;
         flexRayOldMessage->time = std::stod(match[1]);
         flexRayOldMessage->channel = std::string(match[2])[0];
         flexRayOldMessage->id = std::stoul(match[3]);

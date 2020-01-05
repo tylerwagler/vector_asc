@@ -37,7 +37,7 @@ MostStatistic * MostStatistic::read(File & /*file*/, std::string & line) {
                      REGEX_WS "Pk:" REGEX_ws REGEX_MOST_StatVal REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostStatistic * mostStatistic = new MostStatistic;
+        auto * mostStatistic = new MostStatistic;
         mostStatistic->time = std::stod(match[1]);
         mostStatistic->channel = std::stoul(match[2]);
         mostStatistic->fr = std::stoul(match[3]);

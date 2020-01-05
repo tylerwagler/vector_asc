@@ -37,7 +37,7 @@ KLineMessage * KLineMessage::read(File & file, std::string & line) {
                      "((" REGEX_WS REGEX_KLine_data ")*)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        KLineMessage * kLineMessage = new KLineMessage;
+        auto * kLineMessage = new KLineMessage;
         kLineMessage->time = std::stod(match[1]);
         kLineMessage->port = match[2];
         if (match[4] == "Rx")

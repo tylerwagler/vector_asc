@@ -32,7 +32,7 @@ LogDirectStart * LogDirectStart::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log direct start" REGEX_ws "\\(" REGEX_PreTrigger "ms\\)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LogDirectStart * logDirectStart = new LogDirectStart;
+        auto * logDirectStart = new LogDirectStart;
         logDirectStart->time = std::stod(match[1]);
         logDirectStart->preTrigger = std::stoul(match[2]);
         return logDirectStart;

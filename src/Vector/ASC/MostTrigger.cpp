@@ -35,7 +35,7 @@ MostTrigger * MostTrigger::read(File & /*file*/, std::string & line) {
                      REGEX_WS REGEX_MOST_TrigValue REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostTrigger * mostTrigger = new MostTrigger;
+        auto * mostTrigger = new MostTrigger;
         mostTrigger->time = std::stod(match[1]);
         mostTrigger->channel = std::stoul(match[2]);
         switch (std::stoul(match[3], nullptr, 16)) {

@@ -36,7 +36,7 @@ FlexRayError * FlexRayError::read(File & file, std::string & line) {
                      REGEX_WS "([[:xdigit:]]+)" REGEX_WS "([[:xdigit:]]+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        FlexRayError * flexRayError = new FlexRayError;
+        auto * flexRayError = new FlexRayError;
         flexRayError->time = std::stod(match[1]);
         flexRayError->clusterNr = std::stoul(match[2]);
         flexRayError->clientId = std::stoul(match[3]);

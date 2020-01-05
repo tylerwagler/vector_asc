@@ -58,7 +58,7 @@ LinMessage * LinMessage::read(File & file, std::string & line) {
                      ")?)?)?)?))" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinMessage * linMessage = new LinMessage;
+        auto * linMessage = new LinMessage;
         linMessage->time = std::stod(match[1]);
         linMessage->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linMessage->id = match[3];

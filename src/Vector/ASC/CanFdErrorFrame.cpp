@@ -41,7 +41,7 @@ CanFdErrorFrame * CanFdErrorFrame::read(File & file, std::string & line) {
                      REGEX_WS REGEX_BitTimingConfArb REGEX_WS REGEX_BitTimingConfData REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        CanFdErrorFrame * canFdErrorFrame = new CanFdErrorFrame;
+        auto * canFdErrorFrame = new CanFdErrorFrame;
         canFdErrorFrame->time = std::stod(match[1]);
         canFdErrorFrame->channel = std::stoul(match[2]);
         if (match[3] == "Rx")

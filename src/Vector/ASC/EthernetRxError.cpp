@@ -35,13 +35,13 @@ EthernetRxError * EthernetRxError::read(File & file, std::string & line) {
                      REGEX_WS REGEX_Eth_DataLen ":" REGEX_Eth_Data REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        EthernetRxError * ethernetRxError = new EthernetRxError;
+        auto * ethernetRxError = new EthernetRxError;
         ethernetRxError->time = std::stod(match[1]);
         ethernetRxError->channel = std::stoul(match[2]);
         ethernetRxError->errorCode = std::stoul(match[3], nullptr, file.base);
         ethernetRxError->frameChecksum = std::stoul(match[4], nullptr, 16);
         ethernetRxError->dataLen = std::stoul(match[5], nullptr, file.base);
-        for (int i = 0; i < match[6].length() / 2; ++i) {
+        for (auto i = 0; i < match[6].length() / 2; ++i) {
             std::string s;
             s.append(match[6], 2 * i, 2);
             ethernetRxError->data.push_back(std::stoul(s, nullptr, 16));

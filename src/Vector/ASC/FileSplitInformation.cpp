@@ -33,7 +33,7 @@ FileSplitInformation * FileSplitInformation::read(File & /*file*/, std::string &
     std::regex regex(REGEX_STOL "//" REGEX_ws REGEX_Time REGEX_WS "previous log file:" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        FileSplitInformation * fileSplitInformation = new FileSplitInformation;
+        auto * fileSplitInformation = new FileSplitInformation;
         fileSplitInformation->time = std::stod(match[1]);
         fileSplitInformation->fileName = match[2];
         return fileSplitInformation;

@@ -37,7 +37,7 @@ MostCommonRegister * MostCommonRegister::read(File & /*file*/, std::string & lin
                      "((" REGEX_WS REGEX_MOST_Dx ")*)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostCommonRegister * mostCommonRegister = new MostCommonRegister;
+        auto * mostCommonRegister = new MostCommonRegister;
         mostCommonRegister->time = std::stod(match[1]);
         mostCommonRegister->channel = std::stoul(match[2]);
         switch (std::stoul(match[3])) {

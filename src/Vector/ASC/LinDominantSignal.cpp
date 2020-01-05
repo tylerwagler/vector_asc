@@ -36,7 +36,7 @@ LinDominantSignal * LinDominantSignal::read(File & /*file*/, std::string & line)
                      REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate REGEX_ws ")?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinDominantSignal * linDominantSignal = new LinDominantSignal;
+        auto * linDominantSignal = new LinDominantSignal;
         linDominantSignal->time = std::stod(match[1]);
         linDominantSignal->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         if (match[3] == "detected")

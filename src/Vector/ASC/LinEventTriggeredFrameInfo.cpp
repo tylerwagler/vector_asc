@@ -33,7 +33,7 @@ LinEventTriggeredFrameInfo * LinEventTriggeredFrameInfo::read(File & /*file*/, s
                      REGEX_WS "EvTrigFrmInfo" REGEX_WS REGEX_LIN_ETFName REGEX_WS REGEX_LIN_description REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinEventTriggeredFrameInfo * linEventTriggeredFrameInfo = new LinEventTriggeredFrameInfo;
+        auto * linEventTriggeredFrameInfo = new LinEventTriggeredFrameInfo;
         linEventTriggeredFrameInfo->time = std::stod(match[1]);
         linEventTriggeredFrameInfo->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linEventTriggeredFrameInfo->id = match[3];

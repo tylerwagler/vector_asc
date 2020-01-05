@@ -53,7 +53,7 @@ LinReceiveError * LinReceiveError::read(File & file, std::string & line) {
                      "(" REGEX_WS "CSM" REGEX_ws "=" REGEX_ws REGEX_LIN_checksumModel ")?)?)?)?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinReceiveError * linReceiveError = new LinReceiveError;
+        auto * linReceiveError = new LinReceiveError;
         linReceiveError->time = std::stod(match[1]);
         linReceiveError->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         if (match[3] != "") {

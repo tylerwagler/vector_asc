@@ -34,7 +34,7 @@ LinChecksumInfo * LinChecksumInfo::read(File & /*file*/, std::string & line) {
                      REGEX_WS REGEX_LIN_checksumModelInfo REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinChecksumInfo * linChecksumInfo = new LinChecksumInfo;
+        auto * linChecksumInfo = new LinChecksumInfo;
         linChecksumInfo->time = std::stod(match[1]);
         linChecksumInfo->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linChecksumInfo->id = match[3];

@@ -33,7 +33,7 @@ MacroSignal * MacroSignal::read(File & /*file*/, std::string & line) {
                      REGEX_ws "=" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MacroSignal * macroSignal = new MacroSignal;
+        auto * macroSignal = new MacroSignal;
         macroSignal->time = std::stod(match[1]);
         if (match[2] == "F")
             macroSignal->bussystem = Vector::ASC::MacroSignal::Bussystem::FlexRay;

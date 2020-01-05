@@ -45,7 +45,7 @@ LinTransmissionError * LinTransmissionError::read(File & file, std::string & lin
                      "(" REGEX_WS "CSM" REGEX_ws "=" REGEX_ws REGEX_LIN_checksumModel ")?)?)?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinTransmissionError * linTransmissionError = new LinTransmissionError;
+        auto * linTransmissionError = new LinTransmissionError;
         linTransmissionError->time = std::stod(match[1]);
         linTransmissionError->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linTransmissionError->id = match[3];

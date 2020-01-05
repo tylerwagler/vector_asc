@@ -32,7 +32,7 @@ FileBaseTimestamps * FileBaseTimestamps::read(File & /*file*/, std::string & lin
     std::regex regex(REGEX_STOL "base" REGEX_WS "(hex|dec)" REGEX_WS "timestamps" REGEX_WS "(absolute|relative)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_search(line, match, regex)) {
-        FileBaseTimestamps * fileBaseTimestamps = new FileBaseTimestamps;
+        auto * fileBaseTimestamps = new FileBaseTimestamps;
         if (match[1] == "hex")
             fileBaseTimestamps->base = File::Base::Hex;
         else if (match[1] == "dec")

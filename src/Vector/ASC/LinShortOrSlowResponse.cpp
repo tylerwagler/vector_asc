@@ -46,7 +46,7 @@ LinShortOrSlowResponse * LinShortOrSlowResponse::read(File & /*file*/, std::stri
                      REGEX_WS "CSM" REGEX_ws "=" REGEX_ws REGEX_LIN_checksumModel REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinShortOrSlowResponse * linShortOrSlowResponse = new LinShortOrSlowResponse;
+        auto * linShortOrSlowResponse = new LinShortOrSlowResponse;
         linShortOrSlowResponse->time = std::stod(match[1]);
         linShortOrSlowResponse->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linShortOrSlowResponse->id = match[3];

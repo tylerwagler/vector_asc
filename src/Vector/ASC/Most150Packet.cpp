@@ -39,7 +39,7 @@ Most150Packet * Most150Packet::read(File & /*file*/, std::string & line) {
                      REGEX_WS REGEX_MOST_Pkt150Len "((" REGEX_WS REGEX_MOST_Dx ")+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        Most150Packet * most150Packet = new Most150Packet;
+        auto * most150Packet = new Most150Packet;
         most150Packet->time = std::stod(match[1]);
         most150Packet->channel = std::stoul(match[2]);
         if (match[3] == "Rx")

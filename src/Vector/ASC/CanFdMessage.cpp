@@ -41,7 +41,7 @@ CanFdMessage * CanFdMessage::read(File & file, std::string & line) {
                      REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        CanFdMessage * canFdMessage = new CanFdMessage;
+        auto * canFdMessage = new CanFdMessage;
         canFdMessage->time = std::stod(match[1]);
         canFdMessage->channel = std::stoul(match[2]);
         if (match[3] == "Rx")

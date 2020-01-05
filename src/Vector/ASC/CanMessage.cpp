@@ -40,7 +40,7 @@ CanMessage * CanMessage::read(File & file, std::string & line) {
                      REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        CanMessage * canMessage = new CanMessage;
+        auto * canMessage = new CanMessage;
         canMessage->time = std::stod(match[1]);
         canMessage->channel = std::stoul(match[2]);
         canMessage->id = std::stoul(match[3], nullptr, file.base);

@@ -34,7 +34,7 @@ MostStress * MostStress::read(File & /*file*/, std::string & line) {
                      REGEX_ws REGEX_MOST_StressMode REGEX_WS REGEX_MOST_StressState REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostStress * mostStress = new MostStress;
+        auto * mostStress = new MostStress;
         mostStress->time = std::stod(match[1]);
         mostStress->channel = std::stoul(match[2]);
         mostStress->stressMode = std::stoul(match[3]);

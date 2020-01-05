@@ -35,7 +35,7 @@ LinSlaveTimeout * LinSlaveTimeout::read(File & /*file*/, std::string & line) {
                      REGEX_ws "following state" REGEX_ws "=" REGEX_ws REGEX_LIN_state REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinSlaveTimeout * linSlaveTimeout = new LinSlaveTimeout;
+        auto * linSlaveTimeout = new LinSlaveTimeout;
         linSlaveTimeout->time = std::stod(match[1]);
         linSlaveTimeout->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linSlaveTimeout->slaveId = std::stoul(match[3]);

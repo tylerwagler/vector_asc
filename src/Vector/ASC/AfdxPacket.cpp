@@ -35,7 +35,7 @@ AfdxPacket * AfdxPacket::read(File & file, std::string & line) {
                      REGEX_Afdx_DataLen ":" REGEX_Afdx_Data REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        AfdxPacket * afdxPacket = new AfdxPacket;
+        auto * afdxPacket = new AfdxPacket;
         afdxPacket->time = std::stod(match[1]);
         afdxPacket->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
@@ -48,7 +48,7 @@ AfdxPacket * AfdxPacket::read(File & file, std::string & line) {
         afdxPacket->flags = std::stoul(match[5], nullptr, file.base);
         afdxPacket->bag = std::stoul(match[6], nullptr, file.base);
         afdxPacket->dataLen = std::stoul(match[7], nullptr, file.base);
-        for (int i = 0; i < match[8].length() / 2; ++i) {
+        for (auto i = 0; i < match[8].length() / 2; ++i) {
             std::string s;
             s.append(match[8], 2 * i, 2);
             afdxPacket->data.push_back(std::stoul(s, nullptr, 16));

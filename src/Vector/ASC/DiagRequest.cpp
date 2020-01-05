@@ -35,7 +35,7 @@ DiagRequest * DiagRequest::read(File & /*file*/, std::string & line) {
                      "\\[" REGEX_TPDiag_ECUQualifier "\\]" REGEX_ws "(Close|Open|TPon|TPoff|" REGEX_TPDiag_byteSequence ")" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        DiagRequest * diagRequest = new DiagRequest;
+        auto * diagRequest = new DiagRequest;
         diagRequest->time = std::stod(match[1]);
         diagRequest->ecuQualifier = match[2];
         if (match[3] == "Close")

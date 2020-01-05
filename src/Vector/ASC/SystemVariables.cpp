@@ -34,7 +34,7 @@ SystemVariables * SystemVariables::read(File & /*file*/, std::string & line) {
                      REGEX_WS "(.+?)" REGEX_ws "=" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        SystemVariables * systemVariables = new SystemVariables;
+        auto * systemVariables = new SystemVariables;
         systemVariables->time = std::stod(match[1]);
         switch (std::stoul(match[2])) {
         case 1:

@@ -40,7 +40,7 @@ Most150ControlMessageFragment * Most150ControlMessageFragment::read(File & /*fil
                      REGEX_WS REGEX_MOST_FirstDataLen "((" REGEX_WS REGEX_MOST_Dx ")+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        Most150ControlMessageFragment * most150ControlMessageFragment = new Most150ControlMessageFragment;
+        auto * most150ControlMessageFragment = new Most150ControlMessageFragment;
         most150ControlMessageFragment->time = std::stod(match[1]);
         most150ControlMessageFragment->channel = std::stoul(match[2]);
         most150ControlMessageFragment->frgMask = std::stoul(match[3], nullptr, 16);

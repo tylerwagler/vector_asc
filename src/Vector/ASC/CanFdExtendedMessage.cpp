@@ -41,7 +41,7 @@ CanFdExtendedMessage * CanFdExtendedMessage::read(File & /*file*/, std::string &
                      REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        CanFdExtendedMessage * canFdExtendedMessage = new CanFdExtendedMessage;
+        auto * canFdExtendedMessage = new CanFdExtendedMessage;
         canFdExtendedMessage->time = std::stod(match[1]);
         canFdExtendedMessage->channel = std::stoul(match[2]);
         if (match[3] == "Rx")

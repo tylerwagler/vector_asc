@@ -32,7 +32,7 @@ StartOfMeasurement * StartOfMeasurement::read(File & /*file*/, std::string & lin
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "((Start of measurement)|(Start der Messung))" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        StartOfMeasurement * startOfMeasurement = new StartOfMeasurement;
+        auto * startOfMeasurement = new StartOfMeasurement;
         startOfMeasurement->time = std::stod(match[1]);
         if (match[2] == "Start of measurement")
             startOfMeasurement->language = File::Language::En;

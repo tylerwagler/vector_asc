@@ -33,7 +33,7 @@ LinSleepMode * LinSleepMode::read(File & /*file*/, std::string & line) {
                      REGEX_WS REGEX_LIN_simulated REGEX_WS REGEX_LIN_description REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinSleepMode * linSleepMode = new LinSleepMode;
+        auto * linSleepMode = new LinSleepMode;
         linSleepMode->time = std::stod(match[1]);
         linSleepMode->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linSleepMode->simulated = (match[3] == '1');

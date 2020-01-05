@@ -39,7 +39,7 @@ LinSyncError * LinSyncError::read(File & /*file*/, std::string & line) {
                      REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinSyncError * linSyncError = new LinSyncError;
+        auto * linSyncError = new LinSyncError;
         linSyncError->time = std::stod(match[1]);
         linSyncError->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         std::istringstream iss(match[3]);

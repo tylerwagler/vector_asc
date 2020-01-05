@@ -34,7 +34,7 @@ MostHwMode * MostHwMode::read(File & /*file*/, std::string & line) {
                      REGEX_ws REGEX_MOST_HWMode REGEX_WS REGEX_MOST_HWModeMask REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostHwMode * mostHwMode = new MostHwMode;
+        auto * mostHwMode = new MostHwMode;
         mostHwMode->time = std::stod(match[1]);
         mostHwMode->channel = std::stoul(match[2]);
         mostHwMode->hwMode = std::stoul(match[3], nullptr, 16);

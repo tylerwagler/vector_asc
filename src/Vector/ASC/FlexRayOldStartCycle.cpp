@@ -35,7 +35,7 @@ FlexRayOldStartCycle * FlexRayOldStartCycle::read(File & /*file*/, std::string &
                      REGEX_WS "NM Vector:" REGEX_ws REGEX_FlexRayOld_DLC "((" REGEX_WS REGEX_FlexRayOld_Dx "){0,255})" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        FlexRayOldStartCycle * flexRayOldStartCycle = new FlexRayOldStartCycle;
+        auto * flexRayOldStartCycle = new FlexRayOldStartCycle;
         flexRayOldStartCycle->time = std::stod(match[1]);
         flexRayOldStartCycle->channel = std::string(match[2])[0];
         flexRayOldStartCycle->dlc = std::stoul(match[3]);

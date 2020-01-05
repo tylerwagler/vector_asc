@@ -41,7 +41,7 @@ CanErrorFrame * CanErrorFrame::read(File & file, std::string & line) {
                      REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        CanErrorFrame * canErrorFrame = new CanErrorFrame;
+        auto * canErrorFrame = new CanErrorFrame;
         canErrorFrame->time = std::stod(match[1]);
         canErrorFrame->channel = std::stoul(match[2]);
         if (match[3] != "") {

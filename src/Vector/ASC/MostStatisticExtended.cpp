@@ -34,7 +34,7 @@ MostStatisticExtended * MostStatisticExtended::read(File & /*file*/, std::string
                      REGEX_ws REGEX_MOST_CodingErrors REGEX_WS REGEX_MOST_FrameCounter REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostStatisticExtended * mostStatisticExtended = new MostStatisticExtended;
+        auto * mostStatisticExtended = new MostStatisticExtended;
         mostStatisticExtended->time = std::stod(match[1]);
         mostStatisticExtended->channel = std::stoul(match[2]);
         mostStatisticExtended->codingErrors = std::stoul(match[3], nullptr, 16);

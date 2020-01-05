@@ -40,7 +40,7 @@ LinDisturbance * LinDisturbance::read(File & file, std::string & line) {
                      REGEX_WS "Disturbing header" REGEX_ws "=" REGEX_ws REGEX_LIN_IDorFF REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinDisturbance * linDisturbance = new LinDisturbance;
+        auto * linDisturbance = new LinDisturbance;
         linDisturbance->time = std::stod(match[1]);
         linDisturbance->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         if (match[3] == "dominant")

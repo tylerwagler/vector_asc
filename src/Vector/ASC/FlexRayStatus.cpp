@@ -37,7 +37,7 @@ FlexRayStatus * FlexRayStatus::read(File & file, std::string & line) {
                      REGEX_WS "([01])" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        FlexRayStatus * flexRayStatus = new FlexRayStatus;
+        auto * flexRayStatus = new FlexRayStatus;
         flexRayStatus->time = std::stod(match[1]);
         flexRayStatus->clusterNr = std::stoul(match[2]);
         flexRayStatus->clientId = std::stoul(match[3]);

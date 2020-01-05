@@ -36,7 +36,7 @@ LinSpike * LinSpike::read(File & /*file*/, std::string & line) {
                      REGEX_WS "BR" REGEX_ws "=" REGEX_ws REGEX_LIN_baudrate REGEX_ws ")?" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinSpike * linSpike = new LinSpike;
+        auto * linSpike = new LinSpike;
         linSpike->time = std::stod(match[1]);
         linSpike->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         if (match[3] == "Rx")

@@ -38,7 +38,7 @@ Most25Packet * Most25Packet::read(File & file, std::string & line) {
                      "((" REGEX_WS REGEX_MOST_Dx")+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        Most25Packet * most25Packet = new Most25Packet;
+        auto * most25Packet = new Most25Packet;
         most25Packet->time = std::stod(match[1]);
         most25Packet->channel = std::stoul(match[2]);
         if (match[3] == "Rx")

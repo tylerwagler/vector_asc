@@ -40,7 +40,7 @@ FlexRayStartCycle * FlexRayStartCycle::read(File & file, std::string & line) {
                      "(" REGEX_WS "[[:xdigit:]]+){0,12}" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        FlexRayStartCycle * flexRayStartCycle = new FlexRayStartCycle;
+        auto * flexRayStartCycle = new FlexRayStartCycle;
         flexRayStartCycle->time = std::stod(match[1]);
         flexRayStartCycle->clusterNr = std::stoul(match[2]);
         flexRayStartCycle->clientId = std::stoul(match[3]);

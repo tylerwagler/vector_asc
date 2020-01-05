@@ -34,7 +34,7 @@ MostEcl * MostEcl::read(File & /*file*/, std::string & line) {
                      REGEX_ws REGEX_MOST_EclMode REGEX_WS REGEX_MOST_EclState REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostEcl * mostEcl = new MostEcl;
+        auto * mostEcl = new MostEcl;
         mostEcl->time = std::stod(match[1]);
         mostEcl->channel = std::stoul(match[2]);
         switch (std::stoul(match[3])) {

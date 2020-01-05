@@ -41,7 +41,7 @@ CanBusStatistics * CanBusStatistics::read(File & /*file*/, std::string & line) {
                      REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        CanBusStatistics * canBusStatistics = new CanBusStatistics;
+        auto * canBusStatistics = new CanBusStatistics;
         canBusStatistics->time = std::stod(match[1]);
         canBusStatistics->channel = std::stoul(match[2]);
         canBusStatistics->dataFrames = std::stoul(match[3]);

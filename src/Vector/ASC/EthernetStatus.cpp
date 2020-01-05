@@ -40,7 +40,7 @@ EthernetStatus * EthernetStatus::read(File & /*file*/, std::string & line) {
                      REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        EthernetStatus * ethernetStatus = new EthernetStatus;
+        auto * ethernetStatus = new EthernetStatus;
         ethernetStatus->time = std::stod(match[1]);
         ethernetStatus->channel = std::stoul(match[2]);
         if (match[3] == "Link_up")

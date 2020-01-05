@@ -32,7 +32,7 @@ FileInternalEventsLogged * FileInternalEventsLogged::read(File & /*file*/, std::
     std::regex regex(REGEX_STOL "(no )?internal events logged" REGEX_ENDL);
     std::smatch match;
     if (std::regex_search(line, match, regex)) {
-        FileInternalEventsLogged * fileInternalEventsLogged = new FileInternalEventsLogged;
+        auto * fileInternalEventsLogged = new FileInternalEventsLogged;
         fileInternalEventsLogged->internalEventsLogged = (match[1] == "");
         return fileInternalEventsLogged;
     }

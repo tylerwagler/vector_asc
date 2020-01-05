@@ -32,7 +32,7 @@ MostLightLock * MostLightLock::read(File & file, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_MOST_Time REGEX_WS REGEX_MOST_Channel REGEX_WS "LL:" REGEX_ws REGEX_MOST_LLState REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostLightLock * mostLightLock = new MostLightLock;
+        auto * mostLightLock = new MostLightLock;
         mostLightLock->time = std::stod(match[1]);
         mostLightLock->channel = std::stoul(match[2]);
         mostLightLock->llState = std::stoul(match[3], nullptr, file.base);

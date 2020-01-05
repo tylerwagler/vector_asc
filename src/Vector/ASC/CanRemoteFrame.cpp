@@ -33,7 +33,7 @@ CanRemoteFrame * CanRemoteFrame::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS REGEX_Channel REGEX_WS REGEX_ID REGEX_WS REGEX_Dir REGEX_WS "r" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        CanRemoteFrame * canRemoteFrame = new CanRemoteFrame;
+        auto * canRemoteFrame = new CanRemoteFrame;
         canRemoteFrame->time = std::stod(match[1]);
         canRemoteFrame->channel = std::stoul(match[2]);
         canRemoteFrame->id = std::stoul(match[3], nullptr, 16);

@@ -32,7 +32,7 @@ LogDirectStop * LogDirectStop::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "log direct stop" REGEX_ws "\\(" REGEX_PostTrigger "ms\\)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LogDirectStop * logDirectStop = new LogDirectStop;
+        auto * logDirectStop = new LogDirectStop;
         logDirectStop->time = std::stod(match[1]);
         logDirectStop->postTrigger = std::stoul(match[2]);
         return logDirectStop;

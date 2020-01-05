@@ -66,23 +66,22 @@ void writeTime(File & file, std::ostream & stream, Time & time);
 /**
  * Read timestamp (roughly strptime for Vector::ASC)
  *
- * @param wday weekday
- * @param mon month
- * @param mday day of month
- * @param hour hour
- * @param min minute
- * @param sec second
- * @param amFm "am", "fm", or nothing
- * @param year year
- * @param language contains detected language
- * @param tm contains parsed date structure
+ * @param[in] wday weekday
+ * @param[in] mon month
+ * @param[in] mday day of month
+ * @param[in] hour hour
+ * @param[in] min minute
+ * @param[in] sec second
+ * @param[in] amFm "am", "fm", or nothing
+ * @param[in] year year
+ * @param[out] language contains detected language
+ * @param[out] tm contains parsed date structure
  */
-void readDate(
-    std::string wday, std::string mon, std::string mday,
-    std::string hour, std::string min, std::string sec, std::string amFm,
-    std::string year,
+void readDate(const std::string & wday, const std::string & mon, const std::string & mday,
+    const std::string & hour, const std::string & min, const std::string & sec, const std::string & amFm,
+    const std::string & year,
     File::Language & language,
-    struct tm & date);
+    tm & date);
 
 /**
  * strftime modified for Vector::ASC

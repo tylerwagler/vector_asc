@@ -36,7 +36,7 @@ TpFlowControlFrame * TpFlowControlFrame::read(File & /*file*/, std::string & lin
                      REGEX_ws "STmin:" REGEX_ws "0x" REGEX_TPDiag_STmin REGEX_ws "ms" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        TpFlowControlFrame * tpFlowControlFrame = new TpFlowControlFrame;
+        auto * tpFlowControlFrame = new TpFlowControlFrame;
         tpFlowControlFrame->canChannel = std::stoul(match[1]);
         tpFlowControlFrame->connectionId = std::stoul(match[2], nullptr, 16);
         if (match[3] == "Info")

@@ -43,7 +43,7 @@ FlexRayMessage * FlexRayMessage::readRmsg(File & /*file*/, std::string & line) {
                      REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        FlexRayMessage * flexRayMessage = new FlexRayMessage;
+        auto * flexRayMessage = new FlexRayMessage;
         flexRayMessage->time = std::stod(match[1]);
         flexRayMessage->flexRayEventType = FlexRayEventType::RMSG;
         flexRayMessage->clusterNr = std::stoul(match[2]);
@@ -94,7 +94,7 @@ FlexRayMessage * FlexRayMessage::readPdu(File & file, std::string & line) {
                      REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        FlexRayMessage * flexRayMessage = new FlexRayMessage;
+        auto * flexRayMessage = new FlexRayMessage;
         flexRayMessage->time = std::stod(match[1]);
         flexRayMessage->flexRayEventType = FlexRayEventType::PDU;
         flexRayMessage->clusterNr = std::stoul(match[2]);

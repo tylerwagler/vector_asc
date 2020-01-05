@@ -34,7 +34,7 @@ MostSpecialRegister * MostSpecialRegister::read(File & /*file*/, std::string & l
                      REGEX_ws REGEX_MOST_RegSubType REGEX_WS REGEX_MOST_RegID REGEX_WS REGEX_MOST_RegValue REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostSpecialRegister * mostSpecialRegister = new MostSpecialRegister;
+        auto * mostSpecialRegister = new MostSpecialRegister;
         mostSpecialRegister->time = std::stod(match[1]);
         mostSpecialRegister->channel = std::stoul(match[2]);
         switch (std::stoul(match[3])) {

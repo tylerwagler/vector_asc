@@ -97,7 +97,7 @@ Event * File::read() {
 
     /* unknown */
     case Event::EventType::Unknown: {
-        Unknown * unknown = new Unknown();
+        auto * unknown = new Unknown();
         unknown->line = line;
         return unknown;
     }

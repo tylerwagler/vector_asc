@@ -38,7 +38,7 @@ GlobalMarker * GlobalMarker::read(File & /*file*/, std::string & line) {
                      REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        GlobalMarker * globalMarker = new GlobalMarker;
+        auto * globalMarker = new GlobalMarker;
         globalMarker->time = std::stod(match[1]);
         globalMarker->type = std::stoul(match[2]);
         globalMarker->backgroundColor = std::stoul(match[3]);

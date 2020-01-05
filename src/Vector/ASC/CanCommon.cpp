@@ -19,7 +19,10 @@
  * met: http://www.gnu.org/copyleft/gpl.html.
  */
 
+#include <algorithm>
+#include <array>
 #include <iomanip>
+#include <iterator>
 
 #include <Vector/ASC/CanCommon.h>
 
@@ -71,23 +74,23 @@ void writeTime(File & file, std::ostream & stream, Time & time) {
 }
 
 /** a string that represents a day of the week */
-static std::string wdayNameEn[7] = {
+static const std::array<std::string, 7> wdayNameEn {
     "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
 };
 
 /** a string that represents a day of the week (in german version) */
-static std::string wdayNameDe[7] = {
+static const std::array<std::string, 7> wdayNameDe {
     "Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam"
 };
 
 /** a string that represents a month */
-static std::string monNameEn[12] = {
+static const std::array<std::string, 12> monNameEn = {
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 };
 
 /** a string that represents a month (in german version) */
-static std::string monNameDe[12] = {
+static const std::array<std::string, 12> monNameDe = {
     "Jan", "Feb", "M\xE4r", "Apr", "Mai", "Jun",
     "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"
 };
@@ -107,50 +110,36 @@ static std::string monNameDe[12] = {
  */
 
 void readDate(
-    std::string wday, std::string mon, std::string mday,
-    std::string hour, std::string min, std::string sec, std::string amFm,
-    std::string year,
+    const std::string & wday, const std::string & mon, const std::string & mday,
+    const std::string & hour, const std::string & min, const std::string & sec, const std::string & amFm,
+    const std::string & year,
     File::Language & language,
     struct tm & date) {
     /* parse week day */
-    bool wdayFound = false;
-    for (int i = 0; i < 7; ++i) {
-        if (wdayNameEn[i] == wday) {
-            date.tm_wday = i;
-            language = File::Language::En;
-            wdayFound = true;
-            break;
+    auto wdayIter = std::find(wdayNameEn.begin(), wdayNameEn.end(), wday);
+    if (wdayIter != wdayNameEn.end()) {
+        date.tm_wday = std::distance(wdayNameEn.begin(), wdayIter);
+        language = File::Language::En;
+    } else {
+        wdayIter = std::find(wdayNameDe.begin(), wdayNameDe.end(), wday);
+        if (wdayIter != wdayNameDe.end()) {
+            date.tm_wday = std::distance(wdayNameDe.begin(), wdayIter);
+            language = File::Language::De;
         }
     }
-    if (!wdayFound)
-        for (int i = 0; i < 7; ++i) {
-            if (wdayNameDe[i] == wday) {
-                date.tm_wday = i;
-                language = File::Language::De;
-                wdayFound = true;
-                break;
-            }
-        }
 
     /* parse month */
-    bool monFound = false;
-    for (int i = 0; i < 12; ++i) {
-        if (monNameEn[i] == mon) {
-            date.tm_mon = i;
-            language = File::Language::En;
-            monFound = true;
-            break;
+    auto monIter = std::find(monNameEn.begin(), monNameEn.end(), wday);
+    if (monIter != monNameEn.end()) {
+        date.tm_mon = std::distance(monNameEn.begin(), monIter);
+        language = File::Language::En;
+    } else {
+        monIter = std::find(monNameDe.begin(), monNameDe.end(), wday);
+        if (monIter != monNameDe.end()) {
+            date.tm_mon = std::distance(monNameDe.begin(), monIter);
+            language = File::Language::De;
         }
     }
-    if (!monFound)
-        for (int i = 0; i < 12; ++i) {
-            if (monNameDe[i] == mon) {
-                date.tm_mon = i;
-                language = File::Language::De;
-                monFound = true;
-                break;
-            }
-        }
 
     /* parse the rest */
     date.tm_mday = std::stoul(mday);

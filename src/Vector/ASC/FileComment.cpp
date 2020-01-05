@@ -32,7 +32,7 @@ FileComment * FileComment::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "//" "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        FileComment * fileComment = new FileComment;
+        auto * fileComment = new FileComment;
         fileComment->comment = match[1];
         return fileComment;
     }

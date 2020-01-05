@@ -32,7 +32,7 @@ Comment * Comment::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "Comment:" REGEX_ws "([[:digit:]]+)" REGEX_WS "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        Comment * comment = new Comment;
+        auto * comment = new Comment;
         comment->time = std::stod(match[1]);
         comment->type = std::stod(match[2]);
         comment->commentText = match[3];

@@ -35,7 +35,7 @@ MostDataLost * MostDataLost::read(File & file, std::string & line) {
                      REGEX_WS REGEX_MOST_DLTime REGEX_WS REGEX_MOST_DLTime REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostDataLost * mostDataLost = new MostDataLost;
+        auto * mostDataLost = new MostDataLost;
         mostDataLost->time = std::stod(match[1]);
         mostDataLost->channel = std::stoul(match[2]);
         mostDataLost->dlInfo = std::stoul(match[3], nullptr, 16);

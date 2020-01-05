@@ -39,7 +39,7 @@ MostEthernetPacket * MostEthernetPacket::read(File & /*file*/, std::string & lin
                      REGEX_WS REGEX_MOST_PktEthLen "((" REGEX_WS REGEX_MOST_Dx ")+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostEthernetPacket * mostEthernetPacket = new MostEthernetPacket;
+        auto * mostEthernetPacket = new MostEthernetPacket;
         mostEthernetPacket->time = std::stod(match[1]);
         mostEthernetPacket->channel = std::stoul(match[2]);
         if (match[3] == "Rx")

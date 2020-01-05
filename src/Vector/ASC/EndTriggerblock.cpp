@@ -31,7 +31,7 @@ namespace ASC {
 EndTriggerblock * EndTriggerblock::read(File & /*file*/, std::string & line) {
     std::regex regex(REGEX_STOL "End TriggerBlock" REGEX_ENDL);
     if (std::regex_match(line, regex)) {
-        EndTriggerblock * endTriggerblock = new EndTriggerblock;
+        auto * endTriggerblock = new EndTriggerblock;
         return endTriggerblock;
     }
 

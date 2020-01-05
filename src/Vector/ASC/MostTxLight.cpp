@@ -34,7 +34,7 @@ MostTxLight * MostTxLight::read(File & /*file*/, std::string & line) {
                      REGEX_ws REGEX_MOST_TxLightState REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostTxLight * mostTxLight = new MostTxLight;
+        auto * mostTxLight = new MostTxLight;
         mostTxLight->time = std::stod(match[1]);
         mostTxLight->channel = std::stoul(match[2]);
         switch (std::stoul(match[3])) {

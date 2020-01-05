@@ -37,7 +37,7 @@ LinStatisticInfo * LinStatisticInfo::read(File & /*file*/, std::string & line) {
                      REGEX_WS "([[:digit:]]+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinStatisticInfo * linStatisticInfo = new LinStatisticInfo;
+        auto * linStatisticInfo = new LinStatisticInfo;
         linStatisticInfo->time = std::stod(match[1]);
         linStatisticInfo->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linStatisticInfo->channelNum = std::stoul(match[3]);

@@ -33,7 +33,7 @@ EnvironmentVariables * EnvironmentVariables::read(File & /*file*/, std::string &
     std::regex regex(REGEX_STOL REGEX_Time REGEX_WS "(.+?)" REGEX_ws ":=" REGEX_ws "(.+?)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        EnvironmentVariables * environmentVariables = new EnvironmentVariables;
+        auto * environmentVariables = new EnvironmentVariables;
         environmentVariables->time = std::stod(match[1]);
         environmentVariables->evname = match[2];
         environmentVariables->value = match[3];

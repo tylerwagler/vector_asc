@@ -34,7 +34,7 @@ LinBaudrate * LinBaudrate::read(File & /*file*/, std::string & line) {
                      REGEX_WS REGEX_LIN_baudrate REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        LinBaudrate * linBaudrate = new LinBaudrate;
+        auto * linBaudrate = new LinBaudrate;
         linBaudrate->time = std::stod(match[1]);
         linBaudrate->channel = ((match[2] == 'i') ? 1 : std::stoul(match[2]));
         linBaudrate->baudrate = std::stoul(match[3]);

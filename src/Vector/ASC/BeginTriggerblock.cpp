@@ -33,7 +33,7 @@ BeginTriggerblock * BeginTriggerblock::read(File &, std::string & line) {
                      REGEX_WS REGEX_FullTime REGEX_WS REGEX_Year REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        BeginTriggerblock * beginTriggerblock = new BeginTriggerblock;
+        auto * beginTriggerblock = new BeginTriggerblock;
         readDate(match[1], match[2], match[3], match[4], match[5], match[6], match[7], match[8],
                  beginTriggerblock->language, beginTriggerblock->date);
         return beginTriggerblock;

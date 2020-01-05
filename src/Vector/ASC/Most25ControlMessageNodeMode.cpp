@@ -37,7 +37,7 @@ Most25ControlMessageNodeMode * Most25ControlMessageNodeMode::read(File & file, s
                      REGEX_WS REGEX_MOST_State2 REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        Most25ControlMessageNodeMode * most25ControlMessageNodeMode = new Most25ControlMessageNodeMode;
+        auto * most25ControlMessageNodeMode = new Most25ControlMessageNodeMode;
         most25ControlMessageNodeMode->time = std::stod(match[1]);
         most25ControlMessageNodeMode->channel = std::stoul(match[2]);
         if (match[3] == "Rx")

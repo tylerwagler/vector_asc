@@ -39,7 +39,7 @@ MostEthernetPacketFragment * MostEthernetPacketFragment::read(File & /*file*/, s
                      "((" REGEX_WS REGEX_MOST_Dx ")+)" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        MostEthernetPacketFragment * mostEthernetPacketFragment = new MostEthernetPacketFragment;
+        auto * mostEthernetPacketFragment = new MostEthernetPacketFragment;
         mostEthernetPacketFragment->time = std::stod(match[1]);
         mostEthernetPacketFragment->channel = std::stoul(match[2]);
         mostEthernetPacketFragment->frgMask = std::stoul(match[3], nullptr, 16);

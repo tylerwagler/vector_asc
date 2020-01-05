@@ -37,7 +37,7 @@ TpFirstFrame * TpFirstFrame::read(File & /*file*/, std::string & line) {
                      REGEX_ws "\\[" REGEX_TPDiag_transportedBytes REGEX_WS "\\]" REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        TpFirstFrame * tpFirstFrame = new TpFirstFrame;
+        auto * tpFirstFrame = new TpFirstFrame;
         tpFirstFrame->canChannel = std::stoul(match[1]);
         tpFirstFrame->connectionId = std::stoul(match[2], nullptr, 16);
         if (match[3] == "Info")

@@ -34,7 +34,7 @@ EthernetPacket * EthernetPacket::read(File & file, std::string & line) {
                      REGEX_WS REGEX_Eth_DataLen ":" REGEX_Eth_Data REGEX_ENDL);
     std::smatch match;
     if (std::regex_match(line, match, regex)) {
-        EthernetPacket * ethernetPacket = new EthernetPacket;
+        auto * ethernetPacket = new EthernetPacket;
         ethernetPacket->time = std::stod(match[1]);
         ethernetPacket->channel = std::stoul(match[2]);
         if (match[3] == "Rx")
@@ -44,7 +44,7 @@ EthernetPacket * EthernetPacket::read(File & file, std::string & line) {
         else if (match[3] == "TxRq")
             ethernetPacket->dir = Dir::TxRq;
         ethernetPacket->dataLen = std::stoul(match[4], nullptr, file.base);
-        for (int i = 0; i < match[5].length() / 2; ++i) {
+        for (auto i = 0; i < match[5].length() / 2; ++i) {
             std::string s;
             s.append(match[5], 2 * i, 2);
             ethernetPacket->data.push_back(std::stoul(s, nullptr, 16));
