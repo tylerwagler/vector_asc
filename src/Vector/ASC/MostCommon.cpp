@@ -26,57 +26,57 @@
 namespace Vector {
 namespace ASC {
 
-void writeMostAckNack(File & /*file*/, std::ostream & stream, MostAckNack & mostAckNack) {
+void writeMostAckNack(const File & /*file*/, std::ostream & stream, const MostAckNack & mostAckNack) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostAckNack << ' ';
 }
 
-void writeMostAt150EventModeFlags(File & /*file*/, std::ostream & stream, MostAt150EventModeFlags & mostAt150EventModeFlags) {
+void writeMostAt150EventModeFlags(const File & /*file*/, std::ostream & stream, const MostAt150EventModeFlags & mostAt150EventModeFlags) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostAt150EventModeFlags << ' ';
 }
 
-void writeMostAt150Size(File & /*file*/, std::ostream & stream, MostAt150Size & mostAt150Size) {
+void writeMostAt150Size(const File & /*file*/, std::ostream & stream, const MostAt150Size & mostAt150Size) {
     /* format: "%04X " */
     stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << mostAt150Size << ' ';
 }
 
-void writeMostCAck(File & /*file*/, std::ostream & stream, MostCAck & mostCAck) {
+void writeMostCAck(const File & /*file*/, std::ostream & stream, const MostCAck & mostCAck) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostCAck << ' ';
 }
 
-void writeMostChannel(File & /*file*/, std::ostream & stream, MostChannel & mostChannel) {
+void writeMostChannel(const File & /*file*/, std::ostream & stream, const MostChannel & mostChannel) {
     /* format: "M%u " */
     stream << 'M' << std::dec << (uint16_t) mostChannel << ' ';
 }
 
-void writeMostCrc(File & /*file*/, std::ostream & stream, MostCrc & mostCrc) {
+void writeMostCrc(const File & /*file*/, std::ostream & stream, const MostCrc & mostCrc) {
     /* format: "%04X " */
     stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << mostCrc << ' ';
 }
 
-void writeMostCrc2(File & /*file*/, std::ostream & stream, MostCrc2 & mostCrc2) {
+void writeMostCrc2(const File & /*file*/, std::ostream & stream, const MostCrc2 & mostCrc2) {
     /* format: "%04X " */
     stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << mostCrc2 << ' ';
 }
 
-void writeMostCrc4(File & /*file*/, std::ostream & stream, MostCrc4 & mostCrc4) {
+void writeMostCrc4(const File & /*file*/, std::ostream & stream, const MostCrc4 & mostCrc4) {
     /* format: "%08X " */
     stream << std::setfill('0') << std::setw(8) << std::uppercase << std::hex << mostCrc4 << ' ';
 }
 
-void writeMostDestAdr(File & /*file*/, std::ostream & stream, MostDestAdr & mostDestAdr) {
+void writeMostDestAdr(const File & /*file*/, std::ostream & stream, const MostDestAdr & mostDestAdr) {
     /* format: "%04X " */
     stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << mostDestAdr << ' ';
 }
 
-void writeMostDestMacAdr(File & /*file*/, std::ostream & stream, MostDestMacAdr & mostDestMacAdr) {
+void writeMostDestMacAdr(const File & /*file*/, std::ostream & stream, const MostDestMacAdr & mostDestMacAdr) {
     /* format: "%012X " */
     stream << std::setfill('0') << std::setw(12) << std::uppercase << std::hex << mostDestMacAdr << ' ';
 }
 
-void writeMostData(File & /*file*/, std::ostream & stream, std::vector<MostDx> & mostData) {
+void writeMostData(const File & /*file*/, std::ostream & stream, const std::vector<MostDx> & mostData) {
     for (MostDx d : mostData)
         stream << std::right
                << std::setfill('0') << std::setw(2)
@@ -84,7 +84,7 @@ void writeMostData(File & /*file*/, std::ostream & stream, std::vector<MostDx> &
                << ' ';
 }
 
-void writeMostDir(File & /*file*/, std::ostream & stream, MostDir mostDir) {
+void writeMostDir(const File & /*file*/, std::ostream & stream, const MostDir mostDir) {
     switch (mostDir) {
     case MostDir::Rx:
         /* format: "Rx   " */
@@ -101,107 +101,107 @@ void writeMostDir(File & /*file*/, std::ostream & stream, MostDir mostDir) {
     }
 }
 
-void writeMostFirstDataLen(File & /*file*/, std::ostream & stream, MostFirstDataLen & mostFirstDataLen) {
+void writeMostFirstDataLen(const File & /*file*/, std::ostream & stream, const MostFirstDataLen & mostFirstDataLen) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostFirstDataLen << ' ';
 }
 
-void writeMostFreeBytes(File & /*file*/, std::ostream & stream, MostFreeBytes & mostFreeBytes) {
+void writeMostFreeBytes(const File & /*file*/, std::ostream & stream, const MostFreeBytes & mostFreeBytes) {
     /* format: "%04X " */
     stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << mostFreeBytes << ' ';
 }
 
-void writeMostFrgDataLen(File & /*file*/, std::ostream & stream, MostFrgDataLen & mostFrgDataLen) {
+void writeMostFrgDataLen(const File & /*file*/, std::ostream & stream, const MostFrgDataLen & mostFrgDataLen) {
     /* format: "%04X " */
     stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << mostFrgDataLen << ' ';
 }
 
-void writeMostFrgDataLenAnnounced(File & /*file*/, std::ostream & stream, MostFrgDataLenAnnounced & mostFrgDataLenAnnounced) {
+void writeMostFrgDataLenAnnounced(const File & /*file*/, std::ostream & stream, const MostFrgDataLenAnnounced & mostFrgDataLenAnnounced) {
     /* format: "%04X " */
     stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << mostFrgDataLenAnnounced << ' ';
 }
 
-void writeMostFrgMask(File & /*file*/, std::ostream & stream, MostFrgMask & mostFrgMask) {
+void writeMostFrgMask(const File & /*file*/, std::ostream & stream, const MostFrgMask & mostFrgMask) {
     /* format: "%08X " */
     stream << std::setfill('0') << std::setw(8) << std::uppercase << std::hex << mostFrgMask << ' ';
 }
 
-void writeMostMsg150Len(File & /*file*/, std::ostream & stream, MostMsg150Len & mostMsg150Len) {
+void writeMostMsg150Len(const File & /*file*/, std::ostream & stream, const MostMsg150Len & mostMsg150Len) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostMsg150Len << ' ';
 }
 
-void writeMostMsg50Len(File & /*file*/, std::ostream & stream, MostMsg50Len & mostMsg50Len) {
+void writeMostMsg50Len(const File & /*file*/, std::ostream & stream, const MostMsg50Len & mostMsg50Len) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostMsg50Len << ' ';
 }
 
-void writeMostPAck(File & /*file*/, std::ostream & stream, MostPAck & mostPAck) {
+void writeMostPAck(const File & /*file*/, std::ostream & stream, const MostPAck & mostPAck) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostPAck << ' ';
 }
 
-void writeMostPIndex(File & /*file*/, std::ostream & stream, MostPIndex & mostPIndex) {
+void writeMostPIndex(const File & /*file*/, std::ostream & stream, const MostPIndex & mostPIndex) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostPIndex << ' ';
 }
 
-void writeMostPkt150Len(File & /*file*/, std::ostream & stream, MostPkt150Len & mostPkt150Len) {
+void writeMostPkt150Len(const File & /*file*/, std::ostream & stream, const MostPkt150Len & mostPkt150Len) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << mostPkt150Len << ' ';
 }
 
-void writeMostPktEthLen(File & /*file*/, std::ostream & stream, MostPktEthLen & mostPktEthLen) {
+void writeMostPktEthLen(const File & /*file*/, std::ostream & stream, const MostPktEthLen & mostPktEthLen) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << mostPktEthLen << ' ';
 }
 
-void writeMostPktLen(File & /*file*/, std::ostream & stream, MostPktLen & mostPktLen) {
+void writeMostPktLen(const File & /*file*/, std::ostream & stream, const MostPktLen & mostPktLen) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << mostPktLen << ' ';
 }
 
-void writeMostPriority(File & /*file*/, std::ostream & stream, MostPriority & mostPriority) {
+void writeMostPriority(const File & /*file*/, std::ostream & stream, const MostPriority & mostPriority) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostPriority << ' ';
 }
 
-void writeMostRsvdUc(File & /*file*/, std::ostream & stream, MostRsvdUc & mostRsvdUc) {
+void writeMostRsvdUc(const File & /*file*/, std::ostream & stream, const MostRsvdUc & mostRsvdUc) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostRsvdUc << ' ';
 }
 
-void writeMostRsvdUl(File & /*file*/, std::ostream & stream, MostRsvdUl & mostRvdUl) {
+void writeMostRsvdUl(const File & /*file*/, std::ostream & stream, const MostRsvdUl & mostRvdUl) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << mostRvdUl << ' ';
 }
 
-void writeMostRType(File & /*file*/, std::ostream & stream, MostRType & mostRType) {
+void writeMostRType(const File & /*file*/, std::ostream & stream, const MostRType & mostRType) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostRType << ' ';
 }
 
-void writeMostSourceAdr(File & /*file*/, std::ostream & stream, MostSourceAdr & mostSourceAdr) {
+void writeMostSourceAdr(const File & /*file*/, std::ostream & stream, const MostSourceAdr & mostSourceAdr) {
     /* format: "%04X " */
     stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << mostSourceAdr << ' ';
 }
 
-void writeMostSourceMacAdr(File & /*file*/, std::ostream & stream, MostSourceMacAdr & mostSourceMacAdr) {
+void writeMostSourceMacAdr(const File & /*file*/, std::ostream & stream, const MostSourceMacAdr & mostSourceMacAdr) {
     /* format: "%012X " */
     stream << std::setfill('0') << std::setw(12) << std::uppercase << std::hex << mostSourceMacAdr << ' ';
 }
 
-void writeMostState(File & /*file*/, std::ostream & stream, MostState & mostState) {
+void writeMostState(const File & /*file*/, std::ostream & stream, const MostState & mostState) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostState << ' ';
 }
 
-void writeMostState2(File & /*file*/, std::ostream & stream, MostState2 & mostState2) {
+void writeMostState2(const File & /*file*/, std::ostream & stream, const MostState2 & mostState2) {
     /* format: "%04X " */
     stream << std::setfill('0') << std::setw(4) << std::uppercase << std::hex << mostState2 << ' ';
 }
 
-void writeMostTime(File & /*file*/, std::ostream & stream, MostTime & mostTime) {
+void writeMostTime(const File & /*file*/, std::ostream & stream, const MostTime & mostTime) {
     stream
             << std::right << std::setfill(' ')
             << std::setw(11) << std::setprecision(6)
@@ -209,12 +209,12 @@ void writeMostTime(File & /*file*/, std::ostream & stream, MostTime & mostTime) 
             << ' ';
 }
 
-void writeMostTransferType(File & /*file*/, std::ostream & stream, MostTransferType & mostTransferType) {
+void writeMostTransferType(const File & /*file*/, std::ostream & stream, const MostTransferType & mostTransferType) {
     /* format: "%02X " */
     stream << std::setfill('0') << std::setw(2) << std::uppercase << std::hex << (uint16_t) mostTransferType << ' ';
 }
 
-void writeMostWordData(File & /*file*/, std::ostream & stream, std::vector<MostWx> & mostWordData) {
+void writeMostWordData(const File & /*file*/, std::ostream & stream, const std::vector<MostWx> & mostWordData) {
     for (MostWx w : mostWordData)
         stream << std::right
                << std::setfill('0') << std::setw(4)

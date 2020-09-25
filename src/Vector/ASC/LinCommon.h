@@ -33,59 +33,59 @@
 namespace Vector {
 namespace ASC {
 
-void writeLinBaudrate(File & file, std::ostream & stream, LinBaudrateType & linBaudrate);
+void writeLinBaudrate(const File & file, std::ostream & stream, const LinBaudrateType & linBaudrate);
 
-void writeLinChannel(File & file, std::ostream & stream, LinChannel & linChannel);
+void writeLinChannel(const File & file, std::ostream & stream, const LinChannel & linChannel);
 
-void writeLinChecksum(File & file, std::ostream & stream, LinChecksum & linChecksum);
+void writeLinChecksum(const File & file, std::ostream & stream, const LinChecksum & linChecksum);
 
-void writeLinChecksumModel(File & file, std::ostream & stream, LinChecksumModel & linChecksumModel);
+void writeLinChecksumModel(const File & file, std::ostream & stream, const LinChecksumModel & linChecksumModel);
 
 #define writeLinData(file, stream, linData) writeData(file, stream, linData)
 
 #define writeLinDir(file, stream, linDir) writeDir(file, stream, linDir)
 
-void writeLinEndOfByte(File & file, std::ostream & stream, std::vector<LinT> & linEndOfByte, LinDlc & linDlc);
+void writeLinEndOfByte(const File & file, std::ostream & stream, const std::vector<LinT> & linEndOfByte, const LinDlc & linDlc);
 
-void writeLinEndOfFrame(File & file, std::ostream & stream, LinEndOfFrame & linEndOfFrame);
+void writeLinEndOfFrame(const File & file, std::ostream & stream, const LinEndOfFrame & linEndOfFrame);
 
-void writeLinEndOfHeader(File & file, std::ostream & stream, LinEndOfHeader & linEndOfHeader);
+void writeLinEndOfHeader(const File & file, std::ostream & stream, const LinEndOfHeader & linEndOfHeader);
 
-void writeLinHeaderBaudrate(File & file, std::ostream & stream, LinHeaderBaudrate & linHeaderBaudrate);
+void writeLinHeaderBaudrate(const File & file, std::ostream & stream, const LinHeaderBaudrate & linHeaderBaudrate);
 
-void writeLinHeaderTimeLinFullTime(File & file, std::ostream & stream, LinHeaderTime & linHeaderTime, LinFullTime & linFullTime);
+void writeLinHeaderTimeLinFullTime(const File & file, std::ostream & stream, const LinHeaderTime & linHeaderTime, const LinFullTime & linFullTime);
 
-void writeLinIsShortErrorLinIsDlcTimeoutLinHasDatabytes(File & file, std::ostream & stream, LinIsShortError & linIsShortError, LinIsDlcTimeout & linIsDlcTimeout, LinHasDatabytes & linHasDatabytes);
+void writeLinIsShortErrorLinIsDlcTimeoutLinHasDatabytes(const File & file, std::ostream & stream, const LinIsShortError & linIsShortError, const LinIsDlcTimeout & linIsDlcTimeout, const LinHasDatabytes & linHasDatabytes);
 
-void writeLinOffendingByte(File & file, std::ostream & stream, LinOffendingByte & linOffendingByte);
+void writeLinOffendingByte(const File & file, std::ostream & stream, const LinOffendingByte & linOffendingByte);
 
-void writeLinResponseBaudrate(File & file, std::ostream & stream, LinResponseBaudrate & linResponseBaudrate);
+void writeLinResponseBaudrate(const File & file, std::ostream & stream, const LinResponseBaudrate & linResponseBaudrate);
 
-void writeLinSimulated(File & file, std::ostream & stream, LinSimulated & linSimulated);
+void writeLinSimulated(const File & file, std::ostream & stream, const LinSimulated & linSimulated);
 
-void writeLinSlaveIdLinState(File & file, std::ostream & stream, LinSlaveId & linSlaveId, LinState & linState);
+void writeLinSlaveIdLinState(const File & file, std::ostream & stream, const LinSlaveId & linSlaveId, const LinState & linState);
 
-void writeLinStartOfFrame(File & file, std::ostream & stream, LinStartOfFrame & linStartOfFrame);
+void writeLinStartOfFrame(const File & file, std::ostream & stream, const LinStartOfFrame & linStartOfFrame);
 
-void writeLinStateReason(File & file, std::ostream & stream, LinStateReason & linStateReason);
+void writeLinStateReason(const File & file, std::ostream & stream, const LinStateReason & linStateReason);
 
-void writeLinStopBitOffsetInHeader(File & file, std::ostream & stream, LinStopBitOffsetInHeader & linStopBitOffsetInHeader);
+void writeLinStopBitOffsetInHeader(const File & file, std::ostream & stream, const LinStopBitOffsetInHeader & linStopBitOffsetInHeader);
 
-void writeLinStopBitOffsetInResponse(File & file, std::ostream & stream, LinStopBitOffsetInResponse & linStopBitOffsetInResponse);
+void writeLinStopBitOffsetInResponse(const File & file, std::ostream & stream, const LinStopBitOffsetInResponse & linStopBitOffsetInResponse);
 
-void writeLinSubId(File & file, std::ostream & stream, LinNad & linNad, LinMessageId & linMessageId, LinSupplierId & linSupplierId);
+void writeLinSubId(const File & file, std::ostream & stream, const LinNad & linNad, const LinMessageId & linMessageId, const LinSupplierId & linSupplierId);
 
-void writeLinSyncDel(File & file, std::ostream & stream, LinSyncDel & linSyncDel);
+void writeLinSyncDel(const File & file, std::ostream & stream, const LinSyncDel & linSyncDel);
 
-void writeLinSyncDelimiterTime(File & file, std::ostream & stream, LinSyncDelimiterTime & linSyncDelimiterTime);
+void writeLinSyncDelimiterTime(const File & file, std::ostream & stream, const LinSyncDelimiterTime & linSyncDelimiterTime);
 
-void writeLinSyncBreak(File & file, std::ostream & stream, LinSyncBreak & linSyncBreak);
+void writeLinSyncBreak(const File & file, std::ostream & stream, const LinSyncBreak & linSyncBreak);
 
-void writeLinSyncBreakTime(File & file, std::ostream & stream, LinSyncBreakTime & linSyncBreakTime);
+void writeLinSyncBreakTime(const File & file, std::ostream & stream, const LinSyncBreakTime & linSyncBreakTime);
 
 #define writeLinTime(file, stream, linTime) writeTime(file, stream, linTime)
 
-void writeLinWakeupLengthInfo(File & file, std::ostream & stream, LinWakeupLengthInfo & linWakeupLengthInfo);
+void writeLinWakeupLengthInfo(const File & file, std::ostream & stream, const LinWakeupLengthInfo & linWakeupLengthInfo);
 
 }
 }

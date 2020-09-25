@@ -31,7 +31,7 @@ namespace ASC {
 
 const std::string endl = "\r\n";
 
-void writeData(File & file, std::ostream & stream, std::vector<uint8_t> & data) {
+void writeData(const File & file, std::ostream & stream, const std::vector<uint8_t> & data) {
     for (uint8_t d : data) {
         switch (file.base) {
         case 10:
@@ -48,7 +48,7 @@ void writeData(File & file, std::ostream & stream, std::vector<uint8_t> & data) 
     }
 }
 
-void writeDir(File & /*file*/, std::ostream & stream, Dir dir) {
+void writeDir(const File & /*file*/, std::ostream & stream, const Dir dir) {
     switch (dir) {
     case Dir::Rx:
         /* format: "Rx  " */
@@ -65,7 +65,7 @@ void writeDir(File & /*file*/, std::ostream & stream, Dir dir) {
     }
 }
 
-void writeTime(File & file, std::ostream & stream, Time & time) {
+void writeTime(const File & file, std::ostream & stream, const Time & time) {
     stream
             << std::right << std::setfill(' ')
             << std::setw(5 + file.timestampPrecision)
@@ -129,12 +129,12 @@ void readDate(
     }
 
     /* parse month */
-    auto monIter = std::find(monNameEn.begin(), monNameEn.end(), wday);
+    auto monIter = std::find(monNameEn.begin(), monNameEn.end(), mon);
     if (monIter != monNameEn.end()) {
         date.tm_mon = std::distance(monNameEn.begin(), monIter);
         language = File::Language::En;
     } else {
-        monIter = std::find(monNameDe.begin(), monNameDe.end(), wday);
+        monIter = std::find(monNameDe.begin(), monNameDe.end(), mon);
         if (monIter != monNameDe.end()) {
             date.tm_mon = std::distance(monNameDe.begin(), monIter);
             language = File::Language::De;
@@ -165,7 +165,7 @@ void readDate(
     date.tm_year = std::stoul(year) - 1900;
 }
 
-void writeDate(File & file, std::ostream & ostream, struct tm & date) {
+void writeDate(const File & file, std::ostream & ostream, const struct tm & date) {
     uint16_t hour = date.tm_hour;
 
     /* 12/24-hour clock handling */

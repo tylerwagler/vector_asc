@@ -33,33 +33,33 @@
 namespace Vector {
 namespace ASC {
 
-void writeMostAckNack(File & file, std::ostream & stream, MostAckNack & mostAckNack);
+void writeMostAckNack(const File & file, std::ostream & stream, const MostAckNack & mostAckNack);
 
 // AllocTableSize handled in Most25AllocTable
 
-void writeMostAt150EventModeFlags(File & file, std::ostream & stream, MostAt150EventModeFlags & mostAt150EventModeFlags);
+void writeMostAt150EventModeFlags(const File & file, std::ostream & stream, const MostAt150EventModeFlags & mostAt150EventModeFlags);
 
-void writeMostAt150Size(File & file, std::ostream & stream, MostAt150Size & mostAt150Size);
+void writeMostAt150Size(const File & file, std::ostream & stream, const MostAt150Size & mostAt150Size);
 
-void writeMostCAck(File & file, std::ostream & stream, MostCAck & mostCAck);
+void writeMostCAck(const File & file, std::ostream & stream, const MostCAck & mostCAck);
 
-void writeMostChannel(File & file, std::ostream & stream, MostChannel & mostChannel);
+void writeMostChannel(const File & file, std::ostream & stream, const MostChannel & mostChannel);
 
 // CodingErrors handled in MostStatisticExtended
 
-void writeMostCrc(File & file, std::ostream & stream, MostCrc & mostCrc);
+void writeMostCrc(const File & file, std::ostream & stream, const MostCrc & mostCrc);
 
-void writeMostCrc2(File & file, std::ostream & stream, MostCrc2 & mostCrc2);
+void writeMostCrc2(const File & file, std::ostream & stream, const MostCrc2 & mostCrc2);
 
-void writeMostCrc4(File & file, std::ostream & stream, MostCrc4 & mostCrc4);
+void writeMostCrc4(const File & file, std::ostream & stream, const MostCrc4 & mostCrc4);
 
-void writeMostDestAdr(File & file, std::ostream & stream, MostDestAdr & mostDestAdr);
+void writeMostDestAdr(const File & file, std::ostream & stream, const MostDestAdr & mostDestAdr);
 
-void writeMostDestMacAdr(File & file, std::ostream & stream, MostDestMacAdr & mostDestMacAdr);
+void writeMostDestMacAdr(const File & file, std::ostream & stream, const MostDestMacAdr & mostDestMacAdr);
 
-void writeMostData(File & file, std::ostream & stream, std::vector<MostDx> & mostData);
+void writeMostData(const File & file, std::ostream & stream, const std::vector<MostDx> & mostData);
 
-void writeMostDir(File & file, std::ostream & stream, MostDir mostDir);
+void writeMostDir(const File & file, std::ostream & stream, const MostDir mostDir);
 
 // DlAsync handled in MostDataLost
 
@@ -73,17 +73,17 @@ void writeMostDir(File & file, std::ostream & stream, MostDir mostDir);
 
 // EclState handled in MostEcl
 
-void writeMostFirstDataLen(File & file, std::ostream & stream, MostFirstDataLen & mostFirstDataLen);
+void writeMostFirstDataLen(const File & file, std::ostream & stream, const MostFirstDataLen & mostFirstDataLen);
 
 // FrameCounter handled in MostStatisticExtended
 
-void writeMostFreeBytes(File & file, std::ostream & stream, MostFreeBytes & mostFreeBytes);
+void writeMostFreeBytes(const File & file, std::ostream & stream, const MostFreeBytes & mostFreeBytes);
 
-void writeMostFrgDataLen(File & file, std::ostream & stream, MostFrgDataLen & mostFrgDataLen);
+void writeMostFrgDataLen(const File & file, std::ostream & stream, const MostFrgDataLen & mostFrgDataLen);
 
-void writeMostFrgDataLenAnnounced(File & file, std::ostream & stream, MostFrgDataLenAnnounced & mostFrgDataLenAnnounced);
+void writeMostFrgDataLenAnnounced(const File & file, std::ostream & stream, const MostFrgDataLenAnnounced & mostFrgDataLenAnnounced);
 
-void writeMostFrgMask(File & file, std::ostream & stream, MostFrgMask & mostFrgMask);
+void writeMostFrgMask(const File & file, std::ostream & stream, const MostFrgMask & mostFrgMask);
 
 // HwMode handled in MostHwMode
 
@@ -91,31 +91,31 @@ void writeMostFrgMask(File & file, std::ostream & stream, MostFrgMask & mostFrgM
 
 // LlState handled in MostLightLock
 
-void writeMostMsg150Len(File & file, std::ostream & stream, MostMsg150Len & mostMsg150Len);
+void writeMostMsg150Len(const File & file, std::ostream & stream, const MostMsg150Len & mostMsg150Len);
 
-void writeMostMsg50Len(File & file, std::ostream & stream, MostMsg50Len & mostMsg50Len);
+void writeMostMsg50Len(const File & file, std::ostream & stream, const MostMsg50Len & mostMsg50Len);
 
 // NetStateNew handled in MostNetState
 
 // NetStateOld handled in MostNetState
 
-void writeMostPAck(File & file, std::ostream & stream, MostPAck & mostPAck);
+void writeMostPAck(const File & file, std::ostream & stream, const MostPAck & mostPAck);
 
-void writeMostPIndex(File & file, std::ostream & stream, MostPIndex & mostPIndex);
+void writeMostPIndex(const File & file, std::ostream & stream, const MostPIndex & mostPIndex);
 
-void writeMostPkt150Len(File & file, std::ostream & stream, MostPkt150Len & mostPkt150Len);
+void writeMostPkt150Len(const File & file, std::ostream & stream, const MostPkt150Len & mostPkt150Len);
 
 // PktArbitr handled in Most25Packet
 
-void writeMostPktEthLen(File & file, std::ostream & stream, MostPktEthLen & mostPktEthLen);
+void writeMostPktEthLen(const File & file, std::ostream & stream, const MostPktEthLen & mostPktEthLen);
 
-void writeMostPktLen(File & file, std::ostream & stream, MostPktLen & mostPktLen);
+void writeMostPktLen(const File & file, std::ostream & stream, const MostPktLen & mostPktLen);
 
 // PktPrio handled in Most25Packet
 
 // PktState handled in Most25Packet
 
-void writeMostPriority(File & file, std::ostream & stream, MostPriority & mostPriority);
+void writeMostPriority(const File & file, std::ostream & stream, const MostPriority & mostPriority);
 
 // RegChip handled in MostCommonRegister
 
@@ -129,19 +129,19 @@ void writeMostPriority(File & file, std::ostream & stream, MostPriority & mostPr
 
 // RegValue handled in MostSpecialRegister
 
-void writeMostRsvdUc(File & file, std::ostream & stream, MostRsvdUc & mostRsvdUc);
+void writeMostRsvdUc(const File & file, std::ostream & stream, const MostRsvdUc & mostRsvdUc);
 
-void writeMostRsvdUl(File & file, std::ostream & stream, MostRsvdUl & mostRsvdUl);
+void writeMostRsvdUl(const File & file, std::ostream & stream, const MostRsvdUl & mostRsvdUl);
 
-void writeMostRType(File & file, std::ostream & stream, MostRType & mostRType);
+void writeMostRType(const File & file, std::ostream & stream, const MostRType & mostRType);
 
-void writeMostSourceAdr(File & file, std::ostream & stream, MostSourceAdr & mostSourceAdr);
+void writeMostSourceAdr(const File & file, std::ostream & stream, const MostSourceAdr & mostSourceAdr);
 
-void writeMostSourceMacAdr(File & file, std::ostream & stream, MostSourceMacAdr & mostSourceMacAdr);
+void writeMostSourceMacAdr(const File & file, std::ostream & stream, const MostSourceMacAdr & mostSourceMacAdr);
 
-void writeMostState(File & file, std::ostream & stream, MostState & mostState);
+void writeMostState(const File & file, std::ostream & stream, const MostState & mostState);
 
-void writeMostState2(File & file, std::ostream & stream, MostState2 & mostState2);
+void writeMostState2(const File & file, std::ostream & stream, const MostState2 & mostState2);
 
 // StatVal handled in MostStatistic
 
@@ -155,9 +155,9 @@ void writeMostState2(File & file, std::ostream & stream, MostState2 & mostState2
 
 // SysValueOld handled in MostSystem
 
-void writeMostTime(File & file, std::ostream & stream, MostTime & mostTime);
+void writeMostTime(const File & file, std::ostream & stream, const MostTime & mostTime);
 
-void writeMostTransferType(File & file, std::ostream & stream, MostTransferType & mostTransferType);
+void writeMostTransferType(const File & file, std::ostream & stream, const MostTransferType & mostTransferType);
 
 // TrigHw handled in MostTrigger
 
@@ -167,7 +167,7 @@ void writeMostTransferType(File & file, std::ostream & stream, MostTransferType 
 
 // TxLightState handled in MostTxLight
 
-void writeMostWordData(File & file, std::ostream & stream, std::vector<MostWx> & mostWordData);
+void writeMostWordData(const File & file, std::ostream & stream, const std::vector<MostWx> & mostWordData);
 
 }
 }

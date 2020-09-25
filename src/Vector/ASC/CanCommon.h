@@ -43,7 +43,7 @@ extern const std::string endl;
  * @param stream output stream
  * @param data data to write
  */
-void writeData(File & file, std::ostream & stream, std::vector<uint8_t> & data);
+void writeData(const File & file, std::ostream & stream, const std::vector<uint8_t> & data);
 
 /**
  * Write direction Rx/Tx/TxRq into output stream
@@ -52,7 +52,7 @@ void writeData(File & file, std::ostream & stream, std::vector<uint8_t> & data);
  * @param stream output stream
  * @param dir direction
  */
-void writeDir(File & file, std::ostream & stream, Dir dir);
+void writeDir(const File & file, std::ostream & stream, const Dir dir);
 
 /**
  * Write timestamp (roughly strftime for Vector::ASC)
@@ -61,7 +61,7 @@ void writeDir(File & file, std::ostream & stream, Dir dir);
  * @param stream output stream
  * @param time timestamp
  */
-void writeTime(File & file, std::ostream & stream, Time & time);
+void writeTime(const File & file, std::ostream & stream, const Time & time);
 
 /**
  * Read timestamp (roughly strptime for Vector::ASC)
@@ -90,7 +90,7 @@ void readDate(const std::string & wday, const std::string & mon, const std::stri
  * @param stream output stream
  * @param tm date structure
  */
-void writeDate(File & file, std::ostream & ostream, struct tm & date);
+void writeDate(const File & file, std::ostream & ostream, const struct tm & date);
 
 }
 }

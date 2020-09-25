@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE(FileDate) {
     Vector::ASC::FileDate * fileDate;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileDate);
     fileDate = static_cast<Vector::ASC::FileDate *>(event);
     BOOST_CHECK_EQUAL(fileDate->date.tm_wday, 3);
@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE(FileDate) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileDate);
     fileDate = static_cast<Vector::ASC::FileDate *>(event);
     BOOST_CHECK_EQUAL(fileDate->date.tm_wday, 2);
@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_CASE(FileBaseTimestamps) {
     Vector::ASC::FileBaseTimestamps * fileBaseTimestamps;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
     fileBaseTimestamps = static_cast<Vector::ASC::FileBaseTimestamps *>(event);
     BOOST_CHECK(fileBaseTimestamps->base == Vector::ASC::File::Base::Hex);
@@ -85,14 +85,14 @@ BOOST_AUTO_TEST_CASE(FileInternalEventsLogged) {
     Vector::ASC::FileInternalEventsLogged * fileInternalEventsLogged;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileInternalEventsLogged);
     fileInternalEventsLogged = static_cast<Vector::ASC::FileInternalEventsLogged *>(event);
     BOOST_CHECK_EQUAL(fileInternalEventsLogged->internalEventsLogged, true);
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileInternalEventsLogged);
     fileInternalEventsLogged = static_cast<Vector::ASC::FileInternalEventsLogged *>(event);
     BOOST_CHECK_EQUAL(fileInternalEventsLogged->internalEventsLogged, false);
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE(FileVersion) {
     Vector::ASC::FileVersion * fileVersion;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
     fileVersion = static_cast<Vector::ASC::FileVersion *>(event);
     BOOST_CHECK_EQUAL(fileVersion->versionMajor, 7);
@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_CASE(FileSplitInformation) {
     Vector::ASC::FileSplitInformation * fileSplitInformation;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileSplitInformation);
     fileSplitInformation = static_cast<Vector::ASC::FileSplitInformation *>(event);
     BOOST_CHECK_EQUAL(fileSplitInformation->time, 60.0000);
@@ -158,7 +158,7 @@ BOOST_AUTO_TEST_CASE(FileComment) {
     Vector::ASC::FileComment * fileComment;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileComment);
     fileComment = static_cast<Vector::ASC::FileComment *>(event);
     BOOST_CHECK_EQUAL(fileComment->comment, " comment");
@@ -180,15 +180,15 @@ BOOST_AUTO_TEST_CASE(CanMessage) {
     Vector::ASC::CanMessage * canMessage;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanMessage);
     canMessage = static_cast<Vector::ASC::CanMessage *>(event);
     BOOST_CHECK_EQUAL(canMessage->time, 0.003040);
@@ -207,11 +207,11 @@ BOOST_AUTO_TEST_CASE(CanMessage) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanMessage);
     canMessage = static_cast<Vector::ASC::CanMessage *>(event);
     BOOST_CHECK_EQUAL(canMessage->time, 2.500900);
@@ -236,15 +236,15 @@ BOOST_AUTO_TEST_CASE(CanMessage) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanMessage);
     canMessage = static_cast<Vector::ASC::CanMessage *>(event);
     BOOST_CHECK_EQUAL(canMessage->time, 1.047413);
@@ -283,15 +283,15 @@ BOOST_AUTO_TEST_CASE(CanExtendedMessage) {
     Vector::ASC::CanExtendedMessage * canExtendedMessage;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanExtendedMessage);
     canExtendedMessage = static_cast<Vector::ASC::CanExtendedMessage *>(event);
     BOOST_CHECK_EQUAL(canExtendedMessage->time, 4.876870);
@@ -316,11 +316,11 @@ BOOST_AUTO_TEST_CASE(CanExtendedMessage) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanExtendedMessage);
     canExtendedMessage = static_cast<Vector::ASC::CanExtendedMessage *>(event);
     BOOST_CHECK_EQUAL(canExtendedMessage->time, 2.501000);
@@ -359,11 +359,11 @@ BOOST_AUTO_TEST_CASE(CanRemoteFrame) {
     Vector::ASC::CanRemoteFrame * canRemoteFrame;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanRemoteFrame);
     canRemoteFrame = static_cast<Vector::ASC::CanRemoteFrame *>(event);
     BOOST_CHECK_EQUAL(canRemoteFrame->time, 2.501000);
@@ -387,7 +387,7 @@ BOOST_AUTO_TEST_CASE(CanErrorFrame) {
     Vector::ASC::CanErrorFrame * canErrorFrame;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanErrorFrame);
     canErrorFrame = static_cast<Vector::ASC::CanErrorFrame *>(event);
     BOOST_CHECK_EQUAL(canErrorFrame->time, 1.592186);
@@ -397,7 +397,7 @@ BOOST_AUTO_TEST_CASE(CanErrorFrame) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanErrorFrame);
     canErrorFrame = static_cast<Vector::ASC::CanErrorFrame *>(event);
     BOOST_CHECK_EQUAL(canErrorFrame->time, 1.592186);
@@ -412,7 +412,7 @@ BOOST_AUTO_TEST_CASE(CanErrorFrame) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanErrorFrame);
     canErrorFrame = static_cast<Vector::ASC::CanErrorFrame *>(event);
     BOOST_CHECK_EQUAL(canErrorFrame->time, 2.501000);
@@ -435,7 +435,7 @@ BOOST_AUTO_TEST_CASE(CanBusStatistics) {
     Vector::ASC::CanBusStatistics * canBusStatistics;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanBusStatistics);
     canBusStatistics = static_cast<Vector::ASC::CanBusStatistics *>(event);
     BOOST_CHECK_EQUAL(canBusStatistics->time, 1.010000);
@@ -464,7 +464,7 @@ BOOST_AUTO_TEST_CASE(CanError) {
     Vector::ASC::CanError * canError;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanError);
     canError = static_cast<Vector::ASC::CanError *>(event);
     BOOST_CHECK_EQUAL(canError->time, 0.000600);
@@ -475,7 +475,7 @@ BOOST_AUTO_TEST_CASE(CanError) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanError);
     canError = static_cast<Vector::ASC::CanError *>(event);
     BOOST_CHECK_EQUAL(canError->time, 2.501000);
@@ -500,7 +500,7 @@ BOOST_AUTO_TEST_CASE(CanOverloadFrame) {
     Vector::ASC::CanOverloadFrame * canOverloadFrame;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanOverloadFrame);
     canOverloadFrame = static_cast<Vector::ASC::CanOverloadFrame *>(event);
     BOOST_CHECK_EQUAL(canOverloadFrame->time, 2.515800);
@@ -523,15 +523,15 @@ BOOST_AUTO_TEST_CASE(CanFdMessage) {
     Vector::ASC::CanFdMessage * canFdMessage;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanFdMessage);
     canFdMessage = static_cast<Vector::ASC::CanFdMessage *>(event);
     BOOST_CHECK_EQUAL(canFdMessage->time, 8.151536);
@@ -579,15 +579,15 @@ BOOST_AUTO_TEST_CASE(CanFdExtendedMessage) {
     Vector::ASC::CanFdExtendedMessage * canFdExtendedMessage;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanFdExtendedMessage);
     canFdExtendedMessage = static_cast<Vector::ASC::CanFdExtendedMessage *>(event);
     BOOST_CHECK_EQUAL(canFdExtendedMessage->time, 0.248166);
@@ -625,15 +625,15 @@ BOOST_AUTO_TEST_CASE(CanFdErrorFrame) {
     Vector::ASC::CanFdErrorFrame * canFdErrorFrame;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::CanFdErrorFrame);
     canFdErrorFrame = static_cast<Vector::ASC::CanFdErrorFrame *>(event);
     BOOST_CHECK_EQUAL(canFdErrorFrame->time, 3.923364);
@@ -679,7 +679,7 @@ BOOST_AUTO_TEST_CASE(LogTrigger) {
     Vector::ASC::LogTrigger * logTrigger;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LogTrigger);
     logTrigger = static_cast<Vector::ASC::LogTrigger *>(event);
     BOOST_CHECK_EQUAL(logTrigger->time, 2.000000);
@@ -687,7 +687,7 @@ BOOST_AUTO_TEST_CASE(LogTrigger) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LogTrigger);
     logTrigger = static_cast<Vector::ASC::LogTrigger *>(event);
     BOOST_CHECK_EQUAL(logTrigger->time, 2.700000);
@@ -709,7 +709,7 @@ BOOST_AUTO_TEST_CASE(LogDirectStart) {
     Vector::ASC::LogDirectStart * logDirectStart;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LogDirectStart);
     logDirectStart = static_cast<Vector::ASC::LogDirectStart *>(event);
     BOOST_CHECK_EQUAL(logDirectStart->time, 2.110000);
@@ -731,7 +731,7 @@ BOOST_AUTO_TEST_CASE(LogDirectStop) {
     Vector::ASC::LogDirectStop * logDirectStop;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LogDirectStop);
     logDirectStop = static_cast<Vector::ASC::LogDirectStop *>(event);
     BOOST_CHECK_EQUAL(logDirectStop->time, 2.110000);
@@ -753,7 +753,7 @@ BOOST_AUTO_TEST_CASE(BeginTriggerblock) {
     Vector::ASC::BeginTriggerblock * beginTriggerblock;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::BeginTriggerblock);
     beginTriggerblock = static_cast<Vector::ASC::BeginTriggerblock *>(event);
     BOOST_CHECK_EQUAL(beginTriggerblock->date.tm_wday, 1);
@@ -780,7 +780,7 @@ BOOST_AUTO_TEST_CASE(EndTriggerblock) {
     /*Vector::ASC::EndTriggerblock * endTriggerblock;*/
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EndTriggerblock);
     /*endTriggerblock = static_cast<Vector::ASC::EndTriggerblock *>(event);*/
     delete event;
@@ -801,28 +801,28 @@ BOOST_AUTO_TEST_CASE(EnvironmentVariables) {
     Vector::ASC::EnvironmentVariables * environmentVariables;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EnvironmentVariables);
     environmentVariables = static_cast<Vector::ASC::EnvironmentVariables *>(event);
     BOOST_CHECK_EQUAL(environmentVariables->time, 2.130000);
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EnvironmentVariables);
     environmentVariables = static_cast<Vector::ASC::EnvironmentVariables *>(event);
     BOOST_CHECK_EQUAL(environmentVariables->time, 2.567000);
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EnvironmentVariables);
     environmentVariables = static_cast<Vector::ASC::EnvironmentVariables *>(event);
     BOOST_CHECK_EQUAL(environmentVariables->time, 3.830000);
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EnvironmentVariables);
     environmentVariables = static_cast<Vector::ASC::EnvironmentVariables *>(event);
     BOOST_CHECK_EQUAL(environmentVariables->time, 2.250000);
@@ -844,7 +844,7 @@ BOOST_AUTO_TEST_CASE(SystemVariables) {
     Vector::ASC::SystemVariables * systemVariables;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::SystemVariables);
     systemVariables = static_cast<Vector::ASC::SystemVariables *>(event);
     BOOST_CHECK_EQUAL(systemVariables->time, 1.200000);
@@ -854,7 +854,7 @@ BOOST_AUTO_TEST_CASE(SystemVariables) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::SystemVariables);
     systemVariables = static_cast<Vector::ASC::SystemVariables *>(event);
     BOOST_CHECK_EQUAL(systemVariables->time, 1.370000);
@@ -864,7 +864,7 @@ BOOST_AUTO_TEST_CASE(SystemVariables) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::SystemVariables);
     systemVariables = static_cast<Vector::ASC::SystemVariables *>(event);
     BOOST_CHECK_EQUAL(systemVariables->time, 1.580000);
@@ -874,7 +874,7 @@ BOOST_AUTO_TEST_CASE(SystemVariables) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::SystemVariables);
     systemVariables = static_cast<Vector::ASC::SystemVariables *>(event);
     BOOST_CHECK_EQUAL(systemVariables->time, 1.690000);
@@ -884,7 +884,7 @@ BOOST_AUTO_TEST_CASE(SystemVariables) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::SystemVariables);
     systemVariables = static_cast<Vector::ASC::SystemVariables *>(event);
     BOOST_CHECK_EQUAL(systemVariables->time, 2.000000);
@@ -909,7 +909,7 @@ BOOST_AUTO_TEST_CASE(MacroSignal) {
     Vector::ASC::MacroSignal * macroSignal;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MacroSignal);
     macroSignal = static_cast<Vector::ASC::MacroSignal *>(event);
     BOOST_CHECK_EQUAL(macroSignal->time, 2.350000);
@@ -922,7 +922,7 @@ BOOST_AUTO_TEST_CASE(MacroSignal) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MacroSignal);
     macroSignal = static_cast<Vector::ASC::MacroSignal *>(event);
     BOOST_CHECK_EQUAL(macroSignal->time, 2.350000);
@@ -935,7 +935,7 @@ BOOST_AUTO_TEST_CASE(MacroSignal) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MacroSignal);
     macroSignal = static_cast<Vector::ASC::MacroSignal *>(event);
     BOOST_CHECK_EQUAL(macroSignal->time, 5.000000);
@@ -948,7 +948,7 @@ BOOST_AUTO_TEST_CASE(MacroSignal) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MacroSignal);
     macroSignal = static_cast<Vector::ASC::MacroSignal *>(event);
     BOOST_CHECK_EQUAL(macroSignal->time, 1.110000);
@@ -976,7 +976,7 @@ BOOST_AUTO_TEST_CASE(Gps) {
     Vector::ASC::Gps * gps;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Gps);
     gps = static_cast<Vector::ASC::Gps *>(event);
     BOOST_CHECK_EQUAL(gps->time, 2.097603);
@@ -1004,7 +1004,7 @@ BOOST_AUTO_TEST_CASE(Comment) {
     Vector::ASC::Comment * comment;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Comment);
     comment = static_cast<Vector::ASC::Comment *>(event);
     BOOST_CHECK_EQUAL(comment->time, 1.593770);
@@ -1028,7 +1028,7 @@ BOOST_AUTO_TEST_CASE(GlobalMarker) {
     Vector::ASC::GlobalMarker * globalMarker;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::GlobalMarker);
     globalMarker = static_cast<Vector::ASC::GlobalMarker *>(event);
     BOOST_CHECK_EQUAL(globalMarker->time, 2.200804);
@@ -1057,11 +1057,11 @@ BOOST_AUTO_TEST_CASE(EthernetPacket) {
     Vector::ASC::EthernetPacket * ethernetPacket;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EthernetPacket);
     ethernetPacket = static_cast<Vector::ASC::EthernetPacket *>(event);
     BOOST_CHECK_EQUAL(ethernetPacket->time, 0.000000);
@@ -1146,7 +1146,7 @@ BOOST_AUTO_TEST_CASE(EthernetStatus) {
     Vector::ASC::EthernetStatus * ethernetStatus;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EthernetStatus);
     ethernetStatus = static_cast<Vector::ASC::EthernetStatus *>(event);
     BOOST_CHECK_EQUAL(ethernetStatus->time, 0.002404);
@@ -1174,11 +1174,11 @@ BOOST_AUTO_TEST_CASE(EthernetRxError) {
     Vector::ASC::EthernetRxError * ethernetRxError;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::EthernetRxError);
     ethernetRxError = static_cast<Vector::ASC::EthernetRxError *>(event);
     BOOST_CHECK_EQUAL(ethernetRxError->time, 1.465409);
@@ -1265,11 +1265,11 @@ BOOST_AUTO_TEST_CASE(AfdxPacket) {
     Vector::ASC::AfdxPacket * afdxPacket;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::AfdxPacket);
     afdxPacket = static_cast<Vector::ASC::AfdxPacket *>(event);
     BOOST_CHECK_EQUAL(afdxPacket->time, 0.000000);
@@ -1358,11 +1358,11 @@ BOOST_AUTO_TEST_CASE(FlexRayOldMessage) {
     Vector::ASC::FlexRayOldMessage * flexRayOldMessage;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayOldMessage);
     flexRayOldMessage = static_cast<Vector::ASC::FlexRayOldMessage *>(event);
     BOOST_CHECK_EQUAL(flexRayOldMessage->time, 0.042000);
@@ -1384,7 +1384,7 @@ BOOST_AUTO_TEST_CASE(FlexRayOldMessage) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayOldMessage);
     flexRayOldMessage = static_cast<Vector::ASC::FlexRayOldMessage *>(event);
     BOOST_CHECK_EQUAL(flexRayOldMessage->time, 0.042600);
@@ -1420,11 +1420,11 @@ BOOST_AUTO_TEST_CASE(FlexRayOldStartCycle) {
     Vector::ASC::FlexRayOldStartCycle * flexRayOldStartCycle;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayOldStartCycle);
     flexRayOldStartCycle = static_cast<Vector::ASC::FlexRayOldStartCycle *>(event);
     BOOST_CHECK_EQUAL(flexRayOldStartCycle->time, 0.041700);
@@ -1451,11 +1451,11 @@ BOOST_AUTO_TEST_CASE(FlexRayMessage) {
     Vector::ASC::FlexRayMessage * flexRayMessage;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayMessage);
     flexRayMessage = static_cast<Vector::ASC::FlexRayMessage *>(event);
     BOOST_CHECK_EQUAL(flexRayMessage->time, 0.039255);
@@ -1486,7 +1486,7 @@ BOOST_AUTO_TEST_CASE(FlexRayMessage) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayMessage);
     flexRayMessage = static_cast<Vector::ASC::FlexRayMessage *>(event);
     BOOST_CHECK_EQUAL(flexRayMessage->time, 0.047906);
@@ -1515,7 +1515,7 @@ BOOST_AUTO_TEST_CASE(FlexRayMessage) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayMessage);
     flexRayMessage = static_cast<Vector::ASC::FlexRayMessage *>(event);
     BOOST_CHECK_EQUAL(flexRayMessage->time, 0.047906);
@@ -1598,11 +1598,11 @@ BOOST_AUTO_TEST_CASE(FlexRayStartCycle) {
     Vector::ASC::FlexRayStartCycle * flexRayStartCycle;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayStartCycle);
     flexRayStartCycle = static_cast<Vector::ASC::FlexRayStartCycle *>(event);
     BOOST_CHECK_EQUAL(flexRayStartCycle->time, 0.044115);
@@ -1637,11 +1637,11 @@ BOOST_AUTO_TEST_CASE(FlexRayStatus) {
     Vector::ASC::FlexRayStatus * flexRayStatus;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayStatus);
     flexRayStatus = static_cast<Vector::ASC::FlexRayStatus *>(event);
     BOOST_CHECK_EQUAL(flexRayStatus->time, 0.003022);
@@ -1674,11 +1674,11 @@ BOOST_AUTO_TEST_CASE(FlexRayError) {
     Vector::ASC::FlexRayError * flexRayError;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FlexRayError);
     flexRayError = static_cast<Vector::ASC::FlexRayError *>(event);
     BOOST_CHECK_EQUAL(flexRayError->time, 7.344250);
@@ -1709,11 +1709,11 @@ BOOST_AUTO_TEST_CASE(KLineByte) {
     Vector::ASC::KLineByte * kLineByte;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::KLineByte);
     kLineByte = static_cast<Vector::ASC::KLineByte *>(event);
     BOOST_CHECK_EQUAL(kLineByte->time, 12.315000);
@@ -1746,11 +1746,11 @@ BOOST_AUTO_TEST_CASE(KLineMessage) {
     Vector::ASC::KLineMessage * kLineMessage;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::KLineMessage);
     kLineMessage = static_cast<Vector::ASC::KLineMessage *>(event);
     BOOST_CHECK_EQUAL(kLineMessage->time, 12.315000);
@@ -1786,15 +1786,15 @@ BOOST_AUTO_TEST_CASE(LinMessage) {
     Vector::ASC::LinMessage * linMessage;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinMessage);
     linMessage = static_cast<Vector::ASC::LinMessage *>(event);
     BOOST_CHECK_EQUAL(linMessage->time, 0.073973);
@@ -1853,11 +1853,11 @@ BOOST_AUTO_TEST_CASE(LinTransmissionError) {
     Vector::ASC::LinTransmissionError * linTransmissionError;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinTransmissionError);
     linTransmissionError = static_cast<Vector::ASC::LinTransmissionError *>(event);
     BOOST_CHECK_EQUAL(linTransmissionError->time, 0.424674);
@@ -1890,15 +1890,15 @@ BOOST_AUTO_TEST_CASE(LinReceiveError) {
     Vector::ASC::LinReceiveError * linReceiveError;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinReceiveError);
     linReceiveError = static_cast<Vector::ASC::LinReceiveError *>(event);
     BOOST_CHECK_EQUAL(linReceiveError->time, 0.554673);
@@ -1955,11 +1955,11 @@ BOOST_AUTO_TEST_CASE(LinSyncError) {
     Vector::ASC::LinSyncError * linSyncError;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinSyncError);
     linSyncError = static_cast<Vector::ASC::LinSyncError *>(event);
     BOOST_CHECK_EQUAL(linSyncError->time, 2.022336);
@@ -1989,15 +1989,15 @@ BOOST_AUTO_TEST_CASE(LinChecksumError) {
     Vector::ASC::LinChecksumError * linChecksumError;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinChecksumError);
     linChecksumError = static_cast<Vector::ASC::LinChecksumError *>(event);
     BOOST_CHECK_EQUAL(linChecksumError->time, 0.462829);
@@ -2055,11 +2055,11 @@ BOOST_AUTO_TEST_CASE(LinSpike) {
     Vector::ASC::LinSpike * linSpike;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinSpike);
     linSpike = static_cast<Vector::ASC::LinSpike *>(event);
     BOOST_CHECK_EQUAL(linSpike->time, 5.990958);
@@ -2085,11 +2085,11 @@ BOOST_AUTO_TEST_CASE(LinDominantSignal) {
     Vector::ASC::LinDominantSignal * linDominantSignal;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinDominantSignal);
     linDominantSignal = static_cast<Vector::ASC::LinDominantSignal *>(event);
     BOOST_CHECK_EQUAL(linDominantSignal->time, 8.976802);
@@ -2101,7 +2101,7 @@ BOOST_AUTO_TEST_CASE(LinDominantSignal) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinDominantSignal);
     linDominantSignal = static_cast<Vector::ASC::LinDominantSignal *>(event);
     BOOST_CHECK_EQUAL(linDominantSignal->time, 8.977000);
@@ -2128,7 +2128,7 @@ BOOST_AUTO_TEST_CASE(LinBaudrate) {
     Vector::ASC::LinBaudrate * linBaudrate;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinBaudrate);
     linBaudrate = static_cast<Vector::ASC::LinBaudrate *>(event);
     BOOST_CHECK_EQUAL(linBaudrate->time, 0.018800);
@@ -2151,7 +2151,7 @@ BOOST_AUTO_TEST_CASE(LinDlcInfo) {
     Vector::ASC::LinDlcInfo * linDlcInfo;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinDlcInfo);
     linDlcInfo = static_cast<Vector::ASC::LinDlcInfo *>(event);
     BOOST_CHECK_EQUAL(linDlcInfo->time, 12.637500);
@@ -2175,7 +2175,7 @@ BOOST_AUTO_TEST_CASE(LinChecksumInfo) {
     Vector::ASC::LinChecksumInfo * linChecksumInfo;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinChecksumInfo);
     linChecksumInfo = static_cast<Vector::ASC::LinChecksumInfo *>(event);
     BOOST_CHECK_EQUAL(linChecksumInfo->time, 0.020100);
@@ -2199,7 +2199,7 @@ BOOST_AUTO_TEST_CASE(LinSchedulerModeChange) {
     Vector::ASC::LinSchedulerModeChange * linSchedulerModeChange;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinSchedulerModeChange);
     linSchedulerModeChange = static_cast<Vector::ASC::LinSchedulerModeChange *>(event);
     BOOST_CHECK_EQUAL(linSchedulerModeChange->time, 0.100000);
@@ -2224,7 +2224,7 @@ BOOST_AUTO_TEST_CASE(LinSlaveTimeout) {
     Vector::ASC::LinSlaveTimeout * linSlaveTimeout;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinSlaveTimeout);
     linSlaveTimeout = static_cast<Vector::ASC::LinSlaveTimeout *>(event);
     BOOST_CHECK_EQUAL(linSlaveTimeout->time, 1.001200);
@@ -2249,11 +2249,11 @@ BOOST_AUTO_TEST_CASE(LinEventTriggeredFrameInfo) {
     Vector::ASC::LinEventTriggeredFrameInfo * linEventTriggeredFrameInfo;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinEventTriggeredFrameInfo);
     linEventTriggeredFrameInfo = static_cast<Vector::ASC::LinEventTriggeredFrameInfo *>(event);
     BOOST_CHECK_EQUAL(linEventTriggeredFrameInfo->time, 1.909165);
@@ -2278,11 +2278,11 @@ BOOST_AUTO_TEST_CASE(LinStatisticInfo) {
     Vector::ASC::LinStatisticInfo * linStatisticInfo;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinStatisticInfo);
     linStatisticInfo = static_cast<Vector::ASC::LinStatisticInfo *>(event);
     BOOST_CHECK_EQUAL(linStatisticInfo->time, 1.999580);
@@ -2311,15 +2311,15 @@ BOOST_AUTO_TEST_CASE(LinShortOrSlowResponse) {
     Vector::ASC::LinShortOrSlowResponse * linShortOrSlowResponse;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinShortOrSlowResponse);
     linShortOrSlowResponse = static_cast<Vector::ASC::LinShortOrSlowResponse *>(event);
     BOOST_CHECK_EQUAL(linShortOrSlowResponse->time, 1.298765);
@@ -2373,15 +2373,15 @@ BOOST_AUTO_TEST_CASE(LinDisturbance) {
     Vector::ASC::LinDisturbance * linDisturbance;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinDisturbance);
     linDisturbance = static_cast<Vector::ASC::LinDisturbance *>(event);
     BOOST_CHECK_EQUAL(linDisturbance->time, 1.323661);
@@ -2411,7 +2411,7 @@ BOOST_AUTO_TEST_CASE(LinSleepMode) {
     Vector::ASC::LinSleepMode * linSleepMode;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinSleepMode);
     linSleepMode = static_cast<Vector::ASC::LinSleepMode *>(event);
     BOOST_CHECK_EQUAL(linSleepMode->time, 0.7772);
@@ -2435,15 +2435,15 @@ BOOST_AUTO_TEST_CASE(LinWakeupFrame) {
     Vector::ASC::LinWakeupFrame * linWakeupFrame;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinWakeupFrame);
     linWakeupFrame = static_cast<Vector::ASC::LinWakeupFrame *>(event);
     BOOST_CHECK_EQUAL(linWakeupFrame->time, 2.318672);
@@ -2470,11 +2470,11 @@ BOOST_AUTO_TEST_CASE(LinUnexpectedWakeup) {
     Vector::ASC::LinUnexpectedWakeup * linUnexpectedWakeup;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileVersion);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::LinUnexpectedWakeup);
     linUnexpectedWakeup = static_cast<Vector::ASC::LinUnexpectedWakeup *>(event);
     BOOST_CHECK_EQUAL(linUnexpectedWakeup->time, 0.892363);
@@ -2500,11 +2500,11 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageNodeMode) {
     Vector::ASC::Most25ControlMessageNodeMode * most25ControlMessageNodeMode;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most25ControlMessageNodeMode);
     most25ControlMessageNodeMode = static_cast<Vector::ASC::Most25ControlMessageNodeMode *>(event);
     BOOST_CHECK_EQUAL(most25ControlMessageNodeMode->time, 0.111757);
@@ -2549,11 +2549,11 @@ BOOST_AUTO_TEST_CASE(Most25ControlMessageSpyMode) {
     Vector::ASC::Most25ControlMessageSpyMode * most25ControlMessageSpyMode;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most25ControlMessageSpyMode);
     most25ControlMessageSpyMode = static_cast<Vector::ASC::Most25ControlMessageSpyMode *>(event);
     BOOST_CHECK_EQUAL(most25ControlMessageSpyMode->time, 0.113526);
@@ -2599,11 +2599,11 @@ BOOST_AUTO_TEST_CASE(Most25Packet) {
     Vector::ASC::Most25Packet * most25Packet;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most25Packet);
     most25Packet = static_cast<Vector::ASC::Most25Packet *>(event);
     BOOST_CHECK_EQUAL(most25Packet->time, 4.445080);
@@ -2645,7 +2645,7 @@ BOOST_AUTO_TEST_CASE(MostLightLock) {
     Vector::ASC::MostLightLock * mostLightLock;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostLightLock);
     mostLightLock = static_cast<Vector::ASC::MostLightLock *>(event);
     BOOST_CHECK_EQUAL(mostLightLock->time, 0.008638);
@@ -2668,7 +2668,7 @@ BOOST_AUTO_TEST_CASE(MostSpecialRegister) {
     Vector::ASC::MostSpecialRegister * mostSpecialRegister;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostSpecialRegister);
     mostSpecialRegister = static_cast<Vector::ASC::MostSpecialRegister *>(event);
     BOOST_CHECK_EQUAL(mostSpecialRegister->time, 1.471300);
@@ -2693,7 +2693,7 @@ BOOST_AUTO_TEST_CASE(MostCommonRegister) {
     Vector::ASC::MostCommonRegister * mostCommonRegister;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostCommonRegister);
     mostCommonRegister = static_cast<Vector::ASC::MostCommonRegister *>(event);
     BOOST_CHECK_EQUAL(mostCommonRegister->time, 9.050000);
@@ -2736,7 +2736,7 @@ BOOST_AUTO_TEST_CASE(MostHwMode) {
     Vector::ASC::MostHwMode * mostHwMode;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostHwMode);
     mostHwMode = static_cast<Vector::ASC::MostHwMode *>(event);
     BOOST_CHECK_EQUAL(mostHwMode->time, 3.560000);
@@ -2760,7 +2760,7 @@ BOOST_AUTO_TEST_CASE(MostNetState) {
     Vector::ASC::MostNetState * mostNetState;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostNetState);
     mostNetState = static_cast<Vector::ASC::MostNetState *>(event);
     BOOST_CHECK_EQUAL(mostNetState->time, 1.027900);
@@ -2784,11 +2784,11 @@ BOOST_AUTO_TEST_CASE(MostDataLost) {
     Vector::ASC::MostDataLost * mostDataLost;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostDataLost);
     mostDataLost = static_cast<Vector::ASC::MostDataLost *>(event);
     BOOST_CHECK_EQUAL(mostDataLost->time, 1.303700);
@@ -2815,7 +2815,7 @@ BOOST_AUTO_TEST_CASE(MostTrigger) {
     Vector::ASC::MostTrigger * mostTrigger;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostTrigger);
     mostTrigger = static_cast<Vector::ASC::MostTrigger *>(event);
     BOOST_CHECK_EQUAL(mostTrigger->time, 1.303700);
@@ -2841,7 +2841,7 @@ BOOST_AUTO_TEST_CASE(MostStatistic) {
     Vector::ASC::MostStatistic * mostStatistic;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostStatistic);
     mostStatistic = static_cast<Vector::ASC::MostStatistic *>(event);
     BOOST_CHECK_EQUAL(mostStatistic->time, 2.030000);
@@ -2867,7 +2867,7 @@ BOOST_AUTO_TEST_CASE(MostStatisticExtended) {
     Vector::ASC::MostStatisticExtended * mostStatisticExtended;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostStatisticExtended);
     mostStatisticExtended = static_cast<Vector::ASC::MostStatisticExtended *>(event);
     BOOST_CHECK_EQUAL(mostStatisticExtended->time, 2.024742);
@@ -2891,7 +2891,7 @@ BOOST_AUTO_TEST_CASE(MostTxLight) {
     Vector::ASC::MostTxLight * mostTxLight;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostTxLight);
     mostTxLight = static_cast<Vector::ASC::MostTxLight *>(event);
     BOOST_CHECK_EQUAL(mostTxLight->time, 0.008638);
@@ -2914,7 +2914,7 @@ BOOST_AUTO_TEST_CASE(MostStress) {
     Vector::ASC::MostStress * mostStress;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostStress);
     mostStress = static_cast<Vector::ASC::MostStress *>(event);
     BOOST_CHECK_EQUAL(mostStress->time, 1.793083);
@@ -2938,7 +2938,7 @@ BOOST_AUTO_TEST_CASE(Most25AllocTable) {
     Vector::ASC::Most25AllocTable * most25AllocTable;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most25AllocTable);
     most25AllocTable = static_cast<Vector::ASC::Most25AllocTable *>(event);
     BOOST_CHECK_EQUAL(most25AllocTable->time, 0.032775);
@@ -3022,11 +3022,11 @@ BOOST_AUTO_TEST_CASE(Most150ControlMessage) {
     Vector::ASC::Most150ControlMessage * most150ControlMessage;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most150ControlMessage);
     most150ControlMessage = static_cast<Vector::ASC::Most150ControlMessage *>(event);
     BOOST_CHECK_EQUAL(most150ControlMessage->time, 5.708800);
@@ -3070,11 +3070,11 @@ BOOST_AUTO_TEST_CASE(Most150ControlMessageFragment) {
     Vector::ASC::Most150ControlMessageFragment * most150ControlMessageFragment;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most150ControlMessageFragment);
     most150ControlMessageFragment = static_cast<Vector::ASC::Most150ControlMessageFragment *>(event);
     BOOST_CHECK_EQUAL(most150ControlMessageFragment->time, 5.708800);
@@ -3116,11 +3116,11 @@ BOOST_AUTO_TEST_CASE(Most150Packet) {
     Vector::ASC::Most150Packet * most150Packet;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most150Packet);
     most150Packet = static_cast<Vector::ASC::Most150Packet *>(event);
     BOOST_CHECK_EQUAL(most150Packet->time, 5.708800);
@@ -3164,11 +3164,11 @@ BOOST_AUTO_TEST_CASE(Most150PacketFragment) {
     Vector::ASC::Most150PacketFragment * most150PacketFragment;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most150PacketFragment);
     most150PacketFragment = static_cast<Vector::ASC::Most150PacketFragment *>(event);
     BOOST_CHECK_EQUAL(most150PacketFragment->time, 5.708800);
@@ -3210,11 +3210,11 @@ BOOST_AUTO_TEST_CASE(MostEthernetPacket) {
     Vector::ASC::MostEthernetPacket * mostEthernetPacket;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostEthernetPacket);
     mostEthernetPacket = static_cast<Vector::ASC::MostEthernetPacket *>(event);
     BOOST_CHECK_EQUAL(mostEthernetPacket->time, 5.708800);
@@ -3256,11 +3256,11 @@ BOOST_AUTO_TEST_CASE(MostEthernetPacketFragment) {
     Vector::ASC::MostEthernetPacketFragment * mostEthernetPacketFragment;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostEthernetPacketFragment);
     mostEthernetPacketFragment = static_cast<Vector::ASC::MostEthernetPacketFragment *>(event);
     BOOST_CHECK_EQUAL(mostEthernetPacketFragment->time, 5.708800);
@@ -3300,7 +3300,7 @@ BOOST_AUTO_TEST_CASE(MostSystem) {
     Vector::ASC::MostSystem * mostSystem;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostSystem);
     mostSystem = static_cast<Vector::ASC::MostSystem *>(event);
     BOOST_CHECK_EQUAL(mostSystem->time, 1.027900);
@@ -3325,7 +3325,7 @@ BOOST_AUTO_TEST_CASE(Most150AllocTable) {
     Vector::ASC::Most150AllocTable * most150AllocTable;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most150AllocTable);
     most150AllocTable = static_cast<Vector::ASC::Most150AllocTable *>(event);
     BOOST_CHECK_EQUAL(most150AllocTable->time, 44.814398);
@@ -3341,7 +3341,7 @@ BOOST_AUTO_TEST_CASE(Most150AllocTable) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most150AllocTable);
     most150AllocTable = static_cast<Vector::ASC::Most150AllocTable *>(event);
     BOOST_CHECK_EQUAL(most150AllocTable->time, 50.126855);
@@ -3371,11 +3371,11 @@ BOOST_AUTO_TEST_CASE(Most50ControlMessage) {
     Vector::ASC::Most50ControlMessage * most50ControlMessage;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most50ControlMessage);
     most50ControlMessage = static_cast<Vector::ASC::Most50ControlMessage *>(event);
     BOOST_CHECK_EQUAL(most50ControlMessage->time, 0.200000);
@@ -3420,11 +3420,11 @@ BOOST_AUTO_TEST_CASE(Most50Packet) {
     Vector::ASC::Most50Packet * most50Packet;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileBaseTimestamps);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::Most50Packet);
     most50Packet = static_cast<Vector::ASC::Most50Packet *>(event);
     BOOST_CHECK_EQUAL(most50Packet->time, 5.708800);
@@ -3468,7 +3468,7 @@ BOOST_AUTO_TEST_CASE(MostEcl) {
     Vector::ASC::MostEcl * mostEcl;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::MostEcl);
     mostEcl = static_cast<Vector::ASC::MostEcl *>(event);
     BOOST_CHECK_EQUAL(mostEcl->time, 0.009068);
@@ -3492,7 +3492,7 @@ BOOST_AUTO_TEST_CASE(TpSingleFrame) {
     Vector::ASC::TpSingleFrame * tpDiagSingleFrame;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpSingleFrame);
     tpDiagSingleFrame = static_cast<Vector::ASC::TpSingleFrame *>(event);
     BOOST_CHECK_EQUAL(tpDiagSingleFrame->canChannel, 1);
@@ -3521,7 +3521,7 @@ BOOST_AUTO_TEST_CASE(TpDiagFirstFrame) {
     Vector::ASC::TpFirstFrame * tpFirstFrame;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpFirstFrame);
     tpFirstFrame = static_cast<Vector::ASC::TpFirstFrame *>(event);
     BOOST_CHECK_EQUAL(tpFirstFrame->canChannel, 1);
@@ -3554,7 +3554,7 @@ BOOST_AUTO_TEST_CASE(TpConsecutiveFrame) {
     Vector::ASC::TpConsecutiveFrame * tpConsecutiveFrame;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpConsecutiveFrame);
     tpConsecutiveFrame = static_cast<Vector::ASC::TpConsecutiveFrame *>(event);
     BOOST_CHECK_EQUAL(tpConsecutiveFrame->canChannel, 1);
@@ -3588,7 +3588,7 @@ BOOST_AUTO_TEST_CASE(TpFlowControlFrame) {
     Vector::ASC::TpFlowControlFrame * tpFlowControlFrame;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::TpFlowControlFrame);
     tpFlowControlFrame = static_cast<Vector::ASC::TpFlowControlFrame *>(event);
     BOOST_CHECK_EQUAL(tpFlowControlFrame->canChannel, 1);
@@ -3616,7 +3616,7 @@ BOOST_AUTO_TEST_CASE(DiagRequest) {
     Vector::ASC::DiagRequest * diagRequest;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::DiagRequest);
     diagRequest = static_cast<Vector::ASC::DiagRequest *>(event);
     BOOST_CHECK_EQUAL(diagRequest->time, 1.765500);
@@ -3628,7 +3628,7 @@ BOOST_AUTO_TEST_CASE(DiagRequest) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::DiagRequest);
     diagRequest = static_cast<Vector::ASC::DiagRequest *>(event);
     BOOST_CHECK_EQUAL(diagRequest->time, 1.000000);
@@ -3638,7 +3638,7 @@ BOOST_AUTO_TEST_CASE(DiagRequest) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::DiagRequest);
     diagRequest = static_cast<Vector::ASC::DiagRequest *>(event);
     BOOST_CHECK_EQUAL(diagRequest->time, 1.000000);
@@ -3649,7 +3649,7 @@ BOOST_AUTO_TEST_CASE(DiagRequest) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::DiagRequest);
     diagRequest = static_cast<Vector::ASC::DiagRequest *>(event);
     BOOST_CHECK_EQUAL(diagRequest->time, 1.000000);
@@ -3659,7 +3659,7 @@ BOOST_AUTO_TEST_CASE(DiagRequest) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::DiagRequest);
     diagRequest = static_cast<Vector::ASC::DiagRequest *>(event);
     BOOST_CHECK_EQUAL(diagRequest->time, 1.000000);
@@ -3669,7 +3669,7 @@ BOOST_AUTO_TEST_CASE(DiagRequest) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::DiagRequest);
     diagRequest = static_cast<Vector::ASC::DiagRequest *>(event);
     BOOST_CHECK_EQUAL(diagRequest->time, 1.000000);
@@ -3693,11 +3693,11 @@ BOOST_AUTO_TEST_CASE(StartOfMeasurement) {
     Vector::ASC::StartOfMeasurement * startOfMeasurement;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileDate);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::StartOfMeasurement);
     startOfMeasurement = static_cast<Vector::ASC::StartOfMeasurement *>(event);
     BOOST_CHECK_EQUAL(startOfMeasurement->time, 0.000000);
@@ -3705,11 +3705,11 @@ BOOST_AUTO_TEST_CASE(StartOfMeasurement) {
     delete event;
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::FileDate);
 
     event = file.read();
-    BOOST_REQUIRE(event != nullptr);
+    BOOST_REQUIRE(event);
     BOOST_REQUIRE(event->eventType == Vector::ASC::Event::EventType::StartOfMeasurement);
     startOfMeasurement = static_cast<Vector::ASC::StartOfMeasurement *>(event);
     BOOST_CHECK_EQUAL(startOfMeasurement->time, 1.000000);
