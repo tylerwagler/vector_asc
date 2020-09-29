@@ -84,11 +84,16 @@ Event * File::read() {
 
     /* scan line */
     int eventType = scanner->yylex();
-    std::string line = scanner->YYText();
 
-    /* remove windows line ending */
-    if (line.back() == '\r')
-        line.pop_back();
+    /* get line */
+    std::string line;
+    if (scanner->YYText()) {
+        line = scanner->YYText();
+        if (!line.empty()) {
+            if (line.back() == '\r')
+                line.pop_back();
+        }
+    }
 
     switch (eventType) {
     case Event::EventType::Default:
