@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.9)
 
 project(Vector_ASC
-    VERSION 1.1.2
+    VERSION 1.1.3
     DESCRIPTION "Vector ASCII Log File support library")
 
 # build types: None, Debug, Release, RelWithDebInfo, MinSizeRel
