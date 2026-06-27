@@ -2,7 +2,9 @@
 include(GenerateExportHeader)
 
 # targets
-add_library(${PROJECT_NAME} SHARED "")
+# Honor BUILD_SHARED_LIBS instead of forcing SHARED, so consumers that build static
+# (e.g. openSYDE sets BUILD_SHARED_LIBS OFF) statically link this library.
+add_library(${PROJECT_NAME} "")
 
 # search paths
 include_directories(
